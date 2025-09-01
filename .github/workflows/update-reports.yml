@@ -1,0 +1,211 @@
+name: Update reports
+on:
+  schedule:
+    - cron: "0 0 1 * *" # monthly
+  workflow_dispatch:
+
+env:
+  # Secrets
+  DOCKER_SCOUT_HUB_PASSWORD: ${{ secrets.DOCKER_SCOUT_HUB_PASSWORD }}
+  DOCKER_SCOUT_HUB_USER: ${{ vars.DOCKER_SCOUT_HUB_USER }}
+  SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  # Constants
+  ARTIFACT_SUFFIX_CODE: 'archive'
+  ARTIFACT_SUFFIX_REPORT: 'reports'
+  REPORT_DIR: 'reports'
+
+jobs:
+  image-list:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_SUFFIX: 'image'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-scanners
+      - run: |
+          chmod +x ./scripts/scan-image.sh 
+          sed '/^#/d' < "image-list.txt" | while IFS= read -r IMAGE
+          do
+            ./scripts/scan-image.sh "${IMAGE}"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ${{ env.REPORT_DIR }}/**/*
+          name: image-${{ env.ARTIFACT_SUFFIX_REPORT }}
+
+  vulnerable-app:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_SUFFIX: 'dir'
+      TITLE: "vulnerable-app-node-js-express"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          repository: samoylenko/vulnerable-app-nodejs-express
+          path: ${{ env.TITLE }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm i --package-lock
+        working-directory: ${{ env.TITLE }}
+      - uses: ./.github/actions/setup-scanners
+      - run: |
+          chmod +x ../scripts/scan-directory.sh
+          ../scripts/scan-directory.sh
+        working-directory: ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
+          path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
+      - run: |
+          rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
+          tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
+          path: ${{ env.TITLE }}.tgz
+
+  javaspringvulny:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_SUFFIX: 'dir'
+      TITLE: 'javaspringvulny'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          repository: kaakaww/javaspringvulny
+          path: ${{ env.TITLE }}
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          add-job-summary: never
+      - run: ./gradlew --no-daemon build
+        working-directory: ${{ env.TITLE }}
+      - uses: ./.github/actions/setup-scanners
+      - run: |
+          chmod +x ../scripts/scan-directory.sh
+          ../scripts/scan-directory.sh
+        working-directory: ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
+          path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
+      - run: |
+          rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
+          tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
+          path: ${{ env.TITLE }}.tgz
+
+  juice-shop:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_SUFFIX: 'dir'
+      TITLE: 'juice-shop'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          repository: juice-shop/juice-shop
+          path: ${{ env.TITLE }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm i --package-lock
+        working-directory: ${{ env.TITLE }}
+      - uses: ./.github/actions/setup-scanners
+      - run: |
+          chmod +x ../scripts/scan-directory.sh
+          ../scripts/scan-directory.sh
+        working-directory: ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
+          path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
+      - run: |
+          rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
+          tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
+          path: ${{ env.TITLE }}.tgz
+
+  benchmarkjava:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_SUFFIX: 'dir'
+      TITLE: 'benchmarkjava'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          repository: OWASP-Benchmark/BenchmarkJava
+          path: ${{ env.TITLE }}
+      - uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: 11
+      - run: mvn compile # we don't use .war yet
+        working-directory: ${{ env.TITLE }}
+      - uses: ./.github/actions/setup-scanners
+      - run: |
+          chmod +x ../scripts/scan-directory.sh
+          ../scripts/scan-directory.sh
+        working-directory: ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
+          path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
+      - run: |
+          rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
+          tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
+          path: ${{ env.TITLE }}.tgz
+
+  publish-report-package:
+    runs-on: ubuntu-latest
+    needs:
+      - benchmarkjava
+      - javaspringvulny
+      - juice-shop
+      - vulnerable-app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ vars.REPORTS_BRANCH }}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: '*-${{ env.ARTIFACT_SUFFIX_REPORT }}'
+          path: ${{ env.REPORT_DIR }}
+      - run: find * -type f -not -name index.txt | sort > index.txt
+        working-directory: ${{ env.REPORT_DIR }}
+      - run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add ./${REPORT_DIR}/
+          git commit -am 'Auto: update reports'
+          git push origin ${{ vars.REPORTS_BRANCH }} --force
