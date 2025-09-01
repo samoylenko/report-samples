@@ -1,0 +1,2518 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "fullName": "Trivy Vulnerability Scanner",
+          "informationUri": "https://github.com/aquasecurity/trivy",
+          "name": "Trivy",
+          "rules": [
+            {
+              "id": "CVE-2022-41723",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang.org/x/net/http2: avoid quadratic complexity in HPACK decoding"
+              },
+              "fullDescription": {
+                "text": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2022-41723",
+              "help": {
+                "text": "Vulnerability CVE-2022-41723\nSeverity: HIGH\nPackage: golang.org/x/net\nFixed Version: 0.7.0\nLink: [CVE-2022-41723](https://avd.aquasec.com/nvd/cve-2022-41723)\nA maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+                "markdown": "**Vulnerability CVE-2022-41723**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|golang.org/x/net|0.7.0|[CVE-2022-41723](https://avd.aquasec.com/nvd/cve-2022-41723)|\n\nA maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-39325",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http, x/net/http2: rapid stream resets can cause excessive work (CVE-2023-44487)"
+              },
+              "fullDescription": {
+                "text": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing. With the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection. This issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2. The default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-39325",
+              "help": {
+                "text": "Vulnerability CVE-2023-39325\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.20.10, 1.21.3\nLink: [CVE-2023-39325](https://avd.aquasec.com/nvd/cve-2023-39325)\nA malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing. With the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection. This issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2. The default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.",
+                "markdown": "**Vulnerability CVE-2023-39325**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.20.10, 1.21.3|[CVE-2023-39325](https://avd.aquasec.com/nvd/cve-2023-39325)|\n\nA malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing. With the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection. This issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2. The default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2022-41717",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests"
+              },
+              "fullDescription": {
+                "text": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2022-41717",
+              "help": {
+                "text": "Vulnerability CVE-2022-41717\nSeverity: MEDIUM\nPackage: golang.org/x/net\nFixed Version: 0.4.0\nLink: [CVE-2022-41717](https://avd.aquasec.com/nvd/cve-2022-41717)\nAn attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+                "markdown": "**Vulnerability CVE-2022-41717**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|golang.org/x/net|0.4.0|[CVE-2022-41717](https://avd.aquasec.com/nvd/cve-2022-41717)|\n\nAn attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests. HTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-3978",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang.org/x/net/html: Cross site scripting"
+              },
+              "fullDescription": {
+                "text": "Text nodes not in the HTML namespace are incorrectly literally rendered, causing text which should be escaped to not be. This could lead to an XSS attack."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-3978",
+              "help": {
+                "text": "Vulnerability CVE-2023-3978\nSeverity: MEDIUM\nPackage: golang.org/x/net\nFixed Version: 0.13.0\nLink: [CVE-2023-3978](https://avd.aquasec.com/nvd/cve-2023-3978)\nText nodes not in the HTML namespace are incorrectly literally rendered, causing text which should be escaped to not be. This could lead to an XSS attack.",
+                "markdown": "**Vulnerability CVE-2023-3978**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|golang.org/x/net|0.13.0|[CVE-2023-3978](https://avd.aquasec.com/nvd/cve-2023-3978)|\n\nText nodes not in the HTML namespace are incorrectly literally rendered, causing text which should be escaped to not be. This could lead to an XSS attack."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.1,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "6.1",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-44487",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "HTTP/2: Multiple HTTP/2 enabled web servers are vulnerable to a DDoS attack (Rapid Reset Attack)"
+              },
+              "fullDescription": {
+                "text": "The HTTP/2 protocol allows a denial of service (server resource consumption) because request cancellation can reset many streams quickly, as exploited in the wild in August through October 2023."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-44487",
+              "help": {
+                "text": "Vulnerability CVE-2023-44487\nSeverity: MEDIUM\nPackage: golang.org/x/net\nFixed Version: 0.17.0\nLink: [CVE-2023-44487](https://avd.aquasec.com/nvd/cve-2023-44487)\nThe HTTP/2 protocol allows a denial of service (server resource consumption) because request cancellation can reset many streams quickly, as exploited in the wild in August through October 2023.",
+                "markdown": "**Vulnerability CVE-2023-44487**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|golang.org/x/net|0.17.0|[CVE-2023-44487](https://avd.aquasec.com/nvd/cve-2023-44487)|\n\nThe HTTP/2 protocol allows a denial of service (server resource consumption) because request cancellation can reset many streams quickly, as exploited in the wild in August through October 2023."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45288",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http, x/net/http2: unlimited number of CONTINUATION frames causes DoS"
+              },
+              "fullDescription": {
+                "text": "An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames. Maintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed. This permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. The fix sets a limit on the amount of excess header frames we will process before closing a connection."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45288",
+              "help": {
+                "text": "Vulnerability CVE-2023-45288\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.21.9, 1.22.2\nLink: [CVE-2023-45288](https://avd.aquasec.com/nvd/cve-2023-45288)\nAn attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames. Maintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed. This permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. The fix sets a limit on the amount of excess header frames we will process before closing a connection.",
+                "markdown": "**Vulnerability CVE-2023-45288**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.21.9, 1.22.2|[CVE-2023-45288](https://avd.aquasec.com/nvd/cve-2023-45288)|\n\nAn attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames. Maintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed. This permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. The fix sets a limit on the amount of excess header frames we will process before closing a connection."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22870",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang.org/x/net/proxy: golang.org/x/net/http/httpproxy: HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net"
+              },
+              "fullDescription": {
+                "text": "Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-22870",
+              "help": {
+                "text": "Vulnerability CVE-2025-22870\nSeverity: MEDIUM\nPackage: golang.org/x/net\nFixed Version: 0.36.0\nLink: [CVE-2025-22870](https://avd.aquasec.com/nvd/cve-2025-22870)\nMatching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied.",
+                "markdown": "**Vulnerability CVE-2025-22870**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|golang.org/x/net|0.36.0|[CVE-2025-22870](https://avd.aquasec.com/nvd/cve-2025-22870)|\n\nMatching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied."
+              },
+              "properties": {
+                "cvssv3_baseScore": 4.4,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "4.4",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22872",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang.org/x/net/html: Incorrect Neutralization of Input During Web Page Generation in x/net in golang.org/x/net"
+              },
+              "fullDescription": {
+                "text": "The tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus character (/) as self-closing. When directly using Tokenizer, this can result in such tags incorrectly being marked as self-closing, and when using the Parse functions, this can result in content following such tags as being placed in the wrong scope during DOM construction, but only when tags are in foreign content (e.g. \u003cmath\u003e, \u003csvg\u003e, etc contexts)."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-22872",
+              "help": {
+                "text": "Vulnerability CVE-2025-22872\nSeverity: MEDIUM\nPackage: golang.org/x/net\nFixed Version: 0.38.0\nLink: [CVE-2025-22872](https://avd.aquasec.com/nvd/cve-2025-22872)\nThe tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus character (/) as self-closing. When directly using Tokenizer, this can result in such tags incorrectly being marked as self-closing, and when using the Parse functions, this can result in content following such tags as being placed in the wrong scope during DOM construction, but only when tags are in foreign content (e.g. \u003cmath\u003e, \u003csvg\u003e, etc contexts).",
+                "markdown": "**Vulnerability CVE-2025-22872**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|golang.org/x/net|0.38.0|[CVE-2025-22872](https://avd.aquasec.com/nvd/cve-2025-22872)|\n\nThe tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus character (/) as self-closing. When directly using Tokenizer, this can result in such tags incorrectly being marked as self-closing, and when using the Parse functions, this can result in content following such tags as being placed in the wrong scope during DOM construction, but only when tags are in foreign content (e.g. \u003cmath\u003e, \u003csvg\u003e, etc contexts)."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "GHSA-m425-mq94-257g",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "gRPC-Go HTTP/2 Rapid Reset vulnerability"
+              },
+              "fullDescription": {
+                "text": "### Impact\nIn affected releases of gRPC-Go, it is possible for an attacker to send HTTP/2 requests, cancel them, and send subsequent requests, which is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit.\n\n### Patches\nThis vulnerability was addressed by #6703 and has been included in patch releases: 1.56.3, 1.57.1, 1.58.3.  It is also included in the latest release, 1.59.0.\n\nAlong with applying the patch, users should also ensure they are using the `grpc.MaxConcurrentStreams` server option to apply a limit to the server's resources used for any single connection.\n\n### Workarounds\nNone.\n\n### References\n#6703\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-m425-mq94-257g",
+              "help": {
+                "text": "Vulnerability GHSA-m425-mq94-257g\nSeverity: HIGH\nPackage: google.golang.org/grpc\nFixed Version: 1.56.3, 1.57.1, 1.58.3\nLink: [GHSA-m425-mq94-257g](https://github.com/advisories/GHSA-m425-mq94-257g)\n### Impact\nIn affected releases of gRPC-Go, it is possible for an attacker to send HTTP/2 requests, cancel them, and send subsequent requests, which is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit.\n\n### Patches\nThis vulnerability was addressed by #6703 and has been included in patch releases: 1.56.3, 1.57.1, 1.58.3.  It is also included in the latest release, 1.59.0.\n\nAlong with applying the patch, users should also ensure they are using the `grpc.MaxConcurrentStreams` server option to apply a limit to the server's resources used for any single connection.\n\n### Workarounds\nNone.\n\n### References\n#6703\n",
+                "markdown": "**Vulnerability GHSA-m425-mq94-257g**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|google.golang.org/grpc|1.56.3, 1.57.1, 1.58.3|[GHSA-m425-mq94-257g](https://github.com/advisories/GHSA-m425-mq94-257g)|\n\n### Impact\nIn affected releases of gRPC-Go, it is possible for an attacker to send HTTP/2 requests, cancel them, and send subsequent requests, which is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit.\n\n### Patches\nThis vulnerability was addressed by #6703 and has been included in patch releases: 1.56.3, 1.57.1, 1.58.3.  It is also included in the latest release, 1.59.0.\n\nAlong with applying the patch, users should also ensure they are using the `grpc.MaxConcurrentStreams` server option to apply a limit to the server's resources used for any single connection.\n\n### Workarounds\nNone.\n\n### References\n#6703\n"
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24786",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang-protobuf: encoding/protojson, internal/encoding/json: infinite loop in protojson.Unmarshal when unmarshaling certain forms of invalid JSON"
+              },
+              "fullDescription": {
+                "text": "The protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24786",
+              "help": {
+                "text": "Vulnerability CVE-2024-24786\nSeverity: MEDIUM\nPackage: google.golang.org/protobuf\nFixed Version: 1.33.0\nLink: [CVE-2024-24786](https://avd.aquasec.com/nvd/cve-2024-24786)\nThe protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set.",
+                "markdown": "**Vulnerability CVE-2024-24786**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|google.golang.org/protobuf|1.33.0|[CVE-2024-24786](https://avd.aquasec.com/nvd/cve-2024-24786)|\n\nThe protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24538",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: backticks not treated as string delimiters"
+              },
+              "fullDescription": {
+                "text": "Templates do not properly consider backticks (`) as Javascript string delimiters, and do not escape them as expected. Backticks are used, since ES6, for JS template literals. If a template contains a Go template action within a Javascript template literal, the contents of the action can be used to terminate the literal, injecting arbitrary Javascript code into the Go template. As ES6 template literals are rather complex, and themselves can do string interpolation, the decision was made to simply disallow Go template actions from being used inside of them (e.g. \"var a = {{.}}\"), since there is no obviously safe way to allow this behavior. This takes the same approach as github.com/google/safehtml. With fix, Template.Parse returns an Error when it encounters templates like this, with an ErrorCode of value 12. This ErrorCode is currently unexported, but will be exported in the release of Go 1.21. Users who rely on the previous behavior can re-enable it using the GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be escaped. This should be used with caution."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24538",
+              "help": {
+                "text": "Vulnerability CVE-2023-24538\nSeverity: CRITICAL\nPackage: stdlib\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24538](https://avd.aquasec.com/nvd/cve-2023-24538)\nTemplates do not properly consider backticks (`) as Javascript string delimiters, and do not escape them as expected. Backticks are used, since ES6, for JS template literals. If a template contains a Go template action within a Javascript template literal, the contents of the action can be used to terminate the literal, injecting arbitrary Javascript code into the Go template. As ES6 template literals are rather complex, and themselves can do string interpolation, the decision was made to simply disallow Go template actions from being used inside of them (e.g. \"var a = {{.}}\"), since there is no obviously safe way to allow this behavior. This takes the same approach as github.com/google/safehtml. With fix, Template.Parse returns an Error when it encounters templates like this, with an ErrorCode of value 12. This ErrorCode is currently unexported, but will be exported in the release of Go 1.21. Users who rely on the previous behavior can re-enable it using the GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be escaped. This should be used with caution.",
+                "markdown": "**Vulnerability CVE-2023-24538**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|stdlib|1.19.8, 1.20.3|[CVE-2023-24538](https://avd.aquasec.com/nvd/cve-2023-24538)|\n\nTemplates do not properly consider backticks (`) as Javascript string delimiters, and do not escape them as expected. Backticks are used, since ES6, for JS template literals. If a template contains a Go template action within a Javascript template literal, the contents of the action can be used to terminate the literal, injecting arbitrary Javascript code into the Go template. As ES6 template literals are rather complex, and themselves can do string interpolation, the decision was made to simply disallow Go template actions from being used inside of them (e.g. \"var a = {{.}}\"), since there is no obviously safe way to allow this behavior. This takes the same approach as github.com/google/safehtml. With fix, Template.Parse returns an Error when it encounters templates like this, with an ErrorCode of value 12. This ErrorCode is currently unexported, but will be exported in the release of Go 1.21. Users who rely on the previous behavior can re-enable it using the GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be escaped. This should be used with caution."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24540",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: improper handling of JavaScript whitespace"
+              },
+              "fullDescription": {
+                "text": "Not all valid JavaScript whitespace characters are considered to be whitespace. Templates containing whitespace characters outside of the character set \"\\t\\n\\f\\r\\u0020\\u2028\\u2029\" in JavaScript contexts that also contain actions may not be properly sanitized during execution."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24540",
+              "help": {
+                "text": "Vulnerability CVE-2023-24540\nSeverity: CRITICAL\nPackage: stdlib\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-24540](https://avd.aquasec.com/nvd/cve-2023-24540)\nNot all valid JavaScript whitespace characters are considered to be whitespace. Templates containing whitespace characters outside of the character set \"\\t\\n\\f\\r\\u0020\\u2028\\u2029\" in JavaScript contexts that also contain actions may not be properly sanitized during execution.",
+                "markdown": "**Vulnerability CVE-2023-24540**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|stdlib|1.19.9, 1.20.4|[CVE-2023-24540](https://avd.aquasec.com/nvd/cve-2023-24540)|\n\nNot all valid JavaScript whitespace characters are considered to be whitespace. Templates containing whitespace characters outside of the character set \"\\t\\n\\f\\r\\u0020\\u2028\\u2029\" in JavaScript contexts that also contain actions may not be properly sanitized during execution."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24790",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/netip: Unexpected behavior from Is methods for IPv4-mapped IPv6 addresses"
+              },
+              "fullDescription": {
+                "text": "The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24790",
+              "help": {
+                "text": "Vulnerability CVE-2024-24790\nSeverity: CRITICAL\nPackage: stdlib\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24790](https://avd.aquasec.com/nvd/cve-2024-24790)\nThe various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms.",
+                "markdown": "**Vulnerability CVE-2024-24790**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|stdlib|1.21.11, 1.22.4|[CVE-2024-24790](https://avd.aquasec.com/nvd/cve-2024-24790)|\n\nThe various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24534",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http, net/textproto: denial of service from excessive memory allocation"
+              },
+              "fullDescription": {
+                "text": "HTTP and MIME header parsing can allocate large amounts of memory, even when parsing small inputs, potentially leading to a denial of service. Certain unusual patterns of input data can cause the common function used to parse HTTP and MIME headers to allocate substantially more memory than required to hold the parsed headers. An attacker can exploit this behavior to cause an HTTP server to allocate large amounts of memory from a small request, potentially leading to memory exhaustion and a denial of service. With fix, header parsing now correctly allocates only the memory required to hold parsed headers."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24534",
+              "help": {
+                "text": "Vulnerability CVE-2023-24534\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24534](https://avd.aquasec.com/nvd/cve-2023-24534)\nHTTP and MIME header parsing can allocate large amounts of memory, even when parsing small inputs, potentially leading to a denial of service. Certain unusual patterns of input data can cause the common function used to parse HTTP and MIME headers to allocate substantially more memory than required to hold the parsed headers. An attacker can exploit this behavior to cause an HTTP server to allocate large amounts of memory from a small request, potentially leading to memory exhaustion and a denial of service. With fix, header parsing now correctly allocates only the memory required to hold parsed headers.",
+                "markdown": "**Vulnerability CVE-2023-24534**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.8, 1.20.3|[CVE-2023-24534](https://avd.aquasec.com/nvd/cve-2023-24534)|\n\nHTTP and MIME header parsing can allocate large amounts of memory, even when parsing small inputs, potentially leading to a denial of service. Certain unusual patterns of input data can cause the common function used to parse HTTP and MIME headers to allocate substantially more memory than required to hold the parsed headers. An attacker can exploit this behavior to cause an HTTP server to allocate large amounts of memory from a small request, potentially leading to memory exhaustion and a denial of service. With fix, header parsing now correctly allocates only the memory required to hold parsed headers."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24536",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http, net/textproto, mime/multipart: denial of service from excessive resource consumption"
+              },
+              "fullDescription": {
+                "text": "Multipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts. This stems from several causes: 1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended. 2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts. 3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector. The combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. With fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations. In addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms: 1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=. 2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24536",
+              "help": {
+                "text": "Vulnerability CVE-2023-24536\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24536](https://avd.aquasec.com/nvd/cve-2023-24536)\nMultipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts. This stems from several causes: 1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended. 2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts. 3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector. The combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. With fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations. In addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms: 1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=. 2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=.",
+                "markdown": "**Vulnerability CVE-2023-24536**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.8, 1.20.3|[CVE-2023-24536](https://avd.aquasec.com/nvd/cve-2023-24536)|\n\nMultipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts. This stems from several causes: 1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended. 2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts. 3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector. The combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue. With fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations. In addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms: 1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=. 2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24537",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: go/parser: Infinite loop in parsing"
+              },
+              "fullDescription": {
+                "text": "Calling any of the Parse functions on Go source code which contains //line directives with very large line numbers can cause an infinite loop due to integer overflow."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24537",
+              "help": {
+                "text": "Vulnerability CVE-2023-24537\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24537](https://avd.aquasec.com/nvd/cve-2023-24537)\nCalling any of the Parse functions on Go source code which contains //line directives with very large line numbers can cause an infinite loop due to integer overflow.",
+                "markdown": "**Vulnerability CVE-2023-24537**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.8, 1.20.3|[CVE-2023-24537](https://avd.aquasec.com/nvd/cve-2023-24537)|\n\nCalling any of the Parse functions on Go source code which contains //line directives with very large line numbers can cause an infinite loop due to integer overflow."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-24539",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: improper sanitization of CSS values"
+              },
+              "fullDescription": {
+                "text": "Angle brackets (\u003c\u003e) are not considered dangerous characters when inserted into CSS contexts. Templates containing multiple actions separated by a '/' character can result in unexpectedly closing the CSS context and allowing for injection of unexpected HTML, if executed with untrusted input."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-24539",
+              "help": {
+                "text": "Vulnerability CVE-2023-24539\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-24539](https://avd.aquasec.com/nvd/cve-2023-24539)\nAngle brackets (\u003c\u003e) are not considered dangerous characters when inserted into CSS contexts. Templates containing multiple actions separated by a '/' character can result in unexpectedly closing the CSS context and allowing for injection of unexpected HTML, if executed with untrusted input.",
+                "markdown": "**Vulnerability CVE-2023-24539**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.9, 1.20.4|[CVE-2023-24539](https://avd.aquasec.com/nvd/cve-2023-24539)|\n\nAngle brackets (\u003c\u003e) are not considered dangerous characters when inserted into CSS contexts. Templates containing multiple actions separated by a '/' character can result in unexpectedly closing the CSS context and allowing for injection of unexpected HTML, if executed with untrusted input."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+                "precision": "very-high",
+                "security-severity": "7.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-29400",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: improper handling of empty HTML attributes"
+              },
+              "fullDescription": {
+                "text": "Templates containing actions in unquoted HTML attributes (e.g. \"attr={{.}}\") executed with empty input can result in output with unexpected results when parsed due to HTML normalization rules. This may allow injection of arbitrary attributes into tags."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-29400",
+              "help": {
+                "text": "Vulnerability CVE-2023-29400\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-29400](https://avd.aquasec.com/nvd/cve-2023-29400)\nTemplates containing actions in unquoted HTML attributes (e.g. \"attr={{.}}\") executed with empty input can result in output with unexpected results when parsed due to HTML normalization rules. This may allow injection of arbitrary attributes into tags.",
+                "markdown": "**Vulnerability CVE-2023-29400**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.9, 1.20.4|[CVE-2023-29400](https://avd.aquasec.com/nvd/cve-2023-29400)|\n\nTemplates containing actions in unquoted HTML attributes (e.g. \"attr={{.}}\") executed with empty input can result in output with unexpected results when parsed due to HTML normalization rules. This may allow injection of arbitrary attributes into tags."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+                "precision": "very-high",
+                "security-severity": "7.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-29403",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: runtime: unexpected behavior of setuid/setgid binaries"
+              },
+              "fullDescription": {
+                "text": "On Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/setgid bits. This can be dangerous in certain cases, such as when dumping memory state, or assuming the status of standard i/o file descriptors. If a setuid/setgid binary is executed with standard I/O file descriptors closed, opening any files can result in unexpected content being read or written with elevated privileges. Similarly, if a setuid/setgid program is terminated, either via panic or signal, it may leak the contents of its registers."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-29403",
+              "help": {
+                "text": "Vulnerability CVE-2023-29403\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.19.10, 1.20.5\nLink: [CVE-2023-29403](https://avd.aquasec.com/nvd/cve-2023-29403)\nOn Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/setgid bits. This can be dangerous in certain cases, such as when dumping memory state, or assuming the status of standard i/o file descriptors. If a setuid/setgid binary is executed with standard I/O file descriptors closed, opening any files can result in unexpected content being read or written with elevated privileges. Similarly, if a setuid/setgid program is terminated, either via panic or signal, it may leak the contents of its registers.",
+                "markdown": "**Vulnerability CVE-2023-29403**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.19.10, 1.20.5|[CVE-2023-29403](https://avd.aquasec.com/nvd/cve-2023-29403)|\n\nOn Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/setgid bits. This can be dangerous in certain cases, such as when dumping memory state, or assuming the status of standard i/o file descriptors. If a setuid/setgid binary is executed with standard I/O file descriptors closed, opening any files can result in unexpected content being read or written with elevated privileges. Similarly, if a setuid/setgid program is terminated, either via panic or signal, it may leak the contents of its registers."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.8,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "7.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45283",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "The filepath package does not recognize paths with a \\??\\ prefix as sp ..."
+              },
+              "fullDescription": {
+                "text": "The filepath package does not recognize paths with a \\??\\ prefix as special. On Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x. Before fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b. Similarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b. In addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name. UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45283",
+              "help": {
+                "text": "Vulnerability CVE-2023-45283\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.20.11, 1.21.4, 1.20.12, 1.21.5\nLink: [CVE-2023-45283](https://avd.aquasec.com/nvd/cve-2023-45283)\nThe filepath package does not recognize paths with a \\??\\ prefix as special. On Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x. Before fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b. Similarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b. In addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name. UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored.",
+                "markdown": "**Vulnerability CVE-2023-45283**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.20.11, 1.21.4, 1.20.12, 1.21.5|[CVE-2023-45283](https://avd.aquasec.com/nvd/cve-2023-45283)|\n\nThe filepath package does not recognize paths with a \\??\\ prefix as special. On Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x. Before fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b. Similarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b. In addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name. UPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45287",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: crypto/tls: Timing Side Channel attack in RSA based TLS key exchanges."
+              },
+              "fullDescription": {
+                "text": "Before Go 1.20, the RSA based TLS key exchanges used the math/big library, which is not constant time. RSA blinding was applied to prevent timing attacks, but analysis shows this may not have been fully effective. In particular it appears as if the removal of PKCS#1 padding may leak timing information, which in turn could be used to recover session key bits. In Go 1.20, the crypto/tls library switched to a fully constant time RSA implementation, which we do not believe exhibits any timing side channels."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45287",
+              "help": {
+                "text": "Vulnerability CVE-2023-45287\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.20.0\nLink: [CVE-2023-45287](https://avd.aquasec.com/nvd/cve-2023-45287)\nBefore Go 1.20, the RSA based TLS key exchanges used the math/big library, which is not constant time. RSA blinding was applied to prevent timing attacks, but analysis shows this may not have been fully effective. In particular it appears as if the removal of PKCS#1 padding may leak timing information, which in turn could be used to recover session key bits. In Go 1.20, the crypto/tls library switched to a fully constant time RSA implementation, which we do not believe exhibits any timing side channels.",
+                "markdown": "**Vulnerability CVE-2023-45287**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.20.0|[CVE-2023-45287](https://avd.aquasec.com/nvd/cve-2023-45287)|\n\nBefore Go 1.20, the RSA based TLS key exchanges used the math/big library, which is not constant time. RSA blinding was applied to prevent timing attacks, but analysis shows this may not have been fully effective. In particular it appears as if the removal of PKCS#1 padding may leak timing information, which in turn could be used to recover session key bits. In Go 1.20, the crypto/tls library switched to a fully constant time RSA implementation, which we do not believe exhibits any timing side channels."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34156",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "encoding/gob: golang: Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion"
+              },
+              "fullDescription": {
+                "text": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-34156",
+              "help": {
+                "text": "Vulnerability CVE-2024-34156\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34156](https://avd.aquasec.com/nvd/cve-2024-34156)\nCalling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.",
+                "markdown": "**Vulnerability CVE-2024-34156**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.22.7, 1.23.1|[CVE-2024-34156](https://avd.aquasec.com/nvd/cve-2024-34156)|\n\nCalling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-47907",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "database/sql: Postgres Scan Race Condition"
+              },
+              "fullDescription": {
+                "text": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-47907",
+              "help": {
+                "text": "Vulnerability CVE-2025-47907\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.23.12, 1.24.6\nLink: [CVE-2025-47907](https://avd.aquasec.com/nvd/cve-2025-47907)\nCancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error.",
+                "markdown": "**Vulnerability CVE-2025-47907**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.23.12, 1.24.6|[CVE-2025-47907](https://avd.aquasec.com/nvd/cve-2025-47907)|\n\nCancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-29406",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http: insufficient sanitization of Host header"
+              },
+              "fullDescription": {
+                "text": "The HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Host header can inject additional headers or entire requests. With fix, the HTTP/1 client now refuses to send requests containing an invalid Request.Host or Request.URL.Host value."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-29406",
+              "help": {
+                "text": "Vulnerability CVE-2023-29406\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.19.11, 1.20.6\nLink: [CVE-2023-29406](https://avd.aquasec.com/nvd/cve-2023-29406)\nThe HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Host header can inject additional headers or entire requests. With fix, the HTTP/1 client now refuses to send requests containing an invalid Request.Host or Request.URL.Host value.",
+                "markdown": "**Vulnerability CVE-2023-29406**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.19.11, 1.20.6|[CVE-2023-29406](https://avd.aquasec.com/nvd/cve-2023-29406)|\n\nThe HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Host header can inject additional headers or entire requests. With fix, the HTTP/1 client now refuses to send requests containing an invalid Request.Host or Request.URL.Host value."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+                "precision": "very-high",
+                "security-severity": "6.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-29409",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: crypto/tls: slow verification of certificate chains containing large RSA keys"
+              },
+              "fullDescription": {
+                "text": "Extremely large RSA keys in certificate chains can cause a client/server to expend significant CPU time verifying signatures. With fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits. Based on a survey of publicly trusted RSA keys, there are currently only three certificates in circulation with keys larger than this, and all three appear to be test certificates that are not actively deployed. It is possible there are larger keys in use in private PKIs, but we target the web PKI, so causing breakage here in the interests of increasing the default safety of users of crypto/tls seems reasonable."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-29409",
+              "help": {
+                "text": "Vulnerability CVE-2023-29409\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.19.12, 1.20.7, 1.21.0-rc.4\nLink: [CVE-2023-29409](https://avd.aquasec.com/nvd/cve-2023-29409)\nExtremely large RSA keys in certificate chains can cause a client/server to expend significant CPU time verifying signatures. With fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits. Based on a survey of publicly trusted RSA keys, there are currently only three certificates in circulation with keys larger than this, and all three appear to be test certificates that are not actively deployed. It is possible there are larger keys in use in private PKIs, but we target the web PKI, so causing breakage here in the interests of increasing the default safety of users of crypto/tls seems reasonable.",
+                "markdown": "**Vulnerability CVE-2023-29409**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.19.12, 1.20.7, 1.21.0-rc.4|[CVE-2023-29409](https://avd.aquasec.com/nvd/cve-2023-29409)|\n\nExtremely large RSA keys in certificate chains can cause a client/server to expend significant CPU time verifying signatures. With fix, the size of RSA keys transmitted during handshakes is restricted to \u003c= 8192 bits. Based on a survey of publicly trusted RSA keys, there are currently only three certificates in circulation with keys larger than this, and all three appear to be test certificates that are not actively deployed. It is possible there are larger keys in use in private PKIs, but we target the web PKI, so causing breakage here in the interests of increasing the default safety of users of crypto/tls seems reasonable."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-39318",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: improper handling of HTML-like comments within script contexts"
+              },
+              "fullDescription": {
+                "text": "The html/template package does not properly handle HTML-like \"\" comment tokens, nor hashbang \"#!\" comment tokens, in \u003cscript\u003e contexts. This may cause the template parser to improperly interpret the contents of \u003cscript\u003e contexts, causing actions to be improperly escaped. This may be leveraged to perform an XSS attack."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-39318",
+              "help": {
+                "text": "Vulnerability CVE-2023-39318\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39318](https://avd.aquasec.com/nvd/cve-2023-39318)\nThe html/template package does not properly handle HTML-like \"\" comment tokens, nor hashbang \"#!\" comment tokens, in \u003cscript\u003e contexts. This may cause the template parser to improperly interpret the contents of \u003cscript\u003e contexts, causing actions to be improperly escaped. This may be leveraged to perform an XSS attack.",
+                "markdown": "**Vulnerability CVE-2023-39318**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.20.8, 1.21.1|[CVE-2023-39318](https://avd.aquasec.com/nvd/cve-2023-39318)|\n\nThe html/template package does not properly handle HTML-like \"\" comment tokens, nor hashbang \"#!\" comment tokens, in \u003cscript\u003e contexts. This may cause the template parser to improperly interpret the contents of \u003cscript\u003e contexts, causing actions to be improperly escaped. This may be leveraged to perform an XSS attack."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.1,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "6.1",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-39319",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: improper handling of special tags within script contexts"
+              },
+              "fullDescription": {
+                "text": "The html/template package does not apply the proper rules for handling occurrences of \"\u003cscript\", \"\u003c!--\", and \"\u003c/script\" within JS literals in \u003cscript\u003e contexts. This may cause the template parser to improperly consider script contexts to be terminated early, causing actions to be improperly escaped. This could be leveraged to perform an XSS attack."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-39319",
+              "help": {
+                "text": "Vulnerability CVE-2023-39319\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39319](https://avd.aquasec.com/nvd/cve-2023-39319)\nThe html/template package does not apply the proper rules for handling occurrences of \"\u003cscript\", \"\u003c!--\", and \"\u003c/script\" within JS literals in \u003cscript\u003e contexts. This may cause the template parser to improperly consider script contexts to be terminated early, causing actions to be improperly escaped. This could be leveraged to perform an XSS attack.",
+                "markdown": "**Vulnerability CVE-2023-39319**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.20.8, 1.21.1|[CVE-2023-39319](https://avd.aquasec.com/nvd/cve-2023-39319)|\n\nThe html/template package does not apply the proper rules for handling occurrences of \"\u003cscript\", \"\u003c!--\", and \"\u003c/script\" within JS literals in \u003cscript\u003e contexts. This may cause the template parser to improperly consider script contexts to be terminated early, causing actions to be improperly escaped. This could be leveraged to perform an XSS attack."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.1,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "6.1",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-39326",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http/internal: Denial of Service (DoS) via Resource Consumption via HTTP requests"
+              },
+              "fullDescription": {
+                "text": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body. A malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request. Chunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-39326",
+              "help": {
+                "text": "Vulnerability CVE-2023-39326\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.20.12, 1.21.5\nLink: [CVE-2023-39326](https://avd.aquasec.com/nvd/cve-2023-39326)\nA malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body. A malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request. Chunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.",
+                "markdown": "**Vulnerability CVE-2023-39326**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.20.12, 1.21.5|[CVE-2023-39326](https://avd.aquasec.com/nvd/cve-2023-39326)|\n\nA malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body. A malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request. Chunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45284",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "On Windows, The IsLocal function does not correctly detect reserved de ..."
+              },
+              "fullDescription": {
+                "text": "On Windows, The IsLocal function does not correctly detect reserved device names in some cases. Reserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local. With fix, IsLocal now correctly reports these names as non-local."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45284",
+              "help": {
+                "text": "Vulnerability CVE-2023-45284\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.20.11, 1.21.4\nLink: [CVE-2023-45284](https://avd.aquasec.com/nvd/cve-2023-45284)\nOn Windows, The IsLocal function does not correctly detect reserved device names in some cases. Reserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local. With fix, IsLocal now correctly reports these names as non-local.",
+                "markdown": "**Vulnerability CVE-2023-45284**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.20.11, 1.21.4|[CVE-2023-45284](https://avd.aquasec.com/nvd/cve-2023-45284)|\n\nOn Windows, The IsLocal function does not correctly detect reserved device names in some cases. Reserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local. With fix, IsLocal now correctly reports these names as non-local."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45289",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http/cookiejar: incorrect forwarding of sensitive headers and cookies on HTTP redirect"
+              },
+              "fullDescription": {
+                "text": "When following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not. A maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45289",
+              "help": {
+                "text": "Vulnerability CVE-2023-45289\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45289](https://avd.aquasec.com/nvd/cve-2023-45289)\nWhen following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not. A maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded.",
+                "markdown": "**Vulnerability CVE-2023-45289**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.8, 1.22.1|[CVE-2023-45289](https://avd.aquasec.com/nvd/cve-2023-45289)|\n\nWhen following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not. A maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45290",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http: golang: mime/multipart: golang: net/textproto: memory exhaustion in Request.ParseMultipartForm"
+              },
+              "fullDescription": {
+                "text": "When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion. With fix, the ParseMultipartForm function now correctly limits the maximum size of form lines."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-45290",
+              "help": {
+                "text": "Vulnerability CVE-2023-45290\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45290](https://avd.aquasec.com/nvd/cve-2023-45290)\nWhen parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion. With fix, the ParseMultipartForm function now correctly limits the maximum size of form lines.",
+                "markdown": "**Vulnerability CVE-2023-45290**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.8, 1.22.1|[CVE-2023-45290](https://avd.aquasec.com/nvd/cve-2023-45290)|\n\nWhen parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion. With fix, the ParseMultipartForm function now correctly limits the maximum size of form lines."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24783",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: crypto/x509: Verify panics on certificates with an unknown public key algorithm"
+              },
+              "fullDescription": {
+                "text": "Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic. This affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24783",
+              "help": {
+                "text": "Vulnerability CVE-2024-24783\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24783](https://avd.aquasec.com/nvd/cve-2024-24783)\nVerifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic. This affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates.",
+                "markdown": "**Vulnerability CVE-2024-24783**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.8, 1.22.1|[CVE-2024-24783](https://avd.aquasec.com/nvd/cve-2024-24783)|\n\nVerifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic. This affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24784",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/mail: comments in display names are incorrectly handled"
+              },
+              "fullDescription": {
+                "text": "The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24784",
+              "help": {
+                "text": "Vulnerability CVE-2024-24784\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24784](https://avd.aquasec.com/nvd/cve-2024-24784)\nThe ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers.",
+                "markdown": "**Vulnerability CVE-2024-24784**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.8, 1.22.1|[CVE-2024-24784](https://avd.aquasec.com/nvd/cve-2024-24784)|\n\nThe ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24785",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: html/template: errors returned from MarshalJSON methods may break template escaping"
+              },
+              "fullDescription": {
+                "text": "If errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24785",
+              "help": {
+                "text": "Vulnerability CVE-2024-24785\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24785](https://avd.aquasec.com/nvd/cve-2024-24785)\nIf errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates.",
+                "markdown": "**Vulnerability CVE-2024-24785**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.8, 1.22.1|[CVE-2024-24785](https://avd.aquasec.com/nvd/cve-2024-24785)|\n\nIf errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24789",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: archive/zip: Incorrect handling of certain ZIP files"
+              },
+              "fullDescription": {
+                "text": "The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24789",
+              "help": {
+                "text": "Vulnerability CVE-2024-24789\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24789](https://avd.aquasec.com/nvd/cve-2024-24789)\nThe archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors.",
+                "markdown": "**Vulnerability CVE-2024-24789**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.11, 1.22.4|[CVE-2024-24789](https://avd.aquasec.com/nvd/cve-2024-24789)|\n\nThe archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24791",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "net/http: Denial of service due to improper 100-continue handling in net/http"
+              },
+              "fullDescription": {
+                "text": "The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail. An attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24791",
+              "help": {
+                "text": "Vulnerability CVE-2024-24791\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.21.12, 1.22.5\nLink: [CVE-2024-24791](https://avd.aquasec.com/nvd/cve-2024-24791)\nThe net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail. An attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.",
+                "markdown": "**Vulnerability CVE-2024-24791**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.21.12, 1.22.5|[CVE-2024-24791](https://avd.aquasec.com/nvd/cve-2024-24791)|\n\nThe net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail. An attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34155",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "go/parser: golang: Calling any of the Parse functions containing deeply nested literals can cause a panic/stack exhaustion"
+              },
+              "fullDescription": {
+                "text": "Calling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-34155",
+              "help": {
+                "text": "Vulnerability CVE-2024-34155\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34155](https://avd.aquasec.com/nvd/cve-2024-34155)\nCalling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion.",
+                "markdown": "**Vulnerability CVE-2024-34155**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.22.7, 1.23.1|[CVE-2024-34155](https://avd.aquasec.com/nvd/cve-2024-34155)|\n\nCalling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34158",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "go/build/constraint: golang: Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion"
+              },
+              "fullDescription": {
+                "text": "Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-34158",
+              "help": {
+                "text": "Vulnerability CVE-2024-34158\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34158](https://avd.aquasec.com/nvd/cve-2024-34158)\nCalling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion.",
+                "markdown": "**Vulnerability CVE-2024-34158**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.22.7, 1.23.1|[CVE-2024-34158](https://avd.aquasec.com/nvd/cve-2024-34158)|\n\nCalling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45336",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: net/http: net/http: sensitive headers incorrectly sent after cross-domain redirect"
+              },
+              "fullDescription": {
+                "text": "The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com. In the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-45336",
+              "help": {
+                "text": "Vulnerability CVE-2024-45336\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45336](https://avd.aquasec.com/nvd/cve-2024-45336)\nThe HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com. In the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2.",
+                "markdown": "**Vulnerability CVE-2024-45336**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.22.11, 1.23.5, 1.24.0-rc.2|[CVE-2024-45336](https://avd.aquasec.com/nvd/cve-2024-45336)|\n\nThe HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com. In the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45341",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: crypto/x509: crypto/x509: usage of IPv6 zone IDs can bypass URI name constraints"
+              },
+              "fullDescription": {
+                "text": "A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain. Certificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-45341",
+              "help": {
+                "text": "Vulnerability CVE-2024-45341\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45341](https://avd.aquasec.com/nvd/cve-2024-45341)\nA certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain. Certificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs.",
+                "markdown": "**Vulnerability CVE-2024-45341**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.22.11, 1.23.5, 1.24.0-rc.2|[CVE-2024-45341](https://avd.aquasec.com/nvd/cve-2024-45341)|\n\nA certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain. Certificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-0913",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Inconsistent handling of O_CREATE|O_EXCL on Unix and Windows in os in syscall"
+              },
+              "fullDescription": {
+                "text": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-0913",
+              "help": {
+                "text": "Vulnerability CVE-2025-0913\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-0913](https://avd.aquasec.com/nvd/cve-2025-0913)\nos.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.",
+                "markdown": "**Vulnerability CVE-2025-0913**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.23.10, 1.24.4|[CVE-2025-0913](https://avd.aquasec.com/nvd/cve-2025-0913)|\n\nos.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22866",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "crypto/internal/nistec: golang: Timing sidechannel for P-256 on ppc64le in crypto/internal/nistec"
+              },
+              "fullDescription": {
+                "text": "Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-22866",
+              "help": {
+                "text": "Vulnerability CVE-2025-22866\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.22.12, 1.23.6, 1.24.0-rc.3\nLink: [CVE-2025-22866](https://avd.aquasec.com/nvd/cve-2025-22866)\nDue to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols.",
+                "markdown": "**Vulnerability CVE-2025-22866**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.22.12, 1.23.6, 1.24.0-rc.3|[CVE-2025-22866](https://avd.aquasec.com/nvd/cve-2025-22866)|\n\nDue to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22871",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "net/http: Request smuggling due to acceptance of invalid chunked data in net/http"
+              },
+              "fullDescription": {
+                "text": "The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-22871",
+              "help": {
+                "text": "Vulnerability CVE-2025-22871\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.23.8, 1.24.2\nLink: [CVE-2025-22871](https://avd.aquasec.com/nvd/cve-2025-22871)\nThe net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext.",
+                "markdown": "**Vulnerability CVE-2025-22871**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.23.8, 1.24.2|[CVE-2025-22871](https://avd.aquasec.com/nvd/cve-2025-22871)|\n\nThe net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-4673",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "net/http: Sensitive headers not cleared on cross-origin redirect in net/http"
+              },
+              "fullDescription": {
+                "text": "Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-4673",
+              "help": {
+                "text": "Vulnerability CVE-2025-4673\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-4673](https://avd.aquasec.com/nvd/cve-2025-4673)\nProxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information.",
+                "markdown": "**Vulnerability CVE-2025-4673**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.23.10, 1.24.4|[CVE-2025-4673](https://avd.aquasec.com/nvd/cve-2025-4673)|\n\nProxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            }
+          ],
+          "version": "0.65.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2022-41723",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2022-41723\nSeverity: HIGH\nFixed Version: 0.7.0\nLink: [CVE-2022-41723](https://avd.aquasec.com/nvd/cve-2022-41723)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39325",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2023-39325\nSeverity: HIGH\nFixed Version: 0.17.0\nLink: [CVE-2023-39325](https://avd.aquasec.com/nvd/cve-2023-39325)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2022-41717",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2022-41717\nSeverity: MEDIUM\nFixed Version: 0.4.0\nLink: [CVE-2022-41717](https://avd.aquasec.com/nvd/cve-2022-41717)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-3978",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2023-3978\nSeverity: MEDIUM\nFixed Version: 0.13.0\nLink: [CVE-2023-3978](https://avd.aquasec.com/nvd/cve-2023-3978)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-44487",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2023-44487\nSeverity: MEDIUM\nFixed Version: 0.17.0\nLink: [CVE-2023-44487](https://avd.aquasec.com/nvd/cve-2023-44487)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45288",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2023-45288\nSeverity: MEDIUM\nFixed Version: 0.23.0\nLink: [CVE-2023-45288](https://avd.aquasec.com/nvd/cve-2023-45288)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22870",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2025-22870\nSeverity: MEDIUM\nFixed Version: 0.36.0\nLink: [CVE-2025-22870](https://avd.aquasec.com/nvd/cve-2025-22870)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22872",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: golang.org/x/net\nInstalled Version: v0.2.0\nVulnerability CVE-2025-22872\nSeverity: MEDIUM\nFixed Version: 0.38.0\nLink: [CVE-2025-22872](https://avd.aquasec.com/nvd/cve-2025-22872)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: golang.org/x/net@v0.2.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-m425-mq94-257g",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Package: google.golang.org/grpc\nInstalled Version: v1.50.1\nVulnerability GHSA-m425-mq94-257g\nSeverity: HIGH\nFixed Version: 1.56.3, 1.57.1, 1.58.3\nLink: [GHSA-m425-mq94-257g](https://github.com/advisories/GHSA-m425-mq94-257g)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: google.golang.org/grpc@v1.50.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24786",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Package: google.golang.org/protobuf\nInstalled Version: v1.28.1\nVulnerability CVE-2024-24786\nSeverity: MEDIUM\nFixed Version: 1.33.0\nLink: [CVE-2024-24786](https://avd.aquasec.com/nvd/cve-2024-24786)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: google.golang.org/protobuf@v1.28.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24538",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24538\nSeverity: CRITICAL\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24538](https://avd.aquasec.com/nvd/cve-2023-24538)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24540",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24540\nSeverity: CRITICAL\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-24540](https://avd.aquasec.com/nvd/cve-2023-24540)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24790",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24790\nSeverity: CRITICAL\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24790](https://avd.aquasec.com/nvd/cve-2024-24790)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24534",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24534\nSeverity: HIGH\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24534](https://avd.aquasec.com/nvd/cve-2023-24534)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24536",
+          "ruleIndex": 14,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24536\nSeverity: HIGH\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24536](https://avd.aquasec.com/nvd/cve-2023-24536)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24537",
+          "ruleIndex": 15,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24537\nSeverity: HIGH\nFixed Version: 1.19.8, 1.20.3\nLink: [CVE-2023-24537](https://avd.aquasec.com/nvd/cve-2023-24537)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-24539",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-24539\nSeverity: HIGH\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-24539](https://avd.aquasec.com/nvd/cve-2023-24539)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-29400",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-29400\nSeverity: HIGH\nFixed Version: 1.19.9, 1.20.4\nLink: [CVE-2023-29400](https://avd.aquasec.com/nvd/cve-2023-29400)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-29403",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-29403\nSeverity: HIGH\nFixed Version: 1.19.10, 1.20.5\nLink: [CVE-2023-29403](https://avd.aquasec.com/nvd/cve-2023-29403)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39325",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-39325\nSeverity: HIGH\nFixed Version: 1.20.10, 1.21.3\nLink: [CVE-2023-39325](https://avd.aquasec.com/nvd/cve-2023-39325)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45283",
+          "ruleIndex": 19,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45283\nSeverity: HIGH\nFixed Version: 1.20.11, 1.21.4, 1.20.12, 1.21.5\nLink: [CVE-2023-45283](https://avd.aquasec.com/nvd/cve-2023-45283)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45287",
+          "ruleIndex": 20,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45287\nSeverity: HIGH\nFixed Version: 1.20.0\nLink: [CVE-2023-45287](https://avd.aquasec.com/nvd/cve-2023-45287)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45288",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45288\nSeverity: HIGH\nFixed Version: 1.21.9, 1.22.2\nLink: [CVE-2023-45288](https://avd.aquasec.com/nvd/cve-2023-45288)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34156",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-34156\nSeverity: HIGH\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34156](https://avd.aquasec.com/nvd/cve-2024-34156)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-47907",
+          "ruleIndex": 22,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2025-47907\nSeverity: HIGH\nFixed Version: 1.23.12, 1.24.6\nLink: [CVE-2025-47907](https://avd.aquasec.com/nvd/cve-2025-47907)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-29406",
+          "ruleIndex": 23,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-29406\nSeverity: MEDIUM\nFixed Version: 1.19.11, 1.20.6\nLink: [CVE-2023-29406](https://avd.aquasec.com/nvd/cve-2023-29406)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-29409",
+          "ruleIndex": 24,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-29409\nSeverity: MEDIUM\nFixed Version: 1.19.12, 1.20.7, 1.21.0-rc.4\nLink: [CVE-2023-29409](https://avd.aquasec.com/nvd/cve-2023-29409)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39318",
+          "ruleIndex": 25,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-39318\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39318](https://avd.aquasec.com/nvd/cve-2023-39318)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39319",
+          "ruleIndex": 26,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-39319\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39319](https://avd.aquasec.com/nvd/cve-2023-39319)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39326",
+          "ruleIndex": 27,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-39326\nSeverity: MEDIUM\nFixed Version: 1.20.12, 1.21.5\nLink: [CVE-2023-39326](https://avd.aquasec.com/nvd/cve-2023-39326)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45284",
+          "ruleIndex": 28,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45284\nSeverity: MEDIUM\nFixed Version: 1.20.11, 1.21.4\nLink: [CVE-2023-45284](https://avd.aquasec.com/nvd/cve-2023-45284)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45289",
+          "ruleIndex": 29,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45289\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45289](https://avd.aquasec.com/nvd/cve-2023-45289)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45290",
+          "ruleIndex": 30,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2023-45290\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45290](https://avd.aquasec.com/nvd/cve-2023-45290)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24783",
+          "ruleIndex": 31,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24783\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24783](https://avd.aquasec.com/nvd/cve-2024-24783)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24784",
+          "ruleIndex": 32,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24784\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24784](https://avd.aquasec.com/nvd/cve-2024-24784)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24785",
+          "ruleIndex": 33,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24785\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24785](https://avd.aquasec.com/nvd/cve-2024-24785)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24789",
+          "ruleIndex": 34,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24789\nSeverity: MEDIUM\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24789](https://avd.aquasec.com/nvd/cve-2024-24789)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24791",
+          "ruleIndex": 35,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-24791\nSeverity: MEDIUM\nFixed Version: 1.21.12, 1.22.5\nLink: [CVE-2024-24791](https://avd.aquasec.com/nvd/cve-2024-24791)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34155",
+          "ruleIndex": 36,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-34155\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34155](https://avd.aquasec.com/nvd/cve-2024-34155)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34158",
+          "ruleIndex": 37,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-34158\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34158](https://avd.aquasec.com/nvd/cve-2024-34158)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45336",
+          "ruleIndex": 38,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-45336\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45336](https://avd.aquasec.com/nvd/cve-2024-45336)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45341",
+          "ruleIndex": 39,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2024-45341\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45341](https://avd.aquasec.com/nvd/cve-2024-45341)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-0913",
+          "ruleIndex": 40,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2025-0913\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-0913](https://avd.aquasec.com/nvd/cve-2025-0913)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22866",
+          "ruleIndex": 41,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2025-22866\nSeverity: MEDIUM\nFixed Version: 1.22.12, 1.23.6, 1.24.0-rc.3\nLink: [CVE-2025-22866](https://avd.aquasec.com/nvd/cve-2025-22866)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22871",
+          "ruleIndex": 42,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2025-22871\nSeverity: MEDIUM\nFixed Version: 1.23.8, 1.24.2\nLink: [CVE-2025-22871](https://avd.aquasec.com/nvd/cve-2025-22871)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-4673",
+          "ruleIndex": 43,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.19.7\nVulnerability CVE-2025-4673\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-4673](https://avd.aquasec.com/nvd/cve-2025-4673)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/node-driver-registrar",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/node-driver-registrar: stdlib@v1.19.7"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "originalUriBaseIds": {
+        "ROOTPATH": {
+          "uri": "file:///"
+        }
+      },
+      "properties": {
+        "imageID": "sha256:2dc09e59a52a3f7240bede8891cc68db044ff25921e459ff6be89fda35f5944f",
+        "imageName": "quay.io/calico/node-driver-registrar:v3.25.1",
+        "repoDigests": [
+          "quay.io/calico/node-driver-registrar@sha256:5954319e4dbf61aac2e704068e9f3cd083d67f630c08bc0d280863dbf01668bc"
+        ],
+        "repoTags": [
+          "quay.io/calico/node-driver-registrar:v3.25.1"
+        ]
+      }
+    }
+  ]
+}

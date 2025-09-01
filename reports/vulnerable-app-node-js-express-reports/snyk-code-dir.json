@@ -1,0 +1,1973 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "javascript/NoHardcodedCredentials",
+              "name": "NoHardcodedCredentials",
+              "shortDescription": {
+                "text": "Use of Hardcoded Credentials"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded credentials for convenience when coding in order to simplify their workflow. While they are responsible for removing these before production, occasionally this task may fall through the cracks. This also becomes a maintenance challenge when credentials are re-used across multiple applications.\n\nOnce attackers gain access, they may take advantage of privilege level to remove or alter data, take down a site or app, or hold any of the above for ransom. The risk across multiple similar projects is even greater. If code containing the credentials is reused across multiple projects, they will all be compromised.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "NoHardcodedCredentials",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/xuehuiit/fabric-explorer/commit/13570f7b373308308373cb90e5ae1337ab5951c4?diff=split#diff-89ca775d7bec116f4962d67dfd646a4eee9bd61bbdb3d8c6944672d62548f07dL-1",
+                    "lines": [
+                      {
+                        "line": "host: '192.168.23.228',\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "user: 'root',\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "password: '123456',\n",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "database:'fabricexplorer'\n",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "host: mysqlconfig.host,\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "user: mysqlconfig.username,\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "password: mysqlconfig.passwd,\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "database:mysqlconfig.database\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/jamesgeorge007/Personal-Webapp/commit/c5996373c57cbd7cb7ce3210ce98ba24080171ca?diff=split#diff-aea4204a397e684137ecdb78e3deb03b4c1c4e21cb8f1b9ab4fdff252b42526eL-1",
+                    "lines": [
+                      {
+                        "line": "sendgridClient.setApiKey('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');\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "sendgridClient.setApiKey(process.env.API_KEY);\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/jsheroes/jsheroes.io/commit/8feba5e0ac4ca148539cf3fe9fb7d8d69984d2a6?diff=split#diff-a4c65ede64197e1a112899a68bf994485b889c4b143198bac4af53425b38406fL-1",
+                    "lines": [
+                      {
+                        "line": "sgMail.setApiKey('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');\n",
+                        "lineNumber": 13,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "sgMail.setApiKey(process.env.SENDGRID_API_KEY);\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 51,
+                "cwe": [
+                  "CWE-798"
+                ]
+              }
+            },
+            {
+              "id": "javascript/NoHardcodedPasswords",
+              "name": "NoHardcodedPasswords",
+              "shortDescription": {
+                "text": "Use of Hardcoded Passwords"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded passwords during development to streamline setup or simplify authentication while testing. Although these passwords are intended to be removed before deployment, they are sometimes inadvertently left in the code. This introduces serious security risks, especially if the password grants elevated privileges or is reused across multiple systems.\n\nAn attacker who discovers a hardcoded password can potentially gain unauthorized access, escalate privileges, exfiltrate sensitive data, or disrupt service availability. If the password is reused across different environments or applications, the compromise can spread quickly and broadly.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "NoHardcodedPasswords",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/UsabilityDynamics/node-rabbit-client/commit/bf652950ac5eb1cd85ebe349b29ad045df51dd07?diff=split#diff-506a1dcb4e0d34ef96430d0fa0790cc3e84cbf193ea91b3e49e5e52c86dad0f4L-1",
+                    "lines": [
+                      {
+                        "line": "login        : 'udx',\n",
+                        "lineNumber": 5,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "password     : 'ISM0Rules'\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "login        : process.env.RABBIT_LOGIN,\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "password     : process.env.RABBIT_PASSWORD\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/perborgen/data_hub/commit/8de6d9c7efdc6d0a773808c872c83f3374643a8e?diff=split#diff-58417e0f781b6656949d37258c8b9052ed266e2eb7a5163cad7b0863e6b2916aL-1",
+                    "lines": [
+                      {
+                        "line": "var config  = require('./config');\n",
+                        "lineNumber": 2,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "var handler = require('./api/handler');\n",
+                        "lineNumber": 3,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "var inert   = require('inert');\n",
+                        "lineNumber": 4,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "var bell    = require('bell');\n",
+                        "lineNumber": 5,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "var hapiAC  = require('hapi-auth-cookie');\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "server.connection({\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    port: process.env.PORT || 8080,\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    host: \"0.0.0.0\" || \"localhost\"\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "});\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "server.register([inert, bell, hapiAC], function(err){\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    if (err) {\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        throw err;\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    var authCookieOptions = {\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        password: 'cookie-encryption-password', //Password used for encryption\n",
+                        "lineNumber": 20,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        cookie: 'sitepoint-auth', // Name of cookie to set\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        password: config.password || process.env.PASSWORD, //Password used for encryption\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        cookie: 'auth', // Name of cookie to set\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Gitualize/Gitualize/commit/f6de5689d637dc41abd4b43eea40371fd1088d33?diff=split#diff-273ae97b30b3f18c1d3fc9bf418b55be30c6e4a19f3f51953362cfa762980c63L-1",
+                    "lines": [
+                      {
+                        "line": "user: 'docker',\n",
+                        "lineNumber": 2,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "password: 'docker',\n",
+                        "lineNumber": 3,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "database: 'docker',\n",
+                        "lineNumber": 4,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "user: process.env.DATABASE_USER,\n",
+                        "lineNumber": 2,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "password: process.env.DATABASE_PASSWORD,\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "database: process.env.DATABASE_NAME,\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 44,
+                "cwe": [
+                  "CWE-798",
+                  "CWE-259"
+                ]
+              }
+            },
+            {
+              "id": "javascript/NoRateLimitingForExpensiveWebOperation",
+              "name": "NoRateLimitingForExpensiveWebOperation",
+              "shortDescription": {
+                "text": "Allocation of Resources Without Limits or Throttling"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nWithout unlimited resources, software operating in the real world is inherently limited in the resources it may consume; similarly, servers are limited by the number of simultaneous sessions they can handle. Therefore, it is important for developers to design software that considers these real-world physical (or virtual) limitations and limits user sessions accordingly, both in terms of the number of user sessions and in the quantity of resources each user may demand. Software with this weakness does not include such limitations and as a result, individual user sessions may consume too many resources, leading to unintended software behavior including, potentially, denial of service. This can be compared to a single restaurant customer emptying out the entire buffet, leaving no food for other customers--or an entire busload mobbing the buffet all at once, with a similar effect. This may happen inadvertently or as a result of an attack by a malicious user.\n\n## Best practices for prevention\n* Test extensively to obtain baseline values indicating how the software performs in the real world under various conditions (normal and peak); use these values to determine reasonable software limits.\n* Set clear limits for all flexible parameters such as maximum allocable memory, number of processes within a given timeframe, file descriptors, requests per client, number of records per request, etc. This is particularly true for any parameters within user control.\n* Release all resources when no longer in use, including incorporating timeouts for inactive users, processes, and resources.\n* Familiarize Dev, Ops, and IT teams with best practices for recognizing and preventing DoS attacks and out-of-control resource allocation to prevent catastrophic failures.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "NoRateLimitingForExpensiveWebOperation",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/vmware/singleton/commit/cb488fd0cd75e7b1f122784bdaf5ee6a85cd5323?diff=split#diff-dd8084200629fa5980243a6f7566cf5f42710c5ca3bdc612dbcc330c57333577L-1",
+                    "lines": [
+                      {
+                        "line": "// set up rate limiter: maximum of five requests per minute\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "const RateLimit = require('express-rate-limit');\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "const limiter = RateLimit({\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  windowMs: 1 * 60 * 1000, // 1 minute\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "  max: 5\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "});\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "const app = express();\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "const port = process.env.PORT || 3000;\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "app.use(express.static(__dirname));\n",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "// apply rate limiter to all requests\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.use(limiter);\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.use ('/dist',express.static(__dirname + '/dist/'));\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.use ('/assets',express.static(__dirname + '/assets/'));\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "app.use ('/src/translations',express.static(__dirname + '/src/translations'));\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "app.get('/', (req, res) => {\n",
+                        "lineNumber": 26,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  res.send(`Welcome to the static localizer. Navigate to /example`);\n",
+                        "lineNumber": 27,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "});\n",
+                        "lineNumber": 28,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 29,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "app.get('/example', (req, res) => {\n",
+                        "lineNumber": 30,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/natsukagami/themis-web-interface/commit/e1ef34f8b95e7eefab54c204b78fbdee70169a6d?diff=split#diff-cd0e12b228a7dea99a7346adf68cfc7a6a2c321846cc8a90fc6cd92cf8066d5eL-1",
+                    "lines": [
+                      {
+                        "line": "router.post('/', (req, res, next) => {\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "const rateLimiter = require('../controls/rate-limiter')({\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t// Allow 3 submits, then slows down\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tfreeRetries: 30,\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tminWait: 2 * 60 * 60,\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tmaxWait: 2 * 60 * 60,\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tlifetime: 60 * 60\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "});\n",
+                        "lineNumber": 14,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 15,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "router.post('/', rateLimiter.prevent, (req, res, next) => {\n",
+                        "lineNumber": 16,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/Waifu-pics/waifu-api/commit/da0d3b4ee8dd4e2ab0a789dfd04cb304a537368e?diff=split#diff-0eddd48e85f4f98a238d49bfe0b4cf514b1430322bcdc196b1a97786e0ec30c8L-1",
+                    "lines": [
+                      {
+                        "line": "const rateLimit = require(\"express-rate-limit\")\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 5,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "module.exports = ({ db, app, config, s3 }) => {\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    // Checking if user is Admin to prevent rate limit middleware\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    const chkAdmin = async (req, res, next) => {\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        const { token } = req.headers\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        const Admins = db.collection('admins')\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        req.chkAdmin = Boolean(req.headers.token && typeof token === \"string\" && Boolean(await Admins.findOne({token})))\n",
+                        "lineNumber": 12,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        \n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        next()\n",
+                        "lineNumber": 14,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 15,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 16,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    // Rate limit middleware\n",
+                        "lineNumber": 17,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    const limiter = rateLimit({\n",
+                        "lineNumber": 18,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        windowMs: 10 * 60 * 1000, // 10 minutes\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        max: 15,\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        message: \"You can only upload 15 files per 10 minutes!\",\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        statusCode: 400,\n",
+                        "lineNumber": 22,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        skip: function (req) {\n",
+                        "lineNumber": 23,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            return req.chkAdmin\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 25,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    })\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    // Do shit to upload\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    app.use(\"/api/upload\", chkAdmin, limiter)\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 30,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    app.use(fileUpload({\n",
+                        "lineNumber": 31,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        limits: { fileSize: config.maxUploadSize * 1024 * 1024 },\n",
+                        "lineNumber": 32,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        abortOnLimit: true,\n",
+                        "lineNumber": 33,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        createParentPath: true\n",
+                        "lineNumber": 34,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    }))\n",
+                        "lineNumber": 35,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    app.post('/api/upload', async (req, res) => {\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 37,
+                "cwe": [
+                  "CWE-770"
+                ]
+              }
+            },
+            {
+              "id": "javascript/Sqli",
+              "name": "Sqli",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nIn an SQL injection attack, the user can submit an SQL query directly to the database, gaining access without providing appropriate credentials. Attackers can then view, export, modify, and delete confidential information; change passwords and other authentication information; and possibly gain access to other systems within the network. This is one of the most commonly exploited categories of vulnerability, but can largely be avoided through good coding practices.\n\n## Best practices for prevention\n* Avoid passing user-entered parameters directly to the SQL server.\n* Avoid using string concatenation to build SQL queries from user-entered parameters.\n* When coding, define SQL code first, then pass in parameters. Use prepared statements with parameterized queries. Examples include `SqlCommand()` in .NET and `bindParam()` in PHP.\n* Use strong typing for all parameters so unexpected user data will be rejected.\n* Where direct user input cannot be avoided for performance reasons, validate input against a very strict allowlist of permitted characters, avoiding special characters such as `? & / < > ; - ' \" \\` and spaces. Use a vendor-supplied escaping routine if possible.\n* Develop your application in an environment and/or using libraries that provide protection against SQL injection.\n* Harden your entire environment around a least-privilege model, ideally with isolated accounts with privileges only for particular tasks.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "Sqli",
+                  "Security",
+                  "SourceServer",
+                  "SourceHttpParam",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/andrei-tatar/HAP.js/commit/e188be46fe58a1d7f72332371b2d3b1be46b36ce?diff=split#diff-a71d0c3aa1001deb7f0c91f3dc4365d3d4714661b4e09deffdbce2e3fb606f0dL-1",
+                    "lines": [
+                      {
+                        "line": "            var tableName = \"Temp\" + req.body.id;\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            var time = Math.round(Date.now()/1000);\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            var value = req.body.temperature;\n",
+                        "lineNumber": 9,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 10,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            db.serialize(function() {\n",
+                        "lineNumber": 11,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                db.run(\"begin transaction\");\n",
+                        "lineNumber": 12,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                db.run(\"create table if not exists \" + tableName + \" (time INTEGER, value REAL)\");\n",
+                        "lineNumber": 13,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                db.run(\"insert into \" + tableName + \" values (?, ?)\", [time, value]);\n",
+                        "lineNumber": 14,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "                db.run(\"commit\");\n",
+                        "lineNumber": 15,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            });\n",
+                        "lineNumber": 16,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 17,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            var device = node.device(req.body.id);\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            if (device) {\n",
+                        "lineNumber": 4,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                if (!device.init_temperature) {\n",
+                        "lineNumber": 5,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    device.init_temperature = true;\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    util.createProperty(device, 'temperature', req.body.temperature);\n",
+                        "lineNumber": 7,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                }\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                else\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    device.temperature = req.body.temperature;\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            }\n",
+                        "lineNumber": 11,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/votinginfoproject/Metis/commit/a23a825a5240c28b308e51d5deced8c079483b4f?diff=split#diff-8a2ec056bc0d1ea7f81af8911eb5ed800ceb6e06ef7200bcb240e850660cc698L-1",
+                    "lines": [
+                      {
+                        "line": "var query = client.query(\"SELECT * FROM results WHERE id=\" + req.query.id);\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "var query = client.query(\"SELECT * FROM results WHERE id=$1\", [req.query.id]);\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/ZeroWangZY/track-manager/commit/28b85bf6f67cfd03d6af40f35df3e9a7b21bfcd4?diff=split#diff-4271b7f8a97f7103b3b137c344e4cfe49d6bb92646f2fd31bfdba91220b45f3aL-1",
+                    "lines": [
+                      {
+                        "line": "            connection.query('call gethotpoints(\\''+param.starttime+'\\',\\''+param.endtime+'\\')', function(err, result) {\n",
+                        "lineNumber": 127,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "          //  connection.query('call gethotpoints(\\''+param.starttime+'\\',\\''+param.endtime+'\\')', function(err, result) {\n",
+                        "lineNumber": 127,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            connection.query('select Longtitude,Latitude from minitrack where Taxiid<10', function(err, result) {\n",
+                        "lineNumber": 128,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 129,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 105,
+                "cwe": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "javascript/XSS",
+              "name": "XSS",
+              "shortDescription": {
+                "text": "Cross-site Scripting (XSS)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "javascript",
+                  "XSS",
+                  "Security",
+                  "SourceServer",
+                  "SourceHttpParam",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/nategood/httpful/commit/56bece201beeae6d80ed23a1195f7ab685dfde0c?diff=split#diff-27153a4cc821a38fb1466ae1c19c9f48fdc8b5028f971c1f88fd3d36af3081d2L-1",
+                    "lines": [
+                      {
+                        "line": "\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    res.writeHead(200);\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    res.writeHead(200, {\"Content-Type\":\"application/json\"});\n",
+                        "lineNumber": 6,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    req.on('data', function(data){\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        echo += data;\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    });\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    req.on('end', function(){\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tres.write(\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tJSON.stringify({\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mjackson/unpkg/commit/db53a296aafebe18b854a0da2d4e09fb39e2aca8?diff=split#diff-efedef52a9612fa34544d4ad8a68232d242c481eaa0de73b416064cf5c5c4cb6L-1",
+                    "lines": [
+                      {
+                        "line": "    return res.status(403).send(`Invalid URL: ${req.url}`)\n",
+                        "lineNumber": 21,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return res.status(403).type('text').send(`Invalid URL: ${req.url}`)\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 22,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  // Do not allow unrecognized query parameters because\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  // some people use them to bust the cache.\n",
+                        "lineNumber": 24,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "  if (!queryIsValid(url.query))\n",
+                        "lineNumber": 25,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    return res.status(403).send(`Invalid query: ${JSON.stringify(url.query)}`)\n",
+                        "lineNumber": 26,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    return res.status(403).type('text').send(`Invalid query: ${JSON.stringify(url.query)}`)\n",
+                        "lineNumber": 26,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/angular-cms/angular-cms/commit/49e3845bf11f21e5f63997ed4c522cfa923c89a7?diff=split#diff-2458b7a314e52c34fd950457c17939524367c06572e8c78acfce08e6a6293e68L-1",
+                    "lines": [
+                      {
+                        "line": "res.send(result);\n",
+                        "lineNumber": 20,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "res.status(httpStatus.OK).json(result);\n",
+                        "lineNumber": 21,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 339,
+                "cwe": [
+                  "CWE-79"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "javascript/NoHardcodedCredentials",
+          "ruleIndex": 0,
+          "level": "note",
+          "message": {
+            "text": "Do not hardcode credentials in code. Found hardcoded credential used in pg.Client.",
+            "markdown": "Do not hardcode credentials in code. Found hardcoded credential used in {0}.",
+            "arguments": [
+              "[pg.Client](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 7,
+                  "endLine": 7,
+                  "startColumn": 3,
+                  "endColumn": 7
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d262f62a34a0ab0767ca314ba26ffab8c55814e6cb346fc18e67b4e92ad2e2a6",
+            "1": "839b1d0f.e7d69cc8.09f04832.e052b9a9.79a7d027.fcf3002d.46abf71a.91c60b7d.9d63ecab.e7d69cc8.bd65d204.93494013.79a7d027.5fce695c.46abf71a.f88a252f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "endLine": 6,
+                            "startColumn": 18,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 417,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "javascript/NoHardcodedPasswords",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Do not hardcode passwords in code. Found hardcoded password used in pg.Client.",
+            "markdown": "Do not hardcode passwords in code. Found hardcoded password used in {0}.",
+            "arguments": [
+              "[pg.Client](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 8,
+                  "endLine": 8,
+                  "startColumn": 3,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "d8cc83eefa8c83d4154c2744537cef91f5cddead4614974d04847e561b2f51bd",
+            "1": "d81288a3.3f481afb.bd65d204.e052b9a9.79a7d027.fcf3002d.ce4a9d89.91c60b7d.9d63ecab.e7d69cc8.bd65d204.93494013.79a7d027.5fce695c.46abf71a.f88a252f"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "endLine": 6,
+                            "startColumn": 18,
+                            "endColumn": 24
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 567,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "javascript/NoRateLimitingForExpensiveWebOperation",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Expensive operation (a file system operation) is performed by an endpoint handler which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.",
+            "markdown": "Expensive operation ({0}) is performed by {1} which does not use a rate-limiting mechanism. It may enable the attackers to perform Denial-of-service attacks. Consider using a rate-limiting middleware such as express-limit.",
+            "arguments": [
+              "[a file system operation](0)",
+              "[an endpoint handler](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 40,
+                  "startColumn": 20,
+                  "endColumn": 4
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "43953498d92bc30211ab5a653cac19c996d6b14e4054156d2210129075fcf980",
+            "1": "62de687f.4773f344.1b6affae.c559ebce.fd1fa73f.8020cfdf.83265159.afcb55d2.e34ba5a4.4773f344.1b6affae.c559ebce.fd1fa73f.8020cfdf.83265159.3ba1c3a0"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 9,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 40,
+                            "startColumn": 20,
+                            "endColumn": 4
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 567,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "javascript/Sqli",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into query, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[query](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44,
+                  "startColumn": 31,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a7aae055c14f30e06c07e33ec1627ffb6a09fd0d95d3e63ff170f655553bcc31",
+            "1": "839b1d0f.4773f344.c9330245.d7919eeb.ef9f7d82.8020cfdf.0b4f0b50.f88a252f.6bb676bb.4773f344.c9330245.c559ebce.fd1fa73f.8431f2ca.0334236c.3ba1c3a0"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 51,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 62,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 51,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 46,
+                            "startColumn": 37,
+                            "endColumn": 66
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 31,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 817,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "javascript/XSS",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into send, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5)",
+              "[send](6)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 33,
+                  "endLine": 33,
+                  "startColumn": 9,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "4af7fd196a0a98d8677c11c95879450741e28748615ec00b802021772581f9e1",
+            "1": "cf7733e4.4773f344.a32ed1a1.84a399d8.ef9f7d82.8020cfdf.cd61fc56.2f05c567.e34ba5a4.4773f344.1b6affae.c559ebce.fd1fa73f.39e5b116.83265159.2f05c567"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 28,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 28,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 24,
+                            "endColumn": 33
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 34,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 24,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 14,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 33,
+                            "startColumn": 9,
+                            "endColumn": 13
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 834,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "javascript/XSS",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into send, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13)",
+              "[send](14)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "index.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 11,
+                  "endColumn": 15
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "a91e6b6adff8c34c5089fa885cf7408959c62af64ab82bcc19b27902bd4ef407",
+            "1": "839b1d0f.2d624f44.a32ed1a1.c8688b2b.ef9f7d82.8020cfdf.cd61fc56.2f05c567.6bb676bb.2d624f44.c9330245.c8688b2b.79a7d027.8431f2ca.0334236c.3ba1c3a0"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 51,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 62,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 51,
+                            "endColumn": 64
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 46,
+                            "startColumn": 37,
+                            "endColumn": 66
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 31,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 24,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 46,
+                            "startColumn": 18,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 11,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 16,
+                            "endColumn": 20
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 21,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 16,
+                            "endColumn": 25
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 16,
+                            "endColumn": 28
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "index.js",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 11,
+                            "endColumn": 15
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 834,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "JavaScript",
+            "files": 1,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

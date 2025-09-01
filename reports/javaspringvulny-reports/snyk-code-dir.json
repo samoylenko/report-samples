@@ -1,0 +1,4334 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SnykCode",
+          "semanticVersion": "1.0.0",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "java/DisablesCSRFProtection",
+              "name": "DisablesCSRFProtection",
+              "shortDescription": {
+                "text": "Cross-Site Request Forgery (CSRF)"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "\n## Details\nCross-site request forgery is an attack in which a malicious third party takes advantage of a user's authenticated credentials (such as a browser cookie) to impersonate that trusted user and perform unauthorized actions. The web application server cannot tell the difference between legitimate and malicious requests. This type of attack generally begins by tricking the user with a social engineering attack, such as a link or popup that the user inadvertently clicks, causing an unauthorized request to be sent to the web server. Consequences vary: At a standard user level, attackers can change passwords, transfer funds, make purchases, or connect with contacts; from an administrator account, attackers can then make changes to or even take down the app itself.\n\n## Best practices for prevention\n* Use development frameworks that defend against CSRF, using a nonce, hash, or some other security device to the URL and/or to forms.\n* Implement secure, unique, hidden tokens that are checked by the server each time to validate state-change requests.\n* Never assume that authentication tokens and session identifiers mean a request is legitimate.\n* Understand and implement other safe-cookie techniques, such as double submit cookies.\n* Terminate user sessions when not in use, including automatic timeout.\n* Ensure rigorous coding practices and defenses against other commonly exploited CWEs, since cross-site scripting (XSS), for example, can be used to bypass defenses against CSRF.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "DisablesCSRFProtection",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/13482477/JFDF/commit/3326a94a203ab334e9185d93beadc38b9c93b100?diff=split#diff-a9f9136673bc42f9fcd901899a430de1862ad2f7cda4150ce17bbddbd5909851L-1",
+                    "lines": [
+                      {
+                        "line": "http\r\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ".authorizeRequests()\r\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.antMatchers(new String[] {\r\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/login\",\r\n",
+                        "lineNumber": 40,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/logout\",\r\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.css\",\r\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.js\",\r\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.woff\",\r\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.woff2\",\r\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.css.map\",\r\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.ttf\",\r\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.png\",\r\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.jpg\",\r\n",
+                        "lineNumber": 49,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.jpeg\",\r\n",
+                        "lineNumber": 50,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\"/**/*.gif\",\r\n",
+                        "lineNumber": 51,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t}).permitAll()\r\n",
+                        "lineNumber": 52,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.anyRequest().authenticated()\r\n",
+                        "lineNumber": 53,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.and()\r\n",
+                        "lineNumber": 54,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ".formLogin()\r\n",
+                        "lineNumber": 55,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.loginPage(\"/login\")\r\n",
+                        "lineNumber": 56,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.defaultSuccessUrl(\"/index\")\r\n",
+                        "lineNumber": 57,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.failureHandler(new FeedbackLoginInfoAuthenticationFailureHandler(\"/login\"))\r\n",
+                        "lineNumber": 58,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.and()\r\n",
+                        "lineNumber": 59,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ".logout()\r\n",
+                        "lineNumber": 60,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.logoutUrl(\"/logout\")\r\n",
+                        "lineNumber": 61,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.logoutSuccessUrl(\"/login\")\r\n",
+                        "lineNumber": 62,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t.and()\r\n",
+                        "lineNumber": 63,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": ".csrf()\r\n",
+                        "lineNumber": 64,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t.disable();\r\n",
+                        "lineNumber": 65,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": ".csrf();\r\n",
+                        "lineNumber": 64,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/mraible/java-webapp-security-examples/commit/1ae83aeb6975a107dcdb616eeae63bc846fcadaf?diff=split#diff-b8cb20d5732c784ae693cb1cd9ecb813e912a21fe570c581998875276a2a642dL-1",
+                    "lines": [
+                      {
+                        "line": "http\n",
+                        "lineNumber": 23,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    .csrf().disable()\n",
+                        "lineNumber": 24,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "    .csrf().and()\n",
+                        "lineNumber": 24,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/jgribonvald/demo-spring-security-cas/commit/3b1ee5ecc5e718513127355b884c165bb4936c7f?diff=split#diff-4ead997b1df6dd1b785b7ba2dbcb18dfb6f6624a1997e5642b016adf46e69d08L-1",
+                    "lines": [
+                      {
+                        "line": "\t\t/**\n",
+                        "lineNumber": 162,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t * <session-management session-fixation-protection=\"newSession\"/>\n",
+                        "lineNumber": 163,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t */\n",
+                        "lineNumber": 164,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\thttp.sessionManagement().sessionFixation().changeSessionId();\n",
+                        "lineNumber": 165,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 166,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\thttp.csrf().disable();\n",
+                        "lineNumber": 167,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t// http.csrf();\n",
+                        "lineNumber": 171,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 42,
+                "cwe": [
+                  "CWE-352"
+                ]
+              }
+            },
+            {
+              "id": "java/HttpResponseSplitting",
+              "name": "HttpResponseSplitting",
+              "shortDescription": {
+                "text": "Improper Neutralization of CRLF Sequences in HTTP Headers"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nCRLF is an abbreviation for the terms \"carriage return\" and \"line feed.\" These two special characters are a legacy of old-fashioned printing terminals used in the early days of computing. However, today both are still often used as delimiters between data. When this weakness exists, CR and LF characters (represented respectively in code as `\\r` and `\\n`) are permitted to be present in HTTP headers, usually due to poor planning for data handling during development.\n\nCRLF sequences in HTTP headers are known as \"response splitting\" because these characters effectively split the response from the browser, causing the single line to be accepted as multiple lines by the server (for example, the single line First Line\\r\\nSecond Line would be accepted by the server as two lines of input).\n\nWhile response splitting in itself is not an attack, and can be completely harmless unless exploited, its presence could lead to an injection attack (known as CRLF injection) and a variety of unpredictable and potentially dangerous behavior. This weakness can be exploited in a number of ways, such as page hijacking or cross-user defacement, in which an attacker displays false site content and/or captures confidential information such as credentials. It can even lead to cross-site scripting attacks, in which attackers can cause malicious code to execute in the user's browser.\n\nFor example, the following code is vulnerable:\n\n```\nprotected void doGet(HttpServletRequest request, HttpServletResponse response) {\n  Cookie cookie = new Cookie(\"name\", request.getParameter(\"name\"));\n  response.addCookie(cookie);\n}\n```\n\nbecause the user may provide a name parameter with a value like `XYZ\\r\\nHTTP/1.1 200 OK\\nATTACKER CONTROLLED`. In this case, they will produce a second HTTP response:\n\n```\nHTTP/1.1 200 OK\nATTACKER CONTROLLED\n```\n\nA possible fix is to remove all non-alphanumerical characters:\n\n```\nprotected void doGet(HttpServletRequest request, HttpServletResponse response) {\n  String name = request.getParameter(\"name\")\n      .replaceAll(\"[^a-zA-Z ]\", \"\");\n  Cookie cookie = new Cookie(\"name\", name);\n  response.addCookie(cookie);\n}\n```\n\nIn this case, the attacker would be unable to produce a second HTTP response.\n\n\n## Best practices for prevention\n* Assume all input is potentially malicious. Define acceptable responses wherever possible, and if not possible, encode CR and LF characters to prevent header splitting.\n* Replace both `\\r` (carriage return) and `\\n` (line feed) with \"\" (empty string)-many platforms handle these characters interchangeably so the weakness may still exist if one of the two is permitted.\nFollow best practices and strip all other special characters (\", /, \\, ;, etc., as well as spaces) wherever possible.\nBe sure to sanitize special characters in both directions-from the browser to the server and also in data sent back to the browser.\nIdeally, adopt current development resources, such as languages and libraries, that block CR and LF injection in headers.\nBe vigilant with all input types that could potentially be tampered with or modified at the user end (intentionally or unintentionally), which could lead to injection attacks. These include GET, POST, cookies, and other HTTP headers.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "HttpResponseSplitting",
+                  "Security",
+                  "SourceServer",
+                  "SourceRequestUrl",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/Alfresco/acs-community-packaging/commit/8af011cd6d21a02716d4df9de815deabc47276c1?diff=split#diff-9104c59dc0f2f6f14a574eddd04b18fde626ce21e8152cfc230916ebf1a87d0dL-1",
+                    "lines": [
+                      {
+                        "line": "String encname = filename.replace('%', '=');\r\n",
+                        "lineNumber": 175,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "res.setHeader(\"Content-Disposition\", \"attachment;filename=\\\"=?ISO-8859-1?Q?\" + encname + \"?=\\\"\");\r\n",
+                        "lineNumber": 176,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "res.setHeader(\"Content-Disposition\", \"attachment\");\r\n",
+                        "lineNumber": 173,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/thm-projects/arsnova-backend/commit/89e32cfb780c5e40e4cbf07f4dcd3fb4bfd979f1?diff=split#diff-d3ba533a52eea865843e214ed943a20e14ba581be384e32e53fbe8e92d737e58L-1",
+                    "lines": [
+                      {
+                        "line": "\t\t\tresponse.addHeader(\"Access-Control-Allow-Origin\", request.getHeader(\"origin\"));\n",
+                        "lineNumber": 43,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\t\tresponse.addHeader(\"Access-Control-Allow-Origin\", sanitizeOriginUrl(request.getHeader(\"origin\")));\n",
+                        "lineNumber": 43,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tfilterChain.doFilter(request, response);\n",
+                        "lineNumber": 46,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 47,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 48,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\tprivate String sanitizeOriginUrl(String originUrl) {\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\treturn originUrl.replaceAll(\"[\\n\\r]+\",\" \");\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t}\n",
+                        "lineNumber": 51,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/zjhch123/Tears/commit/5c13ae033c4123124e66f506a4a3d7e603ae63c4?diff=split#diff-ce66044802535339583b5865e14f2502b9ed461a1114f1764934517a0f1afe99L-1",
+                    "lines": [
+                      {
+                        "line": "            res.setHeader(\"Set-Cookie\", cookies);\n",
+                        "lineNumber": 82,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            this.mappingCookie(res, cookies);\n",
+                        "lineNumber": 98,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 99,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 100,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 101,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    private void mappingCookie(Response res, List<String> cookies) {\n",
+                        "lineNumber": 102,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        List<String> mappingCookie = new ArrayList<>();\n",
+                        "lineNumber": 103,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        for(String cookie : cookies) {\n",
+                        "lineNumber": 104,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            if(cookie.contains(\"Path\")) {\n",
+                        "lineNumber": 105,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                boolean isHTTPOnly = cookie.contains(\"HttpOnly\");\n",
+                        "lineNumber": 106,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                String cookieStr = cookie.substring(0, cookie.indexOf(\"Path=\"));\n",
+                        "lineNumber": 107,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                String path = \"/\";\n",
+                        "lineNumber": 108,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                Pattern p = Pattern.compile(\"Path=((.*);\\\\s?|(.*))\");\n",
+                        "lineNumber": 109,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                Matcher m = p.matcher(cookie);\n",
+                        "lineNumber": 110,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                while(m.find()) {\n",
+                        "lineNumber": 111,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    if(m.group(2) == null) {\n",
+                        "lineNumber": 112,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                        path = m.group(3);\n",
+                        "lineNumber": 113,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    } else {\n",
+                        "lineNumber": 114,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                        path = m.group(2);\n",
+                        "lineNumber": 115,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                    }\n",
+                        "lineNumber": 116,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                }\n",
+                        "lineNumber": 117,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                path = cookieMapping.getOrDefault(path, path);\n",
+                        "lineNumber": 118,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                cookieStr = cookieStr + \"Path=\" + path + (isHTTPOnly ? \"; HttpOnly\" : \"\");\n",
+                        "lineNumber": 119,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                mappingCookie.add(cookieStr);\n",
+                        "lineNumber": 120,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            } else {\n",
+                        "lineNumber": 121,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "                mappingCookie.add(cookie);\n",
+                        "lineNumber": 122,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            }\n",
+                        "lineNumber": 123,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 171,
+                "cwe": [
+                  "CWE-113"
+                ]
+              }
+            },
+            {
+              "id": "java/OR",
+              "name": "OR",
+              "shortDescription": {
+                "text": "Open Redirect"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "help": {
+                "markdown": "\n## Details\nAn open redirect attack takes place when a web application redirects the user to an unauthorized and untrusted site. In general, URL redirection refers to the ability of a website or application to redirect users to another site. This is often a benign and useful feature. For example, if a resource has moved to a new location, URL redirection can transfer the user to that location rather than displaying an error message.\nHowever, this ability can be exploited through social engineering, tricking the user into believing they are accessing one site when, in reality, they are being redirected to a dangerous site, such as a phishing site. Once there, the user may be further tricked into entering credentials or personally identifiable information (PII), believing they are still within the original, trusted domain. Attackers can then use these credentials to gain unauthorized access or leverage the user's PII for sale or ransom.\n\n## Best practices for prevention\n* When developing a site or web app, consider implementing a disclaimer page to remind users that they are leaving a secure site.\n* Adopt a zero-trust approach in which all input is treated with suspicion.\n* Validate all input against deny-lists to ensure it does not contain code to redirect the user. This method is good but inherently incomplete.\n* Be aware of all sources of untrusted input being sent to the server that could be used to redirect the user, such as cookies, URL components, filenames, query results, request headers, and more.\n* In particular, be aware of potential API calls that could send input indirectly to redirect the user.\n* To protect end users, use a firewall to block known malicious sites, train users to recognize basic signs of a phishing attack, and ensure that all network endpoints are patched with the most current updates.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "OR",
+                  "Security",
+                  "SourceServer",
+                  "SourceRequestUrl",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/waratek/spiracle/commit/574e79fcdb3d18d1f5392945022472d64ef61e33?diff=split#diff-113af13dae3b1a4221bf647c2d21e029c2f58cb142dd6cc2860c2d2c20d7d2c4L-1",
+                    "lines": [
+                      {
+                        "line": "        executeRequest(request, response, \"\");\n",
+                        "lineNumber": 27,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    protected void executeRequest(HttpServletRequest request, HttpServletResponse response, String baseUri) throws ServletException, IOException {\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 36,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        String inputUriParam = \"redirectMeTo\";\n",
+                        "lineNumber": 37,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 38,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        if(request.getParameter(inputUriParam) != null) {\n",
+                        "lineNumber": 39,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "            String redirectURI = request.getParameter(inputUriParam);\n",
+                        "lineNumber": 40,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            String redirectURI =  baseUri + request.getParameter(inputUriParam);\n",
+                        "lineNumber": 34,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            response.sendRedirect(redirectURI);\n",
+                        "lineNumber": 41,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/d2rq/d2rq/commit/702988317dfe7a747be6b737de9860889d9e4374?diff=split#diff-1c27c18e00571a0b42612f3de7b9589b99ba6129a2954430a2d1b4ab999cbb5fL-1",
+                    "lines": [
+                      {
+                        "line": "import java.net.URLEncoder;\n",
+                        "lineNumber": 3,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 4,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import javax.servlet.http.HttpServlet;\n",
+                        "lineNumber": 5,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import javax.servlet.http.HttpServletRequest;\n",
+                        "lineNumber": 6,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "import javax.servlet.http.HttpServletResponse;\n",
+                        "lineNumber": 7,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 8,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "public class ResourceServlet extends HttpServlet {\n",
+                        "lineNumber": 9,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 10,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\tpublic void doGet(HttpServletRequest request,\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tHttpServletResponse response) throws IOException {\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tString relativeResourceURI = request.getPathInfo().substring(1);\n",
+                        "lineNumber": 12,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "\t\tString relativeResourceURI = URLEncoder.encode(\n",
+                        "lineNumber": 13,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\t\t\trequest.getPathInfo().substring(1), \"utf-8\");\n",
+                        "lineNumber": 14,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\t\tif (request.getQueryString() != null) {\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\trelativeResourceURI = relativeResourceURI + \"?\" + request.getQueryString();\n",
+                        "lineNumber": 16,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t}\n",
+                        "lineNumber": 17,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tresponse.setStatus(303);\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\tif (\"application/rdf+xml\".equals(new ContentNegotiator(request.getHeader(\"Accept\")).bestFormat())) {\n",
+                        "lineNumber": 19,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\tresponse.addHeader(\"Location\",\n",
+                        "lineNumber": 20,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "\t\t\t\t\tD2RServer.instance().graphURLDescribingResource(relativeResourceURI));\n",
+                        "lineNumber": 21,
+                        "lineChange": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/lumifyio/lumify/commit/a40a4a998052c34ca243f975ff2d9331b6742a0d?diff=split#diff-b4ae54b9d297ba027bfe1cb0640be6f0b9d9a916380ff5c753541445d74fe4c5L-1",
+                    "lines": [
+                      {
+                        "line": "        if (!authResponse.isSuccessful()) {\n",
+                        "lineNumber": 136,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "            LOGGER.warn(\"OAuth handshake completed, but credential verification failed: \" + authResponse.getMessage());\n",
+                        "lineNumber": 137,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        String email = getRequiredProperty(userInfo, \"email\", httpResponse);\n",
+                        "lineNumber": 121,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        if (httpResponse.isCommitted()) return;\n",
+                        "lineNumber": 122,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 123,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        String username = \"google/\" + userid;\n",
+                        "lineNumber": 124,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        User user = userRepository.findByUsername(username);\n",
+                        "lineNumber": 125,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        if (user == null) {\n",
+                        "lineNumber": 126,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            user = userRepository.addUser(username, displayName, PASSWORD, new String[0]);\n",
+                        "lineNumber": 127,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        }\n",
+                        "lineNumber": 128,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 129,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        CurrentUser.set(httpRequest, user);\n",
+                        "lineNumber": 130,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        httpResponse.sendRedirect(httpRequest.getServletContext().getContextPath() + \"/\");\n",
+                        "lineNumber": 131,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 132,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 133,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    private void validateState(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {\n",
+                        "lineNumber": 134,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        Object storedState = httpRequest.getSession().getAttribute(OAUTH_STATE_ATTR_NAME);\n",
+                        "lineNumber": 135,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        httpRequest.getSession().removeAttribute(OAUTH_STATE_ATTR_NAME);\n",
+                        "lineNumber": 136,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        if (storedState == null) {\n",
+                        "lineNumber": 137,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "            LOGGER.warn(\"OAuth verification attempted but no stored state found in the user's session\");\n",
+                        "lineNumber": 138,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 115,
+                "cwe": [
+                  "CWE-601"
+                ]
+              }
+            },
+            {
+              "id": "java/SpringCSRF",
+              "name": "SpringCSRF",
+              "shortDescription": {
+                "text": "Spring Cross-Site Request Forgery (CSRF)"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nWhen a web server is designed to receive a request from a client without any mechanism for verifying that it was intentionally sent, then it might be possible for an attacker to trick a client into making an unintentional request to the web server which will be treated as an authentic request. This can be done via a URL, image load, XMLHttpRequest, etc. and can result in exposure of data or unintended code execution.\n\n## Best practices for prevention\n* Use a vetted library or framework which has anti-CSRF packages that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. Consider including Spring Security library within your application.\n\n\n## References\n* [Spring Security Docs](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html)\n* [A Guide to CSRF Protection in Spring Security](https://www.baeldung.com/spring-security-csrf)",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "SpringCSRF",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 0,
+                "cwe": [
+                  "CWE-352"
+                ]
+              }
+            },
+            {
+              "id": "java/Sqli",
+              "name": "Sqli",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "help": {
+                "markdown": "## Details\n\nIn an SQL injection attack, the user can submit an SQL query directly to the database, gaining access without providing appropriate credentials. Attackers can then view, export, modify, and delete confidential information; change passwords and other authentication information; and possibly gain access to other systems within the network. This is one of the most commonly exploited categories of vulnerability, but can largely be avoided through good coding practices.\n\n## Best practices for prevention\n* Avoid passing user-entered parameters directly to the SQL server.\n* Avoid using string concatenation to build SQL queries from user-entered parameters.\n* When coding, define SQL code first, then pass in parameters. Use prepared statements with parameterized queries. Examples include `SqlCommand()` in .NET and `bindParam()` in PHP.\n* Use strong typing for all parameters so unexpected user data will be rejected.\n* Where direct user input cannot be avoided for performance reasons, validate input against a very strict allowlist of permitted characters, avoiding special characters such as `? & / < > ; - ' \" \\` and spaces. Use a vendor-supplied escaping routine if possible.\n* Develop your application in an environment and/or using libraries that provide protection against SQL injection.\n* Harden your entire environment around a least-privilege model, ideally with isolated accounts with privileges only for particular tasks.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "Sqli",
+                  "Security",
+                  "SourceServer",
+                  "SourceRequestUrl",
+                  "Taint"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/romainguefveneu/naonedbus/commit/221b7952f2720954617be208a32aa5d9c52fc2ad?diff=split#diff-e8e3d3bc49298718faa0faa152cbe9283b50dceacd56b4a535ceed55209d8757L-1",
+                    "lines": [
+                      {
+                        "line": "queryBuilder.appendWhere(HoraireTable.YEAR + \" = \" + year);\n",
+                        "lineNumber": 88,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "queryBuilder.appendWhere(\" AND \");\n",
+                        "lineNumber": 89,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "queryBuilder.appendWhere(HoraireTable.DAY_OF_YEAR + \" = \" + dayOfYear);\n",
+                        "lineNumber": 90,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "queryBuilder.appendWhere(HoraireTable.JOUR + \" = \");\n",
+                        "lineNumber": 86,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "queryBuilder.appendWhereEscapeString(jour);\n",
+                        "lineNumber": 87,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/apache/incubator-brooklyn/commit/7c2b05e8f5d303c4ca8ddf41951f3469c1dff6d3?diff=split#diff-d4388a2198569fe21fe96a59744ad0eabc692c2cc2a8d400c7b2401030dc3167L-1",
+                    "lines": [
+                      {
+                        "line": "stmt.execute(\"INSERT INTO MESSAGES values (default, '\"+request.getParameter(\"name\")+\r\n",
+                        "lineNumber": 50,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "        \"', '\"+request.getParameter(\"message\")+\"')\");\r\n",
+                        "lineNumber": 51,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "stmt.execute(\"INSERT INTO MESSAGES values (default, '\"+\r\n",
+                        "lineNumber": 50,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        //better escaping and security desired... \r\n",
+                        "lineNumber": 51,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        //this essentially does StringEscapeUtils.escapeSql (either brooklyn.util or apache commons)\r\n",
+                        "lineNumber": 52,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        request.getParameter(\"name\").replaceAll(\"'\", \"''\")+\r\n",
+                        "lineNumber": 53,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        \"', '\"+\r\n",
+                        "lineNumber": 54,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        request.getParameter(\"message\").replaceAll(\"'\", \"''\")+\r\n",
+                        "lineNumber": 55,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        \"')\");\r\n",
+                        "lineNumber": 56,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/GeorgH93/Minepacks/commit/5dcbcc6a058d280df3e3165f0b4b316750494353?diff=split#diff-994252ffcaf61f5b85212f8ce7c7c43707c9141ea00ad8af471b10b776c9a2c2L-1",
+                    "lines": [
+                      {
+                        "line": "rs.next();\n",
+                        "lineNumber": 94,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "stmt.execute(\"ALTER TABLE `backpacks` ADD COLUMN `lastupdate` DATE DEFAULT '\" + rs.getString(1) + \"';\");\n",
+                        "lineNumber": 95,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "stmt.execute(\"ALTER TABLE `backpacks` ADD COLUMN `lastupdate` DATE DEFAULT '2020-04-20';\");\n",
+                        "lineNumber": 93,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 99,
+                "cwe": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "java/WebCookieMissesCallToSetHttpOnly",
+              "name": "WebCookieMissesCallToSetHttpOnly",
+              "shortDescription": {
+                "text": "Sensitive Cookie Without 'HttpOnly' Flag"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nThe `HttpOnly` flag is a simple parameter used when setting a user cookie to ensure that cookies with sensitive session data are visible only to the browser rather than to scripts. This helps prevent cross-site scripting attacks, in which an attacker gains access to sensitive session information and uses this information to trick legitimate web-based applications into disclosing confidential information or accepting illegitimate requests. When developers use the `HttpOnly` flag to set the cookie, they ensure that this sensitive session information is not readable or writable except by the browser (read) and server (write), respectively. While most modern browsers and versions now recognize the HttpOnly flag, some legacy and custom browsers still do not.\n\n## Best practices for prevention\n* Include the `HttpOnly` attribute in the response header when setting cookies on the client side. Be aware, however, that this crucial step provides only partial remediation.\n* Integrate client-side scripts to determine browser version; require browser compatibility or avoid transmitting sensitive data to browsers that do not support `HttpOnly`.\n* Understand and evaluate risks of third-party components or plugins, which may expose cookies.\n* Educate developers in a zero-trust approach, understanding the risks and best practices to prevent cross-site scripting, such as sanitizing all user input for code and special characters.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "WebCookieMissesCallToSetHttpOnly",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/zalando-zmon/zmon-controller/commit/fc1918458bda0f4d049e1f380a39aae3969e8618?diff=split#diff-0f95b5de64d184bccc2c42750a113a7087ffc152968001bb68e8fdd96fe0d4bdL-1",
+                    "lines": [
+                      {
+                        "line": "    cookie = new Cookie(TvTokenService.ZMON_TV, cookieValue);\n",
+                        "lineNumber": 82,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "} else {\n",
+                        "lineNumber": 83,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    cookie.setValue(cookieValue);\n",
+                        "lineNumber": 84,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 85,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setComment(\"ZMON_TV enables access for Team monitors.\");\n",
+                        "lineNumber": 86,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setMaxAge((int) DAYS.toSeconds(365));\n",
+                        "lineNumber": 87,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setPath(\"/\");\n",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setHttpOnly(true);\n",
+                        "lineNumber": 86,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "cookie.setSecure(true);\n",
+                        "lineNumber": 87,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/FudanSELab/train-ticket/commit/18170b962a2bacbb9368eb3488173ecd87e2d1e3?diff=split#diff-0689b8e56a94bb5439af748d67d83e3316cf008b5fe21f60e96df5972e63ef98L-1",
+                    "lines": [
+                      {
+                        "line": "Cookie cookie = new Cookie(name,value);\n",
+                        "lineNumber": 18,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "// against Cross-Site Scripting (XSS) attacks\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "cookie.setHttpOnly(true);\n",
+                        "lineNumber": 20,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/opendigitaleducation/web-utils/commit/e030f73ddf457787624c83e430096e4a0917feed?diff=split#diff-9b38b26d7558304a286b57755ad3fc8665fe6cc0ed082202801da5c484f75119L-1",
+                    "lines": [
+                      {
+                        "line": "Cookie cookie = new DefaultCookie(name, value);\n",
+                        "lineNumber": 89,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setMaxAge(timeout);\n",
+                        "lineNumber": 90,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setSecure(\"https\".equals(Renders.getScheme(request)));\n",
+                        "lineNumber": 91,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setHttpOnly(true);\n",
+                        "lineNumber": 92,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 51,
+                "cwe": [
+                  "CWE-1004"
+                ]
+              }
+            },
+            {
+              "id": "java/WebCookieMissesCallToSetSecure",
+              "name": "WebCookieMissesCallToSetSecure",
+              "shortDescription": {
+                "text": "Sensitive Cookie in HTTPS Session Without 'Secure' Attribute"
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "help": {
+                "markdown": "\n## Details\n\nIn a session hijacking attack, if a cookie containing sensitive data is set without the `secure` attribute, an attacker might be able to intercept that cookie. Once the attacker has this information, they can potentially impersonate a user, accessing confidential data and performing actions that they would not normally be authorized to do. Attackers often gain access to this sensitive cookie data when it is transmitted insecurely in plain text over a standard HTTP session, rather than being encrypted and sent over an HTTPS session. This type of attack is highly preventable by following best practices when setting sensitive session cookies.\n\n## Best practices for prevention\n* Set the `secure` attribute in the response header when setting cookies on the client side, and use a test tool to verify that secure cookie transmission is in place.\n* Always use HTTPS for all login pages and never redirect from HTTP to HTTPS, which leaves secure session data open to interception.\n* Follow other best practices when it comes to session cookies, such as setting the HttpOnly flag and maintaining highly time-limited sessions.\n* Consider implementing browser checks and providing secure data only within a browser that supports tight cookie security.\n* Generate session IDs in a way that is not easily predictable, invalidate sessions upon logout, and never reuse session IDs.\n* Educate developers to use built-in secure session-management functionality within the development environment instead of taking a DIY approach.",
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "java",
+                  "WebCookieMissesCallToSetSecure",
+                  "Security"
+                ],
+                "categories": [
+                  "Security"
+                ],
+                "exampleCommitFixes": [
+                  {
+                    "commitURL": "https://github.com/zalando-zmon/zmon-controller/commit/fc1918458bda0f4d049e1f380a39aae3969e8618?diff=split#diff-0f95b5de64d184bccc2c42750a113a7087ffc152968001bb68e8fdd96fe0d4bdL-1",
+                    "lines": [
+                      {
+                        "line": "    cookie = new Cookie(TvTokenService.ZMON_TV, cookieValue);\n",
+                        "lineNumber": 82,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "} else {\n",
+                        "lineNumber": 83,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    cookie.setValue(cookieValue);\n",
+                        "lineNumber": 84,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "}\n",
+                        "lineNumber": 85,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setComment(\"ZMON_TV enables access for Team monitors.\");\n",
+                        "lineNumber": 86,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setMaxAge((int) DAYS.toSeconds(365));\n",
+                        "lineNumber": 87,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setPath(\"/\");\n",
+                        "lineNumber": 88,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setHttpOnly(true);\n",
+                        "lineNumber": 86,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "cookie.setSecure(true);\n",
+                        "lineNumber": 87,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/OWASP/SecurityShepherd/commit/7d594f425e979270ef1fd5abc7a4ef417b965279?diff=split#diff-7f7bf3403c1dba9f5863c0bd3e5e97fc0fa753f9ad314a314527bc272a8e621dL-1",
+                    "lines": [
+                      {
+                        "line": "Cookie cookie = new Cookie(\"JSESSIONID3\", parameter);\r\n",
+                        "lineNumber": 48,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setSecure(true);\r\n",
+                        "lineNumber": 49,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/zhanghuanhao/NebulaMOOC/commit/079f5ee1cfff85885cc5159c7f61b15ca06d5d96?diff=split#diff-3239ba7a6b599a844d7d3ee214cac6506141673f2c449438c402b63f4fad4707L-1",
+                    "lines": [
+                      {
+                        "line": "Cookie cookie = new Cookie(key, value);\n",
+                        "lineNumber": 42,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setPath(COOKIE_PATH);\n",
+                        "lineNumber": 43,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setMaxAge(-1);  // 表示仅当前浏览器周期内有效\n",
+                        "lineNumber": 44,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setHttpOnly(true);   //设置是否保存在http，即js无法获取\n",
+                        "lineNumber": 45,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "cookie.setSecure(true);\n",
+                        "lineNumber": 46,
+                        "lineChange": "added"
+                      }
+                    ]
+                  }
+                ],
+                "exampleCommitDescriptions": [],
+                "precision": "very-high",
+                "repoDatasetSize": 23,
+                "cwe": [
+                  "CWE-614"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "java/DisablesCSRFProtection",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "CSRF protection is disabled by disable. This allows the attackers to execute requests on a user's behalf.",
+            "markdown": "CSRF protection is disabled by {0}. This allows the attackers to execute requests on a user's behalf.",
+            "arguments": [
+              "[disable](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 50,
+                  "startColumn": 13,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "63d2a27481d4db63cf8c88d91be9992f3bca759078a42d8bcd32952c34f36d8d",
+            "1": "b5099633.0268ef4f.b1578a41.ede9cf8e.f17f544b.2216e4d9.3953228b.b6581a1c.b5099633.0268ef4f.b1578a41.b2ac4de3.f17f544b.2216e4d9.3953228b.b6581a1c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 50,
+                            "startColumn": 13,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 820,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/DisablesCSRFProtection",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "CSRF protection is disabled by disable. This allows the attackers to execute requests on a user's behalf.",
+            "markdown": "CSRF protection is disabled by {0}. This allows the attackers to execute requests on a user's behalf.",
+            "arguments": [
+              "[disable](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 88,
+                  "endLine": 91,
+                  "startColumn": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aa89a743656f6d831cd665547d0a2af2f29ec22664123e7b48ee99a84d3b7bc5",
+            "1": "b5099633.0268ef4f.b1578a41.ede9cf8e.f17f544b.2216e4d9.3953228b.b6581a1c.b5099633.0268ef4f.b1578a41.b2ac4de3.f17f544b.2216e4d9.3953228b.b6581a1c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 88,
+                            "endLine": 91,
+                            "startColumn": 13,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 820,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/DisablesCSRFProtection",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "CSRF protection is disabled by disable. This allows the attackers to execute requests on a user's behalf.",
+            "markdown": "CSRF protection is disabled by {0}. This allows the attackers to execute requests on a user's behalf.",
+            "arguments": [
+              "[disable](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 110,
+                  "endLine": 112,
+                  "startColumn": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7afd54ff3e83cdf7b0a9ef5d121b526f1c14382509cb0fbb83c0da67129a266f",
+            "1": "b5099633.9526148f.b1578a41.5f5e96e0.f17f544b.2216e4d9.3953228b.b6581a1c.b5099633.9526148f.b1578a41.5f5e96e0.f17f544b.2216e4d9.3953228b.b6581a1c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 110,
+                            "endLine": 112,
+                            "startColumn": 13,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 820,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/DisablesCSRFProtection",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "CSRF protection is disabled by disable. This allows the attackers to execute requests on a user's behalf.",
+            "markdown": "CSRF protection is disabled by {0}. This allows the attackers to execute requests on a user's behalf.",
+            "arguments": [
+              "[disable](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 181,
+                  "endLine": 183,
+                  "startColumn": 13,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8efae352a11c2a176b36138a93155fe7f68149136ef4818df2f5688703fe56e3",
+            "1": "b5099633.0268ef4f.b1578a41.ede9cf8e.f17f544b.2216e4d9.3953228b.b6581a1c.b5099633.0268ef4f.b1578a41.b2ac4de3.f17f544b.2216e4d9.3953228b.b6581a1c"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/MultiHttpSecurityConfig.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 181,
+                            "endLine": 183,
+                            "startColumn": 13,
+                            "endColumn": 36
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 820,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/HttpResponseSplitting",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into setHeader and reaches an HTTP header returned to the user. This may allow a malicious input that contain CR/LF to split the http response into two responses and the second response to be controlled by the attacker. This may be used to mount a range of attacks such as cross-site scripting or cache poisoning.",
+            "markdown": "Unsanitized input from {0} {1} into {2} and reaches an HTTP header returned to the user. This may allow a malicious input that contain CR/LF to split the http response into two responses and the second response to be controlled by the attacker. This may be used to mount a range of attacks such as cross-site scripting or cache poisoning.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4)",
+              "[setHeader](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "startColumn": 9,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "9ca68dbd36afb7215128d93be5af413f24bf26a7b31820fcf7faebfe54eabb0a",
+            "1": "54a059af.ed17a1d3.98a11923.6483b32f.6c69ab4e.a4d5031c.6f2d11ad.54d46e25.54a059af.6dfb6a52.a224ef38.e22980a8.6c69ab4e.95df3f17.76a0da3b.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 70
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 113
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 9,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 555,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/OR",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into setHeader, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as input for request redirection. This may result in an Open Redirect vulnerability.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4)",
+              "[setHeader](5)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "startColumn": 9,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "7432ea1ccebd4de2c13d791efcb9b1477c6e5c17e6dfaaf4298a0db68a391535",
+            "1": "54a059af.ed17a1d3.98a11923.6483b32f.6c69ab4e.a4d5031c.6f2d11ad.54d46e25.54a059af.6dfb6a52.a224ef38.e22980a8.6c69ab4e.95df3f17.76a0da3b.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 70
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 40,
+                            "endColumn": 113
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/hotel/rest/HotelController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 9,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 555,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SpringCSRF",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The data parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "markdown": "The {0} parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "arguments": [
+              "[data](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/jwt/JwtAuthController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "endLine": 43,
+                  "startColumn": 34,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6765003ff6411fa648b0b83373d207f892dc4203b68ffe10fa45fe841d09773a",
+            "1": "524d7e3a.a65efb48.a224ef38.c81e2a8c.c0e417a5.0d476878.1a0c7c19.180254b9.524d7e3a.a65efb48.a224ef38.c81e2a8c.c0e417a5.0d476878.1a0c7c19.180254b9"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtAuthController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 34,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 175,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SpringCSRF",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The data parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "markdown": "The {0} parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "arguments": [
+              "[data](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/LoginController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 77,
+                  "endLine": 77,
+                  "startColumn": 34,
+                  "endColumn": 81
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "045b850f8066e4e9ff322b04333c15eb073ffa8a4eeb24f363e4e2cdbbb060af",
+            "1": "bbbd7c96.7f413d6f.fdbc0497.c81e2a8c.f0e1baa5.95df3f17.be55589d.ccaba346.bbbd7c96.7f413d6f.fdbc0497.c81e2a8c.f0e1baa5.95df3f17.be55589d.ccaba346"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/LoginController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 77,
+                            "endLine": 77,
+                            "startColumn": 34,
+                            "endColumn": 81
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 225,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SpringCSRF",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The search parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "markdown": "The {0} parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "arguments": [
+              "[search](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 45,
+                  "startColumn": 34,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "991a56c0ef646acca48d4a364cfd19a7d69ba0d730375f19ed59f22f2a7e7738",
+            "1": "c30223d8.7f413d6f.7439a7ad.5a945db2.c0e417a5.0d476878.1a0c7c19.13c56f84.c30223d8.7f413d6f.7439a7ad.5a945db2.c0e417a5.0d476878.1a0c7c19.13c56f84"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "endLine": 45,
+                            "startColumn": 34,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 225,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SpringCSRF",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The search parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "markdown": "The {0} parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "arguments": [
+              "[search](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/AdminController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 46,
+                  "endLine": 46,
+                  "startColumn": 32,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "db769e188f1a6254fe7d5a80a3c575b731c5d2a7b84a866187d5609f342d0edd",
+            "1": "c30223d8.7f413d6f.7439a7ad.3519ac88.f0e1baa5.0d476878.1dc738e8.413e3065.c30223d8.7f413d6f.7439a7ad.3519ac88.f0e1baa5.0d476878.1dc738e8.413e3065"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 225,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/SpringCSRF",
+          "ruleIndex": 3,
+          "level": "note",
+          "message": {
+            "text": "The search parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "markdown": "The {0} parameter is vulnerable to Cross Site Request Forgery (CSRF) attacks due to not using Spring Security. This could allow an attacker to execute requests on a user's behalf. Consider including Spring Security's CSRF protection within your application.",
+            "arguments": [
+              "[search](0)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/SearchController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "endLine": 37,
+                  "startColumn": 32,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "8cd08509bb17d70026a037585c6445aab43529f293bcacc8904961ddaa0b9798",
+            "1": "c30223d8.7f413d6f.7439a7ad.3519ac88.f0e1baa5.0d476878.1dc738e8.413e3065.c30223d8.7f413d6f.7439a7ad.3519ac88.f0e1baa5.0d476878.1dc738e8.413e3065"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/SearchController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 225,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12)",
+              "[executeQuery](13)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 32,
+                  "endLine": 32,
+                  "startColumn": 34,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "3ed80a205cbfc819eea55fc7fae46880e63abd38020bdead8260296bbc90e7e3",
+            "1": "c30223d8.50508bdd.6de0e8e9.6c52ae28.4a9c8cbc.2f4e1548.e0155f7a.54d46e25.c30223d8.7f413d6f.d1b658f2.e22980a8.94bdb39b.7fda7c5e.4d6870c6.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 30,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 30,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 16,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/basic/BasicAuthItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 32,
+                            "endLine": 32,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 24,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 39,
+                            "startColumn": 32,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 785,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12)",
+              "[executeQuery](13)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 41,
+                  "endLine": 41,
+                  "startColumn": 34,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "c6b7203ba93d4e28fa100c504017d86806d2a24ec8631e5e547b471c0fe5679e",
+            "1": "c30223d8.50508bdd.6de0e8e9.6c52ae28.4a9c8cbc.2f4e1548.e0155f7a.54d46e25.c30223d8.7f413d6f.d1b658f2.e22980a8.94bdb39b.7fda7c5e.4d6870c6.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "endLine": 40,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "endLine": 40,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "endLine": 40,
+                            "startColumn": 16,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "endLine": 41,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 24,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 39,
+                            "startColumn": 32,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 835,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12)",
+              "[executeQuery](13)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 45,
+                  "startColumn": 34,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aeda6f0e96dfb6082dd372e6392c9d9df8b92f569f4e8584d28080e6206e14c3",
+            "1": "c30223d8.ff76257e.076ed6e2.6c52ae28.f6d438cc.2f4e1548.e9688714.54d46e25.c30223d8.4c7f50ea.d1b658f2.e22980a8.f0e1baa5.7fda7c5e.4d6870c6.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 40,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "endLine": 43,
+                            "startColumn": 40,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 16,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtUserController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "endLine": 45,
+                            "startColumn": 64,
+                            "endColumn": 70
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "endLine": 25,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 21,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 21,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 28,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 28,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 20,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 35,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 36,
+                            "startColumn": 28,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 785,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the request URL flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[the request URL](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12)",
+              "[executeQuery](13)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 32,
+                  "endLine": 32,
+                  "startColumn": 34,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "0e15eab02e65eb9287c0e08a871c0756bc115a3902abc18e77ded752a3f52c87",
+            "1": "c30223d8.50508bdd.6de0e8e9.6c52ae28.4a9c8cbc.2f4e1548.e0155f7a.54d46e25.c30223d8.7f413d6f.d1b658f2.e22980a8.94bdb39b.7fda7c5e.4d6870c6.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 30,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 30,
+                            "startColumn": 34,
+                            "endColumn": 67
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 36,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 29,
+                            "endColumn": 35
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 16,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/token/TokenItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 32,
+                            "endLine": 32,
+                            "startColumn": 55,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 24,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 39,
+                            "startColumn": 32,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 785,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9)",
+              "[executeQuery](10)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 46,
+                  "endLine": 46,
+                  "startColumn": 72,
+                  "endColumn": 92
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f2aacb7bf174ae7112a2d51003992a1d78bb6ceffdce48706e1c33bb0de76dd3",
+            "1": "c30223d8.50508bdd.7439a7ad.5a945db2.1805ca02.0d476878.1a0c7c19.5709d172.c30223d8.288c23ff.7439a7ad.de031890.c0e417a5.7fda7c5e.1a0c7c19.01b1844a"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "endLine": 45,
+                            "startColumn": 34,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "endLine": 45,
+                            "startColumn": 34,
+                            "endColumn": 60
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/api/jwt/JwtItemController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 93,
+                            "endColumn": 99
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 24,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 39,
+                            "startColumn": 32,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 835,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9)",
+              "[executeQuery](10)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/AdminController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 47,
+                  "endLine": 47,
+                  "startColumn": 28,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "f783bd9f0c807f1f42ba042dd45ab25e5016b808cbe3b43b25802e2df09655ab",
+            "1": "c30223d8.4c7f50ea.7439a7ad.5b4081de.1805ca02.0d476878.1dc738e8.f7bfaad9.e1d7cd7c.ee44fbab.7439a7ad.de031890.f0e1baa5.d649e79f.1dc738e8.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "endLine": 46,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "endLine": 47,
+                            "startColumn": 53,
+                            "endColumn": 59
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "endLine": 25,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 21,
+                            "endColumn": 27
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "endLine": 31,
+                            "startColumn": 21,
+                            "endColumn": 41
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 28,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 28,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "endLine": 31,
+                            "startColumn": 20,
+                            "endColumn": 50
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "endLine": 36,
+                            "startColumn": 35,
+                            "endColumn": 40
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/UserSearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 36,
+                            "startColumn": 28,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 835,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/Sqli",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from an HTTP parameter flows into executeQuery, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used in an SQL query. This may result in an SQL Injection vulnerability.",
+            "arguments": [
+              "[an HTTP parameter](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9)",
+              "[executeQuery](10)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/SearchController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "startColumn": 28,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "e0c233f6bd1933e799c3857e78c37accc4e0e9d49eead2aeecc2f228d2dbbb1b",
+            "1": "c30223d8.c55d7b08.7439a7ad.5b4081de.1805ca02.0d476878.1dc738e8.cd833d45.e1d7cd7c.288c23ff.7439a7ad.de031890.f0e1baa5.ce109560.1dc738e8.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/SearchController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/SearchController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 37,
+                            "startColumn": 32,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/SearchController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "startColumn": 49,
+                            "endColumn": 55
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "endLine": 26,
+                            "startColumn": 30,
+                            "endColumn": 43
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 31
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "endLine": 34,
+                            "startColumn": 25,
+                            "endColumn": 45
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 32,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "endLine": 34,
+                            "startColumn": 24,
+                            "endColumn": 54
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "endLine": 39,
+                            "startColumn": 39,
+                            "endColumn": 44
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/service/SearchService.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 37,
+                            "endLine": 39,
+                            "startColumn": 32,
+                            "endColumn": 38
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 835,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/WebCookieMissesCallToSetHttpOnly",
+          "ruleIndex": 5,
+          "level": "note",
+          "message": {
+            "text": "Cookie misses a call to setHttpOnly. Set the HttpOnly flag to true to protect the cookie from possible malicious code on client side.",
+            "markdown": "Cookie misses a call to setHttpOnly. Set the HttpOnly flag to true to protect the cookie from possible malicious code on client side.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/LoginController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 57,
+                  "endLine": 57,
+                  "startColumn": 28,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "25067c843b838d3423031734b3c80893293f42817d04cd30dc299a7501965ebd",
+            "1": "ac4e7c8b.c4c6285f.a0b02680.6c52ae28.6bacdef5.d61778f5.0fc8c3e4.4a86081e.19689298.c5d10016.a0b02680.2f51736c.f0e1baa5.95df3f17.d4d3e1d5.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/LoginController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "endLine": 57,
+                            "startColumn": 28,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 405,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/WebCookieMissesCallToSetSecure",
+          "ruleIndex": 6,
+          "level": "note",
+          "message": {
+            "text": "Cookie misses a call to setSecure. Set the Secure flag to true to protect the cookie from man-in-the-middle attacks.",
+            "markdown": "Cookie misses a call to setSecure. Set the Secure flag to true to protect the cookie from man-in-the-middle attacks.",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/hawk/controller/LoginController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 57,
+                  "endLine": 57,
+                  "startColumn": 28,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "6a142bac61ce0b175e7c2bcb44aede87d983fc43c9ef1950e1ee4426e1be522a",
+            "1": "ac4e7c8b.c4c6285f.a0b02680.6c52ae28.6bacdef5.d61778f5.0fc8c3e4.4a86081e.19689298.1cbd3ff4.a0b02680.2f51736c.eaf2f139.f940a352.0fc8c3e4.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/hawk/controller/LoginController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "endLine": 57,
+                            "startColumn": 28,
+                            "endColumn": 34
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 405,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        }
+      ],
+      "properties": {
+        "coverage": [
+          {
+            "isSupported": true,
+            "lang": "HTML",
+            "files": 17,
+            "type": "SUPPORTED"
+          },
+          {
+            "isSupported": true,
+            "lang": "Java",
+            "files": 50,
+            "type": "SUPPORTED"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2404 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "grype",
+          "version": "0.74.4",
+          "informationUri": "https://github.com/anchore/grype",
+          "rules": [
+            {
+              "id": "CVE-2023-39326-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2023-39326 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body. A malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request. Chunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2023-39326\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.20.12,1.21.5\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2023-39326](https://nvd.nist.gov/vuln/detail/CVE-2023-39326)",
+                "markdown": "**Vulnerability CVE-2023-39326**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.20.12,1.21.5  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2023-39326](https://nvd.nist.gov/vuln/detail/CVE-2023-39326)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "CVE-2023-45285-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2023-45285 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Using go get to fetch a module with the \".git\" suffix may unexpectedly fallback to the insecure \"git://\" protocol if the module is unavailable via the secure \"https://\" and \"git+ssh://\" protocols, even if GOINSECURE is not set for said module. This only affects users who are not using the module proxy and are fetching modules directly (i.e. GOPROXY=off)."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2023-45285\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.20.12,1.21.5\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2023-45285](https://nvd.nist.gov/vuln/detail/CVE-2023-45285)",
+                "markdown": "**Vulnerability CVE-2023-45285**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.20.12,1.21.5  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2023-45285](https://nvd.nist.gov/vuln/detail/CVE-2023-45285)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2023-45288-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2023-45288 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames. Maintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed. This permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. The fix sets a limit on the amount of excess header frames we will process before closing a connection."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2023-45288\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.9,1.22.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2023-45288](https://nvd.nist.gov/vuln/detail/CVE-2023-45288)",
+                "markdown": "**Vulnerability CVE-2023-45288**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.21.9,1.22.2  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2023-45288](https://nvd.nist.gov/vuln/detail/CVE-2023-45288)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2023-45289-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2023-45289 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "When following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not. A maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2023-45289\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.8,1.22.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2023-45289](https://nvd.nist.gov/vuln/detail/CVE-2023-45289)",
+                "markdown": "**Vulnerability CVE-2023-45289**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.8,1.22.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2023-45289](https://nvd.nist.gov/vuln/detail/CVE-2023-45289)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.3"
+              }
+            },
+            {
+              "id": "CVE-2023-45290-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2023-45290 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion. With fix, the ParseMultipartForm function now correctly limits the maximum size of form lines."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2023-45290\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.8,1.22.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2023-45290](https://nvd.nist.gov/vuln/detail/CVE-2023-45290)",
+                "markdown": "**Vulnerability CVE-2023-45290**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.8,1.22.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2023-45290](https://nvd.nist.gov/vuln/detail/CVE-2023-45290)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.5"
+              }
+            },
+            {
+              "id": "CVE-2024-24783-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24783 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic. This affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24783\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.8,1.22.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24783](https://nvd.nist.gov/vuln/detail/CVE-2024-24783)",
+                "markdown": "**Vulnerability CVE-2024-24783**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.8,1.22.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24783](https://nvd.nist.gov/vuln/detail/CVE-2024-24783)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.9"
+              }
+            },
+            {
+              "id": "CVE-2024-24784-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24784 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24784\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.8,1.22.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24784](https://nvd.nist.gov/vuln/detail/CVE-2024-24784)",
+                "markdown": "**Vulnerability CVE-2024-24784**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.21.8,1.22.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24784](https://nvd.nist.gov/vuln/detail/CVE-2024-24784)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2024-24785-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24785 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "If errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24785\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.8,1.22.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24785](https://nvd.nist.gov/vuln/detail/CVE-2024-24785)",
+                "markdown": "**Vulnerability CVE-2024-24785**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.8,1.22.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24785](https://nvd.nist.gov/vuln/detail/CVE-2024-24785)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.4"
+              }
+            },
+            {
+              "id": "CVE-2024-24787-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24787 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "On Darwin, building a Go module which contains CGO can trigger arbitrary code execution when using the Apple version of ld, due to usage of the -lto_library flag in a \"#cgo LDFLAGS\" directive."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24787\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.10,1.22.3\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24787](https://nvd.nist.gov/vuln/detail/CVE-2024-24787)",
+                "markdown": "**Vulnerability CVE-2024-24787**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.10,1.22.3  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24787](https://nvd.nist.gov/vuln/detail/CVE-2024-24787)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.4"
+              }
+            },
+            {
+              "id": "CVE-2024-24789-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24789 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24789\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.11,1.22.4\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24789](https://nvd.nist.gov/vuln/detail/CVE-2024-24789)",
+                "markdown": "**Vulnerability CVE-2024-24789**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.21.11,1.22.4  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24789](https://nvd.nist.gov/vuln/detail/CVE-2024-24789)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "CVE-2024-24790-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24790 critical vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24790\nSeverity: critical\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.11,1.22.4\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24790](https://nvd.nist.gov/vuln/detail/CVE-2024-24790)",
+                "markdown": "**Vulnerability CVE-2024-24790**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | stdlib  | go1.21.3  | 1.21.11,1.22.4  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24790](https://nvd.nist.gov/vuln/detail/CVE-2024-24790)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.8"
+              }
+            },
+            {
+              "id": "CVE-2024-24791-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-24791 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail. An attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-24791\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.21.12,1.22.5\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-24791](https://nvd.nist.gov/vuln/detail/CVE-2024-24791)",
+                "markdown": "**Vulnerability CVE-2024-24791**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.21.12,1.22.5  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-24791](https://nvd.nist.gov/vuln/detail/CVE-2024-24791)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2024-34155-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-34155 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Calling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-34155\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.7,1.23.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-34155](https://nvd.nist.gov/vuln/detail/CVE-2024-34155)",
+                "markdown": "**Vulnerability CVE-2024-34155**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.22.7,1.23.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-34155](https://nvd.nist.gov/vuln/detail/CVE-2024-34155)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.3"
+              }
+            },
+            {
+              "id": "CVE-2024-34156-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-34156 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-34156\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.7,1.23.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-34156](https://nvd.nist.gov/vuln/detail/CVE-2024-34156)",
+                "markdown": "**Vulnerability CVE-2024-34156**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.22.7,1.23.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-34156](https://nvd.nist.gov/vuln/detail/CVE-2024-34156)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2024-34158-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-34158 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-34158\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.7,1.23.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-34158](https://nvd.nist.gov/vuln/detail/CVE-2024-34158)",
+                "markdown": "**Vulnerability CVE-2024-34158**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.22.7,1.23.1  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-34158](https://nvd.nist.gov/vuln/detail/CVE-2024-34158)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2024-45336-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-45336 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com. In the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-45336\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.11,1.23.5,1.24.0-rc.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-45336](https://nvd.nist.gov/vuln/detail/CVE-2024-45336)",
+                "markdown": "**Vulnerability CVE-2024-45336**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.22.11,1.23.5,1.24.0-rc.2  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-45336](https://nvd.nist.gov/vuln/detail/CVE-2024-45336)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.1"
+              }
+            },
+            {
+              "id": "CVE-2024-45341-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-45341 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain. Certificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-45341\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.11,1.23.5,1.24.0-rc.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2024-45341](https://nvd.nist.gov/vuln/detail/CVE-2024-45341)",
+                "markdown": "**Vulnerability CVE-2024-45341**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.22.11,1.23.5,1.24.0-rc.2  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2024-45341](https://nvd.nist.gov/vuln/detail/CVE-2024-45341)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.1"
+              }
+            },
+            {
+              "id": "CVE-2025-0913-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-0913 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-0913\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.23.10,1.24.4\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-0913](https://nvd.nist.gov/vuln/detail/CVE-2025-0913)",
+                "markdown": "**Vulnerability CVE-2025-0913**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.23.10,1.24.4  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-0913](https://nvd.nist.gov/vuln/detail/CVE-2025-0913)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "CVE-2025-22866-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-22866 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-22866\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.22.12,1.23.6,1.24.0-rc.3\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-22866](https://nvd.nist.gov/vuln/detail/CVE-2025-22866)",
+                "markdown": "**Vulnerability CVE-2025-22866**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.22.12,1.23.6,1.24.0-rc.3  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-22866](https://nvd.nist.gov/vuln/detail/CVE-2025-22866)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.0"
+              }
+            },
+            {
+              "id": "CVE-2025-22871-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-22871 critical vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-22871\nSeverity: critical\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.23.8,1.24.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-22871](https://nvd.nist.gov/vuln/detail/CVE-2025-22871)",
+                "markdown": "**Vulnerability CVE-2025-22871**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | stdlib  | go1.21.3  | 1.23.8,1.24.2  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-22871](https://nvd.nist.gov/vuln/detail/CVE-2025-22871)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.1"
+              }
+            },
+            {
+              "id": "CVE-2025-4673-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-4673 medium vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-4673\nSeverity: medium\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.23.10,1.24.4\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-4673](https://nvd.nist.gov/vuln/detail/CVE-2025-4673)",
+                "markdown": "**Vulnerability CVE-2025-4673**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | stdlib  | go1.21.3  | 1.23.10,1.24.4  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-4673](https://nvd.nist.gov/vuln/detail/CVE-2025-4673)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.8"
+              }
+            },
+            {
+              "id": "CVE-2025-4674-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-4674 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "The go command may execute unexpected commands when operating in untrusted VCS repositories. This occurs when possibly dangerous VCS configuration is present in repositories. This can happen when a repository was fetched via one VCS (e.g. Git), but contains metadata for another VCS (e.g. Mercurial). Modules which are retrieved using the go command line, i.e. via \"go get\", are not affected."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-4674\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.23.11,1.24.5\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-4674](https://nvd.nist.gov/vuln/detail/CVE-2025-4674)",
+                "markdown": "**Vulnerability CVE-2025-4674**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.23.11,1.24.5  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-4674](https://nvd.nist.gov/vuln/detail/CVE-2025-4674)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.6"
+              }
+            },
+            {
+              "id": "CVE-2025-47907-stdlib",
+              "name": "GoModuleMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-47907 high vulnerability for stdlib package"
+              },
+              "fullDescription": {
+                "text": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-47907\nSeverity: high\nPackage: stdlib\nVersion: go1.21.3\nFix Version: 1.23.12,1.24.6\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: nvd:cpe\nLink: [CVE-2025-47907](https://nvd.nist.gov/vuln/detail/CVE-2025-47907)",
+                "markdown": "**Vulnerability CVE-2025-47907**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | stdlib  | go1.21.3  | 1.23.12,1.24.6  | go-module  | /ko-app/reports-controller  | nvd:cpe  | [CVE-2025-47907](https://nvd.nist.gov/vuln/detail/CVE-2025-47907)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.0"
+              }
+            },
+            {
+              "id": "GHSA-29wx-vh33-7x7r-github.com/golang-jwt/jwt/v4",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-29wx-vh33-7x7r low vulnerability for github.com/golang-jwt/jwt/v4 package"
+              },
+              "fullDescription": {
+                "text": "Bad documentation of error handling in ParseWithClaims can lead to potentially dangerous situations"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-29wx-vh33-7x7r\nSeverity: low\nPackage: github.com/golang-jwt/jwt/v4\nVersion: v4.5.0\nFix Version: 4.5.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-29wx-vh33-7x7r](https://github.com/advisories/GHSA-29wx-vh33-7x7r)",
+                "markdown": "**Vulnerability GHSA-29wx-vh33-7x7r**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | github.com/golang-jwt/jwt/v4  | v4.5.0  | 4.5.1  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-29wx-vh33-7x7r](https://github.com/advisories/GHSA-29wx-vh33-7x7r)  |\n"
+              },
+              "properties": {
+                "security-severity": "3.1"
+              }
+            },
+            {
+              "id": "GHSA-2c7c-3mj9-8fqh-github.com/go-jose/go-jose/v3",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-2c7c-3mj9-8fqh medium vulnerability for github.com/go-jose/go-jose/v3 package"
+              },
+              "fullDescription": {
+                "text": "Decryption of malicious PBES2 JWE objects can consume unbounded system resources"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-2c7c-3mj9-8fqh\nSeverity: medium\nPackage: github.com/go-jose/go-jose/v3\nVersion: v3.0.0\nFix Version: 3.0.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-2c7c-3mj9-8fqh](https://github.com/advisories/GHSA-2c7c-3mj9-8fqh)",
+                "markdown": "**Vulnerability GHSA-2c7c-3mj9-8fqh**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/go-jose/go-jose/v3  | v3.0.0  | 3.0.1  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-2c7c-3mj9-8fqh](https://github.com/advisories/GHSA-2c7c-3mj9-8fqh)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.0"
+              }
+            },
+            {
+              "id": "GHSA-2h5h-59f5-c5x9-github.com/sigstore/rekor",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-2h5h-59f5-c5x9 high vulnerability for github.com/sigstore/rekor package"
+              },
+              "fullDescription": {
+                "text": "Rekor's compressed archives can result in OOM conditions"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-2h5h-59f5-c5x9\nSeverity: high\nPackage: github.com/sigstore/rekor\nVersion: v1.0.1\nFix Version: 1.1.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-2h5h-59f5-c5x9](https://github.com/advisories/GHSA-2h5h-59f5-c5x9)",
+                "markdown": "**Vulnerability GHSA-2h5h-59f5-c5x9**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | github.com/sigstore/rekor  | v1.0.1  | 1.1.1  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-2h5h-59f5-c5x9](https://github.com/advisories/GHSA-2h5h-59f5-c5x9)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-2x5j-vhc8-9cwm-github.com/cloudflare/circl",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-2x5j-vhc8-9cwm low vulnerability for github.com/cloudflare/circl package"
+              },
+              "fullDescription": {
+                "text": "CIRCL-Fourq: Missing and wrong validation can lead to incorrect results"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-2x5j-vhc8-9cwm\nSeverity: low\nPackage: github.com/cloudflare/circl\nVersion: v1.3.3\nFix Version: 1.6.1\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-2x5j-vhc8-9cwm](https://github.com/advisories/GHSA-2x5j-vhc8-9cwm)",
+                "markdown": "**Vulnerability GHSA-2x5j-vhc8-9cwm**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | github.com/cloudflare/circl  | v1.3.3  | 1.6.1  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-2x5j-vhc8-9cwm](https://github.com/advisories/GHSA-2x5j-vhc8-9cwm)  |\n"
+              },
+              "properties": {
+                "security-severity": "3.7"
+              }
+            },
+            {
+              "id": "GHSA-45x7-px36-x8w8-golang.org/x/crypto",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-45x7-px36-x8w8 medium vulnerability for golang.org/x/crypto package"
+              },
+              "fullDescription": {
+                "text": "Prefix Truncation Attack against ChaCha20-Poly1305 and Encrypt-then-MAC aka Terrapin"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-45x7-px36-x8w8\nSeverity: medium\nPackage: golang.org/x/crypto\nVersion: v0.14.0\nFix Version: 0.17.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-45x7-px36-x8w8](https://github.com/advisories/GHSA-45x7-px36-x8w8)",
+                "markdown": "**Vulnerability GHSA-45x7-px36-x8w8**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | golang.org/x/crypto  | v0.14.0  | 0.17.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-45x7-px36-x8w8](https://github.com/advisories/GHSA-45x7-px36-x8w8)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.9"
+              }
+            },
+            {
+              "id": "GHSA-4v7x-pqxf-cx7m-golang.org/x/net",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-4v7x-pqxf-cx7m medium vulnerability for golang.org/x/net package"
+              },
+              "fullDescription": {
+                "text": "net/http, x/net/http2: close connections when receiving too many headers"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-4v7x-pqxf-cx7m\nSeverity: medium\nPackage: golang.org/x/net\nVersion: v0.17.0\nFix Version: 0.23.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-4v7x-pqxf-cx7m](https://github.com/advisories/GHSA-4v7x-pqxf-cx7m)",
+                "markdown": "**Vulnerability GHSA-4v7x-pqxf-cx7m**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | golang.org/x/net  | v0.17.0  | 0.23.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-4v7x-pqxf-cx7m](https://github.com/advisories/GHSA-4v7x-pqxf-cx7m)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "GHSA-4vq8-7jfc-9cvp-github.com/docker/docker",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-4vq8-7jfc-9cvp low vulnerability for github.com/docker/docker package"
+              },
+              "fullDescription": {
+                "text": "Moby firewalld reload removes bridge network isolation"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-4vq8-7jfc-9cvp\nSeverity: low\nPackage: github.com/docker/docker\nVersion: v24.0.7+incompatible\nFix Version: \nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-4vq8-7jfc-9cvp](https://github.com/advisories/GHSA-4vq8-7jfc-9cvp)",
+                "markdown": "**Vulnerability GHSA-4vq8-7jfc-9cvp**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | github.com/docker/docker  | v24.0.7+incompatible  |   | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-4vq8-7jfc-9cvp](https://github.com/advisories/GHSA-4vq8-7jfc-9cvp)  |\n"
+              },
+              "properties": {
+                "security-severity": "3.3"
+              }
+            },
+            {
+              "id": "GHSA-6m8w-jc87-6cr7-github.com/open-policy-agent/opa",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-6m8w-jc87-6cr7 high vulnerability for github.com/open-policy-agent/opa package"
+              },
+              "fullDescription": {
+                "text": "OPA server Data API HTTP path injection of Rego"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-6m8w-jc87-6cr7\nSeverity: high\nPackage: github.com/open-policy-agent/opa\nVersion: v0.51.0\nFix Version: 1.4.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-6m8w-jc87-6cr7](https://github.com/advisories/GHSA-6m8w-jc87-6cr7)",
+                "markdown": "**Vulnerability GHSA-6m8w-jc87-6cr7**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | github.com/open-policy-agent/opa  | v0.51.0  | 1.4.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-6m8w-jc87-6cr7](https://github.com/advisories/GHSA-6m8w-jc87-6cr7)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.4"
+              }
+            },
+            {
+              "id": "GHSA-6v2p-p543-phr9-golang.org/x/oauth2",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-6v2p-p543-phr9 high vulnerability for golang.org/x/oauth2 package"
+              },
+              "fullDescription": {
+                "text": "golang.org/x/oauth2 Improper Validation of Syntactic Correctness of Input vulnerability"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-6v2p-p543-phr9\nSeverity: high\nPackage: golang.org/x/oauth2\nVersion: v0.6.0\nFix Version: 0.27.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-6v2p-p543-phr9](https://github.com/advisories/GHSA-6v2p-p543-phr9)",
+                "markdown": "**Vulnerability GHSA-6v2p-p543-phr9**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | golang.org/x/oauth2  | v0.6.0  | 0.27.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-6v2p-p543-phr9](https://github.com/advisories/GHSA-6v2p-p543-phr9)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-88jx-383q-w4qc-github.com/sigstore/cosign",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-88jx-383q-w4qc medium vulnerability for github.com/sigstore/cosign package"
+              },
+              "fullDescription": {
+                "text": "Cosign malicious attachments can cause system-wide denial of service"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-88jx-383q-w4qc\nSeverity: medium\nPackage: github.com/sigstore/cosign\nVersion: v1.13.1\nFix Version: \nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-88jx-383q-w4qc](https://github.com/advisories/GHSA-88jx-383q-w4qc)",
+                "markdown": "**Vulnerability GHSA-88jx-383q-w4qc**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/sigstore/cosign  | v1.13.1  |   | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-88jx-383q-w4qc](https://github.com/advisories/GHSA-88jx-383q-w4qc)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.2"
+              }
+            },
+            {
+              "id": "GHSA-8r3f-844c-mc37-google.golang.org/protobuf",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-8r3f-844c-mc37 medium vulnerability for google.golang.org/protobuf package"
+              },
+              "fullDescription": {
+                "text": "Golang protojson.Unmarshal function infinite loop when unmarshaling certain forms of invalid JSON"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-8r3f-844c-mc37\nSeverity: medium\nPackage: google.golang.org/protobuf\nVersion: v1.30.0\nFix Version: 1.33.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-8r3f-844c-mc37](https://github.com/advisories/GHSA-8r3f-844c-mc37)",
+                "markdown": "**Vulnerability GHSA-8r3f-844c-mc37**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | google.golang.org/protobuf  | v1.30.0  | 1.33.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-8r3f-844c-mc37](https://github.com/advisories/GHSA-8r3f-844c-mc37)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-95pr-fxf5-86gv-github.com/sigstore/cosign",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-95pr-fxf5-86gv medium vulnerability for github.com/sigstore/cosign package"
+              },
+              "fullDescription": {
+                "text": "Cosign malicious artifacts can cause machine-wide DoS"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-95pr-fxf5-86gv\nSeverity: medium\nPackage: github.com/sigstore/cosign\nVersion: v1.13.1\nFix Version: \nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-95pr-fxf5-86gv](https://github.com/advisories/GHSA-95pr-fxf5-86gv)",
+                "markdown": "**Vulnerability GHSA-95pr-fxf5-86gv**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/sigstore/cosign  | v1.13.1  |   | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-95pr-fxf5-86gv](https://github.com/advisories/GHSA-95pr-fxf5-86gv)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.2"
+              }
+            },
+            {
+              "id": "GHSA-9763-4f94-gfch-github.com/cloudflare/circl",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-9763-4f94-gfch high vulnerability for github.com/cloudflare/circl package"
+              },
+              "fullDescription": {
+                "text": "CIRCL's Kyber: timing side-channel (kyberslash2)"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-9763-4f94-gfch\nSeverity: high\nPackage: github.com/cloudflare/circl\nVersion: v1.3.3\nFix Version: 1.3.7\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-9763-4f94-gfch](https://github.com/advisories/GHSA-9763-4f94-gfch)",
+                "markdown": "**Vulnerability GHSA-9763-4f94-gfch**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | github.com/cloudflare/circl  | v1.3.3  | 1.3.7  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-9763-4f94-gfch](https://github.com/advisories/GHSA-9763-4f94-gfch)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.0"
+              }
+            },
+            {
+              "id": "GHSA-c5q2-7r4c-mv6g-github.com/go-jose/go-jose/v3",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-c5q2-7r4c-mv6g medium vulnerability for github.com/go-jose/go-jose/v3 package"
+              },
+              "fullDescription": {
+                "text": "Go JOSE vulnerable to Improper Handling of Highly Compressed Data (Data Amplification)"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-c5q2-7r4c-mv6g\nSeverity: medium\nPackage: github.com/go-jose/go-jose/v3\nVersion: v3.0.0\nFix Version: 3.0.3\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)",
+                "markdown": "**Vulnerability GHSA-c5q2-7r4c-mv6g**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/go-jose/go-jose/v3  | v3.0.0  | 3.0.3  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.3"
+              }
+            },
+            {
+              "id": "GHSA-c5q2-7r4c-mv6g-gopkg.in/go-jose/go-jose.v2",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-c5q2-7r4c-mv6g medium vulnerability for gopkg.in/go-jose/go-jose.v2 package"
+              },
+              "fullDescription": {
+                "text": "Go JOSE vulnerable to Improper Handling of Highly Compressed Data (Data Amplification)"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-c5q2-7r4c-mv6g\nSeverity: medium\nPackage: gopkg.in/go-jose/go-jose.v2\nVersion: v2.6.1\nFix Version: 2.6.3\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)",
+                "markdown": "**Vulnerability GHSA-c5q2-7r4c-mv6g**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | gopkg.in/go-jose/go-jose.v2  | v2.6.1  | 2.6.3  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.3"
+              }
+            },
+            {
+              "id": "GHSA-c5q2-7r4c-mv6g-gopkg.in/square/go-jose.v2",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-c5q2-7r4c-mv6g medium vulnerability for gopkg.in/square/go-jose.v2 package"
+              },
+              "fullDescription": {
+                "text": "Go JOSE vulnerable to Improper Handling of Highly Compressed Data (Data Amplification)"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-c5q2-7r4c-mv6g\nSeverity: medium\nPackage: gopkg.in/square/go-jose.v2\nVersion: v2.6.0\nFix Version: \nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)",
+                "markdown": "**Vulnerability GHSA-c5q2-7r4c-mv6g**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | gopkg.in/square/go-jose.v2  | v2.6.0  |   | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-c5q2-7r4c-mv6g](https://github.com/advisories/GHSA-c5q2-7r4c-mv6g)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.3"
+              }
+            },
+            {
+              "id": "GHSA-c6gw-w398-hv78-github.com/go-jose/go-jose/v3",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-c6gw-w398-hv78 medium vulnerability for github.com/go-jose/go-jose/v3 package"
+              },
+              "fullDescription": {
+                "text": "DoS in go-jose Parsing"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-c6gw-w398-hv78\nSeverity: medium\nPackage: github.com/go-jose/go-jose/v3\nVersion: v3.0.0\nFix Version: 3.0.4\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-c6gw-w398-hv78](https://github.com/advisories/GHSA-c6gw-w398-hv78)",
+                "markdown": "**Vulnerability GHSA-c6gw-w398-hv78**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/go-jose/go-jose/v3  | v3.0.0  | 3.0.4  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-c6gw-w398-hv78](https://github.com/advisories/GHSA-c6gw-w398-hv78)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.6"
+              }
+            },
+            {
+              "id": "GHSA-c77r-fh37-x2px-github.com/open-policy-agent/opa",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-c77r-fh37-x2px medium vulnerability for github.com/open-policy-agent/opa package"
+              },
+              "fullDescription": {
+                "text": "OPA for Windows has an SMB force-authentication vulnerability"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-c77r-fh37-x2px\nSeverity: medium\nPackage: github.com/open-policy-agent/opa\nVersion: v0.51.0\nFix Version: 0.68.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-c77r-fh37-x2px](https://github.com/advisories/GHSA-c77r-fh37-x2px)",
+                "markdown": "**Vulnerability GHSA-c77r-fh37-x2px**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/open-policy-agent/opa  | v0.51.0  | 0.68.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-c77r-fh37-x2px](https://github.com/advisories/GHSA-c77r-fh37-x2px)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.1"
+              }
+            },
+            {
+              "id": "GHSA-frqx-jfcm-6jjr-github.com/sigstore/rekor",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-frqx-jfcm-6jjr medium vulnerability for github.com/sigstore/rekor package"
+              },
+              "fullDescription": {
+                "text": "malformed proposed intoto entries can cause a panic"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-frqx-jfcm-6jjr\nSeverity: medium\nPackage: github.com/sigstore/rekor\nVersion: v1.0.1\nFix Version: 1.2.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-frqx-jfcm-6jjr](https://github.com/advisories/GHSA-frqx-jfcm-6jjr)",
+                "markdown": "**Vulnerability GHSA-frqx-jfcm-6jjr**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/sigstore/rekor  | v1.0.1  | 1.2.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-frqx-jfcm-6jjr](https://github.com/advisories/GHSA-frqx-jfcm-6jjr)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "GHSA-hcg3-q754-cr77-golang.org/x/crypto",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-hcg3-q754-cr77 high vulnerability for golang.org/x/crypto package"
+              },
+              "fullDescription": {
+                "text": "golang.org/x/crypto Vulnerable to Denial of Service (DoS) via Slow or Incomplete Key Exchange"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-hcg3-q754-cr77\nSeverity: high\nPackage: golang.org/x/crypto\nVersion: v0.14.0\nFix Version: 0.35.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-hcg3-q754-cr77](https://github.com/advisories/GHSA-hcg3-q754-cr77)",
+                "markdown": "**Vulnerability GHSA-hcg3-q754-cr77**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | golang.org/x/crypto  | v0.14.0  | 0.35.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-hcg3-q754-cr77](https://github.com/advisories/GHSA-hcg3-q754-cr77)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-m425-mq94-257g-google.golang.org/grpc",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-m425-mq94-257g high vulnerability for google.golang.org/grpc package"
+              },
+              "fullDescription": {
+                "text": "gRPC-Go HTTP/2 Rapid Reset vulnerability"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-m425-mq94-257g\nSeverity: high\nPackage: google.golang.org/grpc\nVersion: v1.54.0\nFix Version: 1.56.3\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-m425-mq94-257g](https://github.com/advisories/GHSA-m425-mq94-257g)",
+                "markdown": "**Vulnerability GHSA-m425-mq94-257g**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | google.golang.org/grpc  | v1.54.0  | 1.56.3  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-m425-mq94-257g](https://github.com/advisories/GHSA-m425-mq94-257g)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-mh63-6h87-95cp-github.com/golang-jwt/jwt/v4",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-mh63-6h87-95cp high vulnerability for github.com/golang-jwt/jwt/v4 package"
+              },
+              "fullDescription": {
+                "text": "jwt-go allows excessive memory allocation during header parsing"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-mh63-6h87-95cp\nSeverity: high\nPackage: github.com/golang-jwt/jwt/v4\nVersion: v4.5.0\nFix Version: 4.5.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-mh63-6h87-95cp](https://github.com/advisories/GHSA-mh63-6h87-95cp)",
+                "markdown": "**Vulnerability GHSA-mh63-6h87-95cp**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | github.com/golang-jwt/jwt/v4  | v4.5.0  | 4.5.2  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-mh63-6h87-95cp](https://github.com/advisories/GHSA-mh63-6h87-95cp)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-qxp5-gwg8-xv66-golang.org/x/net",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-qxp5-gwg8-xv66 medium vulnerability for golang.org/x/net package"
+              },
+              "fullDescription": {
+                "text": "HTTP Proxy bypass using IPv6 Zone IDs in golang.org/x/net"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-qxp5-gwg8-xv66\nSeverity: medium\nPackage: golang.org/x/net\nVersion: v0.17.0\nFix Version: 0.36.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-qxp5-gwg8-xv66](https://github.com/advisories/GHSA-qxp5-gwg8-xv66)",
+                "markdown": "**Vulnerability GHSA-qxp5-gwg8-xv66**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | golang.org/x/net  | v0.17.0  | 0.36.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-qxp5-gwg8-xv66](https://github.com/advisories/GHSA-qxp5-gwg8-xv66)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.4"
+              }
+            },
+            {
+              "id": "GHSA-rcjv-mgp8-qvmr-go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-rcjv-mgp8-qvmr high vulnerability for go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp package"
+              },
+              "fullDescription": {
+                "text": "OpenTelemetry-Go Contrib vulnerable to denial of service in otelhttp due to unbound cardinality metrics"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-rcjv-mgp8-qvmr\nSeverity: high\nPackage: go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp\nVersion: v0.40.0\nFix Version: 0.44.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-rcjv-mgp8-qvmr](https://github.com/advisories/GHSA-rcjv-mgp8-qvmr)",
+                "markdown": "**Vulnerability GHSA-rcjv-mgp8-qvmr**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp  | v0.40.0  | 0.44.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-rcjv-mgp8-qvmr](https://github.com/advisories/GHSA-rcjv-mgp8-qvmr)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-v23v-6jw2-98fq-github.com/docker/docker",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-v23v-6jw2-98fq critical vulnerability for github.com/docker/docker package"
+              },
+              "fullDescription": {
+                "text": "Authz zero length regression"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-v23v-6jw2-98fq\nSeverity: critical\nPackage: github.com/docker/docker\nVersion: v24.0.7+incompatible\nFix Version: 25.0.6\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-v23v-6jw2-98fq](https://github.com/advisories/GHSA-v23v-6jw2-98fq)",
+                "markdown": "**Vulnerability GHSA-v23v-6jw2-98fq**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | github.com/docker/docker  | v24.0.7+incompatible  | 25.0.6  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-v23v-6jw2-98fq](https://github.com/advisories/GHSA-v23v-6jw2-98fq)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.9"
+              }
+            },
+            {
+              "id": "GHSA-v6v8-xj6m-xwqh-github.com/hashicorp/go-retryablehttp",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-v6v8-xj6m-xwqh medium vulnerability for github.com/hashicorp/go-retryablehttp package"
+              },
+              "fullDescription": {
+                "text": "go-retryablehttp can leak basic auth credentials to log files"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-v6v8-xj6m-xwqh\nSeverity: medium\nPackage: github.com/hashicorp/go-retryablehttp\nVersion: v0.7.2\nFix Version: 0.7.7\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-v6v8-xj6m-xwqh](https://github.com/advisories/GHSA-v6v8-xj6m-xwqh)",
+                "markdown": "**Vulnerability GHSA-v6v8-xj6m-xwqh**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/hashicorp/go-retryablehttp  | v0.7.2  | 0.7.7  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-v6v8-xj6m-xwqh](https://github.com/advisories/GHSA-v6v8-xj6m-xwqh)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.0"
+              }
+            },
+            {
+              "id": "GHSA-v778-237x-gjrc-golang.org/x/crypto",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-v778-237x-gjrc critical vulnerability for golang.org/x/crypto package"
+              },
+              "fullDescription": {
+                "text": "Misuse of ServerConfig.PublicKeyCallback may cause authorization bypass in golang.org/x/crypto"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-v778-237x-gjrc\nSeverity: critical\nPackage: golang.org/x/crypto\nVersion: v0.14.0\nFix Version: 0.31.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-v778-237x-gjrc](https://github.com/advisories/GHSA-v778-237x-gjrc)",
+                "markdown": "**Vulnerability GHSA-v778-237x-gjrc**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | golang.org/x/crypto  | v0.14.0  | 0.31.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-v778-237x-gjrc](https://github.com/advisories/GHSA-v778-237x-gjrc)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.1"
+              }
+            },
+            {
+              "id": "GHSA-vfp6-jrw2-99g9-github.com/sigstore/cosign",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-vfp6-jrw2-99g9 low vulnerability for github.com/sigstore/cosign package"
+              },
+              "fullDescription": {
+                "text": "Cosign vulnerable to possible endless data attack from attacker-controlled registry"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-vfp6-jrw2-99g9\nSeverity: low\nPackage: github.com/sigstore/cosign\nVersion: v1.13.1\nFix Version: 1.13.2\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-vfp6-jrw2-99g9](https://github.com/advisories/GHSA-vfp6-jrw2-99g9)",
+                "markdown": "**Vulnerability GHSA-vfp6-jrw2-99g9**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | github.com/sigstore/cosign  | v1.13.1  | 1.13.2  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-vfp6-jrw2-99g9](https://github.com/advisories/GHSA-vfp6-jrw2-99g9)  |\n"
+              },
+              "properties": {
+                "security-severity": "3.1"
+              }
+            },
+            {
+              "id": "GHSA-vvgc-356p-c3xw-golang.org/x/net",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-vvgc-356p-c3xw medium vulnerability for golang.org/x/net package"
+              },
+              "fullDescription": {
+                "text": "golang.org/x/net vulnerable to Cross-site Scripting"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-vvgc-356p-c3xw\nSeverity: medium\nPackage: golang.org/x/net\nVersion: v0.17.0\nFix Version: 0.38.0\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-vvgc-356p-c3xw](https://github.com/advisories/GHSA-vvgc-356p-c3xw)",
+                "markdown": "**Vulnerability GHSA-vvgc-356p-c3xw**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | golang.org/x/net  | v0.17.0  | 0.38.0  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-vvgc-356p-c3xw](https://github.com/advisories/GHSA-vvgc-356p-c3xw)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.5"
+              }
+            },
+            {
+              "id": "GHSA-xw73-rw38-6vjc-github.com/docker/docker",
+              "name": "GoModuleMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-xw73-rw38-6vjc medium vulnerability for github.com/docker/docker package"
+              },
+              "fullDescription": {
+                "text": "Classic builder cache poisoning"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-xw73-rw38-6vjc\nSeverity: medium\nPackage: github.com/docker/docker\nVersion: v24.0.7+incompatible\nFix Version: 24.0.9\nType: go-module\nLocation: /ko-app/reports-controller\nData Namespace: github:language:go\nLink: [GHSA-xw73-rw38-6vjc](https://github.com/advisories/GHSA-xw73-rw38-6vjc)",
+                "markdown": "**Vulnerability GHSA-xw73-rw38-6vjc**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | github.com/docker/docker  | v24.0.7+incompatible  | 24.0.9  | go-module  | /ko-app/reports-controller  | github:language:go  | [GHSA-xw73-rw38-6vjc](https://github.com/advisories/GHSA-xw73-rw38-6vjc)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.9"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2023-39326-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45285-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45288-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45289-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45290-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24783-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24784-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24785-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24787-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24789-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24790-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24791-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34155-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34156-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34158-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45336-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45341-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-0913-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22866-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22871-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-4673-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-4674-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-47907-stdlib",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports stdlib at version go1.21.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-29wx-vh33-7x7r-github.com/golang-jwt/jwt/v4",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/golang-jwt/jwt/v4 at version v4.5.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-2c7c-3mj9-8fqh-github.com/go-jose/go-jose/v3",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/go-jose/go-jose/v3 at version v3.0.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-2h5h-59f5-c5x9-github.com/sigstore/rekor",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/sigstore/rekor at version v1.0.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-2x5j-vhc8-9cwm-github.com/cloudflare/circl",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/cloudflare/circl at version v1.3.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-45x7-px36-x8w8-golang.org/x/crypto",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/crypto at version v0.14.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-4v7x-pqxf-cx7m-golang.org/x/net",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/net at version v0.17.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-4vq8-7jfc-9cvp-github.com/docker/docker",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/docker/docker at version v24.0.7+incompatible  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-6m8w-jc87-6cr7-github.com/open-policy-agent/opa",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/open-policy-agent/opa at version v0.51.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-6v2p-p543-phr9-golang.org/x/oauth2",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/oauth2 at version v0.6.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-88jx-383q-w4qc-github.com/sigstore/cosign",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/sigstore/cosign at version v1.13.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-8r3f-844c-mc37-google.golang.org/protobuf",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports google.golang.org/protobuf at version v1.30.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-95pr-fxf5-86gv-github.com/sigstore/cosign",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/sigstore/cosign at version v1.13.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-9763-4f94-gfch-github.com/cloudflare/circl",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/cloudflare/circl at version v1.3.3  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-c5q2-7r4c-mv6g-github.com/go-jose/go-jose/v3",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/go-jose/go-jose/v3 at version v3.0.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-c5q2-7r4c-mv6g-gopkg.in/go-jose/go-jose.v2",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports gopkg.in/go-jose/go-jose.v2 at version v2.6.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-c5q2-7r4c-mv6g-gopkg.in/square/go-jose.v2",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports gopkg.in/square/go-jose.v2 at version v2.6.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-c6gw-w398-hv78-github.com/go-jose/go-jose/v3",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/go-jose/go-jose/v3 at version v3.0.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-c77r-fh37-x2px-github.com/open-policy-agent/opa",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/open-policy-agent/opa at version v0.51.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-frqx-jfcm-6jjr-github.com/sigstore/rekor",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/sigstore/rekor at version v1.0.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-hcg3-q754-cr77-golang.org/x/crypto",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/crypto at version v0.14.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-m425-mq94-257g-google.golang.org/grpc",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports google.golang.org/grpc at version v1.54.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-mh63-6h87-95cp-github.com/golang-jwt/jwt/v4",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/golang-jwt/jwt/v4 at version v4.5.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-qxp5-gwg8-xv66-golang.org/x/net",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/net at version v0.17.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-rcjv-mgp8-qvmr-go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp at version v0.40.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-v23v-6jw2-98fq-github.com/docker/docker",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/docker/docker at version v24.0.7+incompatible  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-v6v8-xj6m-xwqh-github.com/hashicorp/go-retryablehttp",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/hashicorp/go-retryablehttp at version v0.7.2  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-v778-237x-gjrc-golang.org/x/crypto",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/crypto at version v0.14.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-vfp6-jrw2-99g9-github.com/sigstore/cosign",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/sigstore/cosign at version v1.13.1  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-vvgc-356p-c3xw-golang.org/x/net",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports golang.org/x/net at version v0.17.0  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-xw73-rw38-6vjc-github.com/docker/docker",
+          "message": {
+            "text": "The path /ko-app/reports-controller reports github.com/docker/docker at version v24.0.7+incompatible  which is a vulnerable (go-module) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//ko-app/reports-controller"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/ko-app/reports-controller",
+                  "fullyQualifiedName": "ghcr.io/kyverno/reports-controller:v1.10.4@sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928:/ko-app/reports-controller"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

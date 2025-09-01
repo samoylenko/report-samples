@@ -1,0 +1,837 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Snyk Container",
+          "semanticVersion": "1.1299.0",
+          "version": "1.1299.0",
+          "informationUri": "https://docs.snyk.io/",
+          "properties": {
+            "artifactsScanned": 0
+          },
+          "rules": []
+        }
+      },
+      "results": []
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Snyk Container",
+          "semanticVersion": "1.1299.0",
+          "version": "1.1299.0",
+          "informationUri": "https://docs.snyk.io/",
+          "properties": {
+            "artifactsScanned": 0
+          },
+          "rules": []
+        }
+      },
+      "results": []
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Snyk Container",
+          "semanticVersion": "1.1299.0",
+          "version": "1.1299.0",
+          "informationUri": "https://docs.snyk.io/",
+          "properties": {
+            "artifactsScanned": 766
+          },
+          "rules": [
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMGOLANGJWTJWTV4-8341242",
+              "shortDescription": {
+                "text": "Low severity - Insufficient Documentation of Error Handling Techniques vulnerability in github.com/golang-jwt/jwt/v4"
+              },
+              "fullDescription": {
+                "text": "(CVE-2024-51744) github.com/golang-jwt/jwt/v4@v4.2.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Insufficient Documentation of Error Handling Techniques in the `ParseWithClaims` function. An attacker can exploit this to accept invalid tokens by only checking for specific errors and ignoring others.\r\n\r\n## Workaround\r\n\r\nUsers who are not able to upgrade to the fixed version should make sure that they are properly checking for all errors, see [`example_test.go`](https://github.com/golang-jwt/jwt/blob/bc8bdca5cced1caa9787e4a1c313a3538544c877/example_test.go#L165-L189)\n## Remediation\nUpgrade `github.com/golang-jwt/jwt/v4` to version 4.5.1 or higher.\n## References\n- [GitHub Commit](https://github.com/golang-jwt/jwt/commit/7b1c1c00a171c6c79bbdb40e4ce7d197060c1c2c)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-1118",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 2.3,
+                "security-severity": "2.3"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMGOLANGJWTJWTV4-9510921",
+              "shortDescription": {
+                "text": "High severity - Asymmetric Resource Consumption (Amplification) vulnerability in github.com/golang-jwt/jwt/v4"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-30204) github.com/golang-jwt/jwt/v4@v4.2.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Asymmetric Resource Consumption (Amplification) through the `parse.ParseUnverified` function. An attacker can cause excessive memory allocation by sending a crafted request with many period characters in the `Authorization` header.\n## Remediation\nUpgrade `github.com/golang-jwt/jwt/v4` to version 4.5.2 or higher.\n## References\n- [GitHub Commit](https://github.com/golang-jwt/jwt/commit/0951d184286dece21f73c85673fd308786ffe9c3)\n- [GitHub Release 4.5.2](https://github.com/golang-jwt/jwt/releases/tag/v4.5.2)\n- [GitHub Release 5.2.2](https://github.com/golang-jwt/jwt/releases/tag/v5.2.2)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-405",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391",
+              "shortDescription": {
+                "text": "High severity - Denial of Service (DoS) vulnerability in github.com/sirupsen/logrus"
+              },
+              "fullDescription": {
+                "text": "github.com/sirupsen/logrus@v1.9.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) via the `logrus.Writer()` function which can be triggered by logging text longer than 64kb without newlines.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `github.com/sirupsen/logrus` to version 1.8.3, 1.9.1 or higher.\n## References\n- [GitHub Commit](https://github.com/sirupsen/logrus/commit/6acd903758687c4a3db3c11701e6c414fcf1c1f7)\n- [GitHub Issue](https://github.com/sirupsen/logrus/issues/1370)\n- [GitHub PR](https://github.com/sirupsen/logrus/pull/1376)\n- [GitHub Release](https://github.com/sirupsen/logrus/releases/tag/v1.8.3)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXNETHTTP2-5953327",
+              "shortDescription": {
+                "text": "High severity - Denial of Service (DoS) vulnerability in golang.org/x/net/http2"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-44487) golang.org/x/net/http2@v0.7.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[golang.org/x/net/http2](https://pkg.go.dev/golang.org/x/net/http2) is a work-in-progress HTTP/2 implementation for Go.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n## Remediation\nUpgrade `golang.org/x/net/http2` to version 0.17.0 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/studiogangster/CVE-2023-44487)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXNETHTTP2-5958903",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in golang.org/x/net/http2"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-39325) golang.org/x/net/http2@v0.7.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[golang.org/x/net/http2](https://pkg.go.dev/golang.org/x/net/http2) is a work-in-progress HTTP/2 implementation for Go.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling when `MaxConcurrentStreams` handler `goroutines` running, by rapidly creating requests and\r\nimmediately resetting them. A a handler is started until one of the existing handlers exits.\r\n\r\n**Note:**\r\n\r\nThis issue is related to [CVE-2023-44487](https://security.snyk.io/vuln/SNYK-GOLANG-GOLANGORGXNETHTTP2-5953327)\n## Remediation\nUpgrade `golang.org/x/net/http2` to version 0.17.0 or higher.\n## References\n- [GitHub Commit](https://github.com/golang/net/commit/695775ce641b0f80c9cf03e8a796595355422dd3)\n- [GitHub Commit](https://github.com/golang/net/commit/b225e7ca6dde1ef5a5ae5ce922861bda011cfabd)\n- [GitHub Issue](https://github.com/golang/go/issues/63417)\n- [GitHub PR](https://github.com/containerd/containerd/pull/9387)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXNETHTTP2-6531285",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in golang.org/x/net/http2"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-45288) golang.org/x/net/http2@v0.7.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[golang.org/x/net/http2](https://pkg.go.dev/golang.org/x/net/http2) is a work-in-progress HTTP/2 implementation for Go.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling when reading header data from `CONTINUATION` frames. As part of the HPACK flow, all incoming `HEADERS` and `CONTINUATION` frames are read even if their payloads exceed `MaxHeaderBytes` and will be discarded. An attacker can send excessive data over a connection to render it unresponsive.\n## Remediation\nUpgrade `golang.org/x/net/http2` to version 0.23.0 or higher.\n## References\n- [Github Commit](https://github.com/traefik/traefik/commit/099c7e9444a5d56918b8221672fc8d6a09a5d389)\n- [GitHub Commit](https://github.com/golang/net/commit/ba872109ef2dc8f1da778651bd1fd3792d0e4587)\n- [GitHub Issue](https://github.com/golang/go/issues/65051)\n- [Go Advisory](https://pkg.go.dev/vuln/GO-2024-2687)\n- [PoC](https://github.com/hex0punk/cont-flood-poc)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXNETHTTPHTTPPROXY-9058601",
+              "shortDescription": {
+                "text": "High severity - Server-side Request Forgery (SSRF) vulnerability in golang.org/x/net/http/httpproxy"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-22870) golang.org/x/net/http/httpproxy@v0.7.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[golang.org/x/net/http/httpproxy](https://pkg.go.dev/golang.org/x/net/http/httpproxy) is a package for HTTP proxy determination based on environment variables, as provided by net/http's ProxyFromEnvironment function\n\nAffected versions of this package are vulnerable to Server-side Request Forgery (SSRF) in `proxy.go`, because hostname matching against proxy patterns may treat an IPv6 zone ID as a hostname component. An environment variable value like `*.example.com` could be matched to a request intended for `[::1%25.example.com]:80`.\n## Remediation\nUpgrade `golang.org/x/net/http/httpproxy` to version 0.36.0 or higher.\n## References\n- [Git Commit](https://go-review.googlesource.com/c/go/+/654717/4/src/vendor/golang.org/x/net/http/httpproxy/proxy.go)\n- [GitHub Commit](https://github.com/golang/go/commit/3705a6f1f0a66e70916bb09f50f4fcd1c520df53)\n- [GitHub Commit](https://github.com/golang/net/commit/76f9bf3279eff2e596db4960a78a2665d0ff9405)\n- [GitHub Issue](https://github.com/golang/go/issues/71984)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-918",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.8,
+                "security-severity": "8.8"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXOAUTH2JWS-8749594",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in golang.org/x/oauth2/jws"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-22868) golang.org/x/oauth2/jws@v0.0.0-20221014153046-6fdb5e3db783"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper parsing of malformed tokens which can lead to memory consumption.\n## Remediation\nUpgrade `golang.org/x/oauth2/jws` to version 0.27.0 or higher.\n## References\n- [GitHub Commit](https://github.com/golang/oauth2/commit/681b4d8edca1bcfea5bce685d77ea7b82ed3e7b3)\n- [GitHub Commit](https://github.com/lestrrat-go/jwx/commit/d0bb4610154d45b7dce7d706a8068ea72586d249)\n- [GitHub Issue](https://github.com/golang/go/issues/71490)\n- [GitHub PR](https://github.com/lestrrat-go/jwx/pull/1308)\n- [Go Advisory](https://pkg.go.dev/vuln/GO-2025-3488)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
+              "shortDescription": {
+                "text": "High severity - Denial of Service (DoS) vulnerability in google.golang.org/grpc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-44487) google.golang.org/grpc@v1.40.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[google.golang.org/grpc](https://pkg.go.dev/google.golang.org/grpc) is a Go implementation of gRPC\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n## Remediation\nUpgrade `google.golang.org/grpc` to version 1.56.3, 1.57.1, 1.58.3 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/studiogangster/CVE-2023-44487)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFENCODINGPROTOJSON-6137908",
+              "shortDescription": {
+                "text": "Medium severity - Stack-based Buffer Overflow vulnerability in google.golang.org/protobuf/encoding/protojson"
+              },
+              "fullDescription": {
+                "text": "google.golang.org/protobuf/encoding/protojson@v1.28.1"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when processing input that uses pathologically deep nesting.\n## Remediation\nUpgrade `google.golang.org/protobuf/encoding/protojson` to version 1.32.0 or higher.\n## References\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf-go/commit/bfcd6476a38e41247d6bb43dc8f00b23ec9fffc2)\n- [GitHub Issue](https://github.com/golang/protobuf/issues/1583)\n- [GitHub Issue](https://github.com/golang/protobuf/issues/1584)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-121",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 5.9,
+                "security-severity": "5.9"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFENCODINGPROTOJSON-6393703",
+              "shortDescription": {
+                "text": "Medium severity - Infinite loop vulnerability in google.golang.org/protobuf/encoding/protojson"
+              },
+              "fullDescription": {
+                "text": "(CVE-2024-24786) google.golang.org/protobuf/encoding/protojson@v1.28.1"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Infinite loop via the `protojson.Unmarshal` function, by unmarshaling certain forms of invalid JSON.\r\n\r\n**Note:**\r\n\r\nThis condition can occur when unmarshaling into a message which contains a `google.protobuf.Any` value, or when the `UnmarshalOptions.DiscardUnknown` option is set.\n## Remediation\nUpgrade `google.golang.org/protobuf/encoding/protojson` to version 1.33.0 or higher.\n## References\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf-go/commit/f01a588e5810b90996452eec4a28f22a0afae023)\n- [GitHub Release](https://github.com/protocolbuffers/protobuf-go/releases/tag/v1.33.0)\n- [Vulnerability Advisory](https://pkg.go.dev/vuln/GO-2024-2611)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-835",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFINTERNALENCODINGJSON-6393704",
+              "shortDescription": {
+                "text": "Medium severity - Infinite loop vulnerability in google.golang.org/protobuf/internal/encoding/json"
+              },
+              "fullDescription": {
+                "text": "(CVE-2024-24786) google.golang.org/protobuf/internal/encoding/json@v1.28.1"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Infinite loop via the `protojson.Unmarshal` function, by unmarshaling certain forms of invalid JSON.\r\n\r\n**Note:**\r\n\r\nThis condition can occur when unmarshaling into a message which contains a `google.protobuf.Any` value, or when the `UnmarshalOptions.DiscardUnknown` option is set.\n## Remediation\nUpgrade `google.golang.org/protobuf/internal/encoding/json` to version 1.33.0 or higher.\n## References\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf-go/commit/f01a588e5810b90996452eec4a28f22a0afae023)\n- [GitHub Release](https://github.com/protocolbuffers/protobuf-go/releases/tag/v1.33.0)\n- [Vulnerability Advisory](https://pkg.go.dev/vuln/GO-2024-2611)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-835",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONGOOGLEGOLANGORGGRPCOTELGRPC-8366355",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-47108) go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc@v0.20.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `grpc Unary Server Interceptor`, an attacker can cause the server's potential memory exhaustion by sending many malicious requests.\r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by using a view to remove the attributes or disabling grpc metrics instrumentation by passing `otelgrpc.WithMeterProvider` option with `noop.NewMeterProvider`.\n## Remediation\nUpgrade `go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc` to version 0.46.0 or higher.\n## References\n- [GitHub Commit](https://github.com/open-telemetry/opentelemetry-go-contrib/commit/b44dfc9092b157625a5815cb437583cee663333b)\n- [GitHub PR](https://github.com/open-telemetry/opentelemetry-go-contrib/pull/4322)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 7.5,
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONNETHTTPOTELHTTP-5963583",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+              },
+              "fullDescription": {
+                "text": "(CVE-2022-21698) go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.20.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling when the `otelhttp.NewHandler` wrapper is used and no filtering is applied to unknown HTTP methods or User agents at the CDN, LB, or previous middleware levels. An attacker can cause the server's potential memory exhaustion by sending numerous malicious requests with random and long HTTP User-Agent or HTTP method values. \n\n**Note:**\n\nThis is only exploitable if the program does not filter any unknown HTTP methods or User agents on the level of CDN, LB, previous middleware, etc. \n\n**Mitigation:** \n\nThis vulnerability can be mitigated by using `otelhttp.WithFilter()`, which requires manual configuration to not log certain requests entirely. For convenience and safe usage of this library, it should by default mark with the label `unknown` non-standard HTTP methods and User agents to show that such requests were made but do not increase cardinality.\n## Remediation\nUpgrade `go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp` to version 0.44.0 or higher.\n## References\n- [GitHub Commit](https://github.com/open-telemetry/opentelemetry-go-contrib/commit/50ca48f8017e04bcf9149a5435e7f8f96f9e83c9)\n- [GitHub PR](https://github.com/open-telemetry/opentelemetry-go-contrib/pull/4277)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go/blob/38e1b499c3da3107694ad2660b3888eee9c8b896/semconv/internal/v2/http.go#L223)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go/blob/v1.12.0/semconv/internal/v2/http.go#L159)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go-contrib/blob/5f7e6ad5a49b45df45f61a1deb29d7f1158032df/instrumentation/net/http/otelhttp/handler.go#L63-L65)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 7.5,
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONNETHTTPOTELHTTP-5971109",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-45142) go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.20.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `otelhttp` handler wrapper. An attacker can cause a denial of service by sending numerous malicious requests with random and long `http.user_agent` and `http.method` labels.\r\n\r\n**Note:**\r\n\r\nThis is only exploitable if the program uses the `otelhttp.NewHandler` wrapper and does not filter any unknown HTTP methods or User agents at the CDN, LB, previous middleware, etc. level.\r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by using `otelhttp.WithFilter()`, but it requires manual careful configuration to not log certain requests entirely.\n## Remediation\nUpgrade `go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp` to version 0.44.0 or higher.\n## References\n- [GitHub Commit](https://github.com/open-telemetry/opentelemetry-go-contrib/commit/50ca48f8017e04bcf9149a5435e7f8f96f9e83c9)\n- [GitHub PR](https://github.com/open-telemetry/opentelemetry-go-contrib/pull/4277)\n- [GitHub Release](https://github.com/open-telemetry/opentelemetry-go-contrib/releases/tag/v1.19.0)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go/blob/38e1b499c3da3107694ad2660b3888eee9c8b896/semconv/internal/v2/http.go#L223)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go/blob/v1.12.0/semconv/internal/v2/http.go#L159)\n- [Vulnerable Code](https://github.com/open-telemetry/opentelemetry-go-contrib/blob/5f7e6ad5a49b45df45f61a1deb29d7f1158032df/instrumentation/net/http/otelhttp/handler.go#L63-L65)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 7.5,
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-K8SIOAPIMACHINERYPKGUTILRUNTIME-8367153",
+              "shortDescription": {
+                "text": "High severity - Denial of Service (DoS) vulnerability in k8s.io/apimachinery/pkg/util/runtime"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-44487) k8s.io/apimachinery/pkg/util/runtime@v0.25.6"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `k8s.io/apimachinery/pkg/util/runtime` to version 0.29.0-alpha.3, 1.29.0-alpha.3 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/studiogangster/CVE-2023-44487)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMGOLANGJWTJWTV4-8341242",
+          "level": "note",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/golang-jwt/jwt/v4 package with a low severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/golang-jwt/jwt/v4@v4.2.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMGOLANGJWTJWTV4-9510921",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/golang-jwt/jwt/v4 package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/golang-jwt/jwt/v4@v4.2.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/sirupsen/logrus package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/sirupsen/logrus@v1.9.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXNETHTTP2-5953327",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/net/http2 package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/net/http2@v0.7.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXNETHTTP2-5958903",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/net/http2 package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/net/http2@v0.7.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXNETHTTP2-6531285",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/net/http2 package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/net/http2@v0.7.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXNETHTTPHTTPPROXY-9058601",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/net/http/httpproxy package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/net/http/httpproxy@v0.7.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXOAUTH2JWS-8749594",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/oauth2/jws package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/oauth2/jws@v0.0.0-20221014153046-6fdb5e3db783"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/grpc package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/grpc@v1.40.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFENCODINGPROTOJSON-6137908",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/protobuf/encoding/protojson package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/protobuf/encoding/protojson@v1.28.1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFENCODINGPROTOJSON-6393703",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/protobuf/encoding/protojson package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/protobuf/encoding/protojson@v1.28.1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGPROTOBUFINTERNALENCODINGJSON-6393704",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/protobuf/internal/encoding/json package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/protobuf/internal/encoding/json@v1.28.1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONGOOGLEGOLANGORGGRPCOTELGRPC-8366355",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc@v0.20.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONNETHTTPOTELHTTP-5963583",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.20.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOPENTELEMETRYIOCONTRIBINSTRUMENTATIONNETHTTPOTELHTTP-5971109",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp@v0.20.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-K8SIOAPIMACHINERYPKGUTILRUNTIME-8367153",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable k8s.io/apimachinery/pkg/util/runtime package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/code/apiserver"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "k8s.io/apimachinery/pkg/util/runtime@v0.25.6"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
