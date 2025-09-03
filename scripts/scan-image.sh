@@ -15,3 +15,8 @@ trivy image "${IMAGE}" --format sarif --output "$DIRNAME/trivy-${REPORT_SUFFIX}.
 grype "${IMAGE}" --output json --file "$DIRNAME/grype-${REPORT_SUFFIX}.json" >> grype.sh
 grype "${IMAGE}" --output sarif --file "$DIRNAME/grype-${REPORT_SUFFIX}.sarif" >> grype.sh
 snyk container test "${IMAGE}"  --sarif-file-output="$DIRNAME/snyk-${REPORT_SUFFIX}.sarif" --json-file-output="$DIRNAME/snyk-${REPORT_SUFFIX}.json" || [ $? -le 2 ]
+
+## JFrog Xray - free trial expired, disabled, latest reports added manually
+# jf docker scan "${IMAGE}" --format=json > "$DIRNAME/xray-${REPORT_SUFFIX}.json"
+# sleep 10s
+# jf docker scan "${IMAGE}" --format=sarif > "$DIRNAME/xray-${REPORT_SUFFIX}.sarif"

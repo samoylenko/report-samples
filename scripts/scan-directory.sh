@@ -26,3 +26,14 @@ semgrep ci --dry-run --code --secrets --supply-chain --output="${REPORT_DIR}/sem
 # Snyk
 snyk code test --all-projects --json-file-output="${REPORT_DIR}/snyk-code-${REPORT_SUFFIX}.json" --sarif-file-output="snyk-code-${REPORT_SUFFIX}.sarif"  || [ $? -le 2 ] # SARIF == JSON
 snyk test --all-projects --json-file-output="${REPORT_DIR}/snyk-open-source-${REPORT_SUFFIX}.json" --sarif-file-output="snyk-open-source-${REPORT_SUFFIX}.sarif" || [ $? -le 2 ]
+
+## JFrog Xray - free trial expired, disabled, latest reports added manually
+# jf audit --sast --sca --secrets --format=json > "${REPORT_DIR}/xray-${REPORT_SUFFIX}.json"
+# sleep 10s
+# jf audit --sast --sca --secrets --format=sarif > "${REPORT_DIR}/xray-${REPORT_SUFFIX}.sarif"
+
+## Dependency Check - not automated, latest reports added manually
+# dependency-check --nvdApiKey "${NVD_API_KEY}" --prettyPrint --format ALL --out "${REPORT_DIR}" --scan .
+
+## HTML report format is not intended for automatic processing
+# rm ${REPORT_DIR}/*.html
