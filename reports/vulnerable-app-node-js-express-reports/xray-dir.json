@@ -1,0 +1,166 @@
+[
+  {
+    "scan_id": "6e0d1842-5416-4303-a5c6-0f00eeebd67b",
+    "vulnerabilities": [
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-28500",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cwe": [
+              "CWE-400",
+              "CWE-1333",
+              "NVD-CWE-Other"
+            ]
+          }
+        ],
+        "summary": "Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.",
+        "severity": "Medium",
+        "components": {
+          "npm://lodash:4.17.20": {
+            "fixed_versions": [
+              "[4.17.21]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "npm://tsp-vulnerable-app-nodejs-express:0.1.0"
+                },
+                {
+                  "component_id": "npm://lodash:4.17.20"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-140562",
+        "references": [
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2020-28500.yml",
+          "https://security.netapp.com/advisory/ntap-20210312-0006",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+          "https://github.com/lodash/lodash/pull/5065/commits/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+          "https://github.com/lodash/lodash/pull/5065",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+          "https://github.com/advisories/GHSA-29mw-wpgm-hmr9"
+        ],
+        "extended_information": {
+          "short_description": "ReDoS in lodash could lead to a denial of service when handling untrusted strings.",
+          "full_description": "JavaScript-based applications that use [lodash](https://github.com/lodash/lodash) and specifically the [_.toNumber](https://lodash.com/docs/4.17.15#toNumber), [_.trim](https://lodash.com/docs/4.17.15#trim) and [_.trimEnd](https://lodash.com/docs/4.17.15#trimEnd) functions, could be vulnerable to DoS (Denial of Service) through a faulty regular expression that introduces a ReDoS (Regular Expression DoS) vulnerability. This vulnerability is only triggered if untrusted user input flows into these vulnerable functions and the attacker can supply arbitrary long strings (over 50kB) that contain whitespaces. \n\nOn a modern Core i7-based system, calling the vulnerable functions with a 50kB string could take between 2 to 3 seconds to execute and 4.5 minutes for a longer 500kB string. The fix improved the regular expression performance so it took only a few milliseconds on the same Core i7-based system. This vulnerability is easily exploitable as all is required is to build a string that triggers it as can be seen in this PoC reproducing code - \n\n```js\nvar untrusted_user_input_50k = \"a\" + ' '.repeat(50000) + \"z\"; // assume this is provided over the network\nlo.trimEnd(untrusted_user_input_50k); // should take a few seconds to run\nvar untrusted_user_input_500k = \"a\" + ' '.repeat(500000) + \"z\"; // assume this is provided over the network\nlo.trimEnd(untrusted_user_input_500k); // should take a few minutes to run\n```",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "Public exploit demonstrated ReDoS"
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "Exploitation depends on parsing user input by the `.toNumber`, `.trim` or `.trimEnd` `lodash` functions, and requires the input to contain whitespaces and be very long (over 50KB)",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Deployment mitigations\n\nTrim untrusted strings based on size before providing it to the vulnerable functions by using the `substring` function to with a fixed maximum size like so - ```js untrusted_user_input.substring(0, max_string_size_less_than_50kB); ```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2021-23337",
+            "cvss_v2_score": "6.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:P/I:P/A:P",
+            "cvss_v3_score": "7.2",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-77",
+              "CWE-94"
+            ]
+          }
+        ],
+        "summary": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.",
+        "severity": "High",
+        "components": {
+          "npm://lodash:4.17.20": {
+            "fixed_versions": [
+              "[4.17.21]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "npm://tsp-vulnerable-app-nodejs-express:0.1.0"
+                },
+                {
+                  "component_id": "npm://lodash:4.17.20"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-140575",
+        "references": [
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2021-23337.yml",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://security.netapp.com/advisory/ntap-20210312-0006",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+          "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-23337"
+        ],
+        "extended_information": {
+          "short_description": "Improper sanitization in the lodash template function leads to JavaScript code injection through the options argument.",
+          "full_description": "JavaScript-based applications (both frontend and backend) that use the [template function](https://lodash.com/docs/4.17.15#template) -`_.template([string=''], [options={}])` from the [lodash](https://lodash.com/) utility library and provide the `options` argument (specifically the `variable` option) from untrusted user input, are vulnerable to JavaScript code injection. This issue can be easily exploited, and an exploitation example is [publicly available](https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c#diff-a561630bb56b82342bc66697aee2ad96efddcbc9d150665abd6fb7ecb7c0ab2fR22303) in the fix tests that was introduced in version 4.17.21 - \n```js\nlodash.template('', { variable: '){console.log(process.env)}; with(obj' })()\n```",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "It is highly unlikely that a JS program will accept arbitrary remote input into the template's `options` argument",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find remote input that propagates into the `options` argument of a `template` call",
+              "is_positive": true
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Leads to remote code execution through JS code injection"
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "Published exploit demonstrates arbitrary JS code execution"
+            }
+          ]
+        }
+      }
+    ],
+    "component_id": "root",
+    "package_type": "generic",
+    "status": "completed"
+  }
+]

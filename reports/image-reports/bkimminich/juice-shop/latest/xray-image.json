@@ -1,0 +1,3380 @@
+[
+  {
+    "scan_id": "a64582db-fc64-4bc0-bf55-5d15be1148c9",
+    "vulnerabilities": [
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-15084",
+            "cvss_v2_score": "4.3",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "9.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "cwe": [
+              "CWE-285",
+              "CWE-863"
+            ]
+          }
+        ],
+        "summary": "In express-jwt (NPM package) up and including version 5.3.3, the algorithms entry to be specified in the configuration is not being enforced. When algorithms is not specified in the configuration, with the combination of jwks-rsa, it may lead to authorization bypass. You are affected by this vulnerability if all of the following conditions apply: - You are using express-jwt - You do not have **algorithms** configured in your express-jwt configuration. - You are using libraries such as jwks-rsa as the **secret**. You can fix this by specifying **algorithms** in the express-jwt configuration. See linked GHSA for example. This is also fixed in version 6.0.0.",
+        "severity": "Critical",
+        "components": {
+          "npm://express-jwt:0.1.3": {
+            "fixed_versions": [
+              "[6.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-104518",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-15084",
+          "https://github.com/auth0/express-jwt/security/advisories/GHSA-6g6m-m6h5-w9gf",
+          "https://github.com/auth0/express-jwt/commit/7ecab5f8f0cab5297c2b863596566eb0c019cdef"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-46233",
+            "cvss_v3_score": "9.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "cwe": [
+              "CWE-328",
+              "CWE-327",
+              "CWE-916"
+            ]
+          }
+        ],
+        "summary": "crypto-js is a JavaScript library of crypto standards. Prior to version 4.2.0, crypto-js PBKDF2 is 1,000 times weaker than originally specified in 1993, and at least 1,300,000 times weaker than current industry standard. This is because it both defaults to SHA1, a cryptographic hash algorithm considered insecure since at least 2005, and defaults to one single iteration, a 'strength' or 'difficulty' value specified at 1,000 when specified in 1993. PBKDF2 relies on iteration count as a countermeasure to preimage and collision attacks. If used to protect passwords, the impact is high. If used to generate signatures, the impact is high. Version 4.2.0 contains a patch for this issue. As a workaround, configure crypto-js to use SHA256 with at least 250,000 iterations.",
+        "severity": "Critical",
+        "components": {
+          "npm://crypto-js:3.3.0": {
+            "fixed_versions": [
+              "[4.2.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://crypto-js:3.3.0",
+                  "full_path": "juice-shop/node_modules/crypto-js/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-534513",
+        "references": [
+          "https://github.com/brix/crypto-js",
+          "https://github.com/brix/crypto-js/security/advisories/GHSA-xwcq-pm8m-c4vf",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-46233",
+          "https://lists.debian.org/debian-lts-announce/2023/11/msg00025.html",
+          "https://github.com/brix/crypto-js/commit/421dd538b2d34e7c24a5b72cc64dc2b9167db40a"
+        ],
+        "extended_information": {
+          "short_description": "Weak encryption in crypto-js may lead to authentication bypass and possibly data leakage when handling sensitive data using the default configuration.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "No high-impact exploit or technical writeup were published, and exploitation of the issue with high impact is either non-trivial or completely unproven",
+              "description": "No PoC and no technical writeup were published.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "The weak encryption may lead to authentication bypass and possibly data leakage."
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "To trigger the vulnerability, an attacker must gain access to sensitive data encrypted using an encryption key driver with PBKDF2 utilizing its default configuration.",
+              "is_positive": true
+            },
+            {
+              "name": "The reported CVSS was either wrongly calculated, downgraded by other vendors, or does not reflect the vulnerability's impact",
+              "description": "The given CVSS score does not reflect the context required to exploit this vulnerability.",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-8203",
+            "cvss_v2_score": "5.8",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:N/I:P/A:P",
+            "cvss_v3_score": "7.4",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+            "cwe": [
+              "CWE-770",
+              "CWE-1321"
+            ]
+          }
+        ],
+        "summary": "Prototype pollution attack when using _.zipObjectDeep in lodash before 4.17.20.",
+        "severity": "High",
+        "components": {
+          "npm://lodash.set:4.3.2": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://lodash.set:4.3.2",
+                  "full_path": "juice-shop/node_modules/lodash.set/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-114089",
+        "references": [
+          "https://www.oracle.com/security-alerts/cpuApr2021.html",
+          "https://github.com/lodash/lodash/wiki/Changelog#v41719",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2020-8203.yml",
+          "https://www.oracle.com/security-alerts/cpuapr2022.html",
+          "https://hackerone.com/reports/712065",
+          "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://github.com/lodash/lodash/issues/4744",
+          "https://security.netapp.com/advisory/ntap-20200724-0006",
+          "https://github.com/github/advisory-database/pull/2884",
+          "https://github.com/lodash/lodash/commit/c84fe82760fb2d3e03a63379b297a1cc1a2fce12",
+          "https://security.netapp.com/advisory/ntap-20200724-0006/",
+          "https://web.archive.org/web/20210914001339/https://github.com/lodash/lodash/issues/4744",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-8203",
+          "https://hackerone.com/reports/864701",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://github.com/lodash/lodash/issues/4874"
+        ],
+        "extended_information": {
+          "short_description": "Prototype pollution in lodash object merging and zipping functions leads to code injection.",
+          "full_description": "[lodash](https://lodash.com/) is a JavaScript library which provides utility functions for common programming tasks.\n\nJavaScript frontend and Node.js-based backend applications that merge or zip objects using the lodash functions `mergeWith`, `merge` and `zipObjectDeep` are vulnerable to [prototype pollution](https://medium.com/node-modules/what-is-prototype-pollution-and-why-is-it-such-a-big-deal-2dd8d89a93c) if one or more of the objects it receives as arguments are obtained from user input. \nAn attacker controlling this input given to the vulnerable functions can inject properties to JavaScript special objects such as [Object.prototype](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes) from which all JavaScript objects inherit properties and methods. Any change on `Object.prototype` properties will then propagate through the prototype chain inheritance to all of the objects in a JavaScript application. This in turn would allow an attacker to add new properties or modify existing properties which will have application specific implications that could lead to DoS (denial of service), authentication bypass, privilege escalation and even RCE (remote code execution) in [some cases](https://youtu.be/LUsiFV3dsK8?t=1152). \nAs an example for privilege escalation, consider a JavaScript application that has a `user` object which has a Boolean property of `user.isAdmin` which is used to decide which actions the user may take. If an attacker can modify or add the `isAdmin` property through prototype pollution, it can escalate the privileges of its own user to those of an admin. \nAs exploitation is usually application specific, successful exploitation is much more likely if an attacker have access to the JavaScript application code. As such, frontend applications are more vulnerable to this vulnerability than Node.js backend applications.",
+          "jfrog_research_severity": "Critical",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC"
+            }
+          ],
+          "remediation": "##### Deployment mitigations\n\nAs general guidelines against prototype pollution, first consider not merging objects originating from user input or using a Map structure instead of an object. If merging objects is needed, look into creating objects without a prototype with `Object.create(null)` or into freezing `Object.prototype` with `Object.freeze()`. Finally, it is always best to perform input validation with a a [JSON schema validator](https://github.com/ajv-validator/ajv), which could mitigate this issue entirely in many cases."
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-39249",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-1333"
+            ]
+          }
+        ],
+        "summary": "Async \u003c= 2.6.4 and \u003c= 3.2.5 are vulnerable to ReDoS (Regular Expression Denial of Service) while parsing function in autoinject function. NOTE: this is disputed by the supplier because there is no realistic threat model: regular expressions are not used with untrusted input.",
+        "severity": "High",
+        "components": {
+          "npm://async:2.6.4": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://archiver:1.3.0",
+                  "full_path": "juice-shop/node_modules/archiver/package.json"
+                },
+                {
+                  "component_id": "npm://async:2.6.4",
+                  "full_path": "node_modules/async/package.json"
+                }
+              ],
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://portscanner:2.2.0",
+                  "full_path": "juice-shop/node_modules/portscanner/package.json"
+                },
+                {
+                  "component_id": "npm://async:2.6.4",
+                  "full_path": "node_modules/async/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-609848",
+        "references": [
+          "https://github.com/caolan/async/blob/v3.2.5/lib/autoInject.js#L41",
+          "https://github.com/zunak/CVE-2024-39249",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-39249",
+          "https://github.com/caolan/async/blob/v3.2.5/lib/autoInject.js#L6",
+          "https://github.com/caolan/async/issues/1975#issuecomment-2204528153",
+          "https://github.com/zunak/CVE-2024-39249/issues/1"
+        ],
+        "extended_information": {
+          "short_description": "ReDoS in Async may lead to denial of service while parsing malformed source code.",
+          "jfrog_research_severity": "Low",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The reported CVSS was either wrongly calculated, downgraded by other vendors, or does not reflect the vulnerability's impact",
+              "description": "The reported CVSS does not reflect the severity of the vulnerability.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue cannot result in a severe impact (such as remote code execution)",
+              "description": "To exploit this issue an attacker must change the source code of the application. In cases where an attacker can already modify (or fully control) the source code, the attacker can immediately achieve arbitrary code execution - thus this issue has almost no security impact.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "A proof-of-concept has been published in the advisory."
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The issue requires the use of the `async.autoInject` function to be vulnerable.",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "summary": "Command Injection in marsdb",
+        "severity": "Critical",
+        "components": {
+          "npm://marsdb:0.6.11": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://marsdb:0.6.11",
+                  "full_path": "juice-shop/node_modules/marsdb/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-91651",
+        "references": [
+          "https://github.com/advisories/GHSA-5mrr-rgp6-x4gr"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-1010024",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:N/A:N",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "cwe": [
+              "CWE-200"
+            ]
+          }
+        ],
+        "summary": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass ASLR using cache of thread stack and heap. The component is: glibc. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-84852",
+        "references": [
+          "http://www.securityfocus.com/bid/109162",
+          "https://support.f5.com/csp/article/K06046097",
+          "https://support.f5.com/csp/article/K06046097?utm_source=f5support\u0026amp%3Butm_medium=RSS",
+          "https://ubuntu.com/security/CVE-2019-1010024",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=22852",
+          "https://security-tracker.debian.org/tracker/CVE-2019-1010024"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-4802",
+            "cvss_v3_score": "7.8",
+            "cvss_v3_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-426"
+            ]
+          }
+        ],
+        "summary": "Untrusted LD_LIBRARY_PATH environment variable vulnerability in the GNU C Library version 2.27 to 2.38 allows attacker controlled loading of dynamically shared library in statically compiled setuid binaries that call dlopen (including internal dlopen calls after setlocale or calls to NSS functions such as getaddrinfo).",
+        "severity": "High",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-699026",
+        "references": [
+          "https://security-tracker.debian.org/tracker/CVE-2025-4802",
+          "https://sourceware.org/cgit/glibc/commit/?id=1e18586c5820e329f741d5c710275e165581380e",
+          "http://www.openwall.com/lists/oss-security/2025/05/17/2",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=32976",
+          "http://www.openwall.com/lists/oss-security/2025/05/16/7"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2018-20796",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-674"
+            ]
+          }
+        ],
+        "summary": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(\\227|)(\\\\1\\\\1|t1|\\\\\\2537)+' in grep.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-75786",
+        "references": [
+          "https://security.netapp.com/advisory/ntap-20190315-0002/",
+          "https://lists.gnu.org/archive/html/bug-gnulib/2019-01/msg00108.html",
+          "https://security-tracker.debian.org/tracker/CVE-2018-20796",
+          "http://www.securityfocus.com/bid/107160",
+          "https://support.f5.com/csp/article/K26346590?utm_source=f5support\u0026amp%3Butm_medium=RSS",
+          "https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34141"
+        ],
+        "extended_information": {
+          "short_description": "An uncontrolled recursion in glibc may result in a denial of service via malformed regular expression.",
+          "full_description": "The [GNU C Library](https://www.gnu.org/software/libc/), commonly known as glibc, is the GNU Project's implementation of the C standard library.\n\nAn uncontrolled recursion vulnerability exists in glibc's regular expression parsing engine (posix/regexec.c).\n\nAn attacker can exploit this issue by invoking any tool (`grep`, `sed` etc.) or API (`regexec()`) with a crafted regular expression. This can be demonstrated by the crafted input: `(\\227|)(\\\\1\\\\1|t1|\\\\\\2537)+'`.\nThis scenario is much more likely in a local attack than a remote one.\n\nNote that in order to exploit this vulnerability, the attacker must control the regular expression **pattern** that glibc uses, unlike standard ReDoS vulnerabilities where only the input buffer needs to be controlled. The The pattern it not likely to be attacker-controlled from remote input.",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has been disputed by the vendor",
+              "description": "The software maintainer disputes that this is not a vulnerability because the behavior occurs only with a crafted pattern. Therefore - this issue is unlikely to get a fix.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find a remote input that propagates to the `regex` (pattern) argument of `regcomp` and then sent to `regexec`.\nThis includes controlling the pattern argument of a `grep` invocation.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "It is highly unlikely that a remote attacker will be able to control a regular expression pattern that's used by glibc",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published"
+            },
+            {
+              "name": "The issue cannot result in a severe impact (such as remote code execution)",
+              "description": "Denial of service only, marked as unimportant by the Debian tracker",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-1010023",
+            "cvss_v2_score": "6.8",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "8.8",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "GNU Libc current is affected by: Re-mapping current loaded library with malicious ELF file. The impact is: In worst case attacker may evaluate privileges. The component is: libld. The attack vector is: Attacker sends 2 ELF files to victim and asks to run ldd on it. ldd execute code. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-84853",
+        "references": [
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=22851",
+          "https://security-tracker.debian.org/tracker/CVE-2019-1010023",
+          "http://www.securityfocus.com/bid/109167",
+          "https://support.f5.com/csp/article/K11932200?utm_source=f5support\u0026amp%3Butm_medium=RSS",
+          "https://ubuntu.com/security/CVE-2019-1010023"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2010-4756",
+            "cvss_v2_score": "4.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:N/I:N/A:P",
+            "cwe": [
+              "CWE-399"
+            ]
+          }
+        ],
+        "summary": "The glob implementation in the GNU C Library (aka glibc or libc6) allows remote authenticated users to cause a denial of service (CPU and memory consumption) via crafted glob expressions that do not match any pathnames, as demonstrated by glob expressions in STAT commands to an FTP daemon, a different vulnerability than CVE-2010-2632.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-33571",
+        "references": [
+          "http://securityreason.com/achievement_securityalert/89",
+          "http://cxib.net/stuff/glob-0day.c",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2010-4756",
+          "https://security-tracker.debian.org/tracker/CVE-2010-4756",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=681681",
+          "http://securityreason.com/exploitalert/9223"
+        ],
+        "extended_information": {
+          "short_description": "An unbounded computation in glibc leads to denial of service when parsing crafted glob expressions.",
+          "full_description": "The GNU C Library project provides the core libraries for the GNU system and GNU/Linux systems, as well as many other systems that use Linux as the kernel. One of the provided functions is `glob`. *This function expands a filename wildcard which is passed as pattern*. It usually implements a limitation though the `GLOB_LIMIT` constant but a flaw is causing a `denial of service when the crafted glob expression does not match any pathnames`.\nThis vulnerability is very similar to the one affecting the *STAT* commands against an FTP Deamon which gives information about the file and the filesystem, also vulnerable to glob expression causing the process to use 100% of the CPU capabilities for a long time.\nHowever, this vulnerability needs the attacker to be an authenticated user.",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "It is unlikely that a remote attacker will be able to control a glob pattern from a remote input",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has been disputed by the vendor",
+              "description": "The software maintainer disputes that this is not a vulnerability because the behavior occurs only with a crafted glob pattern. Therefore - this issue is unlikely to get a fix.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find a remote input that propagates into the `pattern` argument of a `glob` call.\nHowever, as the technical [write-up](https://cxsecurity.com/issue/WLB-2010100135) shows, this vulnerability can be remotely exploited in some common cases, such as FTP servers.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue cannot result in a severe impact (such as remote code execution)",
+              "description": "Marked as unimportant by the Debian tracker. Computation-based DoS.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has a detailed technical explanation published, that can aid in exploit development",
+              "description": "A technical [write-up](https://cxsecurity.com/issue/WLB-2010100135) was published explaining the bug and how to trigger it."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-9192",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-674"
+            ]
+          }
+        ],
+        "summary": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(|)(\\\\1\\\\1)*' in grep, a different issue than CVE-2018-20796. NOTE: the software maintainer disputes that this is a vulnerability because the behavior occurs only with a crafted pattern",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-75770",
+        "references": [
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=24269",
+          "https://support.f5.com/csp/article/K26346590?utm_source=f5support\u0026amp%3Butm_medium=RSS",
+          "https://security-tracker.debian.org/tracker/CVE-2019-9192"
+        ],
+        "extended_information": {
+          "short_description": "Uncontrolled recursion in glibc regexec leads to denial of service.",
+          "full_description": "The [GNU C Library](https://www.gnu.org/software/libc/), commonly known as glibc, is the GNU Project's implementation of the C standard library.\n\nIn the GNU C Library (aka glibc or libc6) through 2.29, `check_dst_limits_calc_pos_1` in posix/regexec.c has Uncontrolled Recursion, as demonstrated by running grep with the pattern `(|)(\\\\1\\\\1)*`.\n\nNote that in order to exploit this vulnerability, the attacker must control the regular expression **pattern** that glibc uses, unlike standard ReDoS vulnerabilities where only the input buffer needs to be controlled. The The pattern it not likely to be attacker-controlled from remote input.",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find a remote input that propagates to the `regex` (pattern) argument of `regcomp` and then sent to `regexec`.\nThis includes controlling the pattern argument of a `grep` invocation.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has been disputed by the vendor",
+              "description": "The software maintainer disputes that this is not a vulnerability because the behavior occurs only with a crafted pattern. Therefore - this issue is unlikely to get a fix.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "It is highly unlikely that a remote attacker will be able to control a regular expression pattern that's used by glibc",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published"
+            },
+            {
+              "name": "The issue cannot result in a severe impact (such as remote code execution)",
+              "description": "Denial of service only, marked as unimportant by the Debian tracker",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-1010022",
+            "cvss_v2_score": "7.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "9.8",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-119"
+            ]
+          }
+        ],
+        "summary": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass stack guard protection. The component is: nptl. The attack vector is: Exploit stack buffer overflow vulnerability and use this bypass vulnerability to bypass stack guard. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-84860",
+        "references": [
+          "https://ubuntu.com/security/CVE-2019-1010022",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=22850#c3",
+          "https://security-tracker.debian.org/tracker/CVE-2019-1010022",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=22850"
+        ],
+        "extended_information": {
+          "short_description": "Insufficient mitigation implementation in glibc's pthread could lead to an attacker bypassing the stack protector/canary mitigation.",
+          "full_description": "The [GNU C Library](https://www.gnu.org/s/libc/), commonly known as glibc, is the GNU Project's implementation of the C standard library.\n\nA well-known issue leads to the fact that in applications that call `pthread_create()`, if a large stack buffer overflow occurs, the stack overflow may overwrite both the reference value of the stack canary and the canary that's saved inside the stack-frame. This leads to a complete bypass of the \"stack protector\" mitigation.\n\nSpecifically, The stack protector (\"canary\") should protect an application from been exploited by stack-based buffer overflows. It is placed on stack frame in function prologue and checked with some trusted value in the function epilogue.\n\nFor x86 and x86-64 architecture the canary value is located in structure `tcbhead_t` field `stack_guard`. A Special register ('gs' for i386 and 'fs' for x86-64) keeps a pointer to this structure. The value `tcbhead_t.stack_guard` is compared with one on the stack to detect stack smashing.\n\nNPTL (Native POSIX Threads Library) is the GNU C library POSIX threads implementation that is used on modern Linux systems. When a `pthread` (new thread) is created, it will keep the `tcphead_t` structure in the thread stack. Thus, an attacker can overwrite the \"reference\" stack-canary value (since it's saved on the stack) by means of stack overflow in a new thread.\n\nThis vulnerability was disputed by the libc maintainers, since it is a well-known issue and not a standalone vulnerability but rather a vulnerability in a mitigation mechanism.",
+          "jfrog_research_severity": "Low",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "The PoC demonstrates changing the \"retained\" stack-canary value"
+            },
+            {
+              "name": "The issue cannot be exploited on its own, and can only be used as part of an attack chain",
+              "description": "Exploitation of this issue requires exploiting a different stack-buffer-overflow vulnerability in the target application",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has been disputed by the vendor",
+              "description": "The Libc maintainers treat this issue as a non-security bug, since it is a vulnerability in a post-attack mitigation (not a standalone vulnerability)",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has a detailed technical explanation published, that can aid in exploit development"
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The victim application must call `pthread_create()` and must be vulnerable to a stack-buffer-overflow type of vulnerability",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-1010025",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:N/A:N",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "cwe": [
+              "CWE-330"
+            ]
+          }
+        ],
+        "summary": "GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may guess the heap addresses of pthread_created thread. The component is: glibc. NOTE: the vendor's position is \"ASLR bypass itself is not a vulnerability.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-84867",
+        "references": [
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=22853",
+          "https://support.f5.com/csp/article/K06046097",
+          "https://ubuntu.com/security/CVE-2019-1010025",
+          "https://support.f5.com/csp/article/K06046097?utm_source=f5support\u0026amp%3Butm_medium=RSS",
+          "https://security-tracker.debian.org/tracker/CVE-2019-1010025"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-8058",
+            "cwe": [
+              "CWE-415"
+            ]
+          }
+        ],
+        "summary": "The regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if some previous allocation fails. It can be \naccomplished either by a malloc failure or by using an interposed malloc\n that injects random malloc failures. The double free can allow buffer \nmanipulation depending of how the regex is constructed. This issue \naffects all architectures and ABIs supported by the GNU C library.",
+        "severity": "Medium",
+        "components": {
+          "deb://debian:bookworm:libc6:2.36-9+deb12u10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88/sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar",
+                  "full_path": "sha256__d5a3e014161bb602d87c2312e371ad2ea6f800c7f7af261af4faa67302b53c88.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libc6:2.36-9+deb12u10",
+                  "full_path": "libc6:2.36-9+deb12u10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-711619",
+        "references": [
+          "https://security-tracker.debian.org/tracker/CVE-2025-8058",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=33185",
+          "https://sourceware.org/git/?p=glibc.git;a=commit;h=3ff17af18c38727b88d9115e536c069e6b5d601f"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-23540",
+            "cvss_v3_score": "7.6",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:L",
+            "cwe": [
+              "CWE-287",
+              "CWE-327",
+              "CWE-347"
+            ]
+          }
+        ],
+        "summary": "In versions `\u003c=8.5.1` of `jsonwebtoken` library, lack of algorithm definition in the `jwt.verify()` function can lead to signature validation bypass due to defaulting to the `none` algorithm for signature verification. Users are affected if you do not specify algorithms in the `jwt.verify()` function. This issue has been fixed, please update to version 9.0.0 which removes the default support for the none algorithm in the `jwt.verify()` method. There will be no impact, if you update to version 9.0.0 and you don’t need to allow for the `none` algorithm. If you need 'none' algorithm, you have to explicitly specify that in `jwt.verify()` options.",
+        "severity": "High",
+        "components": {
+          "npm://jsonwebtoken:0.1.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.1.0",
+                  "full_path": "node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          },
+          "npm://jsonwebtoken:0.4.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.4.0",
+                  "full_path": "juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-412392",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-23540",
+          "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-qwph-4952-7xr6",
+          "https://security.netapp.com/advisory/ntap-20240621-0007/",
+          "https://security.netapp.com/advisory/ntap-20240621-0007",
+          "https://github.com/advisories/GHSA-qwph-4952-7xr6",
+          "https://github.com/auth0/node-jsonwebtoken/commit/e1fa9dcc12054a8681db4e6373da1b30cf7016e3"
+        ],
+        "extended_information": {
+          "short_description": "A design problem in jsonwebtoken in Node.js may lead to a signature validation bypass when not specifying a verification algorithm.",
+          "full_description": "[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) is a JSON Web Token (JWT) implementation for Node.js.\nIt allows verifying/signing JWTs, which are mainly used for authorization and authentication purposes.\n\n[JSON Web Token](https://jwt.io/) is an open industry standard used to share information between two entities, usually a client (like your app’s frontend) and a server (your app’s backend).\nEach JWT is also signed using cryptography (hashing) to ensure that the JSON contents (also known as JWT claims) cannot be altered by the client or a malicious party.\n\nIt was discovered that the `jwt.verify()` function in jsonwebtoken defaults to an empty signature validation, which leads to a JWT's signature bypass.\n\nThe issue occurs when not specifying any validation algorithm in the options parameter for the `jwt.verify()` function and in addition the `secretOrPublicKey` argument is falsy (`null`, `false`, or `undefined`). In this case, a malicious attacker can send an unsigned JSON Web Token using the `none` validation algorithm, essentially bypassing the signature check altogether.",
+          "jfrog_research_severity": "Low",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "An attacker can simply send a JWT token with a `none` signature and it will be accepted."
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "The issue occurs when not specifying any validation algorithm in the options parameter for the `jwt.verify()` function and in addition the `secretOrPublicKey` argument is falsy (`null`, `false`, or `undefined`). \nApps usually use a constant key for the `secretOrPublicKey` argument (either read from a file or hard-coded) and as such it is very unlikely to be falsy or attacker-controlled.\n\nIn addition, it's required that no `algorithms` option will be supplied to `jwt.verify()` (which is more likely).",
+              "is_positive": true
+            },
+            {
+              "name": "The reported CVSS was either wrongly calculated, downgraded by other vendors, or does not reflect the vulnerability's impact",
+              "description": "The CVSS does not reflect the contextual prerequisites required to exploit the vulnerability.",
+              "is_positive": true
+            },
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "description": "Leads to JWT's signature bypass.\nWhen using the JWT for authentication purposes - this may lead to an authentication bypass.",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nTo mitigate this issue, specify the allowed algorithms to the `jwt.verify()` function, and make sure not to use the `none` algorithm (that will allow unsigned tokens and hence this vulnerability).\n\nAn example for a secure call to `jwt.verify()`:\n```\njwt.verify(token, key, { algorithms: ['RS256'] });\n```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-23541",
+            "cvss_v3_score": "6.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+            "cwe": [
+              "CWE-287",
+              "CWE-1259",
+              "NVD-CWE-Other"
+            ]
+          }
+        ],
+        "summary": "jsonwebtoken is an implementation of JSON Web Tokens. Versions `\u003c= 8.5.1` of `jsonwebtoken` library can be misconfigured so that passing a poorly implemented key retrieval function referring to the `secretOrPublicKey` argument from the readme link will result in incorrect verification of tokens. There is a possibility of using a different algorithm and key combination in verification, other than the one that was used to sign the tokens. Specifically, tokens signed with an asymmetric public key could be verified with a symmetric HS256 algorithm. This can lead to successful validation of  forged tokens. If your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function. This issue has been patched, please update to version 9.0.0.",
+        "severity": "Medium",
+        "components": {
+          "npm://jsonwebtoken:0.1.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.1.0",
+                  "full_path": "node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          },
+          "npm://jsonwebtoken:0.4.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.4.0",
+                  "full_path": "juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-412391",
+        "references": [
+          "https://security.netapp.com/advisory/ntap-20240621-0007",
+          "https://github.com/auth0/node-jsonwebtoken/releases/tag/v9.0.0",
+          "https://github.com/auth0/node-jsonwebtoken/commit/e1fa9dcc12054a8681db4e6373da1b30cf7016e3",
+          "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-hjrf-2m68-5959",
+          "https://security.netapp.com/advisory/ntap-20240621-0007/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-23541",
+          "https://github.com/advisories/GHSA-hjrf-2m68-5959"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2015-9235",
+            "cvss_v2_score": "7.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "9.8",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-20",
+              "CWE-327"
+            ]
+          }
+        ],
+        "summary": "In jsonwebtoken node module before 4.2.2 it is possible for an attacker to bypass verification when a token digitally signed with an asymmetric key (RS/ES family) of algorithms but instead the attacker send a token digitally signed with a symmetric algorithm (HS* family).",
+        "severity": "Critical",
+        "components": {
+          "npm://jsonwebtoken:0.1.0": {
+            "fixed_versions": [
+              "[4.2.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.1.0",
+                  "full_path": "node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          },
+          "npm://jsonwebtoken:0.4.0": {
+            "fixed_versions": [
+              "[4.2.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.4.0",
+                  "full_path": "juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-72506",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2015-9235",
+          "https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries/",
+          "https://www.timmclean.net/2015/02/25/jwt-alg-none.html",
+          "https://www.npmjs.com/advisories/17",
+          "https://github.com/advisories/GHSA-c7hr-j4mj-j2w6",
+          "https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries",
+          "https://github.com/auth0/node-jsonwebtoken/commit/1bb584bc382295eeb7ee8c4452a673a77a68b687",
+          "https://nodesecurity.io/advisories/17"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-23539",
+            "cvss_v3_score": "8.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+            "cwe": [
+              "CWE-327"
+            ]
+          }
+        ],
+        "summary": "Versions `\u003c=8.5.1` of `jsonwebtoken` library could be misconfigured so that legacy, insecure key types are used for signature verification. For example, DSA keys could be used with the RS256 algorithm. You are affected if you are using an algorithm and a key type other than a combination listed in the GitHub Security Advisory as unaffected. This issue has been fixed, please update to version 9.0.0. This version validates for asymmetric key type and algorithm combinations. Please refer to the above mentioned algorithm / key type combinations for the valid secure configuration. After updating to version 9.0.0, if you still intend to continue with signing or verifying tokens using invalid key type/algorithm value combinations, you’ll need to set the `allowInvalidAsymmetricKeyTypes` option  to `true` in the `sign()` and/or `verify()` functions.",
+        "severity": "High",
+        "components": {
+          "npm://jsonwebtoken:0.1.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.1.0",
+                  "full_path": "node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          },
+          "npm://jsonwebtoken:0.4.0": {
+            "fixed_versions": [
+              "[9.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://jsonwebtoken:0.4.0",
+                  "full_path": "juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-412375",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-23539",
+          "https://security.netapp.com/advisory/ntap-20240621-0007/",
+          "https://github.com/advisories/GHSA-8cf7-32gw-wr33",
+          "https://github.com/auth0/node-jsonwebtoken/commit/e1fa9dcc12054a8681db4e6373da1b30cf7016e3",
+          "https://security.netapp.com/advisory/ntap-20240621-0007",
+          "https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-8cf7-32gw-wr33"
+        ],
+        "extended_information": {
+          "short_description": "A design problem in jsonwebtoken in Node.js may lead to signature key brute force when using insecure key types and algorithms.",
+          "full_description": "[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) is a JSON Web Token (JWT) implementation for Node.js.\nIt allows verifying/signing JWTs, which are mainly used for authorization and authentication purposes.\n\n[JSON Web Token](https://jwt.io/) is an open industry standard used to share information between two entities, usually a client (like your app’s frontend) and a server (your app’s backend).\nEach JWT is also signed using cryptography (hashing) to ensure that the JSON contents (also known as JWT claims) cannot be altered by the client or a malicious party.\n\nIt was discovered that the `jwt.sign()` and `jwt.verify()` functions in jsonwebtoken didn't check the key type and algorithm, which might lead to the usage of insecure key algorithms and could result in a signature brute force and bypass.\nFor example, a legacy `DSA` key could be used in practice, while passing any other algorithm in the `alg` argument for `jwt.sign()` or `jwt.verify()`.\n\nThe issue requires an old legacy key type to be used with an algorithm that doesn't match it, weakening the verification process's security, which is rare.\n\nA malicious attacker could try to break a JWT signature that uses this weak key type and algorithm combination, and by doing so change its payload without the verifier noticing.\nWhen using the JWT for authentication purposes - this may lead to an authentication bypass.\n\nA new option named `allowInvalidAsymmetricKeyTypes` could be passed after updating to the fixed version in order to allow backward compatibility and essentially bypass the fix.\n\nRefer to [the advisory](https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-8cf7-32gw-wr33) for the list of allowed and supported key types and algorithm combinations.",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "No high-impact exploit or technical writeup were published, and exploitation of the issue with high impact is either non-trivial or completely unproven",
+              "description": "Brute forcing the JWT's signature requires in-depth cryptography knowledge and skills and depends upon the specific key algorithm.",
+              "is_positive": true
+            },
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "description": "Leads to JWT's signature key brute force.\nWhen using the JWT for authentication purposes - this may lead to an authentication bypass.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The `jwt.verify()` or `jwt.sign()` functions must be called with an old legacy key type and an unmatching algorithm for the issue to occur.",
+              "is_positive": true
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-28863",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-770",
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "node-tar is a Tar for Node.js. node-tar prior to version 6.2.1 has no limit on the number of sub-folders created in the folder creation process. An attacker who generates a large number of sub-folders can consume memory on the system running node-tar and even crash the Node.js client within few seconds of running it using a path with too many sub-folders inside. Version 6.2.1 fixes this issue by preventing extraction in excessively deep sub-folders.",
+        "severity": "Medium",
+        "components": {
+          "npm://tar:4.4.19": {
+            "fixed_versions": [
+              "[6.2.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://node-pre-gyp:0.15.0",
+                  "full_path": "juice-shop/node_modules/node-pre-gyp/package.json"
+                },
+                {
+                  "component_id": "npm://tar:4.4.19",
+                  "full_path": "node_modules/tar/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-594771",
+        "references": [
+          "https://security.netapp.com/advisory/ntap-20240524-0005/",
+          "https://github.com/advisories/GHSA-f5x3-32g6-xq36",
+          "https://github.com/isaacs/node-tar/commit/fe8cd57da5686f8695415414bda49206a545f7f7",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-28863",
+          "https://security.netapp.com/advisory/ntap-20240524-0005",
+          "https://github.com/isaacs/node-tar/security/advisories/GHSA-f5x3-32g6-xq36"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-32695",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-754",
+              "CWE-20"
+            ]
+          }
+        ],
+        "summary": "socket.io parser is a socket.io encoder and decoder written in JavaScript complying with version 5 of socket.io-protocol. A specially crafted Socket.IO packet can trigger an uncaught exception on the Socket.IO server, thus killing the Node.js process. A patch has been released in version 4.2.3.",
+        "severity": "High",
+        "components": {
+          "npm://socket.io-parser:4.0.5": {
+            "fixed_versions": [
+              "[3.3.4]",
+              "[3.4.3]",
+              "[4.2.3]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://socket.io-parser:4.0.5",
+                  "full_path": "juice-shop/node_modules/socket.io-parser/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-520851",
+        "references": [
+          "https://github.com/socketio/socket.io-parser/releases/tag/4.2.3",
+          "https://github.com/socketio/socket.io-parser/commit/3b78117bf6ba7e99d7a5cfc1ba54d0477554a7f3",
+          "https://github.com/socketio/socket.io-parser/commit/ee006607495eca4ec7262ad080dd3a91439a5ba4",
+          "https://github.com/socketio/socket.io-parser/commit/1c220ddbf45ea4b44bc8dbf6f9ae245f672ba1b9",
+          "https://github.com/advisories/GHSA-cqmj-92xf-r6r9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-32695",
+          "https://github.com/socketio/socket.io-parser/commit/2dc3c92622dad113b8676be06f23b1ed46b02ced",
+          "https://github.com/socketio/socket.io-parser/security/advisories/GHSA-cqmj-92xf-r6r9"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2021-26539",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "CWE-20",
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "Apostrophe Technologies sanitize-html before 2.3.1 does not properly handle internationalized domain name (IDN) which could allow an attacker to bypass hostname whitelist validation set by the \"allowedIframeHostnames\" option.",
+        "severity": "Medium",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[2.3.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-141898",
+        "references": [
+          "https://github.com/apostrophecms/sanitize-html/pull/458",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-26539",
+          "https://advisory.checkmarx.net/advisory/CX-2021-4308",
+          "https://github.com/apostrophecms/sanitize-html/commit/bdf7836ef8f0e5b21f9a1aab0623ae8fcd09c1da",
+          "https://github.com/apostrophecms/sanitize-html",
+          "https://github.com/apostrophecms/sanitize-html/blob/main/CHANGELOG.md#231-2021-01-22"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-25887",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-1333"
+            ]
+          }
+        ],
+        "summary": "The package sanitize-html before 2.7.1 are vulnerable to Regular Expression Denial of Service (ReDoS) due to insecure global regular expression replacement logic of HTML comment removal.",
+        "severity": "High",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[2.7.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-253348",
+        "references": [
+          "https://github.com/advisories/GHSA-cgfm-xwp7-2cvr",
+          "https://github.com/apostrophecms/sanitize-html/pull/557",
+          "https://github.com/apostrophecms/sanitize-html/commit/b4682c12fd30e12e82fa2d9b766de91d7d2cd23c",
+          "https://security.snyk.io/vuln/SNYK-JS-SANITIZEHTML-2957526",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-3008102",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-25887"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2021-26540",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "CWE-20",
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "Apostrophe Technologies sanitize-html before 2.3.2 does not properly validate the hostnames set by the \"allowedIframeHostnames\" option when the \"allowIframeRelativeUrls\" is set to true, which allows attackers to bypass hostname whitelist for iframe element, related using an src value that starts with \"/\\\\example.com\".",
+        "severity": "Medium",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[2.3.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-140478",
+        "references": [
+          "https://github.com/apostrophecms/sanitize-html/blob/main/CHANGELOG.md#232-2021-01-26",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-26540",
+          "https://github.com/apostrophecms/sanitize-html/pull/460",
+          "https://advisory.checkmarx.net/advisory/CX-2021-4309"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2016-1000237",
+            "cvss_v2_score": "4.3",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "6.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "cwe": [
+              "CWE-79"
+            ]
+          }
+        ],
+        "summary": "sanitize-html before 1.4.3 has XSS.",
+        "severity": "Medium",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[1.4.3]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-94090",
+        "references": [
+          "https://www.npmjs.com/advisories/135",
+          "https://nvd.nist.gov/vuln/detail/CVE-2016-1000237",
+          "https://github.com/apostrophecms/sanitize-html/issues/29",
+          "https://github.com/apostrophecms/sanitize-html/commit/762fbc7bba389f3f789cc291c1eb2b64f60f2caf",
+          "https://github.com/punkave/sanitize-html/issues/29",
+          "https://raw.githubusercontent.com/distributedweaknessfiling/cvelist/master/2016/1000xxx/CVE-2016-1000237.json",
+          "https://nodesecurity.io/advisories/135"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-21501",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "cwe": [
+              "CWE-538",
+              "CWE-200"
+            ]
+          }
+        ],
+        "summary": "Versions of the package sanitize-html before 2.12.1 are vulnerable to Information Exposure when used on the backend and with the style attribute allowed, allowing enumeration of files in the system (including project dependencies). An attacker could exploit this vulnerability to gather details about the file system structure and dependencies of the targeted server.",
+        "severity": "Medium",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[2.12.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-591283",
+        "references": [
+          "https://gist.github.com/Slonser/8b4d061abe6ee1b2e10c7242987674cf",
+          "https://github.com/apostrophecms/apostrophe/discussions/4436",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-21501",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6276557",
+          "https://github.com/advisories/GHSA-rm97-x556-q36h",
+          "https://security.snyk.io/vuln/SNYK-JS-SANITIZEHTML-6256334",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/P4I5X6V3LYUNBMZ5YOW4BV427TH3IK4S/",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4EB5JPYRCTS64EA5AMV3INHDPI6I4AW7",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4EB5JPYRCTS64EA5AMV3INHDPI6I4AW7/",
+          "https://github.com/apostrophecms/sanitize-html/commit/c5dbdf77fe8b836d3bf4554ea39edb45281ec0b4",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/P4I5X6V3LYUNBMZ5YOW4BV427TH3IK4S",
+          "https://github.com/apostrophecms/sanitize-html/pull/650"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2017-16016",
+            "cvss_v2_score": "4.3",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "6.1",
+            "cvss_v3_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "cwe": [
+              "CWE-79"
+            ]
+          }
+        ],
+        "summary": "Sanitize-html is a library for scrubbing html input of malicious values. Versions 1.11.1 and below are vulnerable to cross site scripting (XSS) in certain scenarios: If allowed at least one nonTextTags, the result is a potential XSS vulnerability.",
+        "severity": "Medium",
+        "components": {
+          "npm://sanitize-html:1.4.2": {
+            "fixed_versions": [
+              "[1.11.4]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-72552",
+        "references": [
+          "https://npmjs.com/package/sanitize-html#discarding-the-entire-contents-of-a-disallowed-tag",
+          "https://github.com/advisories/GHSA-xc6g-ggrc-qq4r",
+          "https://github.com/punkave/sanitize-html/commit/5d205a1005ba0df80e21d8c64a15bb3accdb2403)))",
+          "https://nvd.nist.gov/vuln/detail/CVE-2017-16016",
+          "https://www.npmjs.com/advisories/154",
+          "https://nodesecurity.io/advisories/154",
+          "https://github.com/punkave/sanitize-html/commit/5d205a1005ba0df80e21d8c64a15bb3accdb2403",
+          "https://github.com/punkave/sanitize-html/issues/100"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-25881",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-1333"
+            ]
+          }
+        ],
+        "summary": "This affects versions of the package http-cache-semantics before 4.1.1. The issue can be exploited via malicious request header values sent to a server, when that server reads the cache policy from the request using this library.",
+        "severity": "High",
+        "components": {
+          "npm://http-cache-semantics:3.8.1": {
+            "fixed_versions": [
+              "[4.1.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://http-cache-semantics:3.8.1",
+                  "full_path": "juice-shop/node_modules/http-cache-semantics/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-416411",
+        "references": [
+          "https://security.netapp.com/advisory/ntap-20230622-0008",
+          "https://github.com/advisories/GHSA-rc47-6667-2j5j",
+          "https://github.com/kornelski/http-cache-semantics/blob/master/index.js%23L83",
+          "https://security.snyk.io/vuln/SNYK-JS-HTTPCACHESEMANTICS-3248783",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-3253332",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-25881",
+          "https://github.com/kornelski/http-cache-semantics/commit/560b2d8ef452bbba20ffed69dc155d63ac757b74",
+          "https://security.netapp.com/advisory/ntap-20230622-0008/"
+        ],
+        "extended_information": {
+          "short_description": "Inefficient regex in http-cache-semantics leads to denial of service when handling crafted HTTP requests.",
+          "full_description": "[http-cache-semantics](https://www.npmjs.com/package/http-cache-semantics) is a Node.js library that provides utilities for parsing, analyzing, and manipulating HTTP caching headers, based on the specifications defined in RFC7234. It helps developers to work with caching headers more efficiently and correctly.\n\nA flaw was identified in `http-cache-semantics` whereby an unlimited amount of memory could be used when handling payloads with numerous repeating whitespaces. This could result in a denial-of-service attack due to excessive memory consumption.\n\nThe problem arises within the `parseCacheControl` function, where an insecure regex is utilized to trim whitespaces from an HTTP Header. To take advantage of this issue, an attacker needs to submit an HTTP Request that contains a specially-crafted `Cache-Control` header. This header should begin and end with any non-whitespace character, and contain a substantial number of spaces in between.\n\nExploit payload example- \n```\nconst payload = \"A\" + \" \".repeat(10**5) + \"B\";\nconst CachePolicy = require(\"http-cache-semantics\");\nnew CachePolicy({ headers: { \"cache-control\": payload, },}, { headers: {}, });\n\n```",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "The impact of the vulnerability is a remote denial of service that requires no user interaction or per-target specific research"
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "The vulnerability is remotely exploitable as long as external HTTP requests are fed to `http-cache-semantics`'s exported function (`CachePolicy`), which is a likely scenario"
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "Exploitation is relatively straightforward as the primary function of this package is to examine cache headers within HTTP requests."
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nLimit the amount of allowed whitespace in incoming requests -\n```js\nconst WHITESPACE_LIMIT = 1000\nif (request.headers[\"cache-control\"].match(/\\s/g).length \u003e WHITESPACE_LIMIT) {\n    // Error due to excessive whitespace\n    return\n}\ncachePolicy = new CachePolicy(request, response); \n```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-41940",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-248"
+            ]
+          }
+        ],
+        "summary": "Engine.IO is the implementation of transport-based cross-browser/cross-device bi-directional communication layer for Socket.IO. A specially crafted HTTP request can trigger an uncaught exception on the Engine.IO server, thus killing the Node.js process. This impacts all the users of the engine.io package, including those who uses depending packages like socket.io. There is no known workaround except upgrading to a safe version. There are patches for this issue released in versions 3.6.1 and 6.2.1.",
+        "severity": "Medium",
+        "components": {
+          "npm://engine.io:4.1.2": {
+            "fixed_versions": [
+              "[3.6.1]",
+              "[6.2.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://engine.io:4.1.2",
+                  "full_path": "juice-shop/node_modules/engine.io/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-261749",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-41940",
+          "https://github.com/socketio/engine.io",
+          "https://github.com/socketio/engine.io/security/advisories/GHSA-r7qp-cfhv-p84w",
+          "https://github.com/socketio/engine.io/commit/83c4071af871fc188298d7d591e95670bf9f9085",
+          "https://github.com/socketio/engine.io/commit/425e833ab13373edf1dd5a0706f07100db14e3c6"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-37890",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-476"
+            ]
+          }
+        ],
+        "summary": "ws is an open source WebSocket client and server for Node.js. A request with a number of headers exceeding theserver.maxHeadersCount threshold could be used to crash a ws server. The vulnerability was fixed in ws@8.17.1 (e55e510) and backported to ws@7.5.10 (22c2876), ws@6.2.3 (eeb76d3), and ws@5.2.4 (4abd8f6). In vulnerable versions of ws, the issue can be mitigated in the following ways: 1. Reduce the maximum allowed length of the request headers using the --max-http-header-size=size and/or the maxHeaderSize options so that no more headers than the server.maxHeadersCount limit can be sent. 2. Set server.maxHeadersCount to 0 so that no limit is applied.",
+        "severity": "High",
+        "components": {
+          "npm://ws:7.4.6": {
+            "fixed_versions": [
+              "[5.2.4]",
+              "[6.2.3]",
+              "[7.5.10]",
+              "[8.17.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://engine.io:4.1.2",
+                  "full_path": "juice-shop/node_modules/engine.io/package.json"
+                },
+                {
+                  "component_id": "npm://ws:7.4.6",
+                  "full_path": "node_modules/ws/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-606128",
+        "references": [
+          "https://nodejs.org/api/http.html#servermaxheaderscount",
+          "https://github.com/websockets/ws/commit/e55e5106f10fcbaac37cfa89759e4cc0d073a52c",
+          "https://github.com/websockets/ws/commit/eeb76d313e2a00dd5247ca3597bba7877d064a63",
+          "https://github.com/websockets/ws/security/advisories/GHSA-3h5v-q93c-6h6q",
+          "https://github.com/websockets/ws/issues/2230",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-37890",
+          "https://github.com/websockets/ws/pull/2231",
+          "https://github.com/websockets/ws/commit/4abd8f6de4b0b65ef80b3ff081989479ed93377e",
+          "https://github.com/websockets/ws/commit/22c28763234aa75a7e1b76f5c01c181260d7917f",
+          "https://github.com/advisories/GHSA-3h5v-q93c-6h6q"
+        ],
+        "extended_information": {
+          "short_description": "A design flaw in ws library may lead to denial of service when receiving a high number of headers.",
+          "full_description": "The `ws` package in Node.js is a popular WebSocket library for building WebSocket servers and clients. WebSockets provide a way to open a bi-directional, full-duplex communication channel over a single, long-lived connection, which allows servers and clients to send data independently of one another.\n\nWhen a client tries to initiate a connection to a websocket server, an upgrade needs to occur from `HTTP` to `WebSocket`. A design flaw bug in `ws` upgrade handling may lead to denial of service when a request with a number of headers exceeding `server.maxHeadersCount` or `request.maxHeadersCount` threshold is used.\n\nNote, the default value of `server.maxHeadersCount` and `request.maxHeadersCount` in Node.js http module is `2000`.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "This issue can lead to denial of service."
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "This vulnerability is easily exploitable by creating a request with more than 2000 headers- which is the default value."
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "A proof of concept demonstrating denial of service was published in the advisory."
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker needs to find an endpoint that uses the WebSockets library to handle requests.",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nThe vulnerabilty can be mitigated by either:\n\n* Reduce the maximum allowed length of the request headers using the `--max-http-header-size=size`  and/or the `maxHeaderSize` options so that no more headers than the `server.maxHeadersCount` limit can be sent.\n\n* Set `server.maxHeadersCount=0` so that no limit is applied."
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-29415",
+            "cvss_v3_score": "8.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-918",
+              "CWE-941"
+            ]
+          }
+        ],
+        "summary": "The ip package through 2.0.1 for Node.js might allow SSRF because some IP addresses (such as 127.1, 01200034567, 012.1.2.3, 000:0:0000::01, and ::fFFf:127.0.0.1) are improperly categorized as globally routable via isPublic. NOTE: this issue exists because of an incomplete fix for CVE-2023-42282.",
+        "severity": "High",
+        "components": {
+          "npm://ip:2.0.1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://ip:2.0.1",
+                  "full_path": "juice-shop/node_modules/ip/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-604072",
+        "references": [
+          "https://github.com/indutny/node-ip/pull/143",
+          "https://security.netapp.com/advisory/ntap-20250117-0010",
+          "https://security.netapp.com/advisory/ntap-20250117-0010/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-29415",
+          "https://github.com/advisories/GHSA-2p57-rm9w-gvfp",
+          "https://github.com/indutny/node-ip/pull/144",
+          "https://github.com/indutny/node-ip/issues/150"
+        ],
+        "extended_information": {
+          "short_description": "Incorrect handling of a loopback address in `isPublic()` function in the NPM package `IP` may lead to Server-Side Request Forgery (SSRF) and other contextual impacts.",
+          "full_description": "The NPM `ip` package is an IP address utilities package for `Node.js`. It provides utilities such as getting the server's IP address, comparing IP addresses, validating IP addresses, etc.\n\nThe `isPublic()` function of the package is designed to accept an IP address as input and determine whether it is public, returning true if it is, and false otherwise. It was discovered that the function is vulnerable to a Server-Side Request Forgery (SSRF).\n \nIf the `isPublic()` function accepts user-controlled input as its parameter, an attacker can supply the string `0x7f.1`, which the function erroneously considers as public and returns true, when it should return false. This is because the string is a hexadecimal representation of the widely known internal loopback address `127.0.0.1`.\n\nThe loopback address is an interface for hosting network services on the host machine without making it accessible from other networks (like the internet), meaning if an attacker can issue requests to a vulnerable web application that uses the `isPublic()` to protect internal resources from being accessed from public networks, he could potentially issue requests to services running on the host and bypass this filter.\n\nThis issue was reported after an incorrect fix was implemented for CVE-2023-42282.\n\nNote that the package is unmaintained and no fix is available for this issue.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "To exploit the vulnerability the attacker needs to be able to control the IP address provided to the `isPublic()` function.",
+              "is_positive": true
+            },
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "description": "The impact of exploiting this vulnerability depends on the logic of the application that uses `isPublic()` to check whether the provided IP address is public. For example, when the results are used by the application to implement security mechanisms such as IP address filtering or disabling connection to internal resources, the impact can be severe by allowing the attacker to bypass such restrictions. The exploitation requires the attacker to research the application, find a vulnerable path, and supply a crafted request that will lead to a specific restriction bypass.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has a detailed technical explanation published, that can aid in exploit development",
+              "description": "A detailed technical write-up was published."
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nAdd a sanitization check for the following payloads:\n\n* `127.1`, `127.0.1`, `127.00.0x1`, `127.0.0x0.1`\n* `01200034567`\n* `012.1.2.3`\n* `fe80::0001`, `000:0:0000::01`, `000:0:0000:0:000:0:00:001`\n* `::fFFf:127.0.0.1`\n\n```\nvar ip = require('ip');\n\n// Sanitization check before calling the vulnerable isPublic() function\nif (userSuppliedIP === \u003cpayload\u003e) {\n    userSuppliedIP = \"127.0.0.1\";\n}\n\n// Safe call to the vulnerable functions\nip.isPublic(userSuppliedIP);\nip.isPrivate(userSuppliedIP);\nip.isLoopback(userSuppliedIP);\n```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-37466",
+            "cvss_v3_score": "10.0",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-94"
+            ]
+          }
+        ],
+        "summary": "vm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox.",
+        "severity": "Critical",
+        "components": {
+          "npm://vm2:3.9.17": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://vm2:3.9.17",
+                  "full_path": "juice-shop/node_modules/vm2/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-523322",
+        "references": [
+          "https://github.com/Unitech/pm2/issues/5643",
+          "https://security.netapp.com/advisory/ntap-20230831-0007",
+          "https://github.com/soketi/soketi/security/advisories/GHSA-g6w6-h933-4rc5",
+          "https://github.com/patriksimek/vm2",
+          "https://gist.github.com/leesh3288/f693061e6523c97274ad5298eb2c74e9",
+          "https://github.com/soketi/soketi",
+          "https://github.com/advisories/GHSA-cchq-frgv-rjh5",
+          "https://github.com/soketi/soketi/commit/de12bff706c0d62e6a57dc1c7be3c4f014d0093a",
+          "https://github.com/patriksimek/vm2/issues/533",
+          "https://github.com/soketi/soketi/releases/tag/1.6.0",
+          "https://github.com/soketi/soketi/pull/927",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-37466",
+          "https://github.com/patriksimek/vm2/security/advisories/GHSA-cchq-frgv-rjh5"
+        ],
+        "extended_information": {
+          "short_description": "A prototype lookup vulnerability in vm2 leads to arbitrary code execution when running untrusted input in the vm2 sandbox.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "No high-impact exploit or technical writeup were published, and exploitation of the issue with high impact is either non-trivial or completely unproven",
+              "description": "A PoC is to be disclosed on or after the 8th of August.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find remote input that propagates into the `VM().run` function.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "An application needs to run untrusted code inside the `vm2` sandbox. This is highly likely since this is the exact purpose of the `vm2` package."
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Arbitrary code execution on the host."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-32314",
+            "cvss_v3_score": "10.0",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-74",
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "vm2 is a sandbox that can run untrusted code with Node's built-in modules. A sandbox escape vulnerability exists in vm2 for versions up to and including 3.9.17. It abuses an unexpected creation of a host object based on the specification of `Proxy`. As a result a threat actor can bypass the sandbox protections to gain remote code execution rights on the host running the sandbox. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. There are no known workarounds for this vulnerability.",
+        "severity": "Critical",
+        "components": {
+          "npm://vm2:3.9.17": {
+            "fixed_versions": [
+              "[3.9.18]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://vm2:3.9.17",
+                  "full_path": "juice-shop/node_modules/vm2/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-520258",
+        "references": [
+          "https://github.com/patriksimek/vm2",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-32314",
+          "https://github.com/patriksimek/vm2/security/advisories/GHSA-whpj-8f3w-67p5",
+          "https://github.com/patriksimek/vm2/releases/tag/3.9.18",
+          "https://github.com/patriksimek/vm2/commit/d88105f99752305c5b8a77b63ddee3ec86912daf",
+          "https://gist.github.com/arkark/e9f5cf5782dec8321095be3e52acf5ac"
+        ],
+        "extended_information": {
+          "short_description": "A prototype lookup vulnerability in vm2 leads to arbitrary code execution when running untrusted input in the vm2 sandbox.",
+          "jfrog_research_severity": "Critical",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "An exploit that demonstrates arbitrary code execution was published in the GitHub Advisory."
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find remote input that propagates into the `VM().run` function.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "An application needs to run untrusted code inside the `vm2` sandbox. This is highly likely since this is the exact purpose of the `vm2` package."
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Arbitrary code execution on the host."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-37903",
+            "cvss_v3_score": "10.0",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-78"
+            ]
+          }
+        ],
+        "summary": "vm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software.",
+        "severity": "Critical",
+        "components": {
+          "npm://vm2:3.9.17": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://vm2:3.9.17",
+                  "full_path": "juice-shop/node_modules/vm2/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-526362",
+        "references": [
+          "https://github.com/patriksimek/vm2",
+          "https://security.netapp.com/advisory/ntap-20230831-0007/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-37903",
+          "https://github.com/patriksimek/vm2/security/advisories/GHSA-g644-9gfx-q4q4",
+          "https://security.netapp.com/advisory/ntap-20230831-0007"
+        ],
+        "extended_information": {
+          "short_description": "A prototype lookup vulnerability in vm2 leads to arbitrary code execution when running untrusted input in the vm2 sandbox.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "No high-impact exploit or technical writeup were published, and exploitation of the issue with high impact is either non-trivial or completely unproven",
+              "description": "A PoC is to be disclosed on or after the 8th of August.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find remote input that propagates into the `VM().run` function.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "An application needs to run untrusted code inside the `vm2` sandbox. This is highly likely since this is the exact purpose of the `vm2` package."
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Arbitrary code execution on the host."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-32313",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "CWE-74",
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "vm2 is a sandbox that can run untrusted code with Node's built-in modules. In versions 3.9.17 and lower of vm2 it was possible to get a read-write reference to the node `inspect` method and edit options for `console.log`. As a result a threat actor can edit options for the `console.log` command. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. Users unable to upgrade may make the `inspect` method readonly with `vm.readonly(inspect)` after creating a vm.",
+        "severity": "Medium",
+        "components": {
+          "npm://vm2:3.9.17": {
+            "fixed_versions": [
+              "[3.9.18]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://vm2:3.9.17",
+                  "full_path": "juice-shop/node_modules/vm2/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-520398",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-32313",
+          "https://github.com/patriksimek/vm2",
+          "https://github.com/patriksimek/vm2/releases/tag/3.9.18",
+          "https://gist.github.com/arkark/c1c57eaf3e0a649af1a70c2b93b17550",
+          "https://github.com/patriksimek/vm2/security/advisories/GHSA-p5gc-c584-jj6v",
+          "https://github.com/patriksimek/vm2/commit/5206ba25afd86ef547a2c9d48d46ca7a9e6ec238"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-4068",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-1050",
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "The NPM package `braces`, versions prior to 3.0.3, fails to limit the number of characters it can handle, which could lead to Memory Exhaustion. In `lib/parse.js,` if a malicious user sends \"imbalanced braces\" as input, the parsing will enter a loop, which will cause the program to start allocating heap memory without freeing it at any moment of the loop. Eventually, the JavaScript heap limit is reached, and the program will crash.",
+        "severity": "High",
+        "components": {
+          "npm://braces:2.3.2": {
+            "fixed_versions": [
+              "[3.0.3]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://braces:2.3.2",
+                  "full_path": "juice-shop/node_modules/braces/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-602882",
+        "references": [
+          "https://github.com/advisories/GHSA-grv7-fg5c-xmjg",
+          "https://github.com/micromatch/braces/pull/40",
+          "https://github.com/micromatch/braces/issues/35",
+          "https://github.com/micromatch/braces/pull/37",
+          "https://devhub.checkmarx.com/cve-details/CVE-2024-4068",
+          "https://devhub.checkmarx.com/cve-details/CVE-2024-4068/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-4068",
+          "https://github.com/micromatch/braces/commit/415d660c3002d1ab7e63dbf490c9851da80596ff",
+          "https://github.com/micromatch/braces/blob/98414f9f1fabe021736e26836d8306d5de747e0d/lib/parse.js#L308"
+        ],
+        "extended_information": {
+          "short_description": "Unbounded resource consumption in braces may lead to denial of service when parsing user input.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "Exploitation of this vulnerability requires the attacker to be able to pass input to `braces.parse()`, which is highly unlikely.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "This vulnerability has a published PoC."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-27943",
+            "cvss_v2_score": "4.3",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "5.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-674"
+            ]
+          }
+        ],
+        "summary": "libiberty/rust-demangle.c in GNU GCC 11.2 allows stack consumption in demangle_const, as demonstrated by nm-new.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:gcc-12-base:12.2.0-14+deb12u1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:7095412417d2dce289b77f7a8c632a07c82b707fe43cfef7368c3b65c8d2538a/sha256__7095412417d2dce289b77f7a8c632a07c82b707fe43cfef7368c3b65c8d2538a.tar",
+                  "full_path": "sha256__7095412417d2dce289b77f7a8c632a07c82b707fe43cfef7368c3b65c8d2538a.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:gcc-12-base:12.2.0-14+deb12u1",
+                  "full_path": "gcc-12-base:12.2.0-14+deb12u1"
+                }
+              ]
+            ]
+          },
+          "deb://debian:bookworm:libgcc-s1:12.2.0-14+deb12u1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:c3abae442368dc447f15c468933843c361f227f5d87b2bb86515b49f40583ed9/sha256__c3abae442368dc447f15c468933843c361f227f5d87b2bb86515b49f40583ed9.tar",
+                  "full_path": "sha256__c3abae442368dc447f15c468933843c361f227f5d87b2bb86515b49f40583ed9.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libgcc-s1:12.2.0-14+deb12u1",
+                  "full_path": "libgcc-s1:12.2.0-14+deb12u1"
+                }
+              ]
+            ]
+          },
+          "deb://debian:bookworm:libgomp1:12.2.0-14+deb12u1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:2401c5ea32a75452bc4b02a664c80cf63f197704653926fca19e22e6cbc85652/sha256__2401c5ea32a75452bc4b02a664c80cf63f197704653926fca19e22e6cbc85652.tar",
+                  "full_path": "sha256__2401c5ea32a75452bc4b02a664c80cf63f197704653926fca19e22e6cbc85652.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libgomp1:12.2.0-14+deb12u1",
+                  "full_path": "libgomp1:12.2.0-14+deb12u1"
+                }
+              ]
+            ]
+          },
+          "deb://debian:bookworm:libstdc++6:12.2.0-14+deb12u1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:6819a1af097df543d58dc30b51f737e55f3f42a9a04e641f175834a55bf0629c/sha256__6819a1af097df543d58dc30b51f737e55f3f42a9a04e641f175834a55bf0629c.tar",
+                  "full_path": "sha256__6819a1af097df543d58dc30b51f737e55f3f42a9a04e641f175834a55bf0629c.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libstdc++6:12.2.0-14+deb12u1",
+                  "full_path": "libstdc++6:12.2.0-14+deb12u1"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-203474",
+        "references": [
+          "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/H424YXGW7OKXS2NCAP35OP6Y4P4AW6VG/",
+          "https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105039",
+          "https://security-tracker.debian.org/tracker/CVE-2022-27943",
+          "https://sourceware.org/bugzilla/show_bug.cgi?id=28995"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-4067",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cwe": [
+              "CWE-1333"
+            ]
+          }
+        ],
+        "summary": "The NPM package `micromatch` prior to 4.0.8 is vulnerable to Regular Expression Denial of Service (ReDoS). The vulnerability occurs in `micromatch.braces()` in `index.js` because the pattern `.*` will greedily match anything. By passing a malicious payload, the pattern matching will keep backtracking to the input while it doesn't find the closing bracket. As the input size increases, the consumption time will also increase until it causes the application to hang or slow down. There was a merged fix but further testing shows the issue persists. This issue should be mitigated by using a safe pattern that won't start backtracking the regular expression due to greedy matching. This issue was fixed in version 4.0.8.",
+        "severity": "Medium",
+        "components": {
+          "npm://micromatch:3.1.10": {
+            "fixed_versions": [
+              "[4.0.8]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://micromatch:3.1.10",
+                  "full_path": "juice-shop/node_modules/micromatch/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-621954",
+        "references": [
+          "https://github.com/micromatch/micromatch/commit/500d5d6f42f0e8dfa1cb5464c6cb420b1b6aaaa0",
+          "https://advisory.checkmarx.net/advisory/CVE-2024-4067",
+          "https://github.com/micromatch/micromatch/pull/247",
+          "https://github.com/micromatch/micromatch/blob/2c56a8604b68c1099e7bc0f807ce0865a339747a/index.js#L448",
+          "https://github.com/micromatch/micromatch/pull/266",
+          "https://devhub.checkmarx.com/cve-details/CVE-2024-4067",
+          "https://github.com/micromatch/micromatch/releases/tag/4.0.8",
+          "https://advisory.checkmarx.net/advisory/CVE-2024-4067/",
+          "https://github.com/advisories/GHSA-952p-6rrq-rcjv",
+          "https://github.com/micromatch/micromatch/commit/03aa8052171e878897eee5d7bb2ae0ae83ec2ade",
+          "https://github.com/micromatch/micromatch/issues/243",
+          "https://devhub.checkmarx.com/cve-details/CVE-2024-4067/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-4067"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2021-23771",
+            "cvss_v2_score": "6.4",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:N",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+            "cwe": [
+              "CWE-1321"
+            ]
+          }
+        ],
+        "summary": "This affects all versions of package notevil; all versions of package argencoders-notevil. It is vulnerable to Sandbox Escape leading to Prototype pollution. The package fails to restrict access to the main context, allowing an attacker to add or modify an object's prototype. **Note:** This vulnerability derives from an incomplete fix in [SNYK-JS-NOTEVIL-608878](https://security.snyk.io/vuln/SNYK-JS-NOTEVIL-608878).",
+        "severity": "Medium",
+        "components": {
+          "npm://notevil:1.3.3": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://notevil:1.3.3",
+                  "full_path": "juice-shop/node_modules/notevil/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-200877",
+        "references": [
+          "https://github.com/mmckegg/notevil",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-23771",
+          "https://snyk.io/vuln/SNYK-JS-NOTEVIL-2385946",
+          "https://snyk.io/vuln/SNYK-JS-ARGENCODERSNOTEVIL-2388587"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-33987",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "The got package before 12.1.0 (also fixed in 11.8.5) for Node.js allows a redirect to a UNIX socket.",
+        "severity": "Medium",
+        "components": {
+          "npm://got:8.3.2": {
+            "fixed_versions": [
+              "[11.8.5]",
+              "[12.1.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://got:8.3.2",
+                  "full_path": "juice-shop/node_modules/got/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-229041",
+        "references": [
+          "https://github.com/sindresorhus/got/pull/2047",
+          "https://github.com/sindresorhus/got",
+          "https://github.com/sindresorhus/got/releases/tag/v12.1.0",
+          "https://github.com/sindresorhus/got/compare/v12.0.3...v12.1.0",
+          "https://github.com/sindresorhus/got/releases/tag/v11.8.5",
+          "https://github.com/sindresorhus/got/commit/861ccd9ac2237df762a9e2beed7edd88c60782dc",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-33987"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-1010266",
+            "cvss_v2_score": "4.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:N/I:N/A:P",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-770",
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "lodash prior to 4.17.11 is affected by: CWE-400: Uncontrolled Resource Consumption. The impact is: Denial of service. The component is: Date handler. The attack vector is: Attacker provides very long strings, which the library attempts to match using a regular expression. The fixed version is: 4.17.11.",
+        "severity": "Medium",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.11]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-85049",
+        "references": [
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2019-1010266.yml",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-1010266",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-73639",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://github.com/advisories/GHSA-x5rq-j2xg-h7qm",
+          "https://github.com/lodash/lodash/issues/3359",
+          "https://github.com/lodash/lodash/commit/5c08f18d365b64063bfbfa686cbb97cdd6267347",
+          "https://github.com/lodash/lodash/wiki/Changelog",
+          "https://security.netapp.com/advisory/ntap-20190919-0004"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-10744",
+            "cvss_v2_score": "6.4",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:P",
+            "cvss_v3_score": "9.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+            "cwe": [
+              "CWE-20",
+              "CWE-1321"
+            ]
+          }
+        ],
+        "summary": "Versions of lodash lower than 4.17.12 are vulnerable to Prototype Pollution. The function defaultsDeep could be tricked into adding or modifying properties of Object.prototype using a constructor payload.",
+        "severity": "Critical",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.12]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-85679",
+        "references": [
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2019-10744.yml",
+          "https://security.netapp.com/advisory/ntap-20191004-0005",
+          "https://access.redhat.com/errata/RHSA-2019:3024",
+          "https://github.com/advisories/GHSA-jf85-cpcp-j695",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-10744",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-450202",
+          "https://www.oracle.com/security-alerts/cpujan2021.html",
+          "https://github.com/lodash/lodash/pull/4336",
+          "https://security.netapp.com/advisory/ntap-20191004-0005/",
+          "https://support.f5.com/csp/article/K47105354?utm_source=f5support\u0026amp;utm_medium=RSS",
+          "https://www.oracle.com/security-alerts/cpuoct2020.html",
+          "https://support.f5.com/csp/article/K47105354?utm_source=f5support\u0026amp%3Butm_medium=RSS"
+        ],
+        "extended_information": {
+          "short_description": "Insufficient input validation in lodash defaultsDeep() leads to prototype pollution.",
+          "full_description": "[lodash](https://www.npmjs.com/package/lodash) is a modern JavaScript utility library delivering modularity, performance, \u0026 extras.\n\nThe function `defaultsDeep` was found to be vulnerable to prototype pollution, when accepting arbitrary source objects from untrusted input\n\nExample of code vulnerable to this issue - \n```js\nconst lodash = require('lodash'); \nconst evilsrc = {constructor: {prototype: {evilkey: \"evilvalue\"}}};\nlodash.defaultsDeep({}, evilsrc)\n```",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "A public PoC demonstrates exploitation of this issue"
+            },
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "description": "A prototype pollution attack allows the attacker to inject new properties to all JavaScript objects (but not set existing properties).\nTherefore, the impact of a prototype pollution attack depends on the way the JavaScript code uses any object properties after the attack is triggered.\nUsually, a DoS attack is possible since invalid properties quickly lead to an exception being thrown. In more severe cases, RCE may be achievable.",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "An attacker must find remote input that propagates into the `defaultsDeep` method (2nd arg)",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nAdd the `Object.freeze(Object.prototype);` directive once at the beginning of your main JS source code file (ex. `index.js`), preferably after all your `require` directives. This will prevent any changes to the prototype object, thus completely negating prototype pollution attacks."
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2018-3721",
+            "cvss_v2_score": "4.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:N/I:P/A:N",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+            "cwe": [
+              "CWE-1321",
+              "CWE-471"
+            ]
+          }
+        ],
+        "summary": "lodash node module before 4.17.5 suffers from a Modification of Assumed-Immutable Data (MAID) vulnerability via defaultsDeep, merge, and mergeWith functions, which allows a malicious user to modify the prototype of \"Object\" via __proto__, causing the addition or modification of an existing property that will exist on all objects.",
+        "severity": "Medium",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.5]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-72918",
+        "references": [
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2018-3721.yml",
+          "https://hackerone.com/reports/310443",
+          "https://github.com/advisories/GHSA-fvqr-27wr-82fm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-3721",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://security.netapp.com/advisory/ntap-20190919-0004",
+          "https://github.com/lodash/lodash/commit/d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2021-23337",
+            "cvss_v2_score": "6.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:P/I:P/A:P",
+            "cvss_v3_score": "7.2",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-77",
+              "CWE-94"
+            ]
+          }
+        ],
+        "summary": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.",
+        "severity": "High",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.21]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-140575",
+        "references": [
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2021-23337.yml",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://security.netapp.com/advisory/ntap-20210312-0006",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+          "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-23337"
+        ],
+        "extended_information": {
+          "short_description": "Improper sanitization in the lodash template function leads to JavaScript code injection through the options argument.",
+          "full_description": "JavaScript-based applications (both frontend and backend) that use the [template function](https://lodash.com/docs/4.17.15#template) -`_.template([string=''], [options={}])` from the [lodash](https://lodash.com/) utility library and provide the `options` argument (specifically the `variable` option) from untrusted user input, are vulnerable to JavaScript code injection. This issue can be easily exploited, and an exploitation example is [publicly available](https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c#diff-a561630bb56b82342bc66697aee2ad96efddcbc9d150665abd6fb7ecb7c0ab2fR22303) in the fix tests that was introduced in version 4.17.21 - \n```js\nlodash.template('', { variable: '){console.log(process.env)}; with(obj' })()\n```",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "It is highly unlikely that a JS program will accept arbitrary remote input into the template's `options` argument",
+              "is_positive": true
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find remote input that propagates into the `options` argument of a `template` call",
+              "is_positive": true
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Leads to remote code execution through JS code injection"
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "Published exploit demonstrates arbitrary JS code execution"
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-28500",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cwe": [
+              "CWE-400",
+              "CWE-1333",
+              "NVD-CWE-Other"
+            ]
+          }
+        ],
+        "summary": "Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.",
+        "severity": "Medium",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.21]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-140562",
+        "references": [
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2020-28500.yml",
+          "https://security.netapp.com/advisory/ntap-20210312-0006",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+          "https://github.com/lodash/lodash/pull/5065/commits/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+          "https://github.com/lodash/lodash/pull/5065",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+          "https://github.com/advisories/GHSA-29mw-wpgm-hmr9"
+        ],
+        "extended_information": {
+          "short_description": "ReDoS in lodash could lead to a denial of service when handling untrusted strings.",
+          "full_description": "JavaScript-based applications that use [lodash](https://github.com/lodash/lodash) and specifically the [_.toNumber](https://lodash.com/docs/4.17.15#toNumber), [_.trim](https://lodash.com/docs/4.17.15#trim) and [_.trimEnd](https://lodash.com/docs/4.17.15#trimEnd) functions, could be vulnerable to DoS (Denial of Service) through a faulty regular expression that introduces a ReDoS (Regular Expression DoS) vulnerability. This vulnerability is only triggered if untrusted user input flows into these vulnerable functions and the attacker can supply arbitrary long strings (over 50kB) that contain whitespaces. \n\nOn a modern Core i7-based system, calling the vulnerable functions with a 50kB string could take between 2 to 3 seconds to execute and 4.5 minutes for a longer 500kB string. The fix improved the regular expression performance so it took only a few milliseconds on the same Core i7-based system. This vulnerability is easily exploitable as all is required is to build a string that triggers it as can be seen in this PoC reproducing code - \n\n```js\nvar untrusted_user_input_50k = \"a\" + ' '.repeat(50000) + \"z\"; // assume this is provided over the network\nlo.trimEnd(untrusted_user_input_50k); // should take a few seconds to run\nvar untrusted_user_input_500k = \"a\" + ' '.repeat(500000) + \"z\"; // assume this is provided over the network\nlo.trimEnd(untrusted_user_input_500k); // should take a few minutes to run\n```",
+          "jfrog_research_severity": "Medium",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "Public exploit demonstrated ReDoS"
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "Exploitation depends on parsing user input by the `.toNumber`, `.trim` or `.trimEnd` `lodash` functions, and requires the input to contain whitespaces and be very long (over 50KB)",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Deployment mitigations\n\nTrim untrusted strings based on size before providing it to the vulnerable functions by using the `substring` function to with a fixed maximum size like so - ```js untrusted_user_input.substring(0, max_string_size_less_than_50kB); ```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2018-16487",
+            "cvss_v2_score": "6.8",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "5.6",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+            "cwe": [
+              "NVD-CWE-noinfo",
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "A prototype pollution vulnerability was found in lodash \u003c4.17.11 where the functions merge, mergeWith, and defaultsDeep can be tricked into adding or modifying properties of Object.prototype.",
+        "severity": "Medium",
+        "components": {
+          "npm://lodash:2.4.2": {
+            "fixed_versions": [
+              "[4.17.11]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://sanitize-html:1.4.2",
+                  "full_path": "juice-shop/node_modules/sanitize-html/package.json"
+                },
+                {
+                  "component_id": "npm://lodash:2.4.2",
+                  "full_path": "node_modules/lodash/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-75300",
+        "references": [
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2018-16487.yml",
+          "https://hackerone.com/reports/380873",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-16487",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://github.com/advisories/GHSA-4xc9-xhrj-v574",
+          "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad",
+          "https://security.netapp.com/advisory/ntap-20190919-0004"
+        ],
+        "extended_information": {
+          "short_description": "Insufficient input validation in the Lodash library leads to prototype pollution.",
+          "full_description": "The [Lodash](https://lodash.com/) library is an open-source JavaScript project that simplifies operations on string, arrays, numbers, and other objects. It is widely used in connected devices. \n\nThe `merge`, `mergeWith`, and `defaultsDeep`  methods in Lodash are vulnerable to [prototype pollution](https://shieldfy.io/security-wiki/prototype-pollution/introduction-to-prototype-pollution/). Attackers can exploit this vulnerability by specifying a crafted `sources` parameter to any of these methods, which can modify the prototype properties of the `Object`, `Function`, `Array`, `String`, `Number`, and `Boolean` objects. A public [exploit](https://hackerone.com/reports/380873) exists which performs the prototype pollution with an arbitrary key and value.\n\nThe library implementation has a bug in the `safeGet()` function in the `lodash.js` module that allows for adding or modifying `prototype` properties of various objects. The official [solution](https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad) fixes the bug by explicitly forbidding the addition or modification of  `prototype` properties.\n\nA related CVE (CVE-2018-3721) covers the same issue prior to Lodash version 4.17.5, but the fix for that was incomplete.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "An attacker must find remote input that propagates into one of the following methods - \n* `merge` - 2nd argument\n* `mergeWith` - 2nd argument\n* `defaultsDeep` - 2nd argument",
+              "is_positive": true
+            },
+            {
+              "name": "The impact of exploiting the issue depends on the context of surrounding software. A severe impact such as RCE is not guaranteed.",
+              "description": "A prototype pollution attack allows the attacker to inject new properties to all JavaScript objects (but not set existing properties).\nTherefore, the impact of a prototype pollution attack depends on the way the JavaScript code uses any object properties after the attack is triggered.\nUsually, a DoS attack is possible since invalid properties quickly lead to an exception being thrown. In more severe cases, RCE may be achievable.",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "A public PoC demonstrated exploitation by injecting an attacker controlled key and value into the prototype"
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nAdd the `Object.freeze(Object.prototype);` directive once at the beginning of your main JS source code file (ex. `index.js`), preferably after all your `require` directives. This will prevent any changes to the prototype object, thus completely negating prototype pollution attacks."
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2016-4055",
+            "cvss_v2_score": "7.8",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:C",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "The duration function in the moment package before 2.11.2 for Node.js allows remote attackers to cause a denial of service (CPU consumption) via a long string, aka a \"regular expression Denial of Service (ReDoS).\"",
+        "severity": "Medium",
+        "components": {
+          "npm://moment:2.0.0": {
+            "fixed_versions": [
+              "[2.11.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://moment:2.0.0",
+                  "full_path": "node_modules/moment/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-72483",
+        "references": [
+          "https://lists.apache.org/thread.html/17ff53f7999e74fbe3cc0ceb4e1c3b00b180b7c5afec8e978837bc49%40%3Cuser.flink.apache.org%3E",
+          "https://lists.apache.org/thread.html/17ff53f7999e74fbe3cc0ceb4e1c3b00b180b7c5afec8e978837bc49@%3Cuser.flink.apache.org%3E",
+          "https://nvd.nist.gov/vuln/detail/CVE-2016-4055",
+          "http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html",
+          "https://github.com/advisories/GHSA-hxf5-mg84-pj4m",
+          "http://www.openwall.com/lists/oss-security/2016/04/20/11",
+          "https://www.tenable.com/security/tns-2019-02",
+          "https://lists.apache.org/thread.html/52bafac05ad174000ea465fe275fd3cc7bd5c25535a7631c0bc9bfb2@%3Cuser.flink.apache.org%3E",
+          "https://nodesecurity.io/advisories/55",
+          "https://lists.apache.org/thread.html/10f0f3aefd51444d1198c65f44ffdf2d78ca3359423dbc1c168c9731%40%3Cdev.flink.apache.org%3E",
+          "http://www.securityfocus.com/bid/95849",
+          "https://github.com/advisories/GHSA-87vv-r9j6-g5qv",
+          "https://lists.apache.org/thread.html/52bafac05ad174000ea465fe275fd3cc7bd5c25535a7631c0bc9bfb2%40%3Cuser.flink.apache.org%3E",
+          "https://www.npmjs.com/advisories/55",
+          "https://lists.apache.org/thread.html/10f0f3aefd51444d1198c65f44ffdf2d78ca3359423dbc1c168c9731@%3Cdev.flink.apache.org%3E",
+          "https://lists.apache.org/thread.html/54df3aeb4239b64b50b356f0ca6f986e3c4ca5b84c515dce077c7854%40%3Cuser.flink.apache.org%3E",
+          "https://github.com/moment/moment",
+          "https://lists.apache.org/thread.html/54df3aeb4239b64b50b356f0ca6f986e3c4ca5b84c515dce077c7854@%3Cuser.flink.apache.org%3E"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2017-18214",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:N/A:P",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "The moment module before 2.19.3 for Node.js is prone to a regular expression denial of service via a crafted date string, a different vulnerability than CVE-2016-4055.",
+        "severity": "High",
+        "components": {
+          "npm://moment:2.0.0": {
+            "fixed_versions": [
+              "[2.19.3]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://moment:2.0.0",
+                  "full_path": "node_modules/moment/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-72429",
+        "references": [
+          "https://www.tenable.com/security/tns-2019-02",
+          "https://nvd.nist.gov/vuln/detail/CVE-2017-18214",
+          "https://github.com/advisories/GHSA-446m-mv8f-q348",
+          "https://github.com/moment/moment/pull/4326",
+          "https://github.com/moment/moment/commit/69ed9d44957fa6ab12b73d2ae29d286a857b80eb",
+          "https://www.npmjs.com/advisories/532",
+          "https://github.com/moment/moment",
+          "https://nodesecurity.io/advisories/532",
+          "https://github.com/moment/moment/issues/4163"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2022-24785",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+            "cwe": [
+              "CWE-27",
+              "CWE-22"
+            ]
+          }
+        ],
+        "summary": "Moment.js is a JavaScript date library for parsing, validating, manipulating, and formatting dates. A path traversal vulnerability impacts npm (server) users of Moment.js between versions 1.0.1 and 2.29.1, especially if a user-provided locale string is directly used to switch moment locale. This problem is patched in 2.29.2, and the patch can be applied to all affected versions. As a workaround, sanitize the user-provided locale name before passing it to Moment.js.",
+        "severity": "High",
+        "components": {
+          "npm://moment:2.0.0": {
+            "fixed_versions": [
+              "[2.29.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://express-jwt:0.1.3",
+                  "full_path": "juice-shop/node_modules/express-jwt/package.json"
+                },
+                {
+                  "component_id": "npm://moment:2.0.0",
+                  "full_path": "node_modules/moment/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-203039",
+        "references": [
+          "https://github.com/TryGhost/Ghost",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ORJX2LF6KMPIHP6B2P6KZIVKMLE3LVJ5",
+          "https://github.com/moment/moment",
+          "https://github.com/moment/moment/commit/4211bfc8f15746be4019bba557e29a7ba83d54c5",
+          "https://lists.debian.org/debian-lts-announce/2023/01/msg00035.html",
+          "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ORJX2LF6KMPIHP6B2P6KZIVKMLE3LVJ5/",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/6QIO6YNLTK2T7SPKDS4JEL45FANLNC2Q",
+          "https://security.netapp.com/advisory/ntap-20220513-0006",
+          "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/6QIO6YNLTK2T7SPKDS4JEL45FANLNC2Q/",
+          "https://www.tenable.com/security/tns-2022-09",
+          "https://github.com/TryGhost/Ghost/security/advisories/GHSA-7v28-g2pq-ggg8",
+          "https://security.netapp.com/advisory/ntap-20220513-0006/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-24785",
+          "https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4"
+        ],
+        "extended_information": {
+          "short_description": "Path traversal in Moment.js could lead to local file inclusion when setting a crafted locale.",
+          "full_description": "[Moment.js](https://github.com/moment/moment) is a JavaScript date library for parsing, validating, manipulating, and formatting dates.\n\nMoment.js allows users to set an arbitrary locale by calling `moment.locale(localeDir)`.\nThe `localeName` is then later used as follows - `aliasedRequire('./locale/' + name);`.\nif `localName` can be controlled by an attacker, an attacker could cause an arbitrary file to be included (and executed) by the vulnerable application, by using a path such as `../../../path/to/evil.js`.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "An attacker can simply send a locale path with path-traversing characters, such as `../../../`"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "JS code execution"
+            },
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find a remote input that propagates into the `locale` API's first argument. In addition, the attacker must find some way to upload a malicious JS file into the target's filesystem, so the JS file can be included/executed by the vulnerability.",
+              "is_positive": true
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "External input is highly unlikely to get passed to the `locale` API",
+              "is_positive": true
+            }
+          ],
+          "remediation": "##### Development mitigations\n\nDo not allow the `/` character in locales passed to `moment.locale()` -\n```js\nif (localeName.indexOf('/') !== -1) {\n  return err;\n}\n...\nmoment.locale(localeName);\n...\n```"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-7338",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-248"
+            ]
+          }
+        ],
+        "summary": "Multer is a node.js middleware for handling `multipart/form-data`. A vulnerability that is present starting in version 1.4.4-lts.1 and prior to version 2.0.2 allows an attacker to trigger a Denial of Service (DoS) by sending a malformed multi-part upload request. This request causes an unhandled exception, leading to a crash of the process. Users should upgrade to version 2.0.2 to receive a patch. No known workarounds are available.",
+        "severity": "High",
+        "components": {
+          "npm://multer:1.4.5-lts.2": {
+            "fixed_versions": [
+              "[2.0.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://multer:1.4.5-lts.2",
+                  "full_path": "juice-shop/node_modules/multer/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-711012",
+        "references": [
+          "https://github.com/expressjs/multer/security/advisories/GHSA-fjgf-rc76-4x9p",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-7338",
+          "https://github.com/expressjs/multer/commit/adfeaf669f0e7fe953eab191a762164a452d143b",
+          "https://github.com/advisories/GHSA-fjgf-rc76-4x9p",
+          "https://cna.openjsf.org/security-advisories.html"
+        ],
+        "extended_information": {
+          "short_description": "Unhandled exception in Multer allow network attackers to perform denial of service by sending a malformed multipart request.",
+          "full_description": "[multer](https://expressjs.com/en/resources/middleware/multer.html) is a node.js [middleware](https://expressjs.com/en/guide/using-middleware.html) designed to work with the [express.js](https://expressjs.com/) backend framework. It is intended for handling `multipart/form-data`, which is primarily used for uploading files.\n\nThe usage of multer is simple - users define certain express.js endpoints for file uploads, and whenever a `multipart/form-data` encoded request is provided to one of these endpoints by a client, multer handles the parsing of the request.\n\nAn attacker can exploit this vulnerability by sending a malformed multipart upload request that triggers file stream errors which will cause a race condition and potentially crash the process, leading to a DoS attack.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue has an exploit published",
+              "description": "Fix commit contains a PoC test"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Remote denial of service"
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "Any express.js server utilizing multer is vulnerable by default."
+            },
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-47935",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-401"
+            ]
+          }
+        ],
+        "summary": "Multer is a node.js middleware for handling `multipart/form-data`. Versions prior to 2.0.0 are vulnerable to a resource exhaustion and memory leak issue due to improper stream handling. When the HTTP request stream emits an error, the internal `busboy` stream is not closed, violating Node.js stream safety guidance. This leads to unclosed streams accumulating over time, consuming memory and file descriptors. Under sustained or repeated failure conditions, this can result in denial of service, requiring manual server restarts to recover. All users of Multer handling file uploads are potentially impacted. Users should upgrade to 2.0.0 to receive a patch. No known workarounds are available.",
+        "severity": "High",
+        "components": {
+          "npm://multer:1.4.5-lts.2": {
+            "fixed_versions": [
+              "[2.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://multer:1.4.5-lts.2",
+                  "full_path": "juice-shop/node_modules/multer/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-699183",
+        "references": [
+          "https://github.com/expressjs/multer/pull/1120",
+          "https://github.com/advisories/GHSA-44fp-w29j-9vj5",
+          "https://github.com/expressjs/multer/security/advisories/GHSA-44fp-w29j-9vj5",
+          "https://github.com/expressjs/multer/commit/2c8505f207d923dd8de13a9f93a4563e59933665",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-47935"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-47944",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-248"
+            ]
+          }
+        ],
+        "summary": "Multer is a node.js middleware for handling `multipart/form-data`. A vulnerability that is present starting in version 1.4.4-lts.1 and prior to version 2.0.0 allows an attacker to trigger a Denial of Service (DoS) by sending a malformed multi-part upload request. This request causes an unhandled exception, leading to a crash of the process. Users should upgrade to version 2.0.0 to receive a patch. No known workarounds are available.",
+        "severity": "High",
+        "components": {
+          "npm://multer:1.4.5-lts.2": {
+            "fixed_versions": [
+              "[2.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://multer:1.4.5-lts.2",
+                  "full_path": "juice-shop/node_modules/multer/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-699184",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-47944",
+          "https://github.com/expressjs/multer/commit/2c8505f207d923dd8de13a9f93a4563e59933665",
+          "https://github.com/expressjs/multer/issues/1176",
+          "https://github.com/expressjs/multer/security/advisories/GHSA-4pg4-qvpc-4q3h",
+          "https://github.com/advisories/GHSA-4pg4-qvpc-4q3h"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-48997",
+            "cwe": [
+              "CWE-248"
+            ]
+          }
+        ],
+        "summary": "Multer is a node.js middleware for handling `multipart/form-data`. A vulnerability that is present starting in version 1.4.4-lts.1 and prior to version 2.0.1 allows an attacker to trigger a Denial of Service (DoS) by sending an upload file request with an empty string field name. This request causes an unhandled exception, leading to a crash of the process. Users should upgrade to `2.0.1` to receive a patch. No known workarounds are available.",
+        "severity": "High",
+        "components": {
+          "npm://multer:1.4.5-lts.2": {
+            "fixed_versions": [
+              "[2.0.1]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://multer:1.4.5-lts.2",
+                  "full_path": "juice-shop/node_modules/multer/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-703486",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-48997",
+          "https://github.com/advisories/GHSA-g5hg-p3ph-g8qg",
+          "https://github.com/expressjs/multer/pull/1256",
+          "https://github.com/expressjs/multer/commit/35a3272b611945155e046dd5cef11088587635e9",
+          "https://github.com/expressjs/multer/issues/1233",
+          "https://github.com/expressjs/multer/security/advisories/GHSA-g5hg-p3ph-g8qg"
+        ],
+        "extended_information": {
+          "short_description": "Improper input validation in multer middleware can lead to denial of service when handling client requests.",
+          "full_description": "[multer](https://expressjs.com/en/resources/middleware/multer.html) is a node.js [middleware](https://expressjs.com/en/guide/using-middleware.html) designed to work with the [express.js](https://expressjs.com/) backend framework. It is intended for handling `multipart/form-data`, which is primarily used for uploading files.\n\nThe usage of multer is simple - users define certain express.js endpoints for file uploads, and whenever a `multipart/form-data` encoded request is provided to one of these endpoints by a client, multer handles the parsing of the request. For example:\n\n```js \nconst express = require('express');\nconst multer = require('multer');\nconst app = express();\n\nconst upload = multer({ dest: 'uploads/' });\n\napp.post('/upload-profile-pic', upload.single('profilePicture'), (req, res) =\u003e {\n  // user logic for handling the uploaded file\n});\n\napp.listen(3000, () =\u003e console.log('Server running on port 3000'));\n```\nThis is a simple example of using multer to handle file upload endpoints. Essentially, whenever a post request with `multipart/form-data` encoding is sent to the `/upload-profile-pic` endpoint, multer handles most of the work and lets the user write only their custom logic.\n\nWhen a `multipart/form-data` encoded request with an empty string file name is handled by multer, the express server crashes - causing denial of service. Attackers could use this to crash servers remotely simply by providing a file upload endpoint with an empty file name.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The prerequisites for exploiting the issue are either extremely common or nonexistent (always exploitable)",
+              "description": "Any express.js server utilizing multer is vulnerable by default."
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "Attackers just need to provide a request with an empty file name to trigger the DoS."
+            },
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Denial of service."
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-27587",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-385"
+            ]
+          }
+        ],
+        "summary": "OpenSSL 3.0.0 through 3.3.2 on the PowerPC architecture is vulnerable to a Minerva attack, exploitable by measuring the time of signing of random messages using the EVP_DigestSign API, and then using the private key to extract the K value (nonce) from the signatures. Next, based on the bit size of the extracted nonce, one can compare the signing time of full-sized nonces to signatures that used smaller nonces, via statistical tests. There is a side-channel in the P-364 curve that allows private key extraction (also, there is a dependency between the bit size of K and the size of the side channel). NOTE: This CVE is disputed because the OpenSSL security policy explicitly notes that any side channels which require same physical system to be detected are outside of the threat model for the software. The timing signal is so small that it is infeasible to be detected without having the attacking process running on the same physical system.",
+        "severity": "Low",
+        "components": {
+          "deb://debian:bookworm:libssl3:3.0.17-1~deb12u1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:cc0c314018b19c7e7ad99f1ecb56281061eea966cd85b745f04a0b3951390b6f/sha256__cc0c314018b19c7e7ad99f1ecb56281061eea966cd85b745f04a0b3951390b6f.tar",
+                  "full_path": "sha256__cc0c314018b19c7e7ad99f1ecb56281061eea966cd85b745f04a0b3951390b6f.tar"
+                },
+                {
+                  "component_id": "deb://debian:bookworm:libssl3:3.0.17-1~deb12u1",
+                  "full_path": "libssl3:3.0.17-1~deb12u1"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-704835",
+        "references": [
+          "https://security-tracker.debian.org/tracker/CVE-2025-27587",
+          "https://minerva.crocs.fi.muni.cz",
+          "https://github.com/openssl/openssl/issues/24253"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-47764",
+            "cwe": [
+              "CWE-74"
+            ]
+          }
+        ],
+        "summary": "cookie is a basic HTTP cookie parser and serializer for HTTP servers. The cookie name could be used to set other fields of the cookie, resulting in an unexpected cookie value. A similar escape can be used for path and domain, which could be abused to alter other fields of the cookie. Upgrade to 0.7.0, which updates the validation for name, path, and domain.",
+        "severity": "Low",
+        "components": {
+          "npm://cookie:0.4.2": {
+            "fixed_versions": [
+              "[0.7.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://engine.io:4.1.2",
+                  "full_path": "juice-shop/node_modules/engine.io/package.json"
+                },
+                {
+                  "component_id": "npm://cookie:0.4.2",
+                  "full_path": "node_modules/cookie/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-645777",
+        "references": [
+          "https://github.com/jshttp/cookie/pull/167",
+          "https://github.com/jshttp/cookie/commit/e10042845354fea83bd8f34af72475eed1dadf5c",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-47764",
+          "https://github.com/advisories/GHSA-pxg6-pf52-xh8x",
+          "https://github.com/jshttp/cookie/security/advisories/GHSA-pxg6-pf52-xh8x"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-38355",
+            "cvss_v3_score": "7.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+            "cwe": [
+              "CWE-754",
+              "CWE-20"
+            ]
+          }
+        ],
+        "summary": "Socket.IO is an open source, real-time, bidirectional, event-based, communication framework. A specially crafted Socket.IO packet can trigger an uncaught exception on the Socket.IO server, thus killing the Node.js process. This issue is fixed by commit `15af22fc22` which has been included in `socket.io@4.6.2` (released in May 2023). The fix was backported in the 2.x branch as well with commit `d30630ba10`. Users are advised to upgrade. Users unable to upgrade may attach a listener for the \"error\" event to catch these errors.",
+        "severity": "Medium",
+        "components": {
+          "npm://socket.io:3.1.2": {
+            "fixed_versions": [
+              "[2.5.1]",
+              "[4.6.2]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "docker://bkimminich/juice-shop:latest"
+                },
+                {
+                  "component_id": "generic://sha256:ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307/sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar",
+                  "full_path": "sha256__ff86465b9a17d9e906d0777074549da822df9b5e11d7024cb4b990c2e82d3307.tar"
+                },
+                {
+                  "component_id": "npm://socket.io:3.1.2",
+                  "full_path": "juice-shop/node_modules/socket.io/package.json"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-606914",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38355",
+          "https://github.com/socketio/socket.io/commit/d30630ba10562bf987f4d2b42440fc41a828119c",
+          "https://github.com/socketio/socket.io/security/advisories/GHSA-25hc-qcg6-38wj",
+          "https://github.com/socketio/socket.io/commit/15af22fc22bc6030fcead322c106f07640336115",
+          "https://github.com/advisories/GHSA-25hc-qcg6-38wj"
+        ],
+        "extended_information": {}
+      }
+    ],
+    "component_id": "docker://bkimminich/juice-shop:latest",
+    "package_type": "docker",
+    "status": "completed"
+  }
+]

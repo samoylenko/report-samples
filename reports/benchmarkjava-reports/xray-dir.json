@@ -1,0 +1,961 @@
+[
+  {
+    "scan_id": "f55f7d53-53f2-4d81-bdb3-48f427833cab",
+    "vulnerabilities": [
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-48924",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+            "cwe": [
+              "CWE-674"
+            ]
+          }
+        ],
+        "summary": "Uncontrolled Recursion vulnerability in Apache Commons Lang.\n\nThis issue affects Apache Commons Lang: Starting with commons-lang:commons-lang 2.0 to 2.6, and, from org.apache.commons:commons-lang3 3.0 before 3.18.0.\n\nThe methods ClassUtils.getClass(...) can throw StackOverflowError on very long inputs. Because an Error is usually not handled by applications and libraries, a \nStackOverflowError could cause an application to stop.\n\nUsers are recommended to upgrade to version 3.18.0, which fixes the issue.",
+        "severity": "Medium",
+        "components": {
+          "gav://commons-lang:commons-lang:2.6": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://commons-lang:commons-lang:2.6"
+                }
+              ]
+            ]
+          },
+          "gav://org.apache.commons:commons-lang3:3.15.0": {
+            "fixed_versions": [
+              "[3.18.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.apache.directory.api:api-ldap-model:2.1.7"
+                },
+                {
+                  "component_id": "gav://org.apache.commons:commons-lang3:3.15.0"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-710140",
+        "references": [
+          "https://github.com/advisories/GHSA-j288-q9x7-2f5v",
+          "https://github.com/apache/commons-lang/commit/b424803abdb2bec818e4fbcb251ce031c22aca53",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-48924",
+          "https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-52046",
+            "cvss_v3_score": "9.8",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-502",
+              "CWE-94"
+            ]
+          }
+        ],
+        "summary": "The ObjectSerializationDecoder in Apache MINA uses Java’s native deserialization protocol to process\nincoming serialized data but lacks the necessary security checks and defenses. This vulnerability allows\nattackers to exploit the deserialization process by sending specially crafted malicious serialized data,\npotentially leading to remote code execution (RCE) attacks.\n\n\n\n\t\t\t\t\t\n\n\n\t\t\t\t\n\n\n\t\t\t\n\n\n\t\t\n\n\n\t\nThis issue affects MINA core versions 2.0.X, 2.1.X and 2.2.X, and will be fixed by the releases 2.0.27, 2.1.10 and 2.2.4.\n\n\n\n\n\nIt's also important to note that an application using MINA core library will only be affected if the IoBuffer#getObject() method is called, and this specific method is potentially called when adding a ProtocolCodecFilter instance using the ObjectSerializationCodecFactory class in the filter chain. If your application is specifically using those classes, you have to upgrade to the latest version of MINA core library.\n\n\n\n\nUpgrading will  not be enough: you also need to explicitly allow the classes the decoder will accept in the ObjectSerializationDecoder instance, using one of the three new methods:\n\n\n\n\n    /**\n\n     * Accept class names where the supplied ClassNameMatcher matches for\n\n     * deserialization, unless they are otherwise rejected.\n\n     *\n\n     * @param classNameMatcher the matcher to use\n\n     */\n\n    public void accept(ClassNameMatcher classNameMatcher)\n\n\n\n\n    /**\n\n     * Accept class names that match the supplied pattern for\n\n     * deserialization, unless they are otherwise rejected.\n\n     *\n\n     * @param pattern standard Java regexp\n\n     */\n\n    public void accept(Pattern pattern) \n\n\n\n\n\n    /**\n\n     * Accept the wildcard specified classes for deserialization,\n\n     * unless they are otherwise rejected.\n\n     *\n\n     * @param patterns Wildcard file name patterns as defined by\n\n     *                  {@link org.apache.commons.io.FilenameUtils#wildcardMatch(String, String) FilenameUtils.wildcardMatch}\n\n     */\n\n    public void accept(String... patterns)\n\n\n\n\n\n\n\nBy defa...",
+        "severity": "Critical",
+        "components": {
+          "gav://org.apache.mina:mina-core:2.2.3": {
+            "fixed_versions": [
+              "[2.0.27]",
+              "[2.1.10]",
+              "[2.2.4]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.apache.directory.api:api-ldap-model:2.1.7"
+                },
+                {
+                  "component_id": "gav://org.apache.mina:mina-core:2.2.3"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-662091",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-52046",
+          "https://github.com/advisories/GHSA-76h9-2vwh-w278",
+          "https://security.netapp.com/advisory/ntap-20250103-0001",
+          "https://lists.apache.org/thread/4wxktgjpggdbto15d515wdctohb0qmv8",
+          "https://security.netapp.com/advisory/ntap-20250103-0001/",
+          "http://www.openwall.com/lists/oss-security/2024/12/25/1"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-38816",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-22"
+            ]
+          }
+        ],
+        "summary": "Applications serving static resources through the functional web frameworks WebMvc.fn or WebFlux.fn are vulnerable to path traversal attacks. An attacker can craft malicious HTTP requests and obtain any file on the file system that is also accessible to the process in which the Spring application is running.\n\nSpecifically, an application is vulnerable when both of the following are true:\n\n  *  the web application uses RouterFunctions to serve static resources\n  *  resource handling is explicitly configured with a FileSystemResource location\n\n\nHowever, malicious requests are blocked and rejected when any of the following is true:\n\n  *  the  Spring Security HTTP Firewall https://docs.spring.io/spring-security/reference/servlet/exploits/firewall.html  is in use\n  *  the application runs on Tomcat or Jetty",
+        "severity": "High",
+        "components": {
+          "gav://org.springframework:spring-webmvc:5.3.39": {
+            "fixed_versions": [
+              "[6.1.13]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-webmvc:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-643087",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38816",
+          "https://security.netapp.com/advisory/ntap-20241227-0001/",
+          "https://security.netapp.com/advisory/ntap-20241227-0001",
+          "https://github.com/spring-projects/spring-framework/commit/d86bf8b2056429edf5494456cffcb2b243331c49",
+          "https://github.com/advisories/GHSA-cx7f-g6mp-7hqm",
+          "https://spring.io/security/cve-2024-38816"
+        ],
+        "extended_information": {
+          "short_description": "Path traversal in Spring WebMvc and WebFlux with non-default configuration allows network attackers to leak arbitrary files.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Remote leak of arbitrary files"
+            },
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "The vulnerability is exploitable only if all of the following conditions are true -\n1. The Spring application uses `RouterFunctions` to serve static resources\n2. Resource handling is explicitly configured with a `FileSystemResource` location\n3. The Spring Security HTTP firewall is disabled\n4. The Spring application is not served by Apache Tomcat or Eclipse Jetty\n\nExample of Spring code that fulfills conditions 1\u00262 -\n```java\nResource location = new FileSystemResource(\"public-resources/\");\nRouterFunction\u003cServerResponse\u003e resources = RouterFunctions.resources(\"/resources/**\", location);\n```\n\nConditions 3 \u0026 4 are very unlikely since -\n*  The Spring Security HTTP firewall is enabled by default, for every Spring Boot application that has Spring Security included in its classpath\n\n* Apache Tomcat is the default Servlet container for Spring Boot",
+              "is_positive": true
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "An attacker can simply send an HTTP request for a static resource that contains path traversal characters (`../`) in order to fetch arbitrary files from the server"
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-38819",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-22"
+            ]
+          }
+        ],
+        "summary": "Applications serving static resources through the functional web frameworks WebMvc.fn or WebFlux.fn are vulnerable to path traversal attacks. An attacker can craft malicious HTTP requests and obtain any file on the file system that is also accessible to the process in which the Spring application is running.",
+        "severity": "High",
+        "components": {
+          "gav://org.springframework:spring-webmvc:5.3.39": {
+            "fixed_versions": [
+              "[6.1.14]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-webmvc:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-646856",
+        "references": [
+          "https://github.com/advisories/GHSA-g5vr-rgqm-vf78",
+          "https://spring.io/security/cve-2024-38819",
+          "https://github.com/spring-projects/spring-framework/commit/fb7890d73975a3d9e0763e0926df2bd0a608e87e",
+          "https://github.com/spring-projects/spring-framework/issues/33689",
+          "https://github.com/spring-projects/spring-framework/commit/3bfbe30a7814c9ea1556d40df9bd87ddb3ba372d",
+          "https://security.netapp.com/advisory/ntap-20250110-0010/",
+          "https://security.netapp.com/advisory/ntap-20250110-0010",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38819"
+        ],
+        "extended_information": {
+          "short_description": "Path traversal in Spring WebMvc and WebFlux with non-default configuration allows network attackers to leak arbitrary files.",
+          "jfrog_research_severity": "High",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Remote leak of arbitrary files"
+            },
+            {
+              "name": "The issue can be exploited by attackers over the network"
+            },
+            {
+              "name": "The prerequisites for exploiting the issue are extremely unlikely",
+              "description": "The vulnerability is exploitable only if all of the following conditions are true -\n1. The Spring application uses `RouterFunctions` to serve static resources\n2. Resource handling is explicitly configured with a `FileSystemResource` location\n3. The Spring Security HTTP firewall is disabled\n4. The Spring application is not served by Apache Tomcat or Eclipse Jetty\n\nExample of Spring code that fulfills conditions 1\u00262 -\n```java\nResource location = new FileSystemResource(\"public-resources/\");\nRouterFunction\u003cServerResponse\u003e resources = RouterFunctions.resources(\"/resources/**\", location);\n```\n\nConditions 3 \u0026 4 are very unlikely since -\n*  The Spring Security HTTP firewall is enabled by default, for every Spring Boot application that has Spring Security included in its classpath\n\n* Apache Tomcat is the default Servlet container for Spring Boot",
+              "is_positive": true
+            },
+            {
+              "name": "The issue is trivial to exploit and does not require a published writeup or PoC",
+              "description": "An attacker can simply send an HTTP request for a static resource that contains encoded path traversal characters (`%2E%2E%2F`) in order to fetch arbitrary files from the server"
+            }
+          ]
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-41242",
+            "cvss_v3_score": "5.9",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-22"
+            ]
+          }
+        ],
+        "summary": "Spring Framework MVC applications can be vulnerable to a “Path Traversal Vulnerability” when deployed on a non-compliant Servlet container.\n\nAn application can be vulnerable when all the following are true:\n\n  *  the application is deployed as a WAR or with an embedded Servlet container\n  *  the Servlet container  does not reject suspicious sequences https://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1.html#uri-path-canonicalization \n  *  the application  serves static resources https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/static-resources.html#page-title  with Spring resource handling\n\n\nWe have verified that applications deployed on Apache Tomcat or Eclipse Jetty are not vulnerable, as long as default security features are not disabled in the configuration. Because we cannot check exploits against all Servlet containers and configuration variants, we strongly recommend upgrading your application.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.springframework:spring-webmvc:5.3.39": {
+            "fixed_versions": [
+              "[6.2.10]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-webmvc:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-714941",
+        "references": [
+          "https://github.com/advisories/GHSA-r936-gwx5-v52f",
+          "http://spring.io/security/cve-2025-41242",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-41242"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-38828",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cwe": [
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "Spring MVC controller methods with an @RequestBody byte[] method parameter are vulnerable to a DoS attack.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.springframework:spring-webmvc:5.3.39": {
+            "fixed_versions": [
+              "[5.3.42]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-webmvc:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-654589",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38828",
+          "https://spring.io/security/cve-2024-38828",
+          "https://github.com/advisories/GHSA-w3c8-7r8f-9jp8",
+          "https://security.netapp.com/advisory/ntap-20250509-0009",
+          "https://security.netapp.com/advisory/ntap-20250509-0009/"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-10683",
+            "cvss_v2_score": "7.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "9.8",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-611"
+            ]
+          }
+        ],
+        "summary": "dom4j before 2.0.3 and 2.1.x before 2.1.3 allows external DTDs and External Entities by default, which might enable XXE attacks. However, there is popular external documentation from OWASP showing how to enable the safe, non-default behavior in any application that uses dom4j.",
+        "severity": "Critical",
+        "components": {
+          "gav://dom4j:dom4j:1.6.1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.hibernate:hibernate-core:3.6.10.Final"
+                },
+                {
+                  "component_id": "gav://dom4j:dom4j:1.6.1"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-97250",
+        "references": [
+          "https://www.oracle.com/security-alerts/cpuoct2021.html",
+          "https://www.oracle.com/security-alerts/cpuApr2021.html",
+          "https://usn.ubuntu.com/4575-1/",
+          "https://lists.apache.org/thread.html/r91c64cd51e68e97d524395474eaa25362d564572276b9917fcbf5c32%40%3Cdev.velocity.apache.org%3E",
+          "http://lists.opensuse.org/opensuse-security-announce/2020-05/msg00061.html",
+          "https://www.oracle.com/security-alerts/cpujan2021.html",
+          "https://github.com/dom4j/dom4j/issues/87",
+          "https://lists.apache.org/thread.html/r51f3f9801058e47153c0ad9bc6209d57a592fc0e7aefd787760911b8%40%3Cdev.velocity.apache.org%3E",
+          "https://lists.apache.org/thread.html/rb1b990d7920ae0d50da5109b73b92bab736d46c9788dd4b135cb1a51@%3Cnotifications.freemarker.apache.org%3E",
+          "https://usn.ubuntu.com/4575-1",
+          "https://lists.apache.org/thread.html/r51f3f9801058e47153c0ad9bc6209d57a592fc0e7aefd787760911b8@%3Cdev.velocity.apache.org%3E",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://github.com/dom4j/dom4j/releases/tag/version-2.1.3",
+          "https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html",
+          "https://github.com/dom4j/dom4j/commit/a8228522a99a02146106672a34c104adbda5c658",
+          "https://lists.apache.org/thread.html/r91c64cd51e68e97d524395474eaa25362d564572276b9917fcbf5c32@%3Cdev.velocity.apache.org%3E",
+          "https://www.oracle.com/security-alerts/cpuoct2020.html",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-10683",
+          "https://security.netapp.com/advisory/ntap-20200518-0002",
+          "https://security.netapp.com/advisory/ntap-20200518-0002/",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=1694235",
+          "https://github.com/dom4j/dom4j",
+          "https://github.com/dom4j/dom4j/commits/version-2.0.3",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://lists.apache.org/thread.html/rb1b990d7920ae0d50da5109b73b92bab736d46c9788dd4b135cb1a51%40%3Cnotifications.freemarker.apache.org%3E",
+          "https://www.oracle.com/security-alerts/cpujul2020.html",
+          "https://github.com/dom4j/dom4j/commit/1707bf3d898a8ada3b213acb0e3b38f16eaae73d"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2018-1000632",
+            "cvss_v2_score": "5.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:N/I:P/A:N",
+            "cvss_v3_score": "7.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+            "cwe": [
+              "CWE-91"
+            ]
+          }
+        ],
+        "summary": "dom4j version prior to version 2.1.1 contains a CWE-91: XML Injection vulnerability in Class: Element. Methods: addElement, addAttribute that can result in an attacker tampering with XML documents through XML injection. This attack appear to be exploitable via an attacker specifying attributes or elements in the XML document. This vulnerability appears to have been fixed in 2.1.1 or later.",
+        "severity": "High",
+        "components": {
+          "gav://dom4j:dom4j:1.6.1": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.hibernate:hibernate-core:3.6.10.Final"
+                },
+                {
+                  "component_id": "gav://dom4j:dom4j:1.6.1"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-74810",
+        "references": [
+          "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/KJULAHVR3I5SX7OSMXAG75IMNSAYOXGA/",
+          "https://lists.apache.org/thread.html/9d4c1af6f702c3d6d6f229de57112ddccac8ce44446a01b7937ab9e0@%3Ccommits.maven.apache.org%3E",
+          "https://lists.apache.org/thread.html/rb1b990d7920ae0d50da5109b73b92bab736d46c9788dd4b135cb1a51@%3Cnotifications.freemarker.apache.org%3E",
+          "https://access.redhat.com/errata/RHSA-2019:1162",
+          "https://access.redhat.com/errata/RHSA-2019:0362",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-1000632",
+          "https://lists.apache.org/thread.html/7f6e120e6ed473f4e00dde4c398fc6698eb383bd7857d20513e989ce@%3Cdev.maven.apache.org%3E",
+          "https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html",
+          "https://lists.apache.org/thread.html/708d94141126eac03011144a971a6411fcac16d9c248d1d535a39451%40%3Csolr-user.lucene.apache.org%3E",
+          "https://lists.apache.org/thread.html/rb1b990d7920ae0d50da5109b73b92bab736d46c9788dd4b135cb1a51%40%3Cnotifications.freemarker.apache.org%3E",
+          "https://access.redhat.com/errata/RHSA-2019:0365",
+          "https://lists.apache.org/thread.html/4a77652531d62299a30815cf5f233af183425db8e3c9a824a814e768@%3Cdev.maven.apache.org%3E",
+          "https://www.oracle.com/security-alerts/cpuapr2020.html",
+          "https://lists.apache.org/thread.html/7f6e120e6ed473f4e00dde4c398fc6698eb383bd7857d20513e989ce%40%3Cdev.maven.apache.org%3E",
+          "https://lists.apache.org/thread.html/00571f362a7a2470fba50a31282c65637c40d2e21ebe6ee535a4ed74%40%3Ccommits.maven.apache.org%3E",
+          "https://lists.apache.org/thread.html/5a020ecaa3c701f408f612f7ba2ee37a021644c4a39da2079ed3ddbc@%3Ccommits.maven.apache.org%3E",
+          "https://ihacktoprotect.com/post/dom4j-xml-injection",
+          "https://lists.apache.org/thread.html/708d94141126eac03011144a971a6411fcac16d9c248d1d535a39451@%3Csolr-user.lucene.apache.org%3E",
+          "https://lists.apache.org/thread.html/5a020ecaa3c701f408f612f7ba2ee37a021644c4a39da2079ed3ddbc%40%3Ccommits.maven.apache.org%3E",
+          "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/IOOVVCRQE6ATFD2JM2EMDXOQXTRIVZGP/",
+          "https://lists.apache.org/thread.html/d7d960b2778e35ec9b4d40c8efd468c7ce7163bcf6489b633491c89f@%3Cdev.maven.apache.org%3E",
+          "https://security.netapp.com/advisory/ntap-20190530-0001/",
+          "https://www.oracle.com/security-alerts/cpujul2020.html",
+          "https://github.com/dom4j/dom4j/commit/c2a99d7dee8ce7a4e5bef134bb781a6672bd8a0f",
+          "https://lists.debian.org/debian-lts-announce/2018/09/msg00028.html",
+          "https://github.com/dom4j/dom4j/commit/e598eb43d418744c4dbf62f647dd2381c9ce9387",
+          "https://lists.apache.org/thread.html/4a77652531d62299a30815cf5f233af183425db8e3c9a824a814e768%40%3Cdev.maven.apache.org%3E",
+          "https://www.oracle.com/security-alerts/cpuApr2021.html",
+          "https://github.com/advisories/GHSA-6pcc-3rfx-4gpm",
+          "https://security.netapp.com/advisory/ntap-20190530-0001",
+          "https://access.redhat.com/errata/RHSA-2019:1159",
+          "https://lists.apache.org/thread.html/00571f362a7a2470fba50a31282c65637c40d2e21ebe6ee535a4ed74@%3Ccommits.maven.apache.org%3E",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJULAHVR3I5SX7OSMXAG75IMNSAYOXGA",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/IOOVVCRQE6ATFD2JM2EMDXOQXTRIVZGP",
+          "https://lists.apache.org/thread.html/7e9e78f0e4288fac6591992836d2a80d4df19161e54bd71ab4b8e458@%3Cdev.maven.apache.org%3E",
+          "https://lists.apache.org/thread.html/7e9e78f0e4288fac6591992836d2a80d4df19161e54bd71ab4b8e458%40%3Cdev.maven.apache.org%3E",
+          "https://ihacktoprotect.com/post/dom4j-xml-injection/",
+          "https://lists.apache.org/thread.html/d7d960b2778e35ec9b4d40c8efd468c7ce7163bcf6489b633491c89f%40%3Cdev.maven.apache.org%3E",
+          "https://lists.apache.org/thread.html/9d4c1af6f702c3d6d6f229de57112ddccac8ce44446a01b7937ab9e0%40%3Ccommits.maven.apache.org%3E",
+          "https://github.com/dom4j/dom4j/issues/48",
+          "https://access.redhat.com/errata/RHSA-2019:1160",
+          "https://access.redhat.com/errata/RHSA-2019:3172",
+          "https://access.redhat.com/errata/RHSA-2019:0380",
+          "https://access.redhat.com/errata/RHSA-2019:1161",
+          "https://github.com/dom4j/dom4j",
+          "https://access.redhat.com/errata/RHSA-2019:0364"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-8916",
+            "cwe": [
+              "CWE-770"
+            ]
+          }
+        ],
+        "summary": "Allocation of Resources Without Limits or Throttling vulnerability in Legion of the Bouncy Castle Inc. Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation. This vulnerability is associated with program files  https://github.Com/bcgit/bc-java/blob/main/pkix/src/main/java/org/bouncycastle/pkix/jcajce/PKIXCertP... https://github.Com/bcgit/bc-java/blob/main/pkix/src/main/java/org/bouncycastle/pkix/jcajce/PKIXCertPathReviewer.java ,  https://github.Com/bcgit/bc-java/blob/main/prov/src/main/java/org/bouncycastle/x509/PKIXCertPathRevi... https://github.Com/bcgit/bc-java/blob/main/prov/src/main/java/org/bouncycastle/x509/PKIXCertPathReviewer.java .\n\nThis issue affects Bouncy Castle for Java: from BC 1.44 through 1.78, from BCPKIX FIPS 1.0.0 through 1.0.7, from BCPKIX FIPS 2.0.0 through 2.0.7.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.bouncycastle:bcpkix-jdk15on:1.70": {
+            "fixed_versions": [
+              "[1.79]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.apache.directory.server:apacheds-core:2.0.0.AM27"
+                },
+                {
+                  "component_id": "gav://org.bouncycastle:bcpkix-jdk15on:1.70"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-714340",
+        "references": [
+          "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916",
+          "https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-8916",
+          "https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e",
+          "https://github.com/advisories/GHSA-4cx2-fc23-5wg6"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-46392",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+            "cwe": [
+              "CWE-400"
+            ]
+          }
+        ],
+        "summary": "Uncontrolled Resource Consumption vulnerability in Apache Commons Configuration 1.x.\n\nThere are a number of issues in Apache Commons Configuration 1.x that allow excessive resource consumption when loading untrusted configurations or using unexpected usage patterns. The Apache Commons Configuration team does not intend to fix these issues in 1.x. Apache Commons Configuration 1.x is still safe to use in scenario's where you only load trusted configurations. \n\n\nUsers that load untrusted configurations or give attackers control over usage patterns are recommended to upgrade to the 2.x version line, which fixes these issues. Apache Commons Configuration 2.x is not a drop-in replacement, but as it uses a separate Maven groupId and Java package namespace they can be loaded side-by-side, making it possible to do a gradual migration.",
+        "severity": "Medium",
+        "components": {
+          "gav://commons-configuration:commons-configuration:1.10": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.owasp.esapi:esapi:2.7.0.0"
+                },
+                {
+                  "component_id": "gav://commons-configuration:commons-configuration:1.10"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-698011",
+        "references": [
+          "https://lists.apache.org/thread/y1pl0mn3opz6kwkm873zshjdxq3dwq5s",
+          "https://www.cve.org/CVERecord?id=CVE-2024-29133",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-46392",
+          "https://www.cve.org/CVERecord?id=CVE-2024-29131",
+          "https://github.com/advisories/GHSA-pvp8-3xj6-8c6x"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2019-14900",
+            "cvss_v2_score": "4.0",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:S/C:P/I:N/A:N",
+            "cvss_v3_score": "6.5",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-89"
+            ]
+          }
+        ],
+        "summary": "A flaw was found in Hibernate ORM in versions before 5.3.18, 5.4.18 and 5.5.0.Beta1. A SQL injection in the implementation of the JPA Criteria API can permit unsanitized literals when a literal is used in the SELECT or GROUP BY parts of the query. This flaw could allow an attacker to access unauthorized information or possibly conduct further attacks.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.hibernate:hibernate-core:3.6.10.Final": {
+            "fixed_versions": [
+              "[5.3.18]",
+              "[5.4.18]",
+              "[5.5.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.hibernate:hibernate-core:3.6.10.Final"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-119466",
+        "references": [
+          "https://github.com/advisories/GHSA-8grg-q944-cch5",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=1666499",
+          "https://security.netapp.com/advisory/ntap-20220210-0020/",
+          "https://github.com/hibernate/hibernate-orm/commit/e0e22ea256c1906235d6a8e90b79c4ce33d0861f",
+          "https://lists.apache.org/thread.html/r833c1276e41334fa675848a08daf0c61f39009f9f9a400d9f7006d44%40%3Cdev.turbine.apache.org%3E",
+          "https://security.netapp.com/advisory/ntap-20220210-0020",
+          "https://github.com/hibernate/hibernate-orm/commit/eebf01fbf3c2550ee70cdc9c1b02b52e330c8c36",
+          "https://github.com/hibernate/hibernate-orm/commit/3f3c1ab50604ab9ba99e25d2016fb85f3ba9dcd4",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-14900",
+          "https://lists.apache.org/thread.html/r833c1276e41334fa675848a08daf0c61f39009f9f9a400d9f7006d44@%3Cdev.turbine.apache.org%3E",
+          "https://github.com/hibernate/hibernate-orm/commit/646b383f959eff18d58081b1a574f0d777d353da"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2020-25638",
+            "cvss_v2_score": "5.8",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:M/Au:N/C:P/I:P/A:N",
+            "cvss_v3_score": "7.4",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "cwe": [
+              "CWE-89"
+            ]
+          }
+        ],
+        "summary": "A flaw was found in hibernate-core in versions prior to and including 5.4.23.Final. A SQL injection in the implementation of the JPA Criteria API can permit unsanitized literals when a literal is used in the SQL comments of the query. This flaw could allow an attacker to access unauthorized information or possibly conduct further attacks. The highest threat from this vulnerability is to data confidentiality and integrity.",
+        "severity": "High",
+        "components": {
+          "gav://org.hibernate:hibernate-core:3.6.10.Final": {
+            "fixed_versions": [
+              "[5.3.20.Final]",
+              "[5.4.24.Final]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.hibernate:hibernate-core:3.6.10.Final"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-129482",
+        "references": [
+          "https://lists.apache.org/thread.html/r833c1276e41334fa675848a08daf0c61f39009f9f9a400d9f7006d44@%3Cdev.turbine.apache.org%3E",
+          "https://github.com/advisories/GHSA-j8jw-g6fq-mp7h",
+          "https://github.com/hibernate/hibernate-orm/commit/59fede7acaaa1579b561407aefa582311f7ebe78",
+          "https://github.com/hibernate/hibernate-orm/commit/d22bbb5c339c9df7712c3365bb1df97c91b35ec5",
+          "https://lists.apache.org/thread.html/rf2378209c676a28b71f9b604a3b3517c448540b85367160e558ef9df@%3Ccommits.turbine.apache.org%3E",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://www.oracle.com/security-alerts/cpuapr2022.html",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=1881353",
+          "https://github.com/hibernate/hibernate-orm/commit/36ebf7d3836e83e99f2a91777b5389e1daf1f2b7",
+          "https://lists.apache.org/thread.html/rf2378209c676a28b71f9b604a3b3517c448540b85367160e558ef9df%40%3Ccommits.turbine.apache.org%3E",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-25638",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://lists.apache.org/thread.html/r833c1276e41334fa675848a08daf0c61f39009f9f9a400d9f7006d44%40%3Cdev.turbine.apache.org%3E",
+          "https://www.debian.org/security/2021/dsa-4908",
+          "https://lists.debian.org/debian-lts-announce/2021/01/msg00000.html"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2023-33201",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "cwe": [
+              "CWE-295"
+            ]
+          }
+        ],
+        "summary": "Bouncy Castle For Java before 1.74 is affected by an LDAP injection vulnerability. The vulnerability only affects applications that use an LDAP CertStore from Bouncy Castle to validate X.509 certificates. During the certificate validation process, Bouncy Castle inserts the certificate's Subject Name into an LDAP search filter without any escaping, which leads to an LDAP injection vulnerability.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.bouncycastle:bcprov-jdk15on:1.70": {
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.bouncycastle:bcprov-jdk15on:1.70"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-522890",
+        "references": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-33201",
+          "https://security.netapp.com/advisory/ntap-20230824-0008/",
+          "https://lists.debian.org/debian-lts-announce/2023/08/msg00000.html",
+          "https://bouncycastle.org/releasenotes.html#r1rv74",
+          "https://github.com/advisories/GHSA-hr8g-6v94-x4m9",
+          "https://github.com/bcgit/bc-java/wiki/CVE-2023-33201",
+          "https://github.com/bcgit/bc-java/commit/ccf93ca736b89250ff4ce079a5aa56f5cbf0ebbd",
+          "https://github.com/bcgit/bc-java/commit/e8c409a8389c815ea3fda5e8b94c92fdfe583bcc",
+          "https://github.com/bcgit/bc-java/commits/main/prov/src/main/java/org/bouncycastle/jce/provider/X509LDAPCertStoreSpi.java",
+          "https://bouncycastle.org"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-29857",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cwe": [
+              "CWE-400",
+              "CWE-125"
+            ]
+          }
+        ],
+        "summary": "An issue was discovered in ECCurve.java and ECCurve.cs in Bouncy Castle Java (BC Java) before 1.78, BC Java LTS before 2.73.6, BC-FJA before 1.0.2.5, and BC C# .Net before 2.3.1. Importing an EC certificate with crafted F2m parameters can lead to excessive CPU consumption during the evaluation of the curve parameters.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.bouncycastle:bcprov-jdk15on:1.70": {
+            "fixed_versions": [
+              "[1.78]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.bouncycastle:bcprov-jdk15on:1.70"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-601221",
+        "references": [
+          "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902024%E2%80%9029857",
+          "https://github.com/advisories/GHSA-8xfc-gm6g-vgpv",
+          "https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f",
+          "https://github.com/bcgit/bc-csharp/wiki/CVE%E2%80%902024%E2%80%9029857",
+          "https://security.netapp.com/advisory/ntap-20241206-0008/",
+          "https://security.netapp.com/advisory/ntap-20241206-0008",
+          "https://www.bouncycastle.org/latest_releases.html",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-29857",
+          "https://github.com/bcgit/bc-java/commit/fee80dd230e7fba132d03a34f1dd1d6aae0d0281",
+          "https://github.com/bcgit/bc-csharp/commit/56daa6eac526f165416d17f661422d60de0dfd63"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-30171",
+            "cvss_v3_score": "5.9",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cwe": [
+              "CWE-203"
+            ]
+          }
+        ],
+        "summary": "An issue was discovered in Bouncy Castle Java TLS API and JSSE Provider before 1.78. Timing-based leakage may occur in RSA based handshakes because of exception processing.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.bouncycastle:bcprov-jdk15on:1.70": {
+            "fixed_versions": [
+              "[1.78]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.bouncycastle:bcprov-jdk15on:1.70"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-601225",
+        "references": [
+          "https://security.netapp.com/advisory/ntap-20240614-0008/",
+          "https://github.com/bcgit/bc-java/commit/d7d5e735abd64bf0f413f54fd9e495fc02400fb0",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-30171",
+          "https://github.com/bcgit/bc-csharp/commit/c984b8bfd8544dfc55dba91a02cbbbb9c580c217",
+          "https://security.netapp.com/advisory/ntap-20240614-0008",
+          "https://github.com/bcgit/bc-csharp/wiki/CVE%E2%80%902024%E2%80%9030171",
+          "https://github.com/advisories/GHSA-v435-xc8x-wvr9",
+          "https://github.com/bcgit/bc-java/commit/e0569dcb1dea9d421d84fc4c5c5688fe101afa2d",
+          "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902024%E2%80%9030171",
+          "https://www.bouncycastle.org/latest_releases.html"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2024-38820",
+            "cvss_v3_score": "5.3",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "CWE-178",
+              "NVD-CWE-noinfo"
+            ]
+          }
+        ],
+        "summary": "The fix for CVE-2022-22968 made disallowedFields patterns in DataBinder case insensitive. However, String.toLowerCase() has some Locale dependent exceptions that could potentially result in fields not protected as expected.",
+        "severity": "Medium",
+        "components": {
+          "gav://org.springframework:spring-context:5.3.39": {
+            "fixed_versions": [
+              "[6.1.14]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-context:5.3.39"
+                }
+              ]
+            ]
+          },
+          "gav://org.springframework:spring-web:5.3.39": {
+            "fixed_versions": [
+              "[6.1.14]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-web:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-646819",
+        "references": [
+          "https://github.com/advisories/GHSA-4gc7-5j7h-4qph",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38820",
+          "https://spring.io/security/cve-2024-38820",
+          "https://security.netapp.com/advisory/ntap-20241129-0003/",
+          "https://github.com/spring-projects/spring-framework/commits/v6.2.0-RC2",
+          "https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c",
+          "https://security.netapp.com/advisory/ntap-20241129-0003"
+        ],
+        "extended_information": {}
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2016-1000027",
+            "cvss_v2_score": "7.5",
+            "cvss_v2_vector": "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P",
+            "cvss_v3_score": "9.8",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cwe": [
+              "CWE-502"
+            ]
+          }
+        ],
+        "summary": "Pivotal Spring Framework through 5.3.16 suffers from a potential remote code execution (RCE) issue if used for Java deserialization of untrusted data. Depending on how the library is implemented within a product, this issue may or not occur, and authentication may be required. NOTE: the vendor's position is that untrusted data is not an intended use case. The product's behavior will not be changed because some users rely on deserialization of trusted data.",
+        "severity": "Critical",
+        "components": {
+          "gav://org.springframework:spring-web:5.3.39": {
+            "fixed_versions": [
+              "[6.0.0]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-web:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-125778",
+        "references": [
+          "https://github.com/spring-projects/spring-framework/issues/21680",
+          "https://github.com/spring-projects/spring-framework/commit/2b051b8b321768a4cfef83077db65c6328ffd60f",
+          "https://github.com/spring-projects/spring-framework/issues/24434#issuecomment-579669626",
+          "https://jira.spring.io/browse/SPR-17143?redirect=false",
+          "https://github.com/spring-projects/spring-framework/issues/24434#issuecomment-1231625331",
+          "https://nvd.nist.gov/vuln/detail/CVE-2016-1000027",
+          "https://raw.githubusercontent.com/distributedweaknessfiling/cvelist/master/2016/1000xxx/CVE-2016-1000027.json",
+          "https://github.com/spring-projects/spring-framework/issues/24434",
+          "https://github.com/spring-projects/spring-framework",
+          "https://github.com/spring-projects/spring-framework/issues/24434#issuecomment-744519525",
+          "https://github.com/spring-projects/spring-framework/issues/24434#issuecomment-582313417",
+          "https://support.contrastsecurity.com/hc/en-us/articles/4402400830612-Spring-web-Java-Deserialization-CVE-2016-1000027",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2016-1000027",
+          "https://github.com/spring-projects/spring-framework/commit/5cbe90b2cd91b866a5a9586e460f311860e11cfa",
+          "https://security-tracker.debian.org/tracker/CVE-2016-1000027",
+          "https://spring.io/blog/2022/05/11/spring-framework-5-3-20-and-5-2-22-available-now",
+          "https://www.tenable.com/security/research/tra-2016-20",
+          "https://security.netapp.com/advisory/ntap-20230420-0009",
+          "https://security.netapp.com/advisory/ntap-20230420-0009/"
+        ],
+        "extended_information": {
+          "short_description": "Unsafe deserialization in Spring RemoteInvocationSerializingExporter could lead to remote code execution.",
+          "full_description": "Spring-based applications that export service beans as endpoints using classes that extend the [RemoteInvocationSerializingExporter](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/remoting/rmi/RemoteInvocationSerializingExporter.html) class are vulnerable to Java deserialization attacks which could lead to RCE (Remote Code Execution). As of 2016, this vulnerability is still not fixed, as the Pivotal team (the maintainers of the Spring framework) disputed it as a security vulnerability in Spring itself and decided not to issue a fix. Instead, they deprecated `HttpInvokerServiceExporter` and `SimpleHttpInvokerServiceExporter`, the potentially vulnerable exporter classes that extend `RemoteInvocationSerializingExporter` and warned application developers not to use them when exposed to untrusted user input (see \"WARNING\" in the [documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/remoting/httpinvoker/HttpInvokerServiceExporter.html)). Applications that do not use the above classes can safely ignore this vulnerability.",
+          "jfrog_research_severity": "Critical",
+          "jfrog_research_severity_reasons": [
+            {
+              "name": "Exploitation of the issue is only possible when the vulnerable component is used in a specific manner. The attacker has to perform per-target research to determine the vulnerable attack vector",
+              "description": "The attacker must find a request that is handled by a class extending `RemoteInvocationSerializingExporter`",
+              "is_positive": true
+            },
+            {
+              "name": "The issue has an exploit published",
+              "description": "An RMI exploit can be generated by frameworks such as [ysoserial](https://github.com/frohoff/ysoserial/tree/master/src)"
+            },
+            {
+              "name": "The issue has a detailed technical explanation published, that can aid in exploit development",
+              "description": "The original advisory contains a technical writeup"
+            },
+            {
+              "name": "The issue results in a severe impact (such as remote code execution)",
+              "description": "Remote code execution"
+            }
+          ],
+          "remediation": "##### Deployment mitigations\n\nDo not use Java serialization for external endpoints (Do not extend the `RemoteInvocationSerializingExporter` class)"
+        }
+      },
+      {
+        "cves": [
+          {
+            "cve": "CVE-2025-22233",
+            "cvss_v3_score": "3.1",
+            "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N",
+            "cwe": [
+              "CWE-20"
+            ]
+          }
+        ],
+        "summary": "CVE-2024-38820 ensured Locale-independent, lowercase conversion for both the configured disallowedFields patterns and for request parameter names. However, there are still cases where it is possible to bypass the disallowedFields checks.\n\nAffected Spring Products and Versions\n\nSpring Framework:\n  *  6.2.0 - 6.2.6\n\n  *  6.1.0 - 6.1.19\n\n  *  6.0.0 - 6.0.27\n\n  *  5.3.0 - 5.3.42\n  *  Older, unsupported versions are also affected\n\n\n\nMitigation\n\nUsers of affected versions should upgrade to the corresponding fixed version.\n\nAffected version(s)Fix Version Availability 6.2.x\n 6.2.7\nOSS6.1.x\n 6.1.20\nOSS6.0.x\n 6.0.28\n Commercial https://enterprise.spring.io/ 5.3.x\n 5.3.43\n Commercial https://enterprise.spring.io/ \nNo further mitigation steps are necessary.\n\n\nGenerally, we recommend using a dedicated model object with properties only for data binding, or using constructor binding since constructor arguments explicitly declare what to bind together with turning off setter binding through the declarativeBinding flag. See the Model Design section in the reference documentation.\n\nFor setting binding, prefer the use of allowedFields (an explicit list) over disallowedFields.\n\nCredit\n\nThis issue was responsibly reported by the TERASOLUNA Framework Development Team from NTT DATA Group Corporation.",
+        "severity": "Low",
+        "components": {
+          "gav://org.springframework:spring-context:5.3.39": {
+            "fixed_versions": [
+              "[6.1.20]",
+              "[6.2.7]"
+            ],
+            "impact_paths": [
+              [
+                {
+                  "component_id": "gav://org.owasp:benchmark:1.2"
+                },
+                {
+                  "component_id": "gav://org.springframework:spring-context:5.3.39"
+                }
+              ]
+            ]
+          }
+        },
+        "issue_id": "XRAY-703229",
+        "references": [
+          "https://github.com/spring-projects/spring-framework/commit/ee62701f5634e904e42e218baad142cea2bcd332",
+          "https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N\u0026version=3.1",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-22233",
+          "https://github.com/spring-projects/spring-framework/commit/edfcc6ffb188e4614ec9b212e3208b666981851c",
+          "https://github.com/spring-projects/spring-framework/issues/34801",
+          "https://github.com/advisories/GHSA-4wp7-92pw-q264",
+          "https://spring.io/security/cve-2025-22233"
+        ],
+        "extended_information": {}
+      }
+    ],
+    "component_id": "root",
+    "package_type": "generic",
+    "status": "completed"
+  }
+]
