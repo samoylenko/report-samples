@@ -10,6 +10,9 @@ mkdir -p "${REPORT_DIR}"
 grype dir:. --output json --file "${REPORT_DIR}/grype-${REPORT_SUFFIX}".json
 grype dir:. --output sarif --file "${REPORT_DIR}/grype-${REPORT_SUFFIX}".sarif
 
+# Syft
+syft dir:. --output cyclonedx-json="${REPORT_DIR}/syft-cyclonedx-${REPORT_SUFFIX}.json" --output spdx-json="${REPORT_DIR}/syft-spdx-${REPORT_SUFFIX}.json"
+
 # Docker Scout
 docker scout cves --format sarif --output "${REPORT_DIR}/scout-${REPORT_SUFFIX}.sarif" fs://. # SARIF ONLY
 
