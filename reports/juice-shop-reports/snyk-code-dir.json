@@ -13,13 +13,13 @@
               "id": "javascript/DOMXSS",
               "name": "DOMXSS",
               "shortDescription": {
-                "text": "Cross-site Scripting (XSS)"
+                "text": "DOM-based Cross-site Scripting (XSS)"
               },
               "defaultConfiguration": {
                 "level": "warning"
               },
               "help": {
-                "markdown": "## Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
+                "markdown": "## Details\n\nDOM-based Cross-Site Scripting (DOM XSS) is a client-side vulnerability in which attacker-controlled data (e.g., from `location.search`, `location.hash`, `document.referrer`, browser storage, `postMessage`, WebSockets) is read by JavaScript and written to dangerous DOM/JS sinks without proper validation or encoding, causing code to execute entirely in the browser. The payload may be delivered by the server or other channels, but—unlike reflected or stored XSS—the server does not perform the injection/echo that triggers execution; the critical issue is a tainted data flow from source to sink within client-side logic, which traditional server-side defenses and many WAFs often miss.\n\nEffective mitigation of DOM XSS vulnerabilities requires implementing comprehensive input validation and output encoding strategies specifically designed for client‑side execution contexts. This includes establishing strict allowlisting mechanisms for user‑controllable data, implementing context‑aware output encoding based on the specific DOM operation being performed, and adopting secure coding practices that minimize the attack surface exposed through dangerous DOM/JavaScript APIs. Additionally, modern web applications should leverage Content Security Policy (CSP) directives and other browser security features to establish defense‑in‑depth protections against DOM‑based attacks.\n\nDOM XSS attacks have been extensively documented in security research and are frequently exploited to achieve various malicious objectives, including session hijacking through cookie theft, credential harvesting via phishing attacks, unauthorized actions performed on behalf of authenticated users, client‑side malware distribution, and sensitive data exfiltration. The client‑side nature of these attacks makes them effective at bypassing traditional perimeter security controls and targeting users directly within their browser environment.\n\n### Types of attacks\n\n| Type                         | Source Category          | Description                                                                                                                                         | Technical Details                                                                                                                                                                     |\n|------------------------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **URL Parameter Injection**  | Navigation               | Malicious payloads embedded within URL query parameters that are processed by vulnerable JavaScript code accessing `location.search` or similar properties. | Commonly exploits `URLSearchParams`, direct string parsing, or framework routing mechanisms that unsafely process query parameters (including History API updates like `pushState`). |\n| **Fragment Identifier Exploitation** | Navigation       | Attack vectors utilizing URL hash fragments (`#`) that are accessible through `location.hash` and processed by client‑side routing or content loading mechanisms. | Particularly prevalent in Single Page Applications (SPAs) with client‑side routing frameworks that process hash‑based navigation.                                                       |\n| **HTTP Referrer Manipulation** | Request Context       | Exploitation of `document.referrer` values that contain malicious payloads, typically originating from attacker‑controlled websites linking to the vulnerable application. | Requires social engineering to direct users from attacker‑controlled domains with crafted referrer values.                                                                            |\n| **Browser Storage Attacks**  | Persistent Storage       | Malicious data injection into `localStorage`, `sessionStorage`, or IndexedDB that is subsequently read and processed unsafely by application JavaScript.    | Can persist across sessions if the attacker can get data stored (via another bug or social engineering) and may be combined with other vectors for staged exploitation.               |\n| **Cross-Frame Communication** | Inter-Frame Messaging   | Exploitation of `postMessage` APIs where malicious data is transmitted between frames or windows and processed without proper origin validation and input sanitization. | Common in applications with embedded iframes or popup windows that implement cross‑origin communication mechanisms.                                                                    |\n| **WebSocket Message Injection** | Real-time Communication | Malicious payloads delivered through WebSocket connections that are processed by client‑side message handlers without adequate input validation.         | Particularly effective against real‑time applications like chat systems, collaborative tools, or live data feeds.                                                                       |\n\n### Affected environments\n\nDOM XSS vulnerabilities can impact various categories of web applications and client‑side environments:\n\n- **Single Page Applications (SPAs)** utilizing frameworks such as React, Angular, Vue.js, or custom JavaScript implementations\n- **Progressive Web Applications (PWAs)** with extensive client‑side functionality and offline capabilities\n- **Client‑side routing implementations** including hash‑based and HTML5 History API routing mechanisms\n- **Browser extensions and add‑ons** with content script injection and web page interaction capabilities\n- **Hybrid mobile applications** utilizing WebView components and JavaScript bridge implementations\n- **Rich Internet Applications (RIAs)** with complex client‑side business logic and DOM manipulation\n- **Content Management Systems (CMS)** with client-side editing interfaces and dynamic content rendering\n- **Social media platforms and widgets** implementing client‑side content embedding and sharing functionality\n\n## Best practices for prevention\n\nThis section outlines comprehensive security measures designed to prevent DOM XSS vulnerabilities through secure development practices and technical controls.\n\n### Input Validation and Sanitization\n\n- **Implement strict input validation** for all client‑side data sources including URL parameters, fragment identifiers, referrer values, storage mechanisms, and cross‑frame communications using allowlisting approaches rather than blacklisting methodologies.\n- **Establish contextual output encoding** appropriate for the specific DOM context where data will be utilized, including HTML entity encoding, JavaScript string escaping, CSS value encoding, and URL parameter encoding.\n- **Validate data origin and integrity** for cross‑frame `postMessage` communications by implementing strict origin checking and message format validation to prevent malicious data injection from untrusted sources.\n- **Sanitize persistent storage data** by validating all data retrieved from `localStorage`, `sessionStorage`, or other client‑side storage mechanisms before processing or rendering within the application.\n\n### Secure DOM Manipulation Practices\n\n- **Avoid high‑risk DOM sinks** including `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write()`, `document.writeln()`, `eval()`, `Function()`, `setTimeout()`/`setInterval()` with string arguments when processing user‑controllable data.\n- **Utilize safer DOM manipulation methods** such as `textContent`, `createTextNode()`, and DOM element creation APIs that do not interpret content as executable code. Use `setAttribute()` only for non‑URL/non‑event attributes and never to set `on*` handlers or dangerous URL attributes from untrusted data.\n- **Implement secure templating mechanisms** using frameworks or libraries that provide automatic output encoding and XSS protection rather than manual string concatenation for dynamic content generation.\n- **Enforce separation of data and code** by avoiding the construction of JavaScript code through string concatenation with user‑controllable data and utilizing structured data formats like JSON for data transmission.\n\n### Browser Security Feature Implementation\n\n- **Deploy comprehensive Content Security Policy (CSP)** directives (e.g., `script-src`, `object-src`, `base-uri`, `frame-ancestors`) to limit script execution and reduce impact if a DOM XSS exists.\n- **Implement Subresource Integrity (SRI)** for all external JavaScript resources to prevent tampering with third‑party libraries that could introduce DOM XSS vulnerabilities.\n- **Utilize HTTP security headers** including `X-Content-Type-Options: nosniff`, `Referrer-Policy`, and (if CSP is not available) `X-Frame-Options`, while preferring CSP’s `frame-ancestors` directive for clickjacking protection.\n- **Adopt modern browser defenses** such as Trusted Types (where supported) to prevent assignment to DOM sinks unless passed through an approved sanitizer. Treat CORS as an access-control mechanism—not a DOM XSS control—and configure it appropriately to limit unnecessary cross-origin data exposure.\n\n### Development and Testing Practices\n\n- **Conduct regular security code reviews** focusing specifically on client-side data flow analysis to identify potential DOM XSS vulnerabilities during the development process.\n- **Implement automated static analysis** using specialized tools capable of detecting DOM XSS vulnerabilities in JavaScript code and identifying unsafe data flows from sources to sinks.\n- **Perform dynamic application security testing (DAST)** with specialized DOM XSS detection capabilities and manual penetration testing to validate the effectiveness of implemented security controls.\n- **Establish secure coding guidelines** for development teams including training on DOM XSS attack vectors, secure JavaScript programming practices, and proper use of security‑focused libraries and frameworks.",
                 "text": ""
               },
               "properties": {
@@ -677,7 +677,7 @@
               "id": "javascript/HttpToHttps/test",
               "name": "HttpToHttps/test",
               "shortDescription": {
-                "text": "Cleartext Transmission of Sensitive Information"
+                "text": "Cleartext Transmission - HTTP Instead of HTTPS"
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -2640,7 +2640,7 @@
               "id": "javascript/ServerLeak",
               "name": "ServerLeak",
               "shortDescription": {
-                "text": "Information Exposure"
+                "text": "Information Exposure - Server Error Message"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -2756,7 +2756,8 @@
                 "precision": "very-high",
                 "repoDatasetSize": 73,
                 "cwe": [
-                  "CWE-200"
+                  "CWE-200",
+                  "CWE-209"
                 ]
               }
             },
@@ -3300,7 +3301,7 @@
               "id": "javascript/HardcodedNonCryptoSecret",
               "name": "HardcodedNonCryptoSecret",
               "shortDescription": {
-                "text": "Hardcoded Secret"
+                "text": "Hardcoded Non-Cryptographic Secret"
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -3387,7 +3388,7 @@
               "id": "javascript/HardcodedNonCryptoSecret/test",
               "name": "HardcodedNonCryptoSecret/test",
               "shortDescription": {
-                "text": "Hardcoded Secret"
+                "text": "Hardcoded Non-Cryptographic Secret"
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -3485,8 +3486,8 @@
             "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to dynamically construct the HTML page on client side. This may result in a DOM Based Cross-Site Scripting attack (DOMXSS).",
             "arguments": [
               "[data from a remote resource](0)",
-              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10)",
-              "[write](11)"
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8)",
+              "[write](9)"
             ]
           },
           "locations": [
@@ -3497,17 +3498,17 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 68,
-                  "endLine": 68,
-                  "startColumn": 56,
-                  "endColumn": 61
+                  "startLine": 69,
+                  "endLine": 69,
+                  "startColumn": 58,
+                  "endColumn": 63
                 }
               }
             }
           ],
           "fingerprints": {
-            "0": "f66d43e57f0c75028815dc21222d26ca6f41bc8908ff369e943fece5214ca1cb",
-            "1": "3df95e84.f9697af6.59a2b8c1.a517c54b.d43bc62e.c4a11d72.cd61fc56.dd1bc17e.721b5b6d.f9697af6.59a2b8c1.2f9e311f.4463c21f.07fd8e31.83265159.fc9d7bc7"
+            "0": "dff38ede1b2f2e3ad2b398bc252bd3d4196a9a904f42ee2a81b394a92e34d263",
+            "1": "3df95e84.f9697af6.59a2b8c1.a517c54b.d43bc62e.c4a11d72.ea235696.dd1bc17e.721b5b6d.f9697af6.59a2b8c1.2f9e311f.4463c21f.07fd8e31.83265159.fc9d7bc7"
           },
           "codeFlows": [
             {
@@ -3608,10 +3609,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 64,
-                            "endLine": 64,
-                            "startColumn": 69,
-                            "endColumn": 78
+                            "startLine": 65,
+                            "endLine": 65,
+                            "startColumn": 14,
+                            "endColumn": 23
                           }
                         }
                       }
@@ -3625,10 +3626,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 67,
-                            "endLine": 67,
-                            "startColumn": 23,
-                            "endColumn": 27
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 25,
+                            "endColumn": 29
                           }
                         }
                       }
@@ -3642,10 +3643,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 67,
-                            "endLine": 67,
-                            "startColumn": 28,
-                            "endColumn": 36
+                            "startLine": 68,
+                            "endLine": 68,
+                            "startColumn": 30,
+                            "endColumn": 38
                           }
                         }
                       }
@@ -3659,10 +3660,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 67,
-                            "endLine": 67,
-                            "startColumn": 23,
-                            "endColumn": 36
+                            "startLine": 69,
+                            "endLine": 69,
+                            "startColumn": 64,
+                            "endColumn": 77
                           }
                         }
                       }
@@ -3676,44 +3677,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 67,
-                            "endLine": 67,
-                            "startColumn": 7,
-                            "endColumn": 36
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 10,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "frontend/src/app/data-export/data-export.component.ts",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 68,
-                            "endLine": 68,
-                            "startColumn": 62,
-                            "endColumn": 75
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 11,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "frontend/src/app/data-export/data-export.component.ts",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 68,
-                            "endLine": 68,
-                            "startColumn": 56,
-                            "endColumn": 61
+                            "startLine": 69,
+                            "endLine": 69,
+                            "startColumn": 58,
+                            "endColumn": 63
                           }
                         }
                       }
@@ -22411,8 +22378,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 398,
-                  "endLine": 398,
+                  "startLine": 404,
+                  "endLine": 404,
                   "startColumn": 26,
                   "endColumn": 32
                 }
@@ -22420,7 +22387,7 @@
             }
           ],
           "fingerprints": {
-            "0": "6a4b419c791f8c45433d5682fc74b093654fb5ab12c664fbc442d2c3e7c9ca8d",
+            "0": "adcf3bce032fb58be8b5ac757da9f377bfd2e03c7878d1a614cf1eb6d47ebff9",
             "1": "d7990cfd.e3415913.6bb8eed2.c8688b2b.ef9f7d82.8020cfdf.96ea21a8.382555c6.f759b1f9.4773f344.bd65d204.08906714.ac82cb7b.5fce695c.83265159.17c85c92"
           },
           "codeFlows": [
@@ -22437,8 +22404,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 11,
                             "endColumn": 25
                           }
@@ -22454,8 +22421,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 15,
                             "endColumn": 19
                           }
@@ -22471,8 +22438,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 26,
                             "endColumn": 32
                           }
@@ -22524,8 +22491,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 398,
-                  "endLine": 398,
+                  "startLine": 404,
+                  "endLine": 404,
                   "startColumn": 60,
                   "endColumn": 66
                 }
@@ -22533,7 +22500,7 @@
             }
           ],
           "fingerprints": {
-            "0": "6a4b419c791f8c45433d5682fc74b093654fb5ab12c664fbc442d2c3e7c9ca8d",
+            "0": "adcf3bce032fb58be8b5ac757da9f377bfd2e03c7878d1a614cf1eb6d47ebff9",
             "1": "d7990cfd.e3415913.bd65d204.c8688b2b.ef9f7d82.8020cfdf.96ea21a8.7c35951b.f759b1f9.4773f344.bd65d204.08906714.fd1fa73f.8020cfdf.83265159.17c85c92"
           },
           "codeFlows": [
@@ -22550,8 +22517,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 42,
                             "endColumn": 59
                           }
@@ -22567,8 +22534,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 46,
                             "endColumn": 50
                           }
@@ -22584,8 +22551,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 398,
-                            "endLine": 398,
+                            "startLine": 404,
+                            "endLine": 404,
                             "startColumn": 60,
                             "endColumn": 66
                           }
@@ -24268,8 +24235,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 128,
-                  "endLine": 128,
+                  "startLine": 129,
+                  "endLine": 129,
                   "startColumn": 13,
                   "endColumn": 20
                 }
@@ -24277,7 +24244,7 @@
             }
           ],
           "fingerprints": {
-            "0": "22b7ccec27b2bee4ead3c8dd468b7f49730711e8d09df864ed8b7ffe13909cce",
+            "0": "625a2032dc33ed4041a664a9f5a420b792ef53a328081a98885e68740d1a56cf",
             "1": "ae77ea27.883ce888.8b18f948.d7919eeb.ac82cb7b.5fce695c.ea4b1c47.89d75565.ae77ea27.4773f344.4ccd5cb4.d7919eeb.ac82cb7b.5fce695c.60d372c8.89d75565"
           },
           "codeFlows": [
@@ -24294,8 +24261,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 128,
-                            "endLine": 128,
+                            "startLine": 129,
+                            "endLine": 129,
                             "startColumn": 13,
                             "endColumn": 20
                           }
@@ -24339,8 +24306,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 122,
-                  "endLine": 122,
+                  "startLine": 121,
+                  "endLine": 121,
                   "startColumn": 49,
                   "endColumn": 72
                 }
@@ -24348,7 +24315,7 @@
             }
           ],
           "fingerprints": {
-            "0": "5176bde165e8d19261bdaa2895e25ca63400c925d0840371354e8b49a3519408",
+            "0": "6db895dd3d97f5bd455d0c1e8fab1021e5d04863fbb96638ef3813c90c50b913",
             "1": "7921a677.4773f344.607187b5.a517c54b.ef9f7d82.81760a8a.566b8f28.cde67692.cf7733e4.3635f48a.9075a39e.c559ebce.4463c21f.7312b3d3.83265159.4bfcf098"
           },
           "codeFlows": [
@@ -24518,8 +24485,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 109,
-                            "endLine": 109,
+                            "startLine": 108,
+                            "endLine": 108,
                             "startColumn": 8,
                             "endColumn": 12
                           }
@@ -24535,8 +24502,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 108,
-                            "endLine": 109,
+                            "startLine": 107,
+                            "endLine": 108,
                             "startColumn": 5,
                             "endColumn": 12
                           }
@@ -24552,8 +24519,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 110,
-                            "endLine": 110,
+                            "startLine": 109,
+                            "endLine": 109,
                             "startColumn": 8,
                             "endColumn": 12
                           }
@@ -24569,8 +24536,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 116,
-                            "endLine": 116,
+                            "startLine": 115,
+                            "endLine": 115,
                             "startColumn": 19,
                             "endColumn": 28
                           }
@@ -24586,8 +24553,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 123,
-                            "endLine": 123,
+                            "startLine": 122,
+                            "endLine": 122,
                             "startColumn": 13,
                             "endColumn": 22
                           }
@@ -24603,8 +24570,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 123,
-                            "endLine": 123,
+                            "startLine": 122,
+                            "endLine": 122,
                             "startColumn": 13,
                             "endColumn": 25
                           }
@@ -24620,8 +24587,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 123,
-                            "endLine": 123,
+                            "startLine": 122,
+                            "endLine": 122,
                             "startColumn": 26,
                             "endColumn": 33
                           }
@@ -24637,8 +24604,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 123,
-                            "endLine": 123,
+                            "startLine": 122,
+                            "endLine": 122,
                             "startColumn": 13,
                             "endColumn": 33
                           }
@@ -24654,8 +24621,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 122,
-                            "endLine": 122,
+                            "startLine": 121,
+                            "endLine": 121,
                             "startColumn": 49,
                             "endColumn": 72
                           }
@@ -24695,8 +24662,8 @@
             "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
             "arguments": [
               "[data from a remote resource](0)",
-              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17)",
-              "[bypassSecurityTrustHtml](18)"
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15)",
+              "[bypassSecurityTrustHtml](16)"
             ]
           },
           "locations": [
@@ -24709,15 +24676,15 @@
                 "region": {
                   "startLine": 57,
                   "endLine": 57,
-                  "startColumn": 37,
-                  "endColumn": 60
+                  "startColumn": 39,
+                  "endColumn": 62
                 }
               }
             }
           ],
           "fingerprints": {
             "0": "851b39b8d090820eff9deeefbf7d42b183ae82c361b80d9fac873b8ad41f8d73",
-            "1": "839b1d0f.4773f344.607187b5.824d2503.ef9f7d82.8020cfdf.0b4f0b50.ae94f388.839b1d0f.664e3b30.6bb8eed2.c559ebce.4463c21f.13f1b294.83265159.a83217da"
+            "1": "839b1d0f.4773f344.607187b5.824d2503.ef9f7d82.8020cfdf.0b4f0b50.ae94f388.839b1d0f.277c621c.7be03776.85c7f9bf.4463c21f.7312b3d3.83265159.a83217da"
           },
           "codeFlows": [
             {
@@ -24886,8 +24853,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 53,
-                            "endLine": 53,
+                            "startLine": 52,
+                            "endLine": 52,
                             "startColumn": 22,
                             "endColumn": 26
                           }
@@ -24905,8 +24872,8 @@
                           "region": {
                             "startLine": 53,
                             "endLine": 53,
-                            "startColumn": 40,
-                            "endColumn": 45
+                            "startColumn": 14,
+                            "endColumn": 19
                           }
                         }
                       }
@@ -24922,8 +24889,8 @@
                           "region": {
                             "startLine": 56,
                             "endLine": 56,
-                            "startColumn": 18,
-                            "endColumn": 22
+                            "startColumn": 20,
+                            "endColumn": 24
                           }
                         }
                       }
@@ -24939,8 +24906,8 @@
                           "region": {
                             "startLine": 57,
                             "endLine": 57,
-                            "startColumn": 110,
-                            "endColumn": 114
+                            "startColumn": 149,
+                            "endColumn": 153
                           }
                         }
                       }
@@ -24954,10 +24921,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 113,
-                            "endLine": 113,
-                            "startColumn": 32,
-                            "endColumn": 78
+                            "startLine": 57,
+                            "endLine": 57,
+                            "startColumn": 154,
+                            "endColumn": 159
                           }
                         }
                       }
@@ -24973,8 +24940,8 @@
                           "region": {
                             "startLine": 57,
                             "endLine": 57,
-                            "startColumn": 147,
-                            "endColumn": 151
+                            "startColumn": 149,
+                            "endColumn": 159
                           }
                         }
                       }
@@ -24990,8 +24957,8 @@
                           "region": {
                             "startLine": 57,
                             "endLine": 57,
-                            "startColumn": 152,
-                            "endColumn": 157
+                            "startColumn": 63,
+                            "endColumn": 168
                           }
                         }
                       }
@@ -25007,42 +24974,8 @@
                           "region": {
                             "startLine": 57,
                             "endLine": 57,
-                            "startColumn": 147,
-                            "endColumn": 157
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 17,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "frontend/src/app/administration/administration.component.ts",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 57,
-                            "endLine": 57,
-                            "startColumn": 61,
-                            "endColumn": 166
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 18,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "frontend/src/app/administration/administration.component.ts",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 57,
-                            "endLine": 57,
-                            "startColumn": 37,
-                            "endColumn": 60
+                            "startColumn": 39,
+                            "endColumn": 62
                           }
                         }
                       }
@@ -25092,16 +25025,16 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 72,
-                  "endLine": 72,
-                  "startColumn": 43,
-                  "endColumn": 66
+                  "startLine": 75,
+                  "endLine": 75,
+                  "startColumn": 45,
+                  "endColumn": 68
                 }
               }
             }
           ],
           "fingerprints": {
-            "0": "9999115e0a04b0120d1a06456f538d6f0c4345eee20485bf38c9a5a90bdb836e",
+            "0": "9fc028fb028572a7cb792448919091e035f9257b841c3c15f192817ea33406da",
             "1": "7921a677.4773f344.607187b5.d7919eeb.ef9f7d82.81760a8a.566b8f28.cde67692.a6348f37.70b638aa.8b18f948.4a954e56.4463c21f.7312b3d3.83265159.a83217da"
           },
           "codeFlows": [
@@ -25271,8 +25204,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 69,
-                            "endLine": 69,
+                            "startLine": 71,
+                            "endLine": 71,
                             "startColumn": 26,
                             "endColumn": 30
                           }
@@ -25288,10 +25221,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 69,
-                            "endLine": 69,
-                            "startColumn": 44,
-                            "endColumn": 53
+                            "startLine": 72,
+                            "endLine": 72,
+                            "startColumn": 14,
+                            "endColumn": 23
                           }
                         }
                       }
@@ -25305,10 +25238,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 71,
-                            "endLine": 71,
-                            "startColumn": 18,
-                            "endColumn": 26
+                            "startLine": 74,
+                            "endLine": 74,
+                            "startColumn": 20,
+                            "endColumn": 28
                           }
                         }
                       }
@@ -25322,10 +25255,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 72,
-                            "endLine": 72,
-                            "startColumn": 67,
-                            "endColumn": 75
+                            "startLine": 75,
+                            "endLine": 75,
+                            "startColumn": 69,
+                            "endColumn": 77
                           }
                         }
                       }
@@ -25339,10 +25272,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 72,
-                            "endLine": 72,
-                            "startColumn": 76,
-                            "endColumn": 83
+                            "startLine": 75,
+                            "endLine": 75,
+                            "startColumn": 78,
+                            "endColumn": 85
                           }
                         }
                       }
@@ -25356,10 +25289,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 72,
-                            "endLine": 72,
-                            "startColumn": 67,
-                            "endColumn": 83
+                            "startLine": 75,
+                            "endLine": 75,
+                            "startColumn": 69,
+                            "endColumn": 85
                           }
                         }
                       }
@@ -25373,10 +25306,10 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 72,
-                            "endLine": 72,
-                            "startColumn": 43,
-                            "endColumn": 66
+                            "startLine": 75,
+                            "endLine": 75,
+                            "startColumn": 45,
+                            "endColumn": 68
                           }
                         }
                       }
@@ -25658,8 +25591,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 47,
-                  "endLine": 47,
+                  "startLine": 45,
+                  "endLine": 45,
                   "startColumn": 45,
                   "endColumn": 68
                 }
@@ -25667,7 +25600,7 @@
             }
           ],
           "fingerprints": {
-            "0": "bfe2eaa0284ec0459e6bfd93d4162913ec2a0481e30c1538b33e4d1dea125227",
+            "0": "c46e7634666abffc90c4a85787bd1a4b65266ddfaf9bf35840f2529f3ff62222",
             "1": "cf7733e4.4773f344.ed5da594.a517c54b.ef9f7d82.32f843a3.0b4f0b50.116a0c7b.cf7733e4.eb7d1438.0a3df746.c8688b2b.ab9128a4.32f843a3.83265159.116a0c7b"
           },
           "codeFlows": [
@@ -25803,8 +25736,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 45,
-                            "endLine": 45,
+                            "startLine": 43,
+                            "endLine": 43,
                             "startColumn": 28,
                             "endColumn": 32
                           }
@@ -25820,8 +25753,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 45,
-                            "endLine": 45,
+                            "startLine": 43,
+                            "endLine": 43,
                             "startColumn": 58,
                             "endColumn": 65
                           }
@@ -25837,8 +25770,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 78,
                             "endColumn": 85
                           }
@@ -25854,8 +25787,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 86,
                             "endColumn": 90
                           }
@@ -25871,8 +25804,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 78,
                             "endColumn": 90
                           }
@@ -25888,8 +25821,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 78,
                             "endColumn": 93
                           }
@@ -25905,8 +25838,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 94,
                             "endColumn": 101
                           }
@@ -25922,8 +25855,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 78,
                             "endColumn": 101
                           }
@@ -25939,8 +25872,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 69,
                             "endColumn": 110
                           }
@@ -25956,8 +25889,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 47,
-                            "endLine": 47,
+                            "startLine": 45,
+                            "endLine": 45,
                             "startColumn": 45,
                             "endColumn": 68
                           }
@@ -26292,8 +26225,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 159,
-                  "endLine": 159,
+                  "startLine": 161,
+                  "endLine": 161,
                   "startColumn": 41,
                   "endColumn": 64
                 }
@@ -26301,7 +26234,7 @@
             }
           ],
           "fingerprints": {
-            "0": "498fe9058038b297370a74f562d9ab3e81e1b5b50b748de2a20507d269c6df61",
+            "0": "c8d6443e245b32ff213e7f212cf0fbbb617c9cf5f639711a818231bea7776d02",
             "1": "b7602041.4773f344.607187b5.c484ae4b.ef9f7d82.8020cfdf.ea235696.cde67692.1f17e802.b6e32c83.72aa1700.c484ae4b.4463c21f.33e93315.ca2eca62.5b5a306a"
           },
           "codeFlows": [
@@ -26318,8 +26251,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 152,
-                            "endLine": 152,
+                            "startLine": 154,
+                            "endLine": 154,
                             "startColumn": 62,
                             "endColumn": 63
                           }
@@ -26335,8 +26268,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 152,
-                            "endLine": 152,
+                            "startLine": 154,
+                            "endLine": 154,
                             "startColumn": 62,
                             "endColumn": 63
                           }
@@ -26352,8 +26285,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 152,
-                            "endLine": 152,
+                            "startLine": 154,
+                            "endLine": 154,
                             "startColumn": 9,
                             "endColumn": 27
                           }
@@ -26369,8 +26302,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 154,
-                            "endLine": 154,
+                            "startLine": 156,
+                            "endLine": 156,
                             "startColumn": 20,
                             "endColumn": 30
                           }
@@ -26386,8 +26319,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 154,
-                            "endLine": 154,
+                            "startLine": 156,
+                            "endLine": 156,
                             "startColumn": 31,
                             "endColumn": 35
                           }
@@ -26403,8 +26336,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 154,
-                            "endLine": 154,
+                            "startLine": 156,
+                            "endLine": 156,
                             "startColumn": 7,
                             "endColumn": 37
                           }
@@ -26420,8 +26353,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 159,
-                            "endLine": 159,
+                            "startLine": 161,
+                            "endLine": 161,
                             "startColumn": 65,
                             "endColumn": 75
                           }
@@ -26437,8 +26370,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 159,
-                            "endLine": 159,
+                            "startLine": 161,
+                            "endLine": 161,
                             "startColumn": 41,
                             "endColumn": 64
                           }
@@ -27452,8 +27385,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 399,
-                  "endLine": 399,
+                  "startLine": 405,
+                  "endLine": 405,
                   "startColumn": 41,
                   "endColumn": 45
                 }
@@ -27461,7 +27394,7 @@
             }
           ],
           "fingerprints": {
-            "0": "c6110e0ef423b0b7761721145d050c049801f881f7338d8aec4407e6c0f0881e",
+            "0": "626785b73ca14aac217c93604262a40107262ff0f531ea8a4fd2976e1ae46e01",
             "1": "d557d5dd.4773f344.607187b5.1f269b07.ef9f7d82.8020cfdf.6977003a.17c85c92.f759b1f9.4773f344.bd65d204.08906714.fd1fa73f.8020cfdf.83265159.17c85c92"
           },
           "codeFlows": [
@@ -27478,8 +27411,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 399,
-                            "endLine": 399,
+                            "startLine": 405,
+                            "endLine": 405,
                             "startColumn": 26,
                             "endColumn": 40
                           }
@@ -27495,8 +27428,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 399,
-                            "endLine": 399,
+                            "startLine": 405,
+                            "endLine": 405,
                             "startColumn": 30,
                             "endColumn": 34
                           }
@@ -27512,8 +27445,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 399,
-                            "endLine": 399,
+                            "startLine": 405,
+                            "endLine": 405,
                             "startColumn": 41,
                             "endColumn": 45
                           }
@@ -27565,8 +27498,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 400,
-                  "endLine": 400,
+                  "startLine": 406,
+                  "endLine": 406,
                   "startColumn": 47,
                   "endColumn": 51
                 }
@@ -27574,7 +27507,7 @@
             }
           ],
           "fingerprints": {
-            "0": "8ff4e668eaf912620c0e1e7e5dab2b8502e501019418dd809012fcf5a57870ee",
+            "0": "40662eb59d1f7bd8b0e47790438d4eac11b152714e9c7278e459d00e9746aed3",
             "1": "32a5424b.4773f344.bd65d204.1f269b07.ef9f7d82.8020cfdf.6977003a.17c85c92.f759b1f9.4773f344.bd65d204.08906714.fd1fa73f.8020cfdf.83265159.17c85c92"
           },
           "codeFlows": [
@@ -27591,8 +27524,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 400,
-                            "endLine": 400,
+                            "startLine": 406,
+                            "endLine": 406,
                             "startColumn": 29,
                             "endColumn": 46
                           }
@@ -27608,8 +27541,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 400,
-                            "endLine": 400,
+                            "startLine": 406,
+                            "endLine": 406,
                             "startColumn": 33,
                             "endColumn": 37
                           }
@@ -27625,8 +27558,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 400,
-                            "endLine": 400,
+                            "startLine": 406,
+                            "endLine": 406,
                             "startColumn": 47,
                             "endColumn": 51
                           }
@@ -27678,8 +27611,8 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 401,
-                  "endLine": 401,
+                  "startLine": 407,
+                  "endLine": 407,
                   "startColumn": 59,
                   "endColumn": 63
                 }
@@ -27687,7 +27620,7 @@
             }
           ],
           "fingerprints": {
-            "0": "b2d6903e30b2dcc574c52cc0ae49ae94c2956b4442a5d2dbf124ce66f400aa67",
+            "0": "807adf48e45afc9eb74d6becfbcf556a9ad0150427b83030f5580a62109d85ca",
             "1": "32a5424b.4773f344.607187b5.1f269b07.ef9f7d82.8020cfdf.52789fac.17c85c92.f759b1f9.4773f344.bd65d204.08906714.fd1fa73f.8020cfdf.83265159.17c85c92"
           },
           "codeFlows": [
@@ -27704,8 +27637,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 401,
-                            "endLine": 401,
+                            "startLine": 407,
+                            "endLine": 407,
                             "startColumn": 35,
                             "endColumn": 58
                           }
@@ -27721,8 +27654,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 401,
-                            "endLine": 401,
+                            "startLine": 407,
+                            "endLine": 407,
                             "startColumn": 39,
                             "endColumn": 43
                           }
@@ -27738,8 +27671,8 @@
                             "uriBaseId": "%SRCROOT%"
                           },
                           "region": {
-                            "startLine": 401,
-                            "endLine": 401,
+                            "startLine": 407,
+                            "endLine": 407,
                             "startColumn": 59,
                             "endColumn": 63
                           }
@@ -31290,55 +31223,55 @@
         "coverage": [
           {
             "isSupported": true,
-            "lang": "HTML",
-            "files": 75,
+            "lang": ".html",
+            "files": 72,
             "type": "SUPPORTED"
           },
           {
             "isSupported": true,
-            "lang": "JavaScript",
+            "lang": ".js",
             "files": 14,
             "type": "SUPPORTED"
           },
           {
             "isSupported": true,
-            "lang": "Python",
+            "lang": ".py",
             "files": 1,
             "type": "SUPPORTED"
           },
           {
             "isSupported": true,
-            "lang": "TypeScript",
-            "files": 544,
+            "lang": ".ts",
+            "files": 547,
             "type": "SUPPORTED"
           },
           {
             "isSupported": true,
-            "lang": "XML",
+            "lang": ".xml",
             "files": 5,
             "type": "SUPPORTED"
           },
           {
             "isSupported": false,
-            "lang": "HTML",
-            "files": 1,
+            "lang": ".html",
+            "files": 4,
             "type": "FAILED_PARSING"
           },
           {
             "isSupported": false,
-            "lang": "Python",
+            "lang": ".py",
             "files": 2,
             "type": "FAILED_PARSING"
           },
           {
             "isSupported": false,
-            "lang": "TypeScript",
+            "lang": ".ts",
             "files": 35,
             "type": "FAILED_PARSING"
           },
           {
             "isSupported": false,
-            "lang": "XML",
+            "lang": ".xml",
             "files": 2,
             "type": "FAILED_PARSING"
           }

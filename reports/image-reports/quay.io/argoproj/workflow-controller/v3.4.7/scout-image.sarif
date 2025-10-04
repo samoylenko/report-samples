@@ -651,6 +651,30 @@
               }
             },
             {
+              "id": "CVE-2025-47906",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-47906"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-47906?s=golang&n=stdlib&t=golang&vr=%3C1.23.12",
+              "help": {
+                "text": "If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.\n",
+                "markdown": "> If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.19.8 |\n| Affected range | <1.23.12                 |\n| Fixed version  | 1.23.12                  |\n"
+              },
+              "properties": {
+                "affected_version": "<1.23.12",
+                "cvssV3_severity": "MEDIUM",
+                "fixed_version": "1.23.12",
+                "purls": [
+                  "pkg:golang/stdlib@1.19.8"
+                ],
+                "security-severity": "6.5",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2024-24786",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -706,10 +730,10 @@
               "shortDescription": {
                 "text": "CVE-2023-44487"
               },
-              "helpUri": "https://scout.docker.com/v/CVE-2023-44487?s=golang&n=stdlib&t=golang&vr=%3C1.20.10",
+              "helpUri": "https://scout.docker.com/v/CVE-2023-44487?s=golang&n=grpc&ns=google.golang.org&t=golang&vr=%3C1.56.3",
               "help": {
-                "text": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing.\n\nWith the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection.\n\nThis issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2.\n\nThe default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.\n",
-                "markdown": "> A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing.\n\nWith the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection.\n\nThis issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2.\n\nThe default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.\n\n|                |                          |\n|----------------|--------------------------|\n| Package        | pkg:golang/stdlib@1.19.8 |\n| Affected range | <1.20.10                 |\n| Fixed version  | 1.20.10                  |\n"
+                "text": "An attacker can send HTTP/2 requests, cancel them, and send subsequent requests. This is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit, grpc.MaxConcurrentStreams. This results in a denial of service due to resource consumption.\n",
+                "markdown": "> An attacker can send HTTP/2 requests, cancel them, and send subsequent requests. This is valid by the HTTP/2 protocol, but would cause the gRPC-Go server to launch more concurrent method handlers than the configured maximum stream limit, grpc.MaxConcurrentStreams. This results in a denial of service due to resource consumption.\n\n|                |                                          |\n|----------------|------------------------------------------|\n| Package        | pkg:golang/google.golang.org/grpc@1.53.0 |\n| Affected range | <1.56.3                                  |\n| Fixed version  | 1.56.3                                   |\n"
               },
               "properties": {
                 "affected_version": "<0.17.0",
@@ -1274,7 +1298,7 @@
               }
             }
           ],
-          "version": "1.18.3"
+          "version": "1.18.4"
         }
       },
       "results": [
@@ -1284,7 +1308,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-51744                                                   \n  Severity        : LOW                                                              \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.1                                                           \n  Fixed version   : 4.5.1                                                            \n  CVSS Score      : 2.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000270                                                         \n  EPSS Percentile : 0.059200                                                         \n"
+            "text": "  Vulnerability   : CVE-2024-51744                                                   \n  Severity        : LOW                                                              \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.1                                                           \n  Fixed version   : 4.5.1                                                            \n  CVSS Score      : 2.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000270                                                         \n  EPSS Percentile : 0.063150                                                         \n"
           },
           "locations": [
             {
@@ -1302,7 +1326,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-54410                                               \n  Severity        : LOW                                                          \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <=25.0.12                                                    \n  Fixed version   : not fixed                                                    \n  CVSS Score      : 3.3                                                          \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N                 \n  EPSS Score      : 0.000140                                                     \n  EPSS Percentile : 0.016400                                                     \n"
+            "text": "  Vulnerability   : CVE-2025-54410                                               \n  Severity        : LOW                                                          \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <=25.0.12                                                    \n  Fixed version   : not fixed                                                    \n  CVSS Score      : 3.3                                                          \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:N                 \n  EPSS Score      : 0.000050                                                     \n  EPSS Percentile : 0.002000                                                     \n"
           },
           "locations": [
             {
@@ -1338,7 +1362,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22866            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.12                  \n  Fixed version   : 1.22.12                   \n  EPSS Score      : 0.000100                  \n  EPSS Percentile : 0.008110                  \n"
+            "text": "  Vulnerability   : CVE-2025-22866            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.12                  \n  Fixed version   : 1.22.12                   \n  EPSS Score      : 0.000120                  \n  EPSS Percentile : 0.012510                  \n"
           },
           "locations": [
             {
@@ -1356,7 +1380,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45289            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004090                  \n  EPSS Percentile : 0.604610                  \n"
+            "text": "  Vulnerability   : CVE-2023-45289            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004090                  \n  EPSS Percentile : 0.607050                  \n"
           },
           "locations": [
             {
@@ -1374,7 +1398,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-34155            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001150                  \n  EPSS Percentile : 0.307990                  \n"
+            "text": "  Vulnerability   : CVE-2024-34155            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.000640                  \n  EPSS Percentile : 0.202770                  \n"
           },
           "locations": [
             {
@@ -1392,7 +1416,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22870                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.36.0                                       \n  Fixed version   : 0.36.0                                        \n  CVSS Score      : 4.4                                           \n  CVSS Vector     : CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L  \n  EPSS Score      : 0.000150                                      \n  EPSS Percentile : 0.021600                                      \n"
+            "text": "  Vulnerability   : CVE-2025-22870                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.36.0                                       \n  Fixed version   : 0.36.0                                        \n  CVSS Score      : 4.4                                           \n  CVSS Vector     : CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:L  \n  EPSS Score      : 0.000150                                      \n  EPSS Percentile : 0.023910                                      \n"
           },
           "locations": [
             {
@@ -1410,7 +1434,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-29409            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.12                  \n  Fixed version   : 1.19.12                   \n  EPSS Score      : 0.001120                  \n  EPSS Percentile : 0.302530                  \n"
+            "text": "  Vulnerability   : CVE-2023-29409            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.12                  \n  Fixed version   : 1.19.12                   \n  EPSS Score      : 0.001120                  \n  EPSS Percentile : 0.305440                  \n"
           },
           "locations": [
             {
@@ -1428,7 +1452,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-39326            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.12                  \n  Fixed version   : 1.20.12                   \n  EPSS Score      : 0.000490                  \n  EPSS Percentile : 0.146830                  \n"
+            "text": "  Vulnerability   : CVE-2023-39326            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.12                  \n  Fixed version   : 1.20.12                   \n  EPSS Score      : 0.000480                  \n  EPSS Percentile : 0.145770                  \n"
           },
           "locations": [
             {
@@ -1446,7 +1470,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45284            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.11                  \n  Fixed version   : 1.20.11                   \n  EPSS Score      : 0.000200                  \n  EPSS Percentile : 0.034220                  \n"
+            "text": "  Vulnerability   : CVE-2023-45284            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.11                  \n  Fixed version   : 1.20.11                   \n  EPSS Score      : 0.000210                  \n  EPSS Percentile : 0.042670                  \n"
           },
           "locations": [
             {
@@ -1464,7 +1488,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45288                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.23.0                                       \n  Fixed version   : 0.23.0                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \n  EPSS Score      : 0.675990                                      \n  EPSS Percentile : 0.985130                                      \n"
+            "text": "  Vulnerability   : CVE-2023-45288                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.23.0                                       \n  Fixed version   : 0.23.0                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \n  EPSS Score      : 0.666350                                      \n  EPSS Percentile : 0.984980                                      \n"
           },
           "locations": [
             {
@@ -1482,7 +1506,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-45338                     \n  Severity        : MEDIUM                             \n  Package         : pkg:golang/golang.org/x/net@0.8.0  \n  Affected range  : <0.33.0                            \n  Fixed version   : 0.33.0                             \n  EPSS Score      : 0.002400                           \n  EPSS Percentile : 0.471930                           \n"
+            "text": "  Vulnerability   : CVE-2024-45338                     \n  Severity        : MEDIUM                             \n  Package         : pkg:golang/golang.org/x/net@0.8.0  \n  Affected range  : <0.33.0                            \n  Fixed version   : 0.33.0                             \n  EPSS Score      : 0.001590                           \n  EPSS Percentile : 0.375390                           \n"
           },
           "locations": [
             {
@@ -1500,7 +1524,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22872                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/golang.org/x/net@0.8.0                                \n  Affected range  : <0.38.0                                                          \n  Fixed version   : 0.38.0                                                           \n  CVSS Score      : 5.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N  \n  EPSS Score      : 0.000190                                                         \n  EPSS Percentile : 0.033250                                                         \n"
+            "text": "  Vulnerability   : CVE-2025-22872                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/golang.org/x/net@0.8.0                                \n  Affected range  : <0.38.0                                                          \n  Fixed version   : 0.38.0                                                           \n  CVSS Score      : 5.3                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N  \n  EPSS Score      : 0.000230                                                         \n  EPSS Percentile : 0.049820                                                         \n"
           },
           "locations": [
             {
@@ -1518,7 +1542,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24785            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.002460                  \n  EPSS Percentile : 0.477460                  \n"
+            "text": "  Vulnerability   : CVE-2024-24785            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.002460                  \n  EPSS Percentile : 0.480190                  \n"
           },
           "locations": [
             {
@@ -1536,7 +1560,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24789            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000060                  \n  EPSS Percentile : 0.002900                  \n"
+            "text": "  Vulnerability   : CVE-2024-24789            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000060                  \n  EPSS Percentile : 0.002990                  \n"
           },
           "locations": [
             {
@@ -1554,7 +1578,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-0913             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000110                  \n  EPSS Percentile : 0.010030                  \n"
+            "text": "  Vulnerability   : CVE-2025-0913             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000110                  \n  EPSS Percentile : 0.010830                  \n"
           },
           "locations": [
             {
@@ -1572,7 +1596,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-48795                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0          \n  Affected range  : >=0.1.0,<0.17.0                               \n  Fixed version   : 0.17.0                                        \n  CVSS Score      : 5.9                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.690150                                      \n  EPSS Percentile : 0.985730                                      \n"
+            "text": "  Vulnerability   : CVE-2023-48795                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0          \n  Affected range  : >=0.1.0,<0.17.0                               \n  Fixed version   : 0.17.0                                        \n  CVSS Score      : 5.9                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.560770                                      \n  EPSS Percentile : 0.980440                                      \n"
           },
           "locations": [
             {
@@ -1590,7 +1614,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24783            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004010                  \n  EPSS Percentile : 0.599120                  \n"
+            "text": "  Vulnerability   : CVE-2024-24783            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.004450                  \n  EPSS Percentile : 0.627290                  \n"
           },
           "locations": [
             {
@@ -1608,7 +1632,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-29018                                               \n  Severity        : MEDIUM                                                       \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <23.0.11                                                     \n  Fixed version   : 23.0.11                                                      \n  CVSS Score      : 5.9                                                          \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N                 \n  EPSS Score      : 0.001940                                                     \n  EPSS Percentile : 0.415040                                                     \n"
+            "text": "  Vulnerability   : CVE-2024-29018                                               \n  Severity        : MEDIUM                                                       \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <23.0.11                                                     \n  Fixed version   : 23.0.11                                                      \n  CVSS Score      : 5.9                                                          \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N                 \n  EPSS Score      : 0.001940                                                     \n  EPSS Percentile : 0.417710                                                     \n"
           },
           "locations": [
             {
@@ -1626,7 +1650,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-39318            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.8                   \n  Fixed version   : 1.20.8                    \n  EPSS Score      : 0.000620                  \n  EPSS Percentile : 0.196230                  \n"
+            "text": "  Vulnerability   : CVE-2023-39318            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.8                   \n  Fixed version   : 1.20.8                    \n  EPSS Score      : 0.000850                  \n  EPSS Percentile : 0.256960                  \n"
           },
           "locations": [
             {
@@ -1644,7 +1668,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-39319            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.8                   \n  Fixed version   : 1.20.8                    \n  EPSS Score      : 0.000620                  \n  EPSS Percentile : 0.196230                  \n"
+            "text": "  Vulnerability   : CVE-2023-39319            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.8                   \n  Fixed version   : 1.20.8                    \n  EPSS Score      : 0.000850                  \n  EPSS Percentile : 0.256960                  \n"
           },
           "locations": [
             {
@@ -1662,7 +1686,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-3978                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.13.0                                       \n  Fixed version   : 0.13.0                                        \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.000950                                      \n  EPSS Percentile : 0.272950                                      \n"
+            "text": "  Vulnerability   : CVE-2023-3978                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.13.0                                       \n  Fixed version   : 0.13.0                                        \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.000950                                      \n  EPSS Percentile : 0.275270                                      \n"
           },
           "locations": [
             {
@@ -1680,7 +1704,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-45336            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000370                  \n  EPSS Percentile : 0.095880                  \n"
+            "text": "  Vulnerability   : CVE-2024-45336            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000450                  \n  EPSS Percentile : 0.134960                  \n"
           },
           "locations": [
             {
@@ -1698,7 +1722,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-45341            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000280                  \n  EPSS Percentile : 0.063260                  \n"
+            "text": "  Vulnerability   : CVE-2024-45341            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.11                  \n  Fixed version   : 1.22.11                   \n  EPSS Score      : 0.000340                  \n  EPSS Percentile : 0.086850                  \n"
           },
           "locations": [
             {
@@ -1716,7 +1740,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-29406            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.11                  \n  Fixed version   : 1.19.11                   \n  EPSS Score      : 0.001550                  \n  EPSS Percentile : 0.368020                  \n"
+            "text": "  Vulnerability   : CVE-2023-29406            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.11                  \n  Fixed version   : 1.19.11                   \n  EPSS Score      : 0.002300                  \n  EPSS Percentile : 0.459970                  \n"
           },
           "locations": [
             {
@@ -1734,7 +1758,25 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45290            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.003620                  \n  EPSS Percentile : 0.575460                  \n"
+            "text": "  Vulnerability   : CVE-2023-45290            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.003620                  \n  EPSS Percentile : 0.577600                  \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/bin/workflow-controller"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-47906",
+          "ruleIndex": 26,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-47906            \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.12                  \n  Fixed version   : 1.23.12                   \n  EPSS Score      : 0.000220                  \n  EPSS Percentile : 0.045210                  \n"
           },
           "locations": [
             {
@@ -1748,11 +1790,11 @@
         },
         {
           "ruleId": "CVE-2024-24786",
-          "ruleIndex": 26,
+          "ruleIndex": 27,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24786                                                       \n  Severity        : MEDIUM                                                               \n  Package         : pkg:golang/google.golang.org/protobuf@1.29.1                         \n  Affected range  : <1.33.0                                                              \n  Fixed version   : 1.33.0                                                               \n  CVSS Score      : 6.6                                                                  \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U  \n  EPSS Score      : 0.002310                                                             \n  EPSS Percentile : 0.458260                                                             \n"
+            "text": "  Vulnerability   : CVE-2024-24786                                                       \n  Severity        : MEDIUM                                                               \n  Package         : pkg:golang/google.golang.org/protobuf@1.29.1                         \n  Affected range  : <1.33.0                                                              \n  Fixed version   : 1.33.0                                                               \n  CVSS Score      : 6.6                                                                  \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U  \n  EPSS Score      : 0.002310                                                             \n  EPSS Percentile : 0.460900                                                             \n"
           },
           "locations": [
             {
@@ -1766,11 +1808,11 @@
         },
         {
           "ruleId": "CVE-2025-4673",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-4673             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000190                  \n  EPSS Percentile : 0.031060                  \n"
+            "text": "  Vulnerability   : CVE-2025-4673             \n  Severity        : MEDIUM                    \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.10                  \n  Fixed version   : 1.23.10                   \n  EPSS Score      : 0.000140                  \n  EPSS Percentile : 0.017360                  \n"
           },
           "locations": [
             {
@@ -1784,11 +1826,11 @@
         },
         {
           "ruleId": "CVE-2023-44487",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-44487                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/golang.org/x/net@0.8.0                                \n  Affected range  : <0.17.0                                                          \n  Fixed version   : 0.17.0                                                           \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.944140                                                         \n  EPSS Percentile : 0.999760                                                         \n"
+            "text": "  Vulnerability   : CVE-2023-44487                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:golang/golang.org/x/net@0.8.0                                \n  Affected range  : <0.17.0                                                          \n  Fixed version   : 0.17.0                                                           \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.944160                                                         \n  EPSS Percentile : 0.999770                                                         \n"
           },
           "locations": [
             {
@@ -1802,11 +1844,11 @@
         },
         {
           "ruleId": "CVE-2024-24557",
-          "ruleIndex": 29,
+          "ruleIndex": 30,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24557                                               \n  Severity        : MEDIUM                                                       \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <24.0.9                                                      \n  Fixed version   : 24.0.9                                                       \n  CVSS Score      : 6.9                                                          \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L                 \n  EPSS Score      : 0.000700                                                     \n  EPSS Percentile : 0.218390                                                     \n"
+            "text": "  Vulnerability   : CVE-2024-24557                                               \n  Severity        : MEDIUM                                                       \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible  \n  Affected range  : <24.0.9                                                      \n  Fixed version   : 24.0.9                                                       \n  CVSS Score      : 6.9                                                          \n  CVSS Vector     : CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:C/C:L/I:H/A:L                 \n  EPSS Score      : 0.000700                                                     \n  EPSS Percentile : 0.220900                                                     \n"
           },
           "locations": [
             {
@@ -1820,11 +1862,11 @@
         },
         {
           "ruleId": "CVE-2023-24539",
-          "ruleIndex": 30,
+          "ruleIndex": 31,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-24539            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.000650                  \n  EPSS Percentile : 0.204630                  \n"
+            "text": "  Vulnerability   : CVE-2023-24539            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.000650                  \n  EPSS Percentile : 0.206870                  \n"
           },
           "locations": [
             {
@@ -1838,11 +1880,11 @@
         },
         {
           "ruleId": "CVE-2023-29400",
-          "ruleIndex": 31,
+          "ruleIndex": 32,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-29400            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.000480                  \n  EPSS Percentile : 0.142620                  \n"
+            "text": "  Vulnerability   : CVE-2023-29400            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.000480                  \n  EPSS Percentile : 0.146830                  \n"
           },
           "locations": [
             {
@@ -1856,11 +1898,11 @@
         },
         {
           "ruleId": "CVE-2022-30635",
-          "ruleIndex": 32,
+          "ruleIndex": 33,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-30635            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001550                  \n  EPSS Percentile : 0.368420                  \n"
+            "text": "  Vulnerability   : CVE-2022-30635            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001550                  \n  EPSS Percentile : 0.370960                  \n"
           },
           "locations": [
             {
@@ -1874,11 +1916,11 @@
         },
         {
           "ruleId": "CVE-2023-2253",
-          "ruleIndex": 33,
+          "ruleIndex": 34,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-2253                                                   \n  Severity        : HIGH                                                            \n  Package         : pkg:golang/github.com/docker/distribution@2.8.1%2Bincompatible  \n  Affected range  : <2.8.2-beta.1                                                   \n  Fixed version   : 2.8.2-beta.1                                                    \n  CVSS Score      : 7.5                                                             \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H                    \n  EPSS Score      : 0.000930                                                        \n  EPSS Percentile : 0.269740                                                        \n"
+            "text": "  Vulnerability   : CVE-2023-2253                                                   \n  Severity        : HIGH                                                            \n  Package         : pkg:golang/github.com/docker/distribution@2.8.1%2Bincompatible  \n  Affected range  : <2.8.2-beta.1                                                   \n  Fixed version   : 2.8.2-beta.1                                                    \n  CVSS Score      : 7.5                                                             \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H                    \n  EPSS Score      : 0.000930                                                        \n  EPSS Percentile : 0.272240                                                        \n"
           },
           "locations": [
             {
@@ -1892,11 +1934,11 @@
         },
         {
           "ruleId": "CVE-2023-39325",
-          "ruleIndex": 34,
+          "ruleIndex": 35,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-39325                                \n  Severity        : HIGH                                          \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.17.0                                       \n  Fixed version   : 0.17.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.001500                                      \n  EPSS Percentile : 0.360950                                      \n"
+            "text": "  Vulnerability   : CVE-2023-39325                                \n  Severity        : HIGH                                          \n  Package         : pkg:golang/golang.org/x/net@0.8.0             \n  Affected range  : <0.17.0                                       \n  Fixed version   : 0.17.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000890                                      \n  EPSS Percentile : 0.264270                                      \n"
           },
           "locations": [
             {
@@ -1910,11 +1952,11 @@
         },
         {
           "ruleId": "CVE-2023-39325",
-          "ruleIndex": 34,
+          "ruleIndex": 35,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-39325            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.10                  \n  Fixed version   : 1.20.10                   \n  EPSS Score      : 0.001500                  \n  EPSS Percentile : 0.360950                  \n"
+            "text": "  Vulnerability   : CVE-2023-39325            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.10                  \n  Fixed version   : 1.20.10                   \n  EPSS Score      : 0.000890                  \n  EPSS Percentile : 0.264270                  \n"
           },
           "locations": [
             {
@@ -1928,11 +1970,11 @@
         },
         {
           "ruleId": "CVE-2023-44487",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-44487                            \n  Severity        : HIGH                                      \n  Package         : pkg:golang/google.golang.org/grpc@1.53.0  \n  Affected range  : <1.56.3                                   \n  Fixed version   : 1.56.3                                    \n  EPSS Score      : 0.944140                                  \n  EPSS Percentile : 0.999760                                  \n"
+            "text": "  Vulnerability   : CVE-2023-44487            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.10                  \n  Fixed version   : 1.20.10                   \n  EPSS Score      : 0.944160                  \n  EPSS Percentile : 0.999770                  \n"
           },
           "locations": [
             {
@@ -1946,11 +1988,11 @@
         },
         {
           "ruleId": "CVE-2023-44487",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-44487            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.10                  \n  Fixed version   : 1.20.10                   \n  EPSS Score      : 0.944140                  \n  EPSS Percentile : 0.999760                  \n"
+            "text": "  Vulnerability   : CVE-2023-44487                            \n  Severity        : HIGH                                      \n  Package         : pkg:golang/google.golang.org/grpc@1.53.0  \n  Affected range  : <1.56.3                                   \n  Fixed version   : 1.56.3                                    \n  EPSS Score      : 0.944160                                  \n  EPSS Percentile : 0.999770                                  \n"
           },
           "locations": [
             {
@@ -1964,11 +2006,11 @@
         },
         {
           "ruleId": "CVE-2023-45283",
-          "ruleIndex": 35,
+          "ruleIndex": 36,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45283            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.11                  \n  Fixed version   : 1.20.11                   \n  EPSS Score      : 0.000850                  \n  EPSS Percentile : 0.254900                  \n"
+            "text": "  Vulnerability   : CVE-2023-45283            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.11                  \n  Fixed version   : 1.20.11                   \n  EPSS Score      : 0.000610                  \n  EPSS Percentile : 0.194230                  \n"
           },
           "locations": [
             {
@@ -1982,11 +2024,11 @@
         },
         {
           "ruleId": "CVE-2023-45287",
-          "ruleIndex": 36,
+          "ruleIndex": 37,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45287            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.0                   \n  Fixed version   : 1.20.0                    \n  EPSS Score      : 0.001850                  \n  EPSS Percentile : 0.404580                  \n"
+            "text": "  Vulnerability   : CVE-2023-45287            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.20.0                   \n  Fixed version   : 1.20.0                    \n  EPSS Score      : 0.001850                  \n  EPSS Percentile : 0.407630                  \n"
           },
           "locations": [
             {
@@ -2004,7 +2046,7 @@
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-45288            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.9                   \n  Fixed version   : 1.21.9                    \n  EPSS Score      : 0.675990                  \n  EPSS Percentile : 0.985130                  \n"
+            "text": "  Vulnerability   : CVE-2023-45288            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.9                   \n  Fixed version   : 1.21.9                    \n  EPSS Score      : 0.666350                  \n  EPSS Percentile : 0.984980                  \n"
           },
           "locations": [
             {
@@ -2018,11 +2060,11 @@
         },
         {
           "ruleId": "CVE-2024-24784",
-          "ruleIndex": 37,
+          "ruleIndex": 38,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24784            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.014980                  \n  EPSS Percentile : 0.803830                  \n"
+            "text": "  Vulnerability   : CVE-2024-24784            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.8                   \n  Fixed version   : 1.21.8                    \n  EPSS Score      : 0.014980                  \n  EPSS Percentile : 0.805500                  \n"
           },
           "locations": [
             {
@@ -2036,11 +2078,11 @@
         },
         {
           "ruleId": "CVE-2024-24791",
-          "ruleIndex": 38,
+          "ruleIndex": 39,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24791            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.12                  \n  Fixed version   : 1.21.12                   \n  EPSS Score      : 0.006180                  \n  EPSS Percentile : 0.690010                  \n"
+            "text": "  Vulnerability   : CVE-2024-24791            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.12                  \n  Fixed version   : 1.21.12                   \n  EPSS Score      : 0.006180                  \n  EPSS Percentile : 0.691780                  \n"
           },
           "locations": [
             {
@@ -2054,11 +2096,11 @@
         },
         {
           "ruleId": "CVE-2024-34156",
-          "ruleIndex": 39,
+          "ruleIndex": 40,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-34156            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.001780                  \n  EPSS Percentile : 0.395920                  \n"
+            "text": "  Vulnerability   : CVE-2024-34156            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.000820                  \n  EPSS Percentile : 0.250350                  \n"
           },
           "locations": [
             {
@@ -2072,11 +2114,11 @@
         },
         {
           "ruleId": "CVE-2024-34158",
-          "ruleIndex": 40,
+          "ruleIndex": 41,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-34158            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.000820                  \n  EPSS Percentile : 0.246900                  \n"
+            "text": "  Vulnerability   : CVE-2024-34158            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.22.7                   \n  Fixed version   : 1.22.7                    \n  EPSS Score      : 0.000820                  \n  EPSS Percentile : 0.250350                  \n"
           },
           "locations": [
             {
@@ -2090,11 +2132,11 @@
         },
         {
           "ruleId": "CVE-2025-22868",
-          "ruleIndex": 41,
+          "ruleIndex": 42,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22868                                \n  Severity        : HIGH                                          \n  Package         : pkg:golang/golang.org/x/oauth2@0.6.0          \n  Affected range  : <0.27.0                                       \n  Fixed version   : 0.27.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000760                                      \n  EPSS Percentile : 0.232950                                      \n"
+            "text": "  Vulnerability   : CVE-2025-22868                                \n  Severity        : HIGH                                          \n  Package         : pkg:golang/golang.org/x/oauth2@0.6.0          \n  Affected range  : <0.27.0                                       \n  Fixed version   : 0.27.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000910                                      \n  EPSS Percentile : 0.269170                                      \n"
           },
           "locations": [
             {
@@ -2108,11 +2150,11 @@
         },
         {
           "ruleId": "CVE-2025-22869",
-          "ruleIndex": 42,
+          "ruleIndex": 43,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22869                        \n  Severity        : HIGH                                  \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0  \n  Affected range  : <0.35.0                               \n  Fixed version   : 0.35.0                                \n  EPSS Score      : 0.001880                              \n  EPSS Percentile : 0.408640                              \n"
+            "text": "  Vulnerability   : CVE-2025-22869                        \n  Severity        : HIGH                                  \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0  \n  Affected range  : <0.35.0                               \n  Fixed version   : 0.35.0                                \n  EPSS Score      : 0.002420                              \n  EPSS Percentile : 0.476140                              \n"
           },
           "locations": [
             {
@@ -2126,7 +2168,7 @@
         },
         {
           "ruleId": "GHSA-m425-mq94-257g",
-          "ruleIndex": 43,
+          "ruleIndex": 44,
           "kind": "fail",
           "level": "error",
           "message": {
@@ -2144,11 +2186,11 @@
         },
         {
           "ruleId": "CVE-2023-29403",
-          "ruleIndex": 44,
+          "ruleIndex": 45,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-29403            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.10                  \n  Fixed version   : 1.19.10                   \n  EPSS Score      : 0.000090                  \n  EPSS Percentile : 0.006370                  \n"
+            "text": "  Vulnerability   : CVE-2023-29403            \n  Severity        : HIGH                      \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.10                  \n  Fixed version   : 1.19.10                   \n  EPSS Score      : 0.000100                  \n  EPSS Percentile : 0.007360                  \n"
           },
           "locations": [
             {
@@ -2162,11 +2204,11 @@
         },
         {
           "ruleId": "CVE-2025-30204",
-          "ruleIndex": 45,
+          "ruleIndex": 46,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-30204                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.2                                                           \n  Fixed version   : 4.5.2                                                            \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000430                                                         \n  EPSS Percentile : 0.120880                                                         \n"
+            "text": "  Vulnerability   : CVE-2025-30204                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:golang/github.com/golang-jwt/jwt@4.5.0#v4                    \n  Affected range  : <4.5.2                                                           \n  Fixed version   : 4.5.2                                                            \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000430                                                         \n  EPSS Percentile : 0.128170                                                         \n"
           },
           "locations": [
             {
@@ -2180,11 +2222,11 @@
         },
         {
           "ruleId": "CVE-2024-45337",
-          "ruleIndex": 46,
+          "ruleIndex": 47,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-45337                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0          \n  Affected range  : <0.31.0                                       \n  Fixed version   : 0.31.0                                        \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.438900                                      \n  EPSS Percentile : 0.974430                                      \n"
+            "text": "  Vulnerability   : CVE-2024-45337                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:golang/golang.org/x/crypto@0.7.0          \n  Affected range  : <0.31.0                                       \n  Fixed version   : 0.31.0                                        \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.460880                                      \n  EPSS Percentile : 0.975700                                      \n"
           },
           "locations": [
             {
@@ -2198,11 +2240,11 @@
         },
         {
           "ruleId": "CVE-2025-22871",
-          "ruleIndex": 47,
+          "ruleIndex": 48,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-22871            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.8                   \n  Fixed version   : 1.23.8                    \n  EPSS Score      : 0.000130                  \n  EPSS Percentile : 0.014880                  \n"
+            "text": "  Vulnerability   : CVE-2025-22871            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.23.8                   \n  Fixed version   : 1.23.8                    \n  EPSS Score      : 0.000230                  \n  EPSS Percentile : 0.047630                  \n"
           },
           "locations": [
             {
@@ -2216,11 +2258,11 @@
         },
         {
           "ruleId": "CVE-2024-41110",
-          "ruleIndex": 48,
+          "ruleIndex": 49,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-41110                                                   \n  Severity        : CRITICAL                                                         \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible      \n  Affected range  : >=19.03.0,<23.0.15                                               \n  Fixed version   : 23.0.15                                                          \n  CVSS Score      : 9.4                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H  \n  EPSS Score      : 0.005620                                                         \n  EPSS Percentile : 0.673500                                                         \n"
+            "text": "  Vulnerability   : CVE-2024-41110                                                   \n  Severity        : CRITICAL                                                         \n  Package         : pkg:golang/github.com/docker/docker@20.10.24%2Bincompatible      \n  Affected range  : >=19.03.0,<23.0.15                                               \n  Fixed version   : 23.0.15                                                          \n  CVSS Score      : 9.4                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H  \n  EPSS Score      : 0.020400                                                         \n  EPSS Percentile : 0.832460                                                         \n"
           },
           "locations": [
             {
@@ -2234,11 +2276,11 @@
         },
         {
           "ruleId": "CVE-2023-24540",
-          "ruleIndex": 49,
+          "ruleIndex": 50,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-24540            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.002430                  \n  EPSS Percentile : 0.474670                  \n"
+            "text": "  Vulnerability   : CVE-2023-24540            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.19.9                   \n  Fixed version   : 1.19.9                    \n  EPSS Score      : 0.002430                  \n  EPSS Percentile : 0.477290                  \n"
           },
           "locations": [
             {
@@ -2252,11 +2294,11 @@
         },
         {
           "ruleId": "CVE-2024-24790",
-          "ruleIndex": 50,
+          "ruleIndex": 51,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-24790            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000920                  \n  EPSS Percentile : 0.268410                  \n"
+            "text": "  Vulnerability   : CVE-2024-24790            \n  Severity        : CRITICAL                  \n  Package         : pkg:golang/stdlib@1.19.8  \n  Affected range  : <1.21.11                  \n  Fixed version   : 1.21.11                   \n  EPSS Score      : 0.000700                  \n  EPSS Percentile : 0.220030                  \n"
           },
           "locations": [
             {

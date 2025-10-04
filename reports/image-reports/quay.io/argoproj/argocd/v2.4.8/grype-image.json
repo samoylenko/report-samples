@@ -850,8 +850,10 @@
     ],
     "cvss": [],
     "fix": {
-     "versions": [],
-     "state": "not-fixed"
+     "versions": [
+      "1.21.1ubuntu2.6"
+     ],
+     "state": "fixed"
     },
     "advisories": []
    },
@@ -897,7 +899,7 @@
       }
      },
      "found": {
-      "versionConstraint": "none (deb)",
+      "versionConstraint": "< 1.21.1ubuntu2.6 (deb)",
       "vulnerabilityID": "CVE-2025-6297"
      }
     }
@@ -7758,6 +7760,124 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-wp4p-9pxh-cgx2",
+    "dataSource": "https://github.com/advisories/GHSA-wp4p-9pxh-cgx2",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-wp4p-9pxh-cgx2"
+    ],
+    "description": "argo-cd vulnerable unauthenticated DoS via malformed Gogs webhook payload",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "2.14.20"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-59537",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-59537",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/argoproj/argo-cd/commit/761fc27068d2d4cd24e1f784eb2a9033b5ee7f43",
+      "https://github.com/argoproj/argo-cd/security/advisories/GHSA-wp4p-9pxh-cgx2",
+      "https://github.com/argoproj/argo-cd/security/advisories/GHSA-wp4p-9pxh-cgx2"
+     ],
+     "description": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Versions 1.2.0 through 1.8.7, 2.0.0-rc1 through 2.14.19, 3.0.0-rc1 through 3.2.0-rc1, 3.1.7 and 3.0.18 are vulnerable to malicious API requests which can crash the API server and cause denial of service to legitimate clients. With the default configuration, no webhook.gogs.secret set, Argo CD’s /api/webhook endpoint will crash the entire argocd-server process when it receives a Gogs push event whose JSON field commits[].repo is not set or is null. This issue is fixed in versions 2.14.20, 3.2.0-rc2, 3.1.8 and 3.0.19.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/argoproj/argo-cd/v2",
+       "version": "v2.4.8"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=2.0.0-rc1,<=2.14.19 (unknown)",
+      "vulnerabilityID": "GHSA-wp4p-9pxh-cgx2"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "9fc6f381ba9f4b1d",
+    "name": "github.com/argoproj/argo-cd/v2",
+    "version": "v2.4.8",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:argoproj:argo-cd/v2:v2.4.8:*:*:*:*:*:*:*",
+     "cpe:2.3:a:argoproj:argo_cd/v2:v2.4.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/argoproj/argo-cd@v2.4.8#v2",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goBuildSettings": {
+      "-compiler": "gc",
+      "-ldflags": "-X github.com/argoproj/argo-cd/v2/common.version=2.4.8 -X github.com/argoproj/argo-cd/v2/common.buildDate=2022-07-29T17:01:39Z -X github.com/argoproj/argo-cd/v2/common.gitCommit=844f79eb9d8f3ab96d4ce6f8df211c6093a660ba -X github.com/argoproj/argo-cd/v2/common.gitTreeState=clean -X github.com/argoproj/argo-cd/v2/common.kubectlVersion=v0.23.1 -extldflags \"-static\"",
+      "CGO_ENABLED": "0",
+      "GOAMD64": "v1",
+      "GOARCH": "amd64",
+      "GOOS": "linux",
+      "vcs": "git",
+      "vcs.modified": "false",
+      "vcs.revision": "844f79eb9d8f3ab96d4ce6f8df211c6093a660ba",
+      "vcs.time": "2022-07-29T16:47:18Z"
+     },
+     "goCompiledVersion": "go1.18.4",
+     "architecture": "amd64",
+     "mainModule": "github.com/argoproj/argo-cd/v2"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-jmvp-698c-4x3w",
     "dataSource": "https://github.com/advisories/GHSA-jmvp-698c-4x3w",
     "namespace": "github:language:go",
@@ -7849,6 +7969,124 @@
      "found": {
       "versionConstraint": "<2.9.20 (unknown)",
       "vulnerabilityID": "GHSA-jmvp-698c-4x3w"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "9fc6f381ba9f4b1d",
+    "name": "github.com/argoproj/argo-cd/v2",
+    "version": "v2.4.8",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:argoproj:argo-cd/v2:v2.4.8:*:*:*:*:*:*:*",
+     "cpe:2.3:a:argoproj:argo_cd/v2:v2.4.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/argoproj/argo-cd@v2.4.8#v2",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goBuildSettings": {
+      "-compiler": "gc",
+      "-ldflags": "-X github.com/argoproj/argo-cd/v2/common.version=2.4.8 -X github.com/argoproj/argo-cd/v2/common.buildDate=2022-07-29T17:01:39Z -X github.com/argoproj/argo-cd/v2/common.gitCommit=844f79eb9d8f3ab96d4ce6f8df211c6093a660ba -X github.com/argoproj/argo-cd/v2/common.gitTreeState=clean -X github.com/argoproj/argo-cd/v2/common.kubectlVersion=v0.23.1 -extldflags \"-static\"",
+      "CGO_ENABLED": "0",
+      "GOAMD64": "v1",
+      "GOARCH": "amd64",
+      "GOOS": "linux",
+      "vcs": "git",
+      "vcs.modified": "false",
+      "vcs.revision": "844f79eb9d8f3ab96d4ce6f8df211c6093a660ba",
+      "vcs.time": "2022-07-29T16:47:18Z"
+     },
+     "goCompiledVersion": "go1.18.4",
+     "architecture": "amd64",
+     "mainModule": "github.com/argoproj/argo-cd/v2"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f9gq-prrc-hrhc",
+    "dataSource": "https://github.com/advisories/GHSA-f9gq-prrc-hrhc",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-f9gq-prrc-hrhc"
+    ],
+    "description": "Unauthenticated argocd-server panic via a malicious Bitbucket-Server webhook payload",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "2.14.20"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-59531",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-59531",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/argoproj/argo-cd/commit/5c466a4e39802e059e75c0008ae7b7b8e842538f",
+      "https://github.com/argoproj/argo-cd/security/advisories/GHSA-f9gq-prrc-hrhc",
+      "https://github.com/argoproj/argo-cd/security/advisories/GHSA-f9gq-prrc-hrhc"
+     ],
+     "description": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Versions 1.2.0 through 1.8.7, 2.0.0-rc1 through 2.14.19, 3.0.0-rc1 through 3.2.0-rc1, 3.1.7 and 3.0.18 are vulnerable to malicious API requests which can crash the API server and cause denial of service to legitimate clients. Without a configured webhook.bitbucketserver.secret, Argo CD's /api/webhook endpoint crashes when receiving a malformed Bitbucket Server payload (non-array repository.links.clone field). A single unauthenticated request triggers CrashLoopBackOff, and targeting all replicas causes complete API outage. This issue is fixed in versions 2.14.20, 3.2.0-rc2, 3.1.8 and 3.0.19.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/argoproj/argo-cd/v2",
+       "version": "v2.4.8"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=2.0.0-rc1,<=2.14.19 (unknown)",
+      "vulnerabilityID": "GHSA-f9gq-prrc-hrhc"
      }
     }
    ],
@@ -8254,6 +8492,124 @@
      "found": {
       "versionConstraint": ">=2.4.0,<2.8.14 (unknown)",
       "vulnerabilityID": "GHSA-jhwx-mhww-rgc3"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "9fc6f381ba9f4b1d",
+    "name": "github.com/argoproj/argo-cd/v2",
+    "version": "v2.4.8",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:argoproj:argo-cd/v2:v2.4.8:*:*:*:*:*:*:*",
+     "cpe:2.3:a:argoproj:argo_cd/v2:v2.4.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/argoproj/argo-cd@v2.4.8#v2",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goBuildSettings": {
+      "-compiler": "gc",
+      "-ldflags": "-X github.com/argoproj/argo-cd/v2/common.version=2.4.8 -X github.com/argoproj/argo-cd/v2/common.buildDate=2022-07-29T17:01:39Z -X github.com/argoproj/argo-cd/v2/common.gitCommit=844f79eb9d8f3ab96d4ce6f8df211c6093a660ba -X github.com/argoproj/argo-cd/v2/common.gitTreeState=clean -X github.com/argoproj/argo-cd/v2/common.kubectlVersion=v0.23.1 -extldflags \"-static\"",
+      "CGO_ENABLED": "0",
+      "GOAMD64": "v1",
+      "GOARCH": "amd64",
+      "GOOS": "linux",
+      "vcs": "git",
+      "vcs.modified": "false",
+      "vcs.revision": "844f79eb9d8f3ab96d4ce6f8df211c6093a660ba",
+      "vcs.time": "2022-07-29T16:47:18Z"
+     },
+     "goCompiledVersion": "go1.18.4",
+     "architecture": "amd64",
+     "mainModule": "github.com/argoproj/argo-cd/v2"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-g88p-r42r-ppp9",
+    "dataSource": "https://github.com/advisories/GHSA-g88p-r42r-ppp9",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-g88p-r42r-ppp9"
+    ],
+    "description": "Repository Credentials Race Condition Crashes Argo CD Server",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 2.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "2.14.20"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-55191",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-55191",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/argoproj/argo-cd/commit/701bc50d01c752cad96185f848088d287a97c7b7",
+      "https://github.com/argoproj/argo-cd/pull/6103",
+      "https://github.com/argoproj/argo-cd/security/advisories/GHSA-g88p-r42r-ppp9"
+     ],
+     "description": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. Versions between 2.1.0 and 2.14.19, 3.2.0-rc1, 3.1.0-rc1 through 3.1.7, and 3.0.0-rc1 through 3.0.18 contain a race condition in the repository credentials handler that can cause the Argo CD server to panic and crash when concurrent operations are performed on the same repository URL. The vulnerability is located in numerous repository related handlers in the util/db/repository_secrets.go file. A valid API token with repositories resource permissions (create, update, or delete actions) is required to trigger the race condition. This vulnerability causes the entire Argo CD server to crash and become unavailable. Attackers can repeatedly and continuously trigger the race condition to maintain a denial-of-service state, disrupting all GitOps operations. This issue is fixed in versions 2.14.20, 3.2.0-rc2, 3.1.8 and 3.0.19.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 6.5,
+        "exploitabilityScore": 2.8,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/argoproj/argo-cd/v2",
+       "version": "v2.4.8"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=2.1.0,<=2.14.19 (unknown)",
+      "vulnerabilityID": "GHSA-g88p-r42r-ppp9"
      }
     }
    ],
@@ -9951,7 +10307,7 @@
      "id": "CVE-2024-40635",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2024-40635",
      "namespace": "nvd:cpe",
-     "severity": "Medium",
+     "severity": "High",
      "urls": [
       "https://github.com/containerd/containerd/commit/05044ec0a9a75232cad458027ca83437aae3f4da",
       "https://github.com/containerd/containerd/commit/1a43cb6a1035441f9aca8f5666a9b3ef9e70ab20",
@@ -9970,6 +10326,18 @@
         "baseScore": 4.6,
         "exploitabilityScore": 1.5,
         "impactScore": 2.7
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 7.8,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.9
        },
        "vendorMetadata": {}
       }
@@ -10368,14 +10736,14 @@
     }
    ],
    "artifact": {
-    "id": "e4ba65e3604eba04",
+    "id": "6c41cf534f602ab9",
     "name": "github.com/docker/distribution",
     "version": "v2.7.1+incompatible",
     "type": "go-module",
     "locations": [
      {
-      "path": "/usr/local/bin/argocd",
-      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+      "path": "/usr/local/bin/helm",
+      "layerID": "sha256:54474058eafab3e508a0cffec0d564f7962a2c75612186901f66699d4be780be"
      }
     ],
     "language": "go",
@@ -10387,10 +10755,10 @@
     "upstreams": [],
     "metadataType": "GolangBinMetadata",
     "metadata": {
-     "goCompiledVersion": "go1.18.4",
-     "architecture": "amd64",
+     "goCompiledVersion": "go1.17.5",
+     "architecture": "x86_64",
      "h1Digest": "h1:a5mlkVzth6W5A4fOsS3D2EO5BUmsJpcB+cRlLU7cSug=",
-     "mainModule": "github.com/argoproj/argo-cd/v2"
+     "mainModule": "helm.sh/helm/v3"
     }
    }
   },
@@ -10487,14 +10855,14 @@
     }
    ],
    "artifact": {
-    "id": "6c41cf534f602ab9",
+    "id": "e4ba65e3604eba04",
     "name": "github.com/docker/distribution",
     "version": "v2.7.1+incompatible",
     "type": "go-module",
     "locations": [
      {
-      "path": "/usr/local/bin/helm",
-      "layerID": "sha256:54474058eafab3e508a0cffec0d564f7962a2c75612186901f66699d4be780be"
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
      }
     ],
     "language": "go",
@@ -10506,10 +10874,10 @@
     "upstreams": [],
     "metadataType": "GolangBinMetadata",
     "metadata": {
-     "goCompiledVersion": "go1.17.5",
-     "architecture": "x86_64",
+     "goCompiledVersion": "go1.18.4",
+     "architecture": "amd64",
      "h1Digest": "h1:a5mlkVzth6W5A4fOsS3D2EO5BUmsJpcB+cRlLU7cSug=",
-     "mainModule": "helm.sh/helm/v3"
+     "mainModule": "github.com/argoproj/argo-cd/v2"
     }
    }
   },
@@ -21331,14 +21699,14 @@
     }
    ],
    "artifact": {
-    "id": "689e227b5b4290fa",
+    "id": "cf8cb872f05a04cc",
     "name": "golang.org/x/text",
     "version": "v0.3.7",
     "type": "go-module",
     "locations": [
      {
-      "path": "/usr/local/bin/argocd",
-      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+      "path": "/usr/local/bin/helm",
+      "layerID": "sha256:54474058eafab3e508a0cffec0d564f7962a2c75612186901f66699d4be780be"
      }
     ],
     "language": "go",
@@ -21350,10 +21718,10 @@
     "upstreams": [],
     "metadataType": "GolangBinMetadata",
     "metadata": {
-     "goCompiledVersion": "go1.18.4",
-     "architecture": "amd64",
+     "goCompiledVersion": "go1.17.5",
+     "architecture": "x86_64",
      "h1Digest": "h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=",
-     "mainModule": "github.com/argoproj/argo-cd/v2"
+     "mainModule": "helm.sh/helm/v3"
     }
    }
   },
@@ -21455,14 +21823,14 @@
     }
    ],
    "artifact": {
-    "id": "cf8cb872f05a04cc",
+    "id": "689e227b5b4290fa",
     "name": "golang.org/x/text",
     "version": "v0.3.7",
     "type": "go-module",
     "locations": [
      {
-      "path": "/usr/local/bin/helm",
-      "layerID": "sha256:54474058eafab3e508a0cffec0d564f7962a2c75612186901f66699d4be780be"
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
      }
     ],
     "language": "go",
@@ -21474,10 +21842,10 @@
     "upstreams": [],
     "metadataType": "GolangBinMetadata",
     "metadata": {
-     "goCompiledVersion": "go1.17.5",
-     "architecture": "x86_64",
+     "goCompiledVersion": "go1.18.4",
+     "architecture": "amd64",
      "h1Digest": "h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=",
-     "mainModule": "helm.sh/helm/v3"
+     "mainModule": "github.com/argoproj/argo-cd/v2"
     }
    }
   },
@@ -23999,6 +24367,18 @@
       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:H",
       "metrics": {
        "baseScore": 8.5,
+       "exploitabilityScore": 1.8,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.6,
        "exploitabilityScore": 1.8,
        "impactScore": 6
       },
@@ -27539,8 +27919,10 @@
     ],
     "cvss": [],
     "fix": {
-     "versions": [],
-     "state": "not-fixed"
+     "versions": [
+      "2.35-0ubuntu3.11"
+     ],
+     "state": "fixed"
     },
     "advisories": []
    },
@@ -27585,7 +27967,7 @@
       }
      },
      "found": {
-      "versionConstraint": "none (deb)",
+      "versionConstraint": "< 2.35-0ubuntu3.11 (deb)",
       "vulnerabilityID": "CVE-2025-8058"
      }
     }
@@ -28652,7 +29034,7 @@
       "https://bugzilla.redhat.com/show_bug.cgi?id=2237798",
       "https://security.netapp.com/advisory/ntap-20231110-0003/"
      ],
-     "description": "A flaw was found in glibc. In an uncommon situation, the gaih_inet function may use memory that has been freed, resulting in an application crash. This issue is only exploitable when the getaddrinfo function is called and the hosts database in /etc/nsswitch.conf is configured with SUCCESS=continue or SUCCESS=merge.",
+     "description": "A flaw has been identified in glibc. In an uncommon situation, the gaih_inet function may use memory that has been freed, resulting in an application crash. This issue is only exploitable when the getaddrinfo function is called and the hosts database in /etc/nsswitch.conf is configured with SUCCESS=continue or SUCCESS=merge.",
      "cvss": [
       {
        "source": "secalert@redhat.com",
@@ -28793,7 +29175,7 @@
       "https://security.gentoo.org/glsa/202310-03",
       "https://security.netapp.com/advisory/ntap-20240125-0008/"
      ],
-     "description": "A flaw was found in glibc. In an extremely rare situation, the getaddrinfo function may access memory that has been freed, resulting in an application crash. This issue is only exploitable when a NSS module implements only the _nss_*_gethostbyname2_r and _nss_*_getcanonname_r hooks without implementing the _nss_*_gethostbyname3_r hook. The resolved name should return a large number of IPv6 and IPv4, and the call to the getaddrinfo function should have the AF_INET6 address family with AI_CANONNAME, AI_ALL and AI_V4MAPPED as flags.",
+     "description": "A flaw has been identified in glibc. In an extremely rare situation, the getaddrinfo function may access memory that has been freed, resulting in an application crash. This issue is only exploitable when a NSS module implements only the _nss_*_gethostbyname2_r and _nss_*_getcanonname_r hooks without implementing the _nss_*_gethostbyname3_r hook. The resolved name should return a large number of IPv6 and IPv4, and the call to the getaddrinfo function should have the AF_INET6 address family with AI_CANONNAME, AI_ALL and AI_V4MAPPED as flags.",
      "cvss": [
       {
        "source": "secalert@redhat.com",
@@ -29050,8 +29432,10 @@
     ],
     "cvss": [],
     "fix": {
-     "versions": [],
-     "state": "not-fixed"
+     "versions": [
+      "2.35-0ubuntu3.11"
+     ],
+     "state": "fixed"
     },
     "advisories": []
    },
@@ -29096,7 +29480,7 @@
       }
      },
      "found": {
-      "versionConstraint": "none (deb)",
+      "versionConstraint": "< 2.35-0ubuntu3.11 (deb)",
       "vulnerabilityID": "CVE-2025-8058"
      }
     }
@@ -30118,7 +30502,7 @@
       "https://bugzilla.redhat.com/show_bug.cgi?id=2237798",
       "https://security.netapp.com/advisory/ntap-20231110-0003/"
      ],
-     "description": "A flaw was found in glibc. In an uncommon situation, the gaih_inet function may use memory that has been freed, resulting in an application crash. This issue is only exploitable when the getaddrinfo function is called and the hosts database in /etc/nsswitch.conf is configured with SUCCESS=continue or SUCCESS=merge.",
+     "description": "A flaw has been identified in glibc. In an uncommon situation, the gaih_inet function may use memory that has been freed, resulting in an application crash. This issue is only exploitable when the getaddrinfo function is called and the hosts database in /etc/nsswitch.conf is configured with SUCCESS=continue or SUCCESS=merge.",
      "cvss": [
       {
        "source": "secalert@redhat.com",
@@ -30254,7 +30638,7 @@
       "https://security.gentoo.org/glsa/202310-03",
       "https://security.netapp.com/advisory/ntap-20240125-0008/"
      ],
-     "description": "A flaw was found in glibc. In an extremely rare situation, the getaddrinfo function may access memory that has been freed, resulting in an application crash. This issue is only exploitable when a NSS module implements only the _nss_*_gethostbyname2_r and _nss_*_getcanonname_r hooks without implementing the _nss_*_gethostbyname3_r hook. The resolved name should return a large number of IPv6 and IPv4, and the call to the getaddrinfo function should have the AF_INET6 address family with AI_CANONNAME, AI_ALL and AI_V4MAPPED as flags.",
+     "description": "A flaw has been identified in glibc. In an extremely rare situation, the getaddrinfo function may access memory that has been freed, resulting in an application crash. This issue is only exploitable when a NSS module implements only the _nss_*_gethostbyname2_r and _nss_*_getcanonname_r hooks without implementing the _nss_*_gethostbyname3_r hook. The resolved name should return a large number of IPv6 and IPv4, and the call to the getaddrinfo function should have the AF_INET6 address family with AI_CANONNAME, AI_ALL and AI_V4MAPPED as flags.",
      "cvss": [
       {
        "source": "secalert@redhat.com",
@@ -32217,6 +32601,115 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-9086",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-9086",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Low",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-9086"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-9086",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-9086",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://curl.se/docs/CVE-2025-9086.html",
+      "https://curl.se/docs/CVE-2025-9086.json",
+      "https://hackerone.com/reports/3294999"
+     ],
+     "description": "1. A cookie is set using the `secure` keyword for `https://target`\n2. curl is redirected to or otherwise made to speak with `http://target` (same\n   hostname, but using clear text HTTP) using the same cookie set\n3. The same cookie name is set - but with just a slash as path (`path='/'`).\n   Since this site is not secure, the cookie *should* just be ignored.\n4. A bug in the path comparison logic makes curl read outside a heap buffer\n   boundary\n\nThe bug either causes a crash or it potentially makes the comparison come to\nthe wrong conclusion and lets the clear-text site override the contents of the\nsecure cookie, contrary to expectations and depending on the memory contents\nimmediately following the single-byte allocation that holds the path.\n\nThe presumed and correct behavior would be to plainly ignore the second set of\nthe cookie since it was already set as secure on a secure host so overriding\nit on an insecure host should not be okay.",
+     "cvss": [
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-indirect-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "curl",
+       "version": "7.81.0-1ubuntu1.3"
+      }
+     },
+     "found": {
+      "versionConstraint": "none (deb)",
+      "vulnerabilityID": "CVE-2025-9086"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "e25179b775354cdb",
+    "name": "libcurl3-gnutls",
+    "version": "7.81.0-1ubuntu1.3",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libcurl3-gnutls/copyright",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/info/libcurl3-gnutls:amd64.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "BSD-3-Clause",
+     "BSD-4-Clause",
+     "ISC",
+     "curl",
+     "other",
+     "public-domain"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libcurl3-gnutls:libcurl3-gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcurl3-gnutls:libcurl3_gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcurl3_gnutls:libcurl3-gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcurl3_gnutls:libcurl3_gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcurl3:libcurl3-gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcurl3:libcurl3_gnutls:7.81.0-1ubuntu1.3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/libcurl3-gnutls@7.81.0-1ubuntu1.3?arch=amd64&upstream=curl&distro=ubuntu-22.04",
+    "upstreams": [
+     {
+      "name": "curl"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-0167",
     "dataSource": "https://ubuntu.com/security/CVE-2025-0167",
     "namespace": "ubuntu:distro:ubuntu:22.04",
@@ -33853,6 +34346,107 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-59375",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-59375",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Medium",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-59375"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-59375",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-59375",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/libexpat/libexpat/blob/676a4c531ec768732fac215da9730b5f50fbd2bf/expat/Changes#L45-L74",
+      "https://github.com/libexpat/libexpat/blob/R_2_7_2/expat/Changes",
+      "https://github.com/libexpat/libexpat/issues/1018",
+      "https://github.com/libexpat/libexpat/pull/1034",
+      "https://issues.oss-fuzz.com/issues/439133977"
+     ],
+     "description": "libexpat in Expat before 2.7.2 allows attackers to trigger large dynamic memory allocations via a small document that is submitted for parsing.",
+     "cvss": [
+      {
+       "source": "cve@mitre.org",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-indirect-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "expat",
+       "version": "2.4.7-1"
+      }
+     },
+     "found": {
+      "versionConstraint": "none (deb)",
+      "vulnerabilityID": "CVE-2025-59375"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "1448181a3ea11f56",
+    "name": "libexpat1",
+    "version": "2.4.7-1",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libexpat1/copyright",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/info/libexpat1:amd64.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "MIT"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libexpat1:libexpat1:2.4.7-1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/libexpat1@2.4.7-1?arch=amd64&upstream=expat&distro=ubuntu-22.04",
+    "upstreams": [
+     {
+      "name": "expat"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2024-8176",
     "dataSource": "https://ubuntu.com/security/CVE-2024-8176",
     "namespace": "ubuntu:distro:ubuntu:22.04",
@@ -35307,6 +35901,8 @@
      "namespace": "nvd:cpe",
      "severity": "Medium",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:16115",
+      "https://access.redhat.com/errata/RHSA-2025:16116",
       "https://access.redhat.com/security/cve/CVE-2025-6395",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2376755"
      ],
@@ -35419,6 +36015,8 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:16115",
+      "https://access.redhat.com/errata/RHSA-2025:16116",
       "https://access.redhat.com/security/cve/CVE-2025-32990",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2359620"
      ],
@@ -35543,6 +36141,8 @@
      "namespace": "nvd:cpe",
      "severity": "Medium",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:16115",
+      "https://access.redhat.com/errata/RHSA-2025:16116",
       "https://access.redhat.com/security/cve/CVE-2025-32989",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2359621"
      ],
@@ -35655,6 +36255,8 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:16115",
+      "https://access.redhat.com/errata/RHSA-2025:16116",
       "https://access.redhat.com/security/cve/CVE-2025-32988",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2359622"
      ],
@@ -36856,6 +37458,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:13664",
       "https://access.redhat.com/errata/RHSA-2025:13777",
+      "https://access.redhat.com/errata/RHSA-2025:15000",
+      "https://access.redhat.com/errata/RHSA-2025:15001",
+      "https://access.redhat.com/errata/RHSA-2025:15002",
+      "https://access.redhat.com/errata/RHSA-2025:15003",
+      "https://access.redhat.com/errata/RHSA-2025:15004",
       "https://access.redhat.com/errata/RHSA-2025:8411",
       "https://access.redhat.com/errata/RHSA-2025:9418",
       "https://access.redhat.com/errata/RHSA-2025:9430",
@@ -37302,6 +37909,8 @@
      "severity": "Critical",
      "urls": [
       "http://www.openwall.com/lists/oss-security/2024/07/09/4",
+      "https://cert-portal.siemens.com/productcert/html/ssa-723487.html",
+      "https://cert-portal.siemens.com/productcert/html/ssa-794185.html",
       "https://datatracker.ietf.org/doc/draft-ietf-radext-deprecating-radius/",
       "https://datatracker.ietf.org/doc/html/rfc2865",
       "https://networkradius.com/assets/pdf/radius_and_md5_collisions.pdf",
@@ -37919,6 +38528,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:13664",
       "https://access.redhat.com/errata/RHSA-2025:13777",
+      "https://access.redhat.com/errata/RHSA-2025:15000",
+      "https://access.redhat.com/errata/RHSA-2025:15001",
+      "https://access.redhat.com/errata/RHSA-2025:15002",
+      "https://access.redhat.com/errata/RHSA-2025:15003",
+      "https://access.redhat.com/errata/RHSA-2025:15004",
       "https://access.redhat.com/errata/RHSA-2025:8411",
       "https://access.redhat.com/errata/RHSA-2025:9418",
       "https://access.redhat.com/errata/RHSA-2025:9430",
@@ -38329,6 +38943,8 @@
      "severity": "Critical",
      "urls": [
       "http://www.openwall.com/lists/oss-security/2024/07/09/4",
+      "https://cert-portal.siemens.com/productcert/html/ssa-723487.html",
+      "https://cert-portal.siemens.com/productcert/html/ssa-794185.html",
       "https://datatracker.ietf.org/doc/draft-ietf-radext-deprecating-radius/",
       "https://datatracker.ietf.org/doc/html/rfc2865",
       "https://networkradius.com/assets/pdf/radius_and_md5_collisions.pdf",
@@ -38901,6 +39517,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:13664",
       "https://access.redhat.com/errata/RHSA-2025:13777",
+      "https://access.redhat.com/errata/RHSA-2025:15000",
+      "https://access.redhat.com/errata/RHSA-2025:15001",
+      "https://access.redhat.com/errata/RHSA-2025:15002",
+      "https://access.redhat.com/errata/RHSA-2025:15003",
+      "https://access.redhat.com/errata/RHSA-2025:15004",
       "https://access.redhat.com/errata/RHSA-2025:8411",
       "https://access.redhat.com/errata/RHSA-2025:9418",
       "https://access.redhat.com/errata/RHSA-2025:9430",
@@ -39331,6 +39952,8 @@
      "severity": "Critical",
      "urls": [
       "http://www.openwall.com/lists/oss-security/2024/07/09/4",
+      "https://cert-portal.siemens.com/productcert/html/ssa-723487.html",
+      "https://cert-portal.siemens.com/productcert/html/ssa-794185.html",
       "https://datatracker.ietf.org/doc/draft-ietf-radext-deprecating-radius/",
       "https://datatracker.ietf.org/doc/html/rfc2865",
       "https://networkradius.com/assets/pdf/radius_and_md5_collisions.pdf",
@@ -39928,6 +40551,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:13664",
       "https://access.redhat.com/errata/RHSA-2025:13777",
+      "https://access.redhat.com/errata/RHSA-2025:15000",
+      "https://access.redhat.com/errata/RHSA-2025:15001",
+      "https://access.redhat.com/errata/RHSA-2025:15002",
+      "https://access.redhat.com/errata/RHSA-2025:15003",
+      "https://access.redhat.com/errata/RHSA-2025:15004",
       "https://access.redhat.com/errata/RHSA-2025:8411",
       "https://access.redhat.com/errata/RHSA-2025:9418",
       "https://access.redhat.com/errata/RHSA-2025:9430",
@@ -40338,6 +40966,8 @@
      "severity": "Critical",
      "urls": [
       "http://www.openwall.com/lists/oss-security/2024/07/09/4",
+      "https://cert-portal.siemens.com/productcert/html/ssa-723487.html",
+      "https://cert-portal.siemens.com/productcert/html/ssa-794185.html",
       "https://datatracker.ietf.org/doc/draft-ietf-radext-deprecating-radius/",
       "https://datatracker.ietf.org/doc/html/rfc2865",
       "https://networkradius.com/assets/pdf/radius_and_md5_collisions.pdf",
@@ -43080,6 +43710,20 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15100",
+      "https://access.redhat.com/errata/RHSA-2025:15101",
+      "https://access.redhat.com/errata/RHSA-2025:15102",
+      "https://access.redhat.com/errata/RHSA-2025:15103",
+      "https://access.redhat.com/errata/RHSA-2025:15104",
+      "https://access.redhat.com/errata/RHSA-2025:15105",
+      "https://access.redhat.com/errata/RHSA-2025:15106",
+      "https://access.redhat.com/errata/RHSA-2025:15107",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/security/cve/CVE-2025-8941",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2388220"
      ],
@@ -43087,7 +43731,7 @@
      "cvss": [
       {
        "source": "secalert@redhat.com",
-       "type": "Primary",
+       "type": "Secondary",
        "version": "3.1",
        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
        "metrics": {
@@ -43203,6 +43847,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11386",
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/errata/RHSA-2025:9526",
       "https://access.redhat.com/security/cve/CVE-2025-6020",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
@@ -43370,116 +44019,6 @@
      "found": {
       "versionConstraint": "< 1.4.0-11ubuntu2.4 (deb)",
       "vulnerabilityID": "CVE-2024-22365"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "7ecb91e8f14f8674",
-    "name": "libpam-modules",
-    "version": "1.4.0-11ubuntu2",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libpam-modules/copyright",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam-modules:amd64.conffiles",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam-modules:amd64.md5sums",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "GPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libpam-modules:libpam-modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam-modules:libpam_modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules:libpam-modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules:libpam_modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam-modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam_modules:1.4.0-11ubuntu2:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libpam-modules@1.4.0-11ubuntu2?arch=amd64&upstream=pam&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "pam"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2024-10041",
-    "dataSource": "https://ubuntu.com/security/CVE-2024-10041",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2024-10041"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2024-10041",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://access.redhat.com/errata/RHSA-2024:10379",
-      "https://access.redhat.com/errata/RHSA-2024:11250",
-      "https://access.redhat.com/errata/RHSA-2024:9941",
-      "https://access.redhat.com/security/cve/CVE-2024-10041",
-      "https://bugzilla.redhat.com/show_bug.cgi?id=2319212"
-     ],
-     "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
-     "cvss": [
-      {
-       "source": "secalert@redhat.com",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "pam",
-       "version": "1.4.0-11ubuntu2"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2024-10041"
      }
     }
    ],
@@ -43674,6 +44213,20 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15100",
+      "https://access.redhat.com/errata/RHSA-2025:15101",
+      "https://access.redhat.com/errata/RHSA-2025:15102",
+      "https://access.redhat.com/errata/RHSA-2025:15103",
+      "https://access.redhat.com/errata/RHSA-2025:15104",
+      "https://access.redhat.com/errata/RHSA-2025:15105",
+      "https://access.redhat.com/errata/RHSA-2025:15106",
+      "https://access.redhat.com/errata/RHSA-2025:15107",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/security/cve/CVE-2025-8941",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2388220"
      ],
@@ -43681,7 +44234,7 @@
      "cvss": [
       {
        "source": "secalert@redhat.com",
-       "type": "Primary",
+       "type": "Secondary",
        "version": "3.1",
        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
        "metrics": {
@@ -43797,6 +44350,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11386",
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/errata/RHSA-2025:9526",
       "https://access.redhat.com/security/cve/CVE-2025-6020",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
@@ -43964,116 +44522,6 @@
      "found": {
       "versionConstraint": "< 1.4.0-11ubuntu2.4 (deb)",
       "vulnerabilityID": "CVE-2024-22365"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "70c347e4bb78ac7a",
-    "name": "libpam-modules-bin",
-    "version": "1.4.0-11ubuntu2",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libpam-modules-bin/copyright",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam-modules-bin.md5sums",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "GPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libpam-modules-bin:libpam-modules-bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam-modules-bin:libpam_modules_bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules_bin:libpam-modules-bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules_bin:libpam_modules_bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam-modules:libpam-modules-bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam-modules:libpam_modules_bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules:libpam-modules-bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_modules:libpam_modules_bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam-modules-bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam_modules_bin:1.4.0-11ubuntu2:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libpam-modules-bin@1.4.0-11ubuntu2?arch=amd64&upstream=pam&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "pam"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2024-10041",
-    "dataSource": "https://ubuntu.com/security/CVE-2024-10041",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2024-10041"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2024-10041",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://access.redhat.com/errata/RHSA-2024:10379",
-      "https://access.redhat.com/errata/RHSA-2024:11250",
-      "https://access.redhat.com/errata/RHSA-2024:9941",
-      "https://access.redhat.com/security/cve/CVE-2024-10041",
-      "https://bugzilla.redhat.com/show_bug.cgi?id=2319212"
-     ],
-     "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
-     "cvss": [
-      {
-       "source": "secalert@redhat.com",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "pam",
-       "version": "1.4.0-11ubuntu2"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2024-10041"
      }
     }
    ],
@@ -44268,6 +44716,20 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15100",
+      "https://access.redhat.com/errata/RHSA-2025:15101",
+      "https://access.redhat.com/errata/RHSA-2025:15102",
+      "https://access.redhat.com/errata/RHSA-2025:15103",
+      "https://access.redhat.com/errata/RHSA-2025:15104",
+      "https://access.redhat.com/errata/RHSA-2025:15105",
+      "https://access.redhat.com/errata/RHSA-2025:15106",
+      "https://access.redhat.com/errata/RHSA-2025:15107",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/security/cve/CVE-2025-8941",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2388220"
      ],
@@ -44275,7 +44737,7 @@
      "cvss": [
       {
        "source": "secalert@redhat.com",
-       "type": "Primary",
+       "type": "Secondary",
        "version": "3.1",
        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
        "metrics": {
@@ -44391,6 +44853,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11386",
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/errata/RHSA-2025:9526",
       "https://access.redhat.com/security/cve/CVE-2025-6020",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
@@ -44558,116 +45025,6 @@
      "found": {
       "versionConstraint": "< 1.4.0-11ubuntu2.4 (deb)",
       "vulnerabilityID": "CVE-2024-22365"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "3d27e759f2187b72",
-    "name": "libpam-runtime",
-    "version": "1.4.0-11ubuntu2",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libpam-runtime/copyright",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam-runtime.conffiles",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam-runtime.md5sums",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "GPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libpam-runtime:libpam-runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam-runtime:libpam_runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_runtime:libpam-runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam_runtime:libpam_runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam-runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpam:libpam_runtime:1.4.0-11ubuntu2:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libpam-runtime@1.4.0-11ubuntu2?arch=all&upstream=pam&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "pam"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2024-10041",
-    "dataSource": "https://ubuntu.com/security/CVE-2024-10041",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2024-10041"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2024-10041",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://access.redhat.com/errata/RHSA-2024:10379",
-      "https://access.redhat.com/errata/RHSA-2024:11250",
-      "https://access.redhat.com/errata/RHSA-2024:9941",
-      "https://access.redhat.com/security/cve/CVE-2024-10041",
-      "https://bugzilla.redhat.com/show_bug.cgi?id=2319212"
-     ],
-     "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
-     "cvss": [
-      {
-       "source": "secalert@redhat.com",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "pam",
-       "version": "1.4.0-11ubuntu2"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2024-10041"
      }
     }
    ],
@@ -44862,6 +45219,20 @@
      "namespace": "nvd:cpe",
      "severity": "High",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15100",
+      "https://access.redhat.com/errata/RHSA-2025:15101",
+      "https://access.redhat.com/errata/RHSA-2025:15102",
+      "https://access.redhat.com/errata/RHSA-2025:15103",
+      "https://access.redhat.com/errata/RHSA-2025:15104",
+      "https://access.redhat.com/errata/RHSA-2025:15105",
+      "https://access.redhat.com/errata/RHSA-2025:15106",
+      "https://access.redhat.com/errata/RHSA-2025:15107",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/security/cve/CVE-2025-8941",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2388220"
      ],
@@ -44869,7 +45240,7 @@
      "cvss": [
       {
        "source": "secalert@redhat.com",
-       "type": "Primary",
+       "type": "Secondary",
        "version": "3.1",
        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
        "metrics": {
@@ -44976,6 +45347,11 @@
       "https://access.redhat.com/errata/RHSA-2025:11386",
       "https://access.redhat.com/errata/RHSA-2025:11487",
       "https://access.redhat.com/errata/RHSA-2025:14557",
+      "https://access.redhat.com/errata/RHSA-2025:15099",
+      "https://access.redhat.com/errata/RHSA-2025:15709",
+      "https://access.redhat.com/errata/RHSA-2025:15827",
+      "https://access.redhat.com/errata/RHSA-2025:15828",
+      "https://access.redhat.com/errata/RHSA-2025:16524",
       "https://access.redhat.com/errata/RHSA-2025:9526",
       "https://access.redhat.com/security/cve/CVE-2025-6020",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
@@ -45173,107 +45549,6 @@
   },
   {
    "vulnerability": {
-    "id": "CVE-2024-10041",
-    "dataSource": "https://ubuntu.com/security/CVE-2024-10041",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2024-10041"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2024-10041",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://access.redhat.com/errata/RHSA-2024:10379",
-      "https://access.redhat.com/errata/RHSA-2024:11250",
-      "https://access.redhat.com/errata/RHSA-2024:9941",
-      "https://access.redhat.com/security/cve/CVE-2024-10041",
-      "https://bugzilla.redhat.com/show_bug.cgi?id=2319212"
-     ],
-     "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
-     "cvss": [
-      {
-       "source": "secalert@redhat.com",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "pam",
-       "version": "1.4.0-11ubuntu2"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2024-10041"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "2ed472122cf8ed36",
-    "name": "libpam0g",
-    "version": "1.4.0-11ubuntu2",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libpam0g/copyright",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpam0g:amd64.md5sums",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "GPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libpam0g:libpam0g:1.4.0-11ubuntu2:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libpam0g@1.4.0-11ubuntu2?arch=amd64&upstream=pam&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "pam"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
     "id": "CVE-2022-28321",
     "dataSource": "https://ubuntu.com/security/CVE-2022-28321",
     "namespace": "ubuntu:distro:ubuntu:22.04",
@@ -45384,111 +45659,6 @@
     "upstreams": [
      {
       "name": "pam"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-58050",
-    "dataSource": "https://ubuntu.com/security/CVE-2025-58050",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2025-58050"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2025-58050",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-58050",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://github.com/PCRE2Project/pcre2/commit/a141712e5967d448c7ce13090ab530c8e3d82254",
-      "https://github.com/PCRE2Project/pcre2/releases/tag/pcre2-10.46",
-      "https://github.com/PCRE2Project/pcre2/security/advisories/GHSA-c2gv-xgf5-5cc2",
-      "https://github.com/PCRE2Project/pcre2/security/advisories/GHSA-c2gv-xgf5-5cc2"
-     ],
-     "description": "The PCRE2 library is a set of C functions that implement regular expression pattern matching. In version 10.45, a heap-buffer-overflow read vulnerability exists in the PCRE2 regular expression matching engine, specifically within the handling of the (*scs:...) (Scan SubString) verb when combined with (*ACCEPT) in src/pcre2_match.c. This vulnerability may potentially lead to information disclosure if the out-of-bounds data read during the memcmp affects the final match result in a way observable by the attacker. This issue has been resolved in version 10.46.",
-     "cvss": [
-      {
-       "source": "security-advisories@github.com",
-       "type": "Secondary",
-       "version": "4.0",
-       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:L/SC:L/SI:N/SA:L/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "metrics": {
-        "baseScore": 6.9
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "pcre2",
-       "version": "10.39-3build1"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2025-58050"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "a8d731fbe6f9656a",
-    "name": "libpcre2-8-0",
-    "version": "10.39-3build1",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libpcre2-8-0/copyright",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libpcre2-8-0:amd64.md5sums",
-      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [],
-    "cpes": [
-     "cpe:2.3:a:libpcre2-8-0:libpcre2-8-0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2-8-0:libpcre2_8_0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2_8_0:libpcre2-8-0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2_8_0:libpcre2_8_0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2-8:libpcre2-8-0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2-8:libpcre2_8_0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2_8:libpcre2-8-0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2_8:libpcre2_8_0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2:libpcre2-8-0:10.39-3build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libpcre2:libpcre2_8_0:10.39-3build1:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libpcre2-8-0@10.39-3build1?arch=amd64&upstream=pcre2&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "pcre2"
      }
     ]
    }
@@ -47244,6 +47414,18 @@
         "impactScore": 3.7
        },
        "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 5.5,
+        "exploitabilityScore": 1.8,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
       }
      ]
     }
@@ -47699,125 +47881,6 @@
   },
   {
    "vulnerability": {
-    "id": "CVE-2025-8114",
-    "dataSource": "https://ubuntu.com/security/CVE-2025-8114",
-    "namespace": "ubuntu:distro:ubuntu:22.04",
-    "severity": "Medium",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2025-8114"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2025-8114",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-8114",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://access.redhat.com/security/cve/CVE-2025-8114",
-      "https://bugzilla.redhat.com/show_bug.cgi?id=2383220"
-     ],
-     "description": "A flaw was found in libssh, a library that implements the SSH protocol. When calculating the session ID during the key exchange (KEX) process, an allocation failure in cryptographic functions may lead to a NULL pointer dereference. This issue can cause the client or server to crash.",
-     "cvss": [
-      {
-       "source": "secalert@redhat.com",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      },
-      {
-       "source": "nvd@nist.gov",
-       "type": "Primary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
-       "metrics": {
-        "baseScore": 4.7,
-        "exploitabilityScore": 1,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "22.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:22.04",
-      "package": {
-       "name": "libssh",
-       "version": "0.9.6-2build1"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2025-8114"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "da35ee97fd54c7de",
-    "name": "libssh-4",
-    "version": "0.9.6-2build1",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libssh-4/copyright",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libssh-4:amd64.md5sums",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "BSD-2-clause",
-     "BSD-3-clause",
-     "LGPL-2.1",
-     "LGPL-2.1+~OpenSSL",
-     "public-domain"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libssh-4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssh-4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssh_4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssh_4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssh:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssh:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libssh-4@0.9.6-2build1?arch=amd64&upstream=libssh&distro=ubuntu-22.04",
-    "upstreams": [
-     {
-      "name": "libssh"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
     "id": "CVE-2025-5372",
     "dataSource": "https://ubuntu.com/security/CVE-2025-5372",
     "namespace": "ubuntu:distro:ubuntu:22.04",
@@ -47966,7 +48029,7 @@
       "https://bugzilla.redhat.com/show_bug.cgi?id=2369131",
       "https://www.libssh.org/security/advisories/CVE-2025-5318.txt"
      ],
-     "description": "A flaw was found in the libssh library. An out-of-bounds read can be triggered in the sftp_handle function due to an incorrect comparison check that permits the function to access memory beyond the valid handle list and to return an invalid pointer, which is used in further processing. This vulnerability allows an authenticated remote attacker to potentially read unintended memory regions, exposing sensitive information or affect service behavior.",
+     "description": "A flaw was found in the libssh library in versions less than 0.11.2. An out-of-bounds read can be triggered in the sftp_handle function due to an incorrect comparison check that permits the function to access memory beyond the valid handle list and to return an invalid pointer, which is used in further processing. This vulnerability allows an authenticated remote attacker to potentially read unintended memory regions, exposing sensitive information or affect service behavior.",
      "cvss": [
       {
        "source": "secalert@redhat.com",
@@ -49145,6 +49208,232 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-8277",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-8277",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Low",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-8277"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-8277",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-8277",
+     "namespace": "nvd:cpe",
+     "severity": "Low",
+     "urls": [
+      "https://access.redhat.com/security/cve/CVE-2025-8277",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2383888"
+     ],
+     "description": "A flaw was found in libssh's handling of key exchange (KEX) processes when a client repeatedly sends incorrect KEX guesses. The library fails to free memory during these rekey operations, which can gradually exhaust system memory. This issue can lead to crashes on the client side, particularly when using libgcrypt, which impacts application stability and availability.",
+     "cvss": [
+      {
+       "source": "secalert@redhat.com",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:L",
+       "metrics": {
+        "baseScore": 3.1,
+        "exploitabilityScore": 1.6,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-indirect-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "libssh",
+       "version": "0.9.6-2build1"
+      }
+     },
+     "found": {
+      "versionConstraint": "none (deb)",
+      "vulnerabilityID": "CVE-2025-8277"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "da35ee97fd54c7de",
+    "name": "libssh-4",
+    "version": "0.9.6-2build1",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libssh-4/copyright",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/info/libssh-4:amd64.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "BSD-2-clause",
+     "BSD-3-clause",
+     "LGPL-2.1",
+     "LGPL-2.1+~OpenSSL",
+     "public-domain"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssh-4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh-4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh_4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh_4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/libssh-4@0.9.6-2build1?arch=amd64&upstream=libssh&distro=ubuntu-22.04",
+    "upstreams": [
+     {
+      "name": "libssh"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-8114",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-8114",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Low",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-8114"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-8114",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-8114",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://access.redhat.com/security/cve/CVE-2025-8114",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2383220"
+     ],
+     "description": "A flaw was found in libssh, a library that implements the SSH protocol. When calculating the session ID during the key exchange (KEX) process, an allocation failure in cryptographic functions may lead to a NULL pointer dereference. This issue can cause the client or server to crash.",
+     "cvss": [
+      {
+       "source": "secalert@redhat.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 4.7,
+        "exploitabilityScore": 1,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 4.7,
+        "exploitabilityScore": 1,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-indirect-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "libssh",
+       "version": "0.9.6-2build1"
+      }
+     },
+     "found": {
+      "versionConstraint": "none (deb)",
+      "vulnerabilityID": "CVE-2025-8114"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "da35ee97fd54c7de",
+    "name": "libssh-4",
+    "version": "0.9.6-2build1",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libssh-4/copyright",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/info/libssh-4:amd64.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "BSD-2-clause",
+     "BSD-3-clause",
+     "LGPL-2.1",
+     "LGPL-2.1+~OpenSSL",
+     "public-domain"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssh-4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh-4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh_4:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh_4:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh:libssh-4:0.9.6-2build1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssh:libssh_4:0.9.6-2build1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/libssh-4@0.9.6-2build1?arch=amd64&upstream=libssh&distro=ubuntu-22.04",
+    "upstreams": [
+     {
+      "name": "libssh"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2023-0286",
     "dataSource": "https://ubuntu.com/security/CVE-2023-0286",
     "namespace": "ubuntu:distro:ubuntu:22.04",
@@ -49540,6 +49829,115 @@
      "found": {
       "versionConstraint": "< 3.0.2-0ubuntu1.7 (deb)",
       "vulnerabilityID": "CVE-2022-3602"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "44fb43af7d0ee7d5",
+    "name": "libssl3",
+    "version": "3.0.2-0ubuntu1.6",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libssl3/copyright",
+      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
+     },
+     {
+      "path": "/var/lib/dpkg/info/libssl3:amd64.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "Apache-2.0",
+     "Artistic",
+     "GPL-1",
+     "GPL-1+"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssl3:libssl3:3.0.2-0ubuntu1.6:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/libssl3@3.0.2-0ubuntu1.6?arch=amd64&upstream=openssl&distro=ubuntu-22.04",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-9230",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-9230",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Medium",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-9230"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.0.2-0ubuntu1.20"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-9230",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-9230",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/openssl/openssl/commit/5965ea5dd6960f36d8b7f74f8eac67a8eb8f2b45",
+      "https://github.com/openssl/openssl/commit/9e91358f365dee6c446dcdcdb01c04d2743fd280",
+      "https://github.com/openssl/openssl/commit/a79c4ce559c6a3a8fd4109e9f33c1185d5bf2def",
+      "https://github.com/openssl/openssl/commit/b5282d677551afda7d20e9c00e09561b547b2dfd",
+      "https://github.com/openssl/openssl/commit/bae259a211ada6315dc50900686daaaaaa55f482",
+      "https://github.openssl.org/openssl/extended-releases/commit/c2b96348bfa662f25f4fabf81958ae822063dae3",
+      "https://github.openssl.org/openssl/extended-releases/commit/dfbaf161d8dafc1132dd88cd48ad990ed9b4c8ba",
+      "https://openssl-library.org/news/secadv/20250930.txt"
+     ],
+     "description": "Issue summary: An application trying to decrypt CMS messages encrypted using\npassword based encryption can trigger an out-of-bounds read and write.\n\nImpact summary: This out-of-bounds read may trigger a crash which leads to\nDenial of Service for an application. The out-of-bounds write can cause\na memory corruption which can have various consequences including\na Denial of Service or Execution of attacker-supplied code.\n\nAlthough the consequences of a successful exploit of this vulnerability\ncould be severe, the probability that the attacker would be able to\nperform it is low. Besides, password based (PWRI) encryption support in CMS\nmessages is very rarely used. For that reason the issue was assessed as\nModerate severity according to our Security Policy.\n\nThe FIPS modules in 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected by this\nissue, as the CMS implementation is outside the OpenSSL FIPS module\nboundary.",
+     "cvss": [
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-indirect-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "openssl",
+       "version": "3.0.2-0ubuntu1.6"
+      }
+     },
+     "found": {
+      "versionConstraint": "< 3.0.2-0ubuntu1.20 (deb)",
+      "vulnerabilityID": "CVE-2025-9230"
      }
     }
    ],
@@ -51156,15 +51554,12 @@
      "namespace": "nvd:cpe",
      "severity": "Critical",
      "urls": [
-      "http://www.openwall.com/lists/oss-security/2024/06/27/1",
-      "http://www.openwall.com/lists/oss-security/2024/06/28/4",
       "https://github.com/openssl/openssl/commit/4ada436a1946cbb24db5ab4ca082b69c1bc10f37",
       "https://github.com/openssl/openssl/commit/99fb785a5f85315b95288921a321a935ea29a51e",
       "https://github.com/openssl/openssl/commit/cf6f91f6121f4db167405db2f0de410a456f260c",
       "https://github.com/openssl/openssl/commit/e86ac436f0bd54d4517745483e2315650fae7b2c",
       "https://github.openssl.org/openssl/extended-releases/commit/9947251413065a05189a63c9b7a6c1d4e224c21c",
       "https://github.openssl.org/openssl/extended-releases/commit/b78ec0824da857223486660177d3b1f255c65d87",
-      "https://security.netapp.com/advisory/ntap-20240712-0005/",
       "https://www.openssl.org/news/secadv/20240627.txt",
       "http://www.openwall.com/lists/oss-security/2024/06/27/1",
       "http://www.openwall.com/lists/oss-security/2024/06/28/4",
@@ -58612,6 +59007,7 @@
      "namespace": "nvd:cpe",
      "severity": "Medium",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:16823",
       "https://access.redhat.com/errata/RHSA-2025:3837",
       "https://access.redhat.com/errata/RHSA-2025:6993",
       "https://access.redhat.com/errata/RHSA-2025:8385",
@@ -60043,6 +60439,115 @@
      "found": {
       "versionConstraint": "< 3.0.2-0ubuntu1.7 (deb)",
       "vulnerabilityID": "CVE-2022-3602"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "21ddf4a3bc8d4495",
+    "name": "openssl",
+    "version": "3.0.2-0ubuntu1.6",
+    "type": "deb",
+    "locations": [
+     {
+      "path": "/usr/share/doc/libssl3/copyright",
+      "layerID": "sha256:a790f937a6aea2600982de54a5fb995c681dd74f26968d6b74286e06839e4fb3"
+     },
+     {
+      "path": "/var/lib/dpkg/info/openssl.conffiles",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/info/openssl.md5sums",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     },
+     {
+      "path": "/var/lib/dpkg/status",
+      "layerID": "sha256:0e1341998fc05b5041eeeae5c4cb615ee9df101f1eebf29b5486f620e9bdcc42"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "Apache-2.0",
+     "Artistic",
+     "GPL-1",
+     "GPL-1+"
+    ],
+    "cpes": [
+     "cpe:2.3:a:openssl:openssl:3.0.2-0ubuntu1.6:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:deb/ubuntu/openssl@3.0.2-0ubuntu1.6?arch=amd64&distro=ubuntu-22.04",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-9230",
+    "dataSource": "https://ubuntu.com/security/CVE-2025-9230",
+    "namespace": "ubuntu:distro:ubuntu:22.04",
+    "severity": "Medium",
+    "urls": [
+     "https://ubuntu.com/security/CVE-2025-9230"
+    ],
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.0.2-0ubuntu1.20"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-9230",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-9230",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/openssl/openssl/commit/5965ea5dd6960f36d8b7f74f8eac67a8eb8f2b45",
+      "https://github.com/openssl/openssl/commit/9e91358f365dee6c446dcdcdb01c04d2743fd280",
+      "https://github.com/openssl/openssl/commit/a79c4ce559c6a3a8fd4109e9f33c1185d5bf2def",
+      "https://github.com/openssl/openssl/commit/b5282d677551afda7d20e9c00e09561b547b2dfd",
+      "https://github.com/openssl/openssl/commit/bae259a211ada6315dc50900686daaaaaa55f482",
+      "https://github.openssl.org/openssl/extended-releases/commit/c2b96348bfa662f25f4fabf81958ae822063dae3",
+      "https://github.openssl.org/openssl/extended-releases/commit/dfbaf161d8dafc1132dd88cd48ad990ed9b4c8ba",
+      "https://openssl-library.org/news/secadv/20250930.txt"
+     ],
+     "description": "Issue summary: An application trying to decrypt CMS messages encrypted using\npassword based encryption can trigger an out-of-bounds read and write.\n\nImpact summary: This out-of-bounds read may trigger a crash which leads to\nDenial of Service for an application. The out-of-bounds write can cause\na memory corruption which can have various consequences including\na Denial of Service or Execution of attacker-supplied code.\n\nAlthough the consequences of a successful exploit of this vulnerability\ncould be severe, the probability that the attacker would be able to\nperform it is low. Besides, password based (PWRI) encryption support in CMS\nmessages is very rarely used. For that reason the issue was assessed as\nModerate severity according to our Security Policy.\n\nThe FIPS modules in 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected by this\nissue, as the CMS implementation is outside the OpenSSL FIPS module\nboundary.",
+     "cvss": [
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "dpkg-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "ubuntu",
+       "version": "22.04"
+      },
+      "namespace": "ubuntu:distro:ubuntu:22.04",
+      "package": {
+       "name": "openssl",
+       "version": "3.0.2-0ubuntu1.6"
+      }
+     },
+     "found": {
+      "versionConstraint": "< 3.0.2-0ubuntu1.20 (deb)",
+      "vulnerabilityID": "CVE-2025-9230"
      }
     }
    ],
@@ -61659,15 +62164,12 @@
      "namespace": "nvd:cpe",
      "severity": "Critical",
      "urls": [
-      "http://www.openwall.com/lists/oss-security/2024/06/27/1",
-      "http://www.openwall.com/lists/oss-security/2024/06/28/4",
       "https://github.com/openssl/openssl/commit/4ada436a1946cbb24db5ab4ca082b69c1bc10f37",
       "https://github.com/openssl/openssl/commit/99fb785a5f85315b95288921a321a935ea29a51e",
       "https://github.com/openssl/openssl/commit/cf6f91f6121f4db167405db2f0de410a456f260c",
       "https://github.com/openssl/openssl/commit/e86ac436f0bd54d4517745483e2315650fae7b2c",
       "https://github.openssl.org/openssl/extended-releases/commit/9947251413065a05189a63c9b7a6c1d4e224c21c",
       "https://github.openssl.org/openssl/extended-releases/commit/b78ec0824da857223486660177d3b1f255c65d87",
-      "https://security.netapp.com/advisory/ntap-20240712-0005/",
       "https://www.openssl.org/news/secadv/20240627.txt",
       "http://www.openwall.com/lists/oss-security/2024/06/27/1",
       "http://www.openwall.com/lists/oss-security/2024/06/28/4",
@@ -72944,6 +73446,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-47906",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-47906",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/691775",
+     "https://go.dev/issue/74466",
+     "https://groups.google.com/g/golang-announce/c/x5MKroML2yM",
+     "https://pkg.go.dev/vuln/GO-2025-3956"
+    ],
+    "description": "If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.23.12",
+      "1.24.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.16.5:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.16.5"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-47906",
+      "versionConstraint": "< 1.23.12 || >= 1.24.0, < 1.24.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "4e5061e4cc8eab66",
+    "name": "stdlib",
+    "version": "go1.16.5",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/kustomize",
+      "layerID": "sha256:e4f603e575e6c2cc759846bdaf69feb287debb258b55bd24b357ffc89d84daed"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.16.5:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.16.5",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.16.5",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-4673",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-4673",
     "namespace": "nvd:cpe",
@@ -80686,6 +81275,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-47906",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-47906",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/691775",
+     "https://go.dev/issue/74466",
+     "https://groups.google.com/g/golang-announce/c/x5MKroML2yM",
+     "https://pkg.go.dev/vuln/GO-2025-3956"
+    ],
+    "description": "If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.23.12",
+      "1.24.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.17.5:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.17.5"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-47906",
+      "versionConstraint": "< 1.23.12 || >= 1.24.0, < 1.24.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "0ad0800236c93369",
+    "name": "stdlib",
+    "version": "go1.17.5",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/helm",
+      "layerID": "sha256:54474058eafab3e508a0cffec0d564f7962a2c75612186901f66699d4be780be"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.17.5:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.17.5",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.17.5",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-4673",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-4673",
     "namespace": "nvd:cpe",
@@ -86540,6 +87216,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-47906",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-47906",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/691775",
+     "https://go.dev/issue/74466",
+     "https://groups.google.com/g/golang-announce/c/x5MKroML2yM",
+     "https://pkg.go.dev/vuln/GO-2025-3956"
+    ],
+    "description": "If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.23.12",
+      "1.24.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.18.4:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.18.4"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-47906",
+      "versionConstraint": "< 1.23.12 || >= 1.24.0, < 1.24.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "85fb5d23e54407ad",
+    "name": "stdlib",
+    "version": "go1.18.4",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/argocd",
+      "layerID": "sha256:dc7043e27347aff202540c40cbff7c4470ba2f699aa34688e690021431ff7a1e"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.18.4:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.18.4",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.18.4",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-4673",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-4673",
     "namespace": "nvd:cpe",
@@ -89159,12 +89922,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-09-01T01:31:41Z",
+   "built": "2025-10-04T01:30:05Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:91e4f1e99e1a744561b3330b92ecbe456b05332c62d750ba68236b335ecf2e32",
+   "checksum": "sha256:65b654b3cfdb1a6ed94eabf0831664308c283825a7aca255f8fb8f2c3ca6c392",
    "error": null
   },
-  "timestamp": "2025-09-01T18:24:07.517133934Z"
+  "timestamp": "2025-10-04T14:12:07.402430076Z"
  }
 }
