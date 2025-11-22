@@ -6,8 +6,8 @@
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1299.1",
-          "version": "1.1299.1",
+          "semanticVersion": "1.1301.0",
+          "version": "1.1301.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 16
@@ -146,7 +146,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThe public API function BIO_new_NDEF is a helper function used for streaming\nASN.1 data via a BIO. It is primarily used internally to OpenSSL to support the\nSMIME, CMS and PKCS7 streaming capabilities, but may also be called directly by\nend user applications.\n\nThe function receives a BIO from the caller, prepends a new BIO_f_asn1 filter\nBIO onto the front of it to form a BIO chain, and then returns the new head of\nthe BIO chain to the caller. Under certain conditions, for example if a CMS\nrecipient public key is invalid, the new filter BIO is freed and the function\nreturns a NULL result indicating a failure. However, in this case, the BIO chain\nis not properly cleaned up and the BIO passed by the caller still retains\ninternal pointers to the previously freed filter BIO. If the caller then goes on\nto call BIO_pop() on the BIO then a use-after-free will occur. This will most\nlikely result in a crash.\n\n\n\nThis scenario occurs directly in the internal function B64_write_ASN1() which\nmay cause BIO_new_NDEF() to be called and will subsequently call BIO_pop() on\nthe BIO. This internal function is in turn called by the public API functions\nPEM_write_bio_ASN1_stream, PEM_write_bio_CMS_stream, PEM_write_bio_PKCS7_stream,\nSMIME_write_ASN1, SMIME_write_CMS and SMIME_write_PKCS7.\n\nOther public API functions that may be impacted by this include\ni2d_ASN1_bio_stream, BIO_new_CMS, BIO_new_PKCS7, i2d_CMS_bio_stream and\ni2d_PKCS7_bio_stream.\n\nThe OpenSSL cms and smime command line applications are similarly affected.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=8818064ce3c3c0f1b740a5aaba2a987e75bfbafd](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=8818064ce3c3c0f1b740a5aaba2a987e75bfbafd)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=9816136fe31d92ace4037d5da5257f763aeeb4eb](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=9816136fe31d92ace4037d5da5257f763aeeb4eb)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=c3829dd8825c654652201e16f8a0a0c46ee3f344](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=c3829dd8825c654652201e16f8a0a0c46ee3f344)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://security.netapp.com/advisory/ntap-20230427-0007/](https://security.netapp.com/advisory/ntap-20230427-0007/)\n- [https://security.netapp.com/advisory/ntap-20230427-0009/](https://security.netapp.com/advisory/ntap-20230427-0009/)\n- [https://security.netapp.com/advisory/ntap-20240621-0006/](https://security.netapp.com/advisory/ntap-20240621-0006/)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThe public API function BIO_new_NDEF is a helper function used for streaming\nASN.1 data via a BIO. It is primarily used internally to OpenSSL to support the\nSMIME, CMS and PKCS7 streaming capabilities, but may also be called directly by\nend user applications.\n\nThe function receives a BIO from the caller, prepends a new BIO_f_asn1 filter\nBIO onto the front of it to form a BIO chain, and then returns the new head of\nthe BIO chain to the caller. Under certain conditions, for example if a CMS\nrecipient public key is invalid, the new filter BIO is freed and the function\nreturns a NULL result indicating a failure. However, in this case, the BIO chain\nis not properly cleaned up and the BIO passed by the caller still retains\ninternal pointers to the previously freed filter BIO. If the caller then goes on\nto call BIO_pop() on the BIO then a use-after-free will occur. This will most\nlikely result in a crash.\n\n\n\nThis scenario occurs directly in the internal function B64_write_ASN1() which\nmay cause BIO_new_NDEF() to be called and will subsequently call BIO_pop() on\nthe BIO. This internal function is in turn called by the public API functions\nPEM_write_bio_ASN1_stream, PEM_write_bio_CMS_stream, PEM_write_bio_PKCS7_stream,\nSMIME_write_ASN1, SMIME_write_CMS and SMIME_write_PKCS7.\n\nOther public API functions that may be impacted by this include\ni2d_ASN1_bio_stream, BIO_new_CMS, BIO_new_PKCS7, i2d_CMS_bio_stream and\ni2d_PKCS7_bio_stream.\n\nThe OpenSSL cms and smime command line applications are similarly affected.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=8818064ce3c3c0f1b740a5aaba2a987e75bfbafd](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=8818064ce3c3c0f1b740a5aaba2a987e75bfbafd)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=9816136fe31d92ace4037d5da5257f763aeeb4eb](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=9816136fe31d92ace4037d5da5257f763aeeb4eb)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=c3829dd8825c654652201e16f8a0a0c46ee3f344](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=c3829dd8825c654652201e16f8a0a0c46ee3f344)\n- [https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003](https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://security.netapp.com/advisory/ntap-20230427-0007/](https://security.netapp.com/advisory/ntap-20230427-0007/)\n- [https://security.netapp.com/advisory/ntap-20230427-0009/](https://security.netapp.com/advisory/ntap-20230427-0009/)\n- [https://security.netapp.com/advisory/ntap-20240621-0006/](https://security.netapp.com/advisory/ntap-20240621-0006/)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -171,7 +171,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThere is a type confusion vulnerability relating to X.400 address processing\ninside an X.509 GeneralName. X.400 addresses were parsed as an ASN1_STRING but\nthe public structure definition for GENERAL_NAME incorrectly specified the type\nof the x400Address field as ASN1_TYPE. This field is subsequently interpreted by\nthe OpenSSL function GENERAL_NAME_cmp as an ASN1_TYPE rather than an\nASN1_STRING.\n\nWhen CRL checking is enabled (i.e. the application sets the\nX509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass\narbitrary pointers to a memcmp call, enabling them to read memory contents or\nenact a denial of service. In most cases, the attack requires the attacker to\nprovide both the certificate chain and CRL, neither of which need to have a\nvalid signature. If the attacker only controls one of these inputs, the other\ninput must already contain an X.400 address as a CRL distribution point, which\nis uncommon. As such, this vulnerability is most likely to only affect\napplications which have implemented their own functionality for retrieving CRLs\nover a network.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.6.2-relnotes.txt](https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.6.2-relnotes.txt)\n- [https://ftp.openbsd.org/pub/OpenBSD/patches/7.2/common/018_x509.patch.sig](https://ftp.openbsd.org/pub/OpenBSD/patches/7.2/common/018_x509.patch.sig)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2f7530077e0ef79d98718138716bc51ca0cad658](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2f7530077e0ef79d98718138716bc51ca0cad658)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=fd2af07dc083a350c959147097003a14a5e8ac4d](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=fd2af07dc083a350c959147097003a14a5e8ac4d)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThere is a type confusion vulnerability relating to X.400 address processing\ninside an X.509 GeneralName. X.400 addresses were parsed as an ASN1_STRING but\nthe public structure definition for GENERAL_NAME incorrectly specified the type\nof the x400Address field as ASN1_TYPE. This field is subsequently interpreted by\nthe OpenSSL function GENERAL_NAME_cmp as an ASN1_TYPE rather than an\nASN1_STRING.\n\nWhen CRL checking is enabled (i.e. the application sets the\nX509_V_FLAG_CRL_CHECK flag), this vulnerability may allow an attacker to pass\narbitrary pointers to a memcmp call, enabling them to read memory contents or\nenact a denial of service. In most cases, the attack requires the attacker to\nprovide both the certificate chain and CRL, neither of which need to have a\nvalid signature. If the attacker only controls one of these inputs, the other\ninput must already contain an X.400 address as a CRL distribution point, which\nis uncommon. As such, this vulnerability is most likely to only affect\napplications which have implemented their own functionality for retrieving CRLs\nover a network.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.6.2-relnotes.txt](https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.6.2-relnotes.txt)\n- [https://ftp.openbsd.org/pub/OpenBSD/patches/7.2/common/018_x509.patch.sig](https://ftp.openbsd.org/pub/OpenBSD/patches/7.2/common/018_x509.patch.sig)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2f7530077e0ef79d98718138716bc51ca0cad658](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2f7530077e0ef79d98718138716bc51ca0cad658)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=fd2af07dc083a350c959147097003a14a5e8ac4d](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=fd2af07dc083a350c959147097003a14a5e8ac4d)\n- [https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003](https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -196,7 +196,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nA timing based side channel exists in the OpenSSL RSA Decryption implementation\nwhich could be sufficient to recover a plaintext across a network in a\nBleichenbacher style attack. To achieve a successful decryption an attacker\nwould have to be able to send a very large number of trial messages for\ndecryption. The vulnerability affects all RSA padding modes: PKCS#1 v1.5,\nRSA-OEAP and RSASVE.\n\nFor example, in a TLS connection, RSA is commonly used by a client to send an\nencrypted pre-master secret to the server. An attacker that had observed a\ngenuine connection between a client and a server could use this flaw to send\ntrial messages to the server and record the time taken to process them. After a\nsufficiently large number of messages the attacker could recover the pre-master\nsecret used for the original connection and thus be able to decrypt the\napplication data sent over that connection.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nA timing based side channel exists in the OpenSSL RSA Decryption implementation\nwhich could be sufficient to recover a plaintext across a network in a\nBleichenbacher style attack. To achieve a successful decryption an attacker\nwould have to be able to send a very large number of trial messages for\ndecryption. The vulnerability affects all RSA padding modes: PKCS#1 v1.5,\nRSA-OEAP and RSASVE.\n\nFor example, in a TLS connection, RSA is commonly used by a client to send an\nencrypted pre-master secret to the server. An attacker that had observed a\ngenuine connection between a client and a server could use this flaw to send\ntrial messages to the server and record the time taken to process them. After a\nsufficiently large number of messages the attacker could recover the pre-master\nsecret used for the original connection and thus be able to decrypt the\napplication data sent over that connection.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003](https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -221,7 +221,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThe function PEM_read_bio_ex() reads a PEM file from a BIO and parses and\ndecodes the &#34;name&#34; (e.g. &#34;CERTIFICATE&#34;), any header data and the payload data.\nIf the function succeeds then the &#34;name_out&#34;, &#34;header&#34; and &#34;data&#34; arguments are\npopulated with pointers to buffers containing the relevant decoded data. The\ncaller is responsible for freeing those buffers. It is possible to construct a\nPEM file that results in 0 bytes of payload data. In this case PEM_read_bio_ex()\nwill return a failure code but will populate the header argument with a pointer\nto a buffer that has already been freed. If the caller also frees this buffer\nthen a double free will occur. This will most likely lead to a crash. This\ncould be exploited by an attacker who has the ability to supply malicious PEM\nfiles for parsing to achieve a denial of service attack.\n\nThe functions PEM_read_bio() and PEM_read() are simple wrappers around\nPEM_read_bio_ex() and therefore these functions are also directly affected.\n\nThese functions are also called indirectly by a number of other OpenSSL\nfunctions including PEM_X509_INFO_read_bio_ex() and\nSSL_CTX_use_serverinfo_file() which are also vulnerable. Some OpenSSL internal\nuses of these functions are not vulnerable because the caller does not free the\nheader argument if PEM_read_bio_ex() returns a failure code. These locations\ninclude the PEM_read_bio_TYPE() functions as well as the decoders introduced in\nOpenSSL 3.0.\n\nThe OpenSSL asn1parse command line application is also impacted by this issue.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=63bcf189be73a9cc1264059bed6f57974be74a83](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=63bcf189be73a9cc1264059bed6f57974be74a83)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=bbcf509bd046b34cca19c766bbddc31683d0858b](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=bbcf509bd046b34cca19c766bbddc31683d0858b)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `openssl` package and not the `openssl` package as distributed by `Alpine`._\n_See `How to fix?` for `Alpine:3.14` relevant fixed versions and status._\n\nThe function PEM_read_bio_ex() reads a PEM file from a BIO and parses and\ndecodes the &#34;name&#34; (e.g. &#34;CERTIFICATE&#34;), any header data and the payload data.\nIf the function succeeds then the &#34;name_out&#34;, &#34;header&#34; and &#34;data&#34; arguments are\npopulated with pointers to buffers containing the relevant decoded data. The\ncaller is responsible for freeing those buffers. It is possible to construct a\nPEM file that results in 0 bytes of payload data. In this case PEM_read_bio_ex()\nwill return a failure code but will populate the header argument with a pointer\nto a buffer that has already been freed. If the caller also frees this buffer\nthen a double free will occur. This will most likely lead to a crash. This\ncould be exploited by an attacker who has the ability to supply malicious PEM\nfiles for parsing to achieve a denial of service attack.\n\nThe functions PEM_read_bio() and PEM_read() are simple wrappers around\nPEM_read_bio_ex() and therefore these functions are also directly affected.\n\nThese functions are also called indirectly by a number of other OpenSSL\nfunctions including PEM_X509_INFO_read_bio_ex() and\nSSL_CTX_use_serverinfo_file() which are also vulnerable. Some OpenSSL internal\nuses of these functions are not vulnerable because the caller does not free the\nheader argument if PEM_read_bio_ex() returns a failure code. These locations\ninclude the PEM_read_bio_TYPE() functions as well as the decoders introduced in\nOpenSSL 3.0.\n\nThe OpenSSL asn1parse command line application is also impacted by this issue.\n## Remediation\nUpgrade `Alpine:3.14` `openssl` to version 1.1.1t-r0 or higher.\n## References\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=63bcf189be73a9cc1264059bed6f57974be74a83](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=63bcf189be73a9cc1264059bed6f57974be74a83)\n- [https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=bbcf509bd046b34cca19c766bbddc31683d0858b](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=bbcf509bd046b34cca19c766bbddc31683d0858b)\n- [https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003](https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003)\n- [https://security.gentoo.org/glsa/202402-08](https://security.gentoo.org/glsa/202402-08)\n- [https://www.openssl.org/news/secadv/20230207.txt](https://www.openssl.org/news/secadv/20230207.txt)\n"
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -964,14 +964,17 @@
             }
           ]
         }
-      ]
+      ],
+      "automationDetails": {
+        "id": "Snyk/Container/docker-image|ghcr.io/dexidp/dex/2025-11-22T17:16:48.183Z"
+      }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1299.1",
-          "version": "1.1299.1",
+          "semanticVersion": "1.1301.0",
+          "version": "1.1301.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 357
@@ -1087,7 +1090,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS) via requests sent with a `Content-Type` text value, which is insufficiently validated against the content of the request.\r\n\r\n**Note:** This vulnerability has also been patched in Enterprise releases 1.15.16, 1.18.6, and 1.19.4.\n## Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser’s Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they’ve been correctly escaped in the application code and in this way the attempted attack is diverted.\n \nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware. \n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser.| \n|**DOM-based**|Client|The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n### How to prevent\nThis section describes the top best practices designed to specifically protect your code: \n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches. \n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents. \n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.\n\n## Remediation\nUpgrade `github.com/hashicorp/consul/api` to version 1.20.2 or higher.\n## References\n- [GitHub Commit](https://github.com/hashicorp/consul/commit/10af0cd0c94f3f6a84673ce49da8c1ea6a835472)\n- [GitHub PR](https://github.com/hashicorp/consul/pull/21930)\n- [GitHub Release](https://github.com/hashicorp/consul/releases/tag/v1.20.2)\n"
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS) via requests sent with a `Content-Type` text value, which is insufficiently validated against the content of the request.\r\n\r\n**Note:** This vulnerability has also been patched in Enterprise releases 1.15.16, 1.18.6, and 1.19.4.\n## Details\n\nCross-site scripting (or XSS) is a code vulnerability that occurs when an attacker “injects” a malicious script into an otherwise trusted website. The injected script gets downloaded and executed by the end user’s browser when the user interacts with the compromised website.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser’s Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they’ve been correctly escaped in the application code and in this way the attempted attack is diverted.\n \nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware. \n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser.| \n|**DOM-based**|Client|The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n### How to prevent\nThis section describes the top best practices designed to specifically protect your code: \n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches. \n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents. \n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.\n\n## Remediation\nUpgrade `github.com/hashicorp/consul/api` to version 1.20.2 or higher.\n## References\n- [GitHub Commit](https://github.com/hashicorp/consul/commit/10af0cd0c94f3f6a84673ce49da8c1ea6a835472)\n- [GitHub PR](https://github.com/hashicorp/consul/pull/21930)\n- [GitHub Release](https://github.com/hashicorp/consul/releases/tag/v1.20.2)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1150,6 +1153,31 @@
                 ],
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXCRYPTOSSH-14059803",
+              "shortDescription": {
+                "text": "Medium severity - Allocation of Resources Without Limits or Throttling vulnerability in golang.org/x/crypto/ssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-58181) golang.org/x/crypto/ssh@v0.0.0-20201221181555-eec23a3978ad"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[golang.org/x/crypto/ssh](https://pkg.go.dev/golang.org/x/crypto/ssh?tab=doc) is a SSH client and server\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the SSH servers. An attacker can exhaust system memory resources by sending GSSAPI authentication requests with an excessive number of mechanisms specified.\n## Remediation\nUpgrade `golang.org/x/crypto/ssh` to version 0.45.0 or higher.\n## References\n- [Fix Commit](https://go.googlesource.com/crypto/+/e79546e28b85ea53dd37afe1c4102746ef553b9c)\n- [GO-2025-4134](https://pkg.go.dev/vuln/GO-2025-4134)\n- [go.dev Issue](https://go.dev/issue/76363)\n- [Google Groups Forum](https://groups.google.com/g/golang-announce/c/w-oX3UxNcZA)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
               }
             },
             {
@@ -1237,7 +1265,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## Overview\n[golang.org/x/crypto/ssh](https://pkg.go.dev/golang.org/x/crypto/ssh?tab=doc) is a SSH client and server\n\nAffected versions of this package are vulnerable to Authentication Bypass by Capture-replay during the establishment of the secure channel. An attacker can manipulate handshake sequence numbers to delete messages sent immediately after the channel is established.\r\n\r\n**Note:**\r\n\r\n1) Sequence numbers are only validated once the channel is established and arbitrary messages are allowed during the handshake, allowing them to manipulate the sequence numbers.\r\n\r\n2) The potential consequences of the general Terrapin attack are dependent on the messages exchanged after the handshake concludes. If you are using a custom SSH service and do not resort to the authentication protocol, you should check that dropping the first few messages of a connection does not yield security risks.\r\n\r\n**Impact:** \r\n\r\nWhile cryptographically novel, there is no discernable impact on the integrity of SSH traffic beyond giving the attacker the ability to delete the message that enables some features related to keystroke timing obfuscation. To successfully carry out the exploitation, the connection needs to be protected using either the `ChaCha20-Poly1305` or `CBC` with `Encrypt-then-MAC` encryption methods. The attacker must also be able to intercept and modify the connection's traffic. \r\n\r\n## Workaround\r\n\r\nTemporarily disable the affected `chacha20-poly1305@openssh.com` encryption and `*-etm@openssh.com` MAC algorithms in the affected configuration, and use unaffected algorithms like `AES-GCM` instead.\n## Remediation\nUpgrade `golang.org/x/crypto/ssh` to version 0.17.0 or higher.\n## References\n- [Attack Information](https://terrapin-attack.com/)\n- [GitHub Commit](https://github.com/golang/crypto/commit/9d2ee975ef9fe627bf0a6f01c1f69e8ef1d4f05d)\n- [GitHub Commit](https://github.com/libssh2/libssh2/pull/1291/commits/ab44b0906d7f8a296e995ccd661b0e98d01a3742)\n- [GitHub Commit](https://github.com/mkj/dropbear/commit/6e43be5c7b99dbee49dc72b6f989f29fdd7e9356)\n- [GitHub Commit](https://github.com/mwiede/jsch/commit/6214da974286a8b94a95f4cf6cec96e972ffd370)\n- [GitHub Commit](https://github.com/openssh/openssh-portable/commit/1edb00c58f8a6875fad6a497aa2bacf37f9e6cd5)\n- [GitHub Commit](https://github.com/ronf/asyncssh/commit/0bc73254f41acb140187e0c89606311f88de5b7b)\n- [GitHub Commit](https://github.com/ronf/asyncssh/commit/69f5a41b458b29367a65fe469c2b0255b5db210a)\n- [GitHub Commit](https://github.com/sshtools/maverick-synergy/commit/3cd7fd156c0d1091e303824807be038b4eead2cd)\n- [GitHub Commit](https://github.com/sshtools/maverick-synergy/commit/aadec4c3a5051fd99ad4791c80eeac271d56c859)\n- [GitHub Commit](https://github.com/TeraTermProject/teraterm/commit/7279fbd6ef4d0c8bdd6a90af4ada2899d786eec0)\n- [GitHub Commit](https://github.com/warp-tech/russh/commit/a355c62d11352cf93c3f9fda7499e03753a938ae)\n- [GitHub Issue](https://github.com/paramiko/paramiko/issues/2337)\n- [GitHub Issue](https://go.dev/issue/64784)\n- [GitHub PR](https://github.com/jenkinsci/jenkins/pull/9089)\n- [Go Forum](https://go.dev/cl/550715)\n- [Google Groups Forum](https://groups.google.com/g/golang-announce/c/qA3XtxvMUyg)\n- [Jenkins Advisory](https://www.jenkins.io/security/advisory/2024-04-17/#SECURITY-3386)\n- [Security Release](https://www.openssh.com/txt/release-9.6)\n- [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates/blob/main/javascript/cves/2023/CVE-2023-48795.yaml)\n"
+                "markdown": "## Overview\n[golang.org/x/crypto/ssh](https://pkg.go.dev/golang.org/x/crypto/ssh?tab=doc) is a SSH client and server\n\nAffected versions of this package are vulnerable to Authentication Bypass by Capture-replay during the establishment of the secure channel. An attacker can manipulate handshake sequence numbers to delete messages sent immediately after the channel is established.\r\n\r\n**Note:**\r\n\r\n1) Sequence numbers are only validated once the channel is established and arbitrary messages are allowed during the handshake, allowing them to manipulate the sequence numbers.\r\n\r\n2) The potential consequences of the general Terrapin attack are dependent on the messages exchanged after the handshake concludes. If you are using a custom SSH service and do not resort to the authentication protocol, you should check that dropping the first few messages of a connection does not yield security risks.\r\n\r\n**Impact:** \r\n\r\nWhile cryptographically novel, there is no discernable impact on the integrity of SSH traffic beyond giving the attacker the ability to delete the message that enables some features related to keystroke timing obfuscation. To successfully carry out the exploitation, the connection needs to be protected using either the `ChaCha20-Poly1305` or `CBC` with `Encrypt-then-MAC` encryption methods. The attacker must also be able to intercept and modify the connection's traffic. \r\n\r\n## Workaround\r\n\r\nTemporarily disable the affected `chacha20-poly1305@openssh.com` encryption and `*-etm@openssh.com` MAC algorithms in the affected configuration, and use unaffected algorithms like `AES-GCM` instead.\n## Remediation\nUpgrade `golang.org/x/crypto/ssh` to version 0.17.0 or higher.\n## References\n- [Attack Information](https://terrapin-attack.com/)\n- [GitHub Commit](https://github.com/golang/crypto/commit/9d2ee975ef9fe627bf0a6f01c1f69e8ef1d4f05d)\n- [GitHub Commit](https://github.com/libssh2/libssh2/pull/1291/commits/ab44b0906d7f8a296e995ccd661b0e98d01a3742)\n- [GitHub Commit](https://github.com/mkj/dropbear/commit/6e43be5c7b99dbee49dc72b6f989f29fdd7e9356)\n- [GitHub Commit](https://github.com/mwiede/jsch/commit/6214da974286a8b94a95f4cf6cec96e972ffd370)\n- [GitHub Commit](https://github.com/openssh/openssh-portable/commit/1edb00c58f8a6875fad6a497aa2bacf37f9e6cd5)\n- [GitHub Commit](https://github.com/ronf/asyncssh/commit/0bc73254f41acb140187e0c89606311f88de5b7b)\n- [GitHub Commit](https://github.com/ronf/asyncssh/commit/69f5a41b458b29367a65fe469c2b0255b5db210a)\n- [GitHub Commit](https://github.com/sshtools/maverick-synergy/commit/3cd7fd156c0d1091e303824807be038b4eead2cd)\n- [GitHub Commit](https://github.com/sshtools/maverick-synergy/commit/aadec4c3a5051fd99ad4791c80eeac271d56c859)\n- [GitHub Commit](https://github.com/TeraTermProject/teraterm/commit/7279fbd6ef4d0c8bdd6a90af4ada2899d786eec0)\n- [GitHub Commit](https://github.com/warp-tech/russh/commit/a355c62d11352cf93c3f9fda7499e03753a938ae)\n- [GitHub Issue](https://github.com/paramiko/paramiko/issues/2337)\n- [GitHub Issue](https://go.dev/issue/64784)\n- [GitHub PR](https://github.com/jenkinsci/jenkins/pull/9089)\n- [Go Forum](https://go.dev/cl/550715)\n- [Google Groups Forum](https://groups.google.com/g/golang-announce/c/qA3XtxvMUyg)\n- [Jenkins Advisory](https://www.jenkins.io/security/advisory/2024-04-17/#SECURITY-3386)\n- [Security Release](https://www.openssh.com/txt/release-9.6)\n- [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates/blob/main/javascript/cves/2023/CVE-2023-48795.yaml)\n- [PoC in GitHub](https://github.com/TrixSec/CVE-2023-48795)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1300,6 +1328,56 @@
                 ],
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXCRYPTOSSHAGENT-12668891",
+              "shortDescription": {
+                "text": "High severity - Improper Handling of Unexpected Data Type vulnerability in golang.org/x/crypto/ssh/agent"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-47913) golang.org/x/crypto/ssh/agent@v0.0.0-20201221181555-eec23a3978ad"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Improper Handling of Unexpected Data Type when functions including `List()` and `SignWithFlags()` process `*successAgentMsg`. This can be triggered by a malicious agent sending a single `0x06` byte (`SSH_AGENT_SUCCESS`), which is unmarshalled into a `*successAgentMsg`, causing a panic and client crash.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `golang.org/x/crypto/ssh/agent` to version 0.43.0 or higher.\n## References\n- [GitHub Commit](https://github.com/golang/crypto/commit/559e062ce8bfd6a39925294620b50906ca2a6f95)\n- [GitHub Issue](https://github.com/golang/go/issues/75178)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-241",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 7.1,
+                "security-severity": "7.1"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOLANGORGXCRYPTOSSHAGENT-14059804",
+              "shortDescription": {
+                "text": "Medium severity - Out-of-bounds Read vulnerability in golang.org/x/crypto/ssh/agent"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-47914) golang.org/x/crypto/ssh/agent@v0.0.0-20201221181555-eec23a3978ad"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Out-of-bounds Read via the SSH Agent servers. An attacker can cause a panic and disrupt service availability by sending a specially crafted, malformed message that triggers an out-of-bounds read.\n## Remediation\nUpgrade `golang.org/x/crypto/ssh/agent` to version 0.45.0 or higher.\n## References\n- [GO-2025-4135](https://pkg.go.dev/vuln/GO-2025-4135)\n- [go.dev Commit](https://go.googlesource.com/crypto/+/f91f7a7c31bf90b39c1de895ad116a2bacc88748)\n- [go.dev Issue](https://go.dev/issue/76364)\n- [Google Groups Forum](https://groups.google.com/g/golang-announce/c/w-oX3UxNcZA)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-125",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
               }
             },
             {
@@ -1628,6 +1706,31 @@
               }
             },
             {
+              "id": "SNYK-GOLANG-GOPKGINSQUAREGOJOSEV2-6419232",
+              "shortDescription": {
+                "text": "Medium severity - Improper Handling of Highly Compressed Data (Data Amplification) vulnerability in gopkg.in/square/go-jose.v2"
+              },
+              "fullDescription": {
+                "text": "(CVE-2024-28180) gopkg.in/square/go-jose.v2@v2.3.1"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Improper Handling of Highly Compressed Data (Data Amplification). An attacker could send a JWE containing compressed data that, when decompressed by `Decrypt` or `DecryptMulti`, would use large amounts of memory and CPU.\n## Remediation\nThere is no fixed version for `gopkg.in/square/go-jose.v2`.\n\n## References\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/0dd4dd541c665fb292d664f77604ba694726f298)\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/add6a284ea0f844fd6628cba637be5451fe4b28a)\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/f4c051a0653d78199a053892f7619ebf96339502)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-409",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 4.3,
+                "security-severity": "4.3"
+              }
+            },
+            {
               "id": "SNYK-GOLANG-GOPKGINYAMLV3-2841557",
               "shortDescription": {
                 "text": "High severity - Denial of Service (DoS) vulnerability in gopkg.in/yaml.v3"
@@ -1850,6 +1953,30 @@
           ]
         },
         {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXCRYPTOSSH-14059803",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/crypto/ssh package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/crypto/ssh@v0.0.0-20201221181555-eec23a3978ad"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-GOLANG-GOLANGORGXCRYPTOSSH-2429769",
           "level": "warning",
           "message": {
@@ -1988,6 +2115,54 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "golang.org/x/crypto/ssh@v0.0.0-20201221181555-eec23a3978ad"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXCRYPTOSSHAGENT-12668891",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/crypto/ssh/agent package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/crypto/ssh/agent@v0.0.0-20201221181555-eec23a3978ad"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOLANGORGXCRYPTOSSHAGENT-14059804",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable golang.org/x/crypto/ssh/agent package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "golang.org/x/crypto/ssh/agent@v0.0.0-20201221181555-eec23a3978ad"
                 }
               ]
             }
@@ -2306,6 +2481,30 @@
           ]
         },
         {
+          "ruleId": "SNYK-GOLANG-GOPKGINSQUAREGOJOSEV2-6419232",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable gopkg.in/square/go-jose.v2 package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "gopkg.in/square/go-jose.v2@v2.3.1"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-GOLANG-GOPKGINYAMLV3-2841557",
           "level": "error",
           "message": {
@@ -2353,14 +2552,17 @@
             }
           ]
         }
-      ]
+      ],
+      "automationDetails": {
+        "id": "Snyk/Container/github.com/hairyhenderson/gomplate/v3/2025-11-22T17:16:48.183Z"
+      }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1299.1",
-          "version": "1.1299.1",
+          "semanticVersion": "1.1301.0",
+          "version": "1.1301.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 220
@@ -2790,6 +2992,31 @@
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
               }
+            },
+            {
+              "id": "SNYK-GOLANG-GOPKGINSQUAREGOJOSEV2-6419232",
+              "shortDescription": {
+                "text": "Medium severity - Improper Handling of Highly Compressed Data (Data Amplification) vulnerability in gopkg.in/square/go-jose.v2"
+              },
+              "fullDescription": {
+                "text": "(CVE-2024-28180) gopkg.in/square/go-jose.v2@v2.6.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Improper Handling of Highly Compressed Data (Data Amplification). An attacker could send a JWE containing compressed data that, when decompressed by `Decrypt` or `DecryptMulti`, would use large amounts of memory and CPU.\n## Remediation\nThere is no fixed version for `gopkg.in/square/go-jose.v2`.\n\n## References\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/0dd4dd541c665fb292d664f77604ba694726f298)\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/add6a284ea0f844fd6628cba637be5451fe4b28a)\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/f4c051a0653d78199a053892f7619ebf96339502)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-409",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 4.3,
+                "security-severity": "4.3"
+              }
             }
           ]
         }
@@ -3202,8 +3429,35 @@
               ]
             }
           ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOPKGINSQUAREGOJOSEV2-6419232",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable gopkg.in/square/go-jose.v2 package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/dex"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "gopkg.in/square/go-jose.v2@v2.6.0"
+                }
+              ]
+            }
+          ]
         }
-      ]
+      ],
+      "automationDetails": {
+        "id": "Snyk/Container/github.com/dexidp/dex/2025-11-22T17:16:48.183Z"
+      }
     }
   ]
 }

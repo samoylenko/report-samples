@@ -7284,6 +7284,35 @@
               }
             },
             {
+              "id": "CVE-2024-27008",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "kernel: drm: nv04: Fix out of bounds access"
+              },
+              "fullDescription": {
+                "text": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-27008",
+              "help": {
+                "text": "Vulnerability CVE-2024-27008\nSeverity: HIGH\nPackage: linux-libc-dev\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)\nIn the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE.",
+                "markdown": "**Vulnerability CVE-2024-27008**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|linux-libc-dev|4.19.316-1|[CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.8,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "7.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
               "id": "CVE-2024-27020",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -12474,6 +12503,8 @@
                 "markdown": "**Vulnerability CVE-2024-26999**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev||[CVE-2024-26999](https://avd.aquasec.com/nvd/cve-2024-26999)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\nserial/pmac_zilog: Remove flawed mitigation for rx irq flood\n\nThe mitigation was intended to stop the irq completely. That may be\nbetter than a hard lock-up but it turns out that you get a crash anyway\nif you're using pmac_zilog as a serial console:\n\nttyPZ0: pmz: rx irq flood !\nBUG: spinlock recursion on CPU#0, swapper/0\n\nThat's because the pr_err() call in pmz_receive_chars() results in\npmz_console_write() attempting to lock a spinlock already locked in\npmz_interrupt(). With CONFIG_DEBUG_SPINLOCK=y, this produces a fatal\nBUG splat. The spinlock in question is the one in struct uart_port.\n\nEven when it's not fatal, the serial port rx function ceases to work.\nAlso, the iteration limit doesn't play nicely with QEMU, as can be\nseen in the bug report linked below.\n\nA web search for other reports of the error message \"pmz: rx irq flood\"\ndidn't produce anything. So I don't think this code is needed any more.\nRemove it."
               },
               "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
                 "precision": "very-high",
                 "security-severity": "5.5",
                 "tags": [
@@ -12526,33 +12557,6 @@
               "help": {
                 "text": "Vulnerability CVE-2024-27001\nSeverity: MEDIUM\nPackage: linux-libc-dev\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27001](https://avd.aquasec.com/nvd/cve-2024-27001)\nIn the Linux kernel, the following vulnerability has been resolved:\n\ncomedi: vmk80xx: fix incomplete endpoint checking\n\nWhile vmk80xx does have endpoint checking implemented, some things\ncan fall through the cracks. Depending on the hardware model,\nURBs can have either bulk or interrupt type, and current version\nof vmk80xx_find_usb_endpoints() function does not take that fully\ninto account. While this warning does not seem to be too harmful,\nat the very least it will crash systems with 'panic_on_warn' set on\nthem.\n\nFix the issue found by Syzkaller [1] by somewhat simplifying the\nendpoint checking process with usb_find_common_endpoints() and\nensuring that only expected endpoint types are present.\n\nThis patch has not been tested on real hardware.\n\n[1] Syzkaller report:\nusb 1-1: BOGUS urb xfer, pipe 1 != type 3\nWARNING: CPU: 0 PID: 781 at drivers/usb/core/urb.c:504 usb_submit_urb+0xc4e/0x18c0 drivers/usb/core/urb.c:503\n...\nCall Trace:\n \u003cTASK\u003e\n usb_start_wait_urb+0x113/0x520 drivers/usb/core/message.c:59\n vmk80xx_reset_device drivers/comedi/drivers/vmk80xx.c:227 [inline]\n vmk80xx_auto_attach+0xa1c/0x1a40 drivers/comedi/drivers/vmk80xx.c:818\n comedi_auto_config+0x238/0x380 drivers/comedi/drivers.c:1067\n usb_probe_interface+0x5cd/0xb00 drivers/usb/core/driver.c:399\n...\n\nSimilar issue also found by Syzkaller:",
                 "markdown": "**Vulnerability CVE-2024-27001**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-27001](https://avd.aquasec.com/nvd/cve-2024-27001)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\ncomedi: vmk80xx: fix incomplete endpoint checking\n\nWhile vmk80xx does have endpoint checking implemented, some things\ncan fall through the cracks. Depending on the hardware model,\nURBs can have either bulk or interrupt type, and current version\nof vmk80xx_find_usb_endpoints() function does not take that fully\ninto account. While this warning does not seem to be too harmful,\nat the very least it will crash systems with 'panic_on_warn' set on\nthem.\n\nFix the issue found by Syzkaller [1] by somewhat simplifying the\nendpoint checking process with usb_find_common_endpoints() and\nensuring that only expected endpoint types are present.\n\nThis patch has not been tested on real hardware.\n\n[1] Syzkaller report:\nusb 1-1: BOGUS urb xfer, pipe 1 != type 3\nWARNING: CPU: 0 PID: 781 at drivers/usb/core/urb.c:504 usb_submit_urb+0xc4e/0x18c0 drivers/usb/core/urb.c:503\n...\nCall Trace:\n \u003cTASK\u003e\n usb_start_wait_urb+0x113/0x520 drivers/usb/core/message.c:59\n vmk80xx_reset_device drivers/comedi/drivers/vmk80xx.c:227 [inline]\n vmk80xx_auto_attach+0xa1c/0x1a40 drivers/comedi/drivers/vmk80xx.c:818\n comedi_auto_config+0x238/0x380 drivers/comedi/drivers.c:1067\n usb_probe_interface+0x5cd/0xb00 drivers/usb/core/driver.c:399\n...\n\nSimilar issue also found by Syzkaller:"
-              },
-              "properties": {
-                "precision": "very-high",
-                "security-severity": "5.5",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "MEDIUM"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2024-27008",
-              "name": "OsPackageVulnerability",
-              "shortDescription": {
-                "text": "kernel: drm: nv04: Fix out of bounds access"
-              },
-              "fullDescription": {
-                "text": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE."
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-27008",
-              "help": {
-                "text": "Vulnerability CVE-2024-27008\nSeverity: MEDIUM\nPackage: linux-libc-dev\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)\nIn the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE.",
-                "markdown": "**Vulnerability CVE-2024-27008**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\ndrm: nv04: Fix out of bounds access\n\nWhen Output Resource (dcb-\u003eor) value is assigned in\nfabricate_dcb_output(), there may be out of bounds access to\ndac_users array in case dcb-\u003eor is zero because ffs(dcb-\u003eor) is\nused as index there.\nThe 'or' argument of fabricate_dcb_output() must be interpreted as a\nnumber of bit to set, not value.\n\nUtilize macros from 'enum nouveau_or' in calls instead of hardcoding.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE."
               },
               "properties": {
                 "precision": "very-high",
@@ -14723,6 +14727,8 @@
                 "markdown": "**Vulnerability CVE-2024-38558**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-38558](https://avd.aquasec.com/nvd/cve-2024-38558)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\nnet: openvswitch: fix overwriting ct original tuple for ICMPv6\n\nOVS_PACKET_CMD_EXECUTE has 3 main attributes:\n - OVS_PACKET_ATTR_KEY - Packet metadata in a netlink format.\n - OVS_PACKET_ATTR_PACKET - Binary packet content.\n - OVS_PACKET_ATTR_ACTIONS - Actions to execute on the packet.\n\nOVS_PACKET_ATTR_KEY is parsed first to populate sw_flow_key structure\nwith the metadata like conntrack state, input port, recirculation id,\netc.  Then the packet itself gets parsed to populate the rest of the\nkeys from the packet headers.\n\nWhenever the packet parsing code starts parsing the ICMPv6 header, it\nfirst zeroes out fields in the key corresponding to Neighbor Discovery\ninformation even if it is not an ND packet.\n\nIt is an 'ipv6.nd' field.  However, the 'ipv6' is a union that shares\nthe space between 'nd' and 'ct_orig' that holds the original tuple\nconntrack metadata parsed from the OVS_PACKET_ATTR_KEY.\n\nND packets should not normally have conntrack state, so it's fine to\nshare the space, but normal ICMPv6 Echo packets or maybe other types of\nICMPv6 can have the state attached and it should not be overwritten.\n\nThe issue results in all but the last 4 bytes of the destination\naddress being wiped from the original conntrack tuple leading to\nincorrect packet matching and potentially executing wrong actions\nin case this packet recirculates within the datapath or goes back\nto userspace.\n\nND fields should not be accessed in non-ND packets, so not clearing\nthem should be fine.  Executing memset() only for actual ND packets to\navoid the issue.\n\nInitializing the whole thing before parsing is needed because ND packet\nmay not contain all the options.\n\nThe issue only affects the OVS_PACKET_CMD_EXECUTE path and doesn't\naffect packets entering OVS datapath from network interfaces, because\nin this case CT metadata is populated from skb after the packet is\nalready parsed."
               },
               "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
                 "precision": "very-high",
                 "security-severity": "5.5",
                 "tags": [
@@ -14777,6 +14783,8 @@
                 "markdown": "**Vulnerability CVE-2024-38565**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-38565](https://avd.aquasec.com/nvd/cve-2024-38565)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\nwifi: ar5523: enable proper endpoint verification\n\nSyzkaller reports [1] hitting a warning about an endpoint in use\nnot having an expected type to it.\n\nFix the issue by checking for the existence of all proper\nendpoints with their according types intact.\n\nSadly, this patch has not been tested on real hardware.\n\n[1] Syzkaller report:\n------------[ cut here ]------------\nusb 1-1: BOGUS urb xfer, pipe 3 != type 1\nWARNING: CPU: 0 PID: 3643 at drivers/usb/core/urb.c:504 usb_submit_urb+0xed6/0x1880 drivers/usb/core/urb.c:504\n...\nCall Trace:\n \u003cTASK\u003e\n ar5523_cmd+0x41b/0x780 drivers/net/wireless/ath/ar5523/ar5523.c:275\n ar5523_cmd_read drivers/net/wireless/ath/ar5523/ar5523.c:302 [inline]\n ar5523_host_available drivers/net/wireless/ath/ar5523/ar5523.c:1376 [inline]\n ar5523_probe+0x14b0/0x1d10 drivers/net/wireless/ath/ar5523/ar5523.c:1655\n usb_probe_interface+0x30f/0x7f0 drivers/usb/core/driver.c:396\n call_driver_probe drivers/base/dd.c:560 [inline]\n really_probe+0x249/0xb90 drivers/base/dd.c:639\n __driver_probe_device+0x1df/0x4d0 drivers/base/dd.c:778\n driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:808\n __device_attach_driver+0x1d4/0x2e0 drivers/base/dd.c:936\n bus_for_each_drv+0x163/0x1e0 drivers/base/bus.c:427\n __device_attach+0x1e4/0x530 drivers/base/dd.c:1008\n bus_probe_device+0x1e8/0x2a0 drivers/base/bus.c:487\n device_add+0xbd9/0x1e90 drivers/base/core.c:3517\n usb_set_configuration+0x101d/0x1900 drivers/usb/core/message.c:2170\n usb_generic_driver_probe+0xbe/0x100 drivers/usb/core/generic.c:238\n usb_probe_device+0xd8/0x2c0 drivers/usb/core/driver.c:293\n call_driver_probe drivers/base/dd.c:560 [inline]\n really_probe+0x249/0xb90 drivers/base/dd.c:639\n __driver_probe_device+0x1df/0x4d0 drivers/base/dd.c:778\n driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:808\n __device_attach_driver+0x1d4/0x2e0 drivers/base/dd.c:936\n bus_for_each_drv+0x163/0x1e0 drivers/base/bus.c:427\n __device_attach+0x1e4/0x530 drivers/base/dd.c:1008\n bus_probe_device+0x1e8/0x2a0 drivers/base/bus.c:487\n device_add+0xbd9/0x1e90 drivers/base/core.c:3517\n usb_new_device.cold+0x685/0x10ad drivers/usb/core/hub.c:2573\n hub_port_connect drivers/usb/core/hub.c:5353 [inline]\n hub_port_connect_change drivers/usb/core/hub.c:5497 [inline]\n port_event drivers/usb/core/hub.c:5653 [inline]\n hub_event+0x26cb/0x45d0 drivers/usb/core/hub.c:5735\n process_one_work+0x9bf/0x1710 kernel/workqueue.c:2289\n worker_thread+0x669/0x1090 kernel/workqueue.c:2436\n kthread+0x2e8/0x3a0 kernel/kthread.c:376\n ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:306\n \u003c/TASK\u003e"
               },
               "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
                 "precision": "very-high",
                 "security-severity": "5.5",
                 "tags": [
@@ -14804,6 +14812,8 @@
                 "markdown": "**Vulnerability CVE-2024-38567**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-38567](https://avd.aquasec.com/nvd/cve-2024-38567)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\nwifi: carl9170: add a proper sanity check for endpoints\n\nSyzkaller reports [1] hitting a warning which is caused by presence\nof a wrong endpoint type at the URB sumbitting stage. While there\nwas a check for a specific 4th endpoint, since it can switch types\nbetween bulk and interrupt, other endpoints are trusted implicitly.\nSimilar warning is triggered in a couple of other syzbot issues [2].\n\nFix the issue by doing a comprehensive check of all endpoints\ntaking into account difference between high- and full-speed\nconfiguration.\n\n[1] Syzkaller report:\n...\nWARNING: CPU: 0 PID: 4721 at drivers/usb/core/urb.c:504 usb_submit_urb+0xed6/0x1880 drivers/usb/core/urb.c:504\n...\nCall Trace:\n \u003cTASK\u003e\n carl9170_usb_send_rx_irq_urb+0x273/0x340 drivers/net/wireless/ath/carl9170/usb.c:504\n carl9170_usb_init_device drivers/net/wireless/ath/carl9170/usb.c:939 [inline]\n carl9170_usb_firmware_finish drivers/net/wireless/ath/carl9170/usb.c:999 [inline]\n carl9170_usb_firmware_step2+0x175/0x240 drivers/net/wireless/ath/carl9170/usb.c:1028\n request_firmware_work_func+0x130/0x240 drivers/base/firmware_loader/main.c:1107\n process_one_work+0x9bf/0x1710 kernel/workqueue.c:2289\n worker_thread+0x669/0x1090 kernel/workqueue.c:2436\n kthread+0x2e8/0x3a0 kernel/kthread.c:376\n ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:308\n \u003c/TASK\u003e\n\n[2] Related syzkaller crashes:"
               },
               "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
                 "precision": "very-high",
                 "security-severity": "5.5",
                 "tags": [
@@ -14831,6 +14841,8 @@
                 "markdown": "**Vulnerability CVE-2024-38579**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|linux-libc-dev|4.19.316-1|[CVE-2024-38579](https://avd.aquasec.com/nvd/cve-2024-38579)|\n\nIn the Linux kernel, the following vulnerability has been resolved:\n\ncrypto: bcm - Fix pointer arithmetic\n\nIn spu2_dump_omd() value of ptr is increased by ciph_key_len\ninstead of hash_iv_len which could lead to going beyond the\nbuffer boundaries.\nFix this bug by changing ciph_key_len to hash_iv_len.\n\nFound by Linux Verification Center (linuxtesting.org) with SVACE."
               },
               "properties": {
+                "cvssv3_baseScore": 5.5,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
                 "precision": "very-high",
                 "security-severity": "5.5",
                 "tags": [
@@ -16010,7 +16022,7 @@
               }
             }
           ],
-          "version": "0.67.0"
+          "version": "0.67.2"
         }
       },
       "results": [
@@ -32620,8 +32632,35 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-27020",
+          "ruleId": "CVE-2024-27008",
           "ruleIndex": 250,
+          "level": "error",
+          "message": {
+            "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27008\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "samoylenko/vulnerable",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "samoylenko/vulnerable: linux-libc-dev@4.19.289-2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-27020",
+          "ruleIndex": 251,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27020\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27020](https://avd.aquasec.com/nvd/cve-2024-27020)"
@@ -32648,7 +32687,7 @@
         },
         {
           "ruleId": "CVE-2024-27024",
-          "ruleIndex": 251,
+          "ruleIndex": 252,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27024\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27024](https://avd.aquasec.com/nvd/cve-2024-27024)"
@@ -32675,7 +32714,7 @@
         },
         {
           "ruleId": "CVE-2024-27043",
-          "ruleIndex": 252,
+          "ruleIndex": 253,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27043\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27043](https://avd.aquasec.com/nvd/cve-2024-27043)"
@@ -32702,7 +32741,7 @@
         },
         {
           "ruleId": "CVE-2024-27395",
-          "ruleIndex": 253,
+          "ruleIndex": 254,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27395\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27395](https://avd.aquasec.com/nvd/cve-2024-27395)"
@@ -32729,7 +32768,7 @@
         },
         {
           "ruleId": "CVE-2024-27396",
-          "ruleIndex": 254,
+          "ruleIndex": 255,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27396\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27396](https://avd.aquasec.com/nvd/cve-2024-27396)"
@@ -32756,7 +32795,7 @@
         },
         {
           "ruleId": "CVE-2024-35847",
-          "ruleIndex": 255,
+          "ruleIndex": 256,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-35847\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-35847](https://avd.aquasec.com/nvd/cve-2024-35847)"
@@ -32783,7 +32822,7 @@
         },
         {
           "ruleId": "CVE-2024-35849",
-          "ruleIndex": 256,
+          "ruleIndex": 257,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-35849\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-35849](https://avd.aquasec.com/nvd/cve-2024-35849)"
@@ -32810,7 +32849,7 @@
         },
         {
           "ruleId": "CVE-2024-36015",
-          "ruleIndex": 257,
+          "ruleIndex": 258,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36015\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36015](https://avd.aquasec.com/nvd/cve-2024-36015)"
@@ -32837,7 +32876,7 @@
         },
         {
           "ruleId": "CVE-2024-36883",
-          "ruleIndex": 258,
+          "ruleIndex": 259,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36883\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36883](https://avd.aquasec.com/nvd/cve-2024-36883)"
@@ -32864,7 +32903,7 @@
         },
         {
           "ruleId": "CVE-2024-36886",
-          "ruleIndex": 259,
+          "ruleIndex": 260,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36886\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36886](https://avd.aquasec.com/nvd/cve-2024-36886)"
@@ -32891,7 +32930,7 @@
         },
         {
           "ruleId": "CVE-2024-36904",
-          "ruleIndex": 260,
+          "ruleIndex": 261,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36904\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36904](https://avd.aquasec.com/nvd/cve-2024-36904)"
@@ -32918,7 +32957,7 @@
         },
         {
           "ruleId": "CVE-2024-36940",
-          "ruleIndex": 261,
+          "ruleIndex": 262,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36940\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36940](https://avd.aquasec.com/nvd/cve-2024-36940)"
@@ -32945,7 +32984,7 @@
         },
         {
           "ruleId": "CVE-2024-36946",
-          "ruleIndex": 262,
+          "ruleIndex": 263,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36946\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36946](https://avd.aquasec.com/nvd/cve-2024-36946)"
@@ -32972,7 +33011,7 @@
         },
         {
           "ruleId": "CVE-2024-36960",
-          "ruleIndex": 263,
+          "ruleIndex": 264,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36960\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36960](https://avd.aquasec.com/nvd/cve-2024-36960)"
@@ -32999,7 +33038,7 @@
         },
         {
           "ruleId": "CVE-2024-36971",
-          "ruleIndex": 264,
+          "ruleIndex": 265,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-36971\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-36971](https://avd.aquasec.com/nvd/cve-2024-36971)"
@@ -33026,7 +33065,7 @@
         },
         {
           "ruleId": "CVE-2024-38381",
-          "ruleIndex": 265,
+          "ruleIndex": 266,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38381\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38381](https://avd.aquasec.com/nvd/cve-2024-38381)"
@@ -33053,7 +33092,7 @@
         },
         {
           "ruleId": "CVE-2024-38552",
-          "ruleIndex": 266,
+          "ruleIndex": 267,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38552\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38552](https://avd.aquasec.com/nvd/cve-2024-38552)"
@@ -33080,7 +33119,7 @@
         },
         {
           "ruleId": "CVE-2024-38560",
-          "ruleIndex": 267,
+          "ruleIndex": 268,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38560\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38560](https://avd.aquasec.com/nvd/cve-2024-38560)"
@@ -33107,7 +33146,7 @@
         },
         {
           "ruleId": "CVE-2024-38578",
-          "ruleIndex": 268,
+          "ruleIndex": 269,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38578\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38578](https://avd.aquasec.com/nvd/cve-2024-38578)"
@@ -33134,7 +33173,7 @@
         },
         {
           "ruleId": "CVE-2024-38583",
-          "ruleIndex": 269,
+          "ruleIndex": 270,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38583\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38583](https://avd.aquasec.com/nvd/cve-2024-38583)"
@@ -33161,7 +33200,7 @@
         },
         {
           "ruleId": "CVE-2024-38599",
-          "ruleIndex": 270,
+          "ruleIndex": 271,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38599\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38599](https://avd.aquasec.com/nvd/cve-2024-38599)"
@@ -33188,7 +33227,7 @@
         },
         {
           "ruleId": "CVE-2024-38621",
-          "ruleIndex": 271,
+          "ruleIndex": 272,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38621\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38621](https://avd.aquasec.com/nvd/cve-2024-38621)"
@@ -33215,7 +33254,7 @@
         },
         {
           "ruleId": "CVE-2024-38627",
-          "ruleIndex": 272,
+          "ruleIndex": 273,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38627\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38627](https://avd.aquasec.com/nvd/cve-2024-38627)"
@@ -33242,7 +33281,7 @@
         },
         {
           "ruleId": "CVE-2024-38659",
-          "ruleIndex": 273,
+          "ruleIndex": 274,
           "level": "error",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-38659\nSeverity: HIGH\nFixed Version: 4.19.316-1\nLink: [CVE-2024-38659](https://avd.aquasec.com/nvd/cve-2024-38659)"
@@ -33269,7 +33308,7 @@
         },
         {
           "ruleId": "CVE-2019-16089",
-          "ruleIndex": 274,
+          "ruleIndex": 275,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2019-16089\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2019-16089](https://avd.aquasec.com/nvd/cve-2019-16089)"
@@ -33296,7 +33335,7 @@
         },
         {
           "ruleId": "CVE-2019-20794",
-          "ruleIndex": 275,
+          "ruleIndex": 276,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2019-20794\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2019-20794](https://avd.aquasec.com/nvd/cve-2019-20794)"
@@ -33323,7 +33362,7 @@
         },
         {
           "ruleId": "CVE-2020-12363",
-          "ruleIndex": 276,
+          "ruleIndex": 277,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2020-12363\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2020-12363](https://avd.aquasec.com/nvd/cve-2020-12363)"
@@ -33350,7 +33389,7 @@
         },
         {
           "ruleId": "CVE-2020-12364",
-          "ruleIndex": 277,
+          "ruleIndex": 278,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2020-12364\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2020-12364](https://avd.aquasec.com/nvd/cve-2020-12364)"
@@ -33377,7 +33416,7 @@
         },
         {
           "ruleId": "CVE-2020-14304",
-          "ruleIndex": 278,
+          "ruleIndex": 279,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2020-14304\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2020-14304](https://avd.aquasec.com/nvd/cve-2020-14304)"
@@ -33404,7 +33443,7 @@
         },
         {
           "ruleId": "CVE-2021-33630",
-          "ruleIndex": 279,
+          "ruleIndex": 280,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2021-33630\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2021-33630](https://avd.aquasec.com/nvd/cve-2021-33630)"
@@ -33431,7 +33470,7 @@
         },
         {
           "ruleId": "CVE-2021-44879",
-          "ruleIndex": 280,
+          "ruleIndex": 281,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2021-44879\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2021-44879](https://avd.aquasec.com/nvd/cve-2021-44879)"
@@ -33458,7 +33497,7 @@
         },
         {
           "ruleId": "CVE-2022-0480",
-          "ruleIndex": 281,
+          "ruleIndex": 282,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2022-0480\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2022-0480](https://avd.aquasec.com/nvd/cve-2022-0480)"
@@ -33485,7 +33524,7 @@
         },
         {
           "ruleId": "CVE-2022-21499",
-          "ruleIndex": 282,
+          "ruleIndex": 283,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2022-21499\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2022-21499](https://avd.aquasec.com/nvd/cve-2022-21499)"
@@ -33512,7 +33551,7 @@
         },
         {
           "ruleId": "CVE-2022-29900",
-          "ruleIndex": 283,
+          "ruleIndex": 284,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2022-29900\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2022-29900](https://avd.aquasec.com/nvd/cve-2022-29900)"
@@ -33539,7 +33578,7 @@
         },
         {
           "ruleId": "CVE-2022-48627",
-          "ruleIndex": 284,
+          "ruleIndex": 285,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2022-48627\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2022-48627](https://avd.aquasec.com/nvd/cve-2022-48627)"
@@ -33566,7 +33605,7 @@
         },
         {
           "ruleId": "CVE-2023-0590",
-          "ruleIndex": 285,
+          "ruleIndex": 286,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-0590\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-0590](https://avd.aquasec.com/nvd/cve-2023-0590)"
@@ -33593,7 +33632,7 @@
         },
         {
           "ruleId": "CVE-2023-1206",
-          "ruleIndex": 286,
+          "ruleIndex": 287,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-1206\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-1206](https://avd.aquasec.com/nvd/cve-2023-1206)"
@@ -33620,7 +33659,7 @@
         },
         {
           "ruleId": "CVE-2023-20569",
-          "ruleIndex": 287,
+          "ruleIndex": 288,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-20569\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-20569](https://avd.aquasec.com/nvd/cve-2023-20569)"
@@ -33647,7 +33686,7 @@
         },
         {
           "ruleId": "CVE-2023-3006",
-          "ruleIndex": 288,
+          "ruleIndex": 289,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-3006\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-3006](https://avd.aquasec.com/nvd/cve-2023-3006)"
@@ -33674,7 +33713,7 @@
         },
         {
           "ruleId": "CVE-2023-3212",
-          "ruleIndex": 289,
+          "ruleIndex": 290,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-3212\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-3212](https://avd.aquasec.com/nvd/cve-2023-3212)"
@@ -33701,7 +33740,7 @@
         },
         {
           "ruleId": "CVE-2023-34324",
-          "ruleIndex": 290,
+          "ruleIndex": 291,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-34324\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-34324](https://avd.aquasec.com/nvd/cve-2023-34324)"
@@ -33728,7 +33767,7 @@
         },
         {
           "ruleId": "CVE-2023-3772",
-          "ruleIndex": 291,
+          "ruleIndex": 292,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-3772\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-3772](https://avd.aquasec.com/nvd/cve-2023-3772)"
@@ -33755,7 +33794,7 @@
         },
         {
           "ruleId": "CVE-2023-39189",
-          "ruleIndex": 292,
+          "ruleIndex": 293,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-39189\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-39189](https://avd.aquasec.com/nvd/cve-2023-39189)"
@@ -33782,7 +33821,7 @@
         },
         {
           "ruleId": "CVE-2023-39192",
-          "ruleIndex": 293,
+          "ruleIndex": 294,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-39192\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-39192](https://avd.aquasec.com/nvd/cve-2023-39192)"
@@ -33809,7 +33848,7 @@
         },
         {
           "ruleId": "CVE-2023-39193",
-          "ruleIndex": 294,
+          "ruleIndex": 295,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-39193\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-39193](https://avd.aquasec.com/nvd/cve-2023-39193)"
@@ -33836,7 +33875,7 @@
         },
         {
           "ruleId": "CVE-2023-39194",
-          "ruleIndex": 295,
+          "ruleIndex": 296,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-39194\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-39194](https://avd.aquasec.com/nvd/cve-2023-39194)"
@@ -33863,7 +33902,7 @@
         },
         {
           "ruleId": "CVE-2023-42754",
-          "ruleIndex": 296,
+          "ruleIndex": 297,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-42754\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-42754](https://avd.aquasec.com/nvd/cve-2023-42754)"
@@ -33890,7 +33929,7 @@
         },
         {
           "ruleId": "CVE-2023-42755",
-          "ruleIndex": 297,
+          "ruleIndex": 298,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-42755\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-42755](https://avd.aquasec.com/nvd/cve-2023-42755)"
@@ -33917,7 +33956,7 @@
         },
         {
           "ruleId": "CVE-2023-45863",
-          "ruleIndex": 298,
+          "ruleIndex": 299,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-45863\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-45863](https://avd.aquasec.com/nvd/cve-2023-45863)"
@@ -33944,7 +33983,7 @@
         },
         {
           "ruleId": "CVE-2023-46343",
-          "ruleIndex": 299,
+          "ruleIndex": 300,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-46343\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-46343](https://avd.aquasec.com/nvd/cve-2023-46343)"
@@ -33971,7 +34010,7 @@
         },
         {
           "ruleId": "CVE-2023-47233",
-          "ruleIndex": 300,
+          "ruleIndex": 301,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-47233\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-47233](https://avd.aquasec.com/nvd/cve-2023-47233)"
@@ -33998,7 +34037,7 @@
         },
         {
           "ruleId": "CVE-2023-52429",
-          "ruleIndex": 301,
+          "ruleIndex": 302,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52429\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52429](https://avd.aquasec.com/nvd/cve-2023-52429)"
@@ -34025,7 +34064,7 @@
         },
         {
           "ruleId": "CVE-2023-52443",
-          "ruleIndex": 302,
+          "ruleIndex": 303,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52443\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52443](https://avd.aquasec.com/nvd/cve-2023-52443)"
@@ -34052,7 +34091,7 @@
         },
         {
           "ruleId": "CVE-2023-52449",
-          "ruleIndex": 303,
+          "ruleIndex": 304,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52449\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52449](https://avd.aquasec.com/nvd/cve-2023-52449)"
@@ -34079,7 +34118,7 @@
         },
         {
           "ruleId": "CVE-2023-52470",
-          "ruleIndex": 304,
+          "ruleIndex": 305,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52470\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52470](https://avd.aquasec.com/nvd/cve-2023-52470)"
@@ -34106,7 +34145,7 @@
         },
         {
           "ruleId": "CVE-2023-52477",
-          "ruleIndex": 305,
+          "ruleIndex": 306,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52477\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52477](https://avd.aquasec.com/nvd/cve-2023-52477)"
@@ -34133,7 +34172,7 @@
         },
         {
           "ruleId": "CVE-2023-52478",
-          "ruleIndex": 306,
+          "ruleIndex": 307,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52478\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52478](https://avd.aquasec.com/nvd/cve-2023-52478)"
@@ -34160,7 +34199,7 @@
         },
         {
           "ruleId": "CVE-2023-52486",
-          "ruleIndex": 307,
+          "ruleIndex": 308,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52486\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52486](https://avd.aquasec.com/nvd/cve-2023-52486)"
@@ -34187,7 +34226,7 @@
         },
         {
           "ruleId": "CVE-2023-52527",
-          "ruleIndex": 308,
+          "ruleIndex": 309,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52527\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52527](https://avd.aquasec.com/nvd/cve-2023-52527)"
@@ -34214,7 +34253,7 @@
         },
         {
           "ruleId": "CVE-2023-52528",
-          "ruleIndex": 309,
+          "ruleIndex": 310,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52528\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52528](https://avd.aquasec.com/nvd/cve-2023-52528)"
@@ -34241,7 +34280,7 @@
         },
         {
           "ruleId": "CVE-2023-52566",
-          "ruleIndex": 310,
+          "ruleIndex": 311,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52566\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52566](https://avd.aquasec.com/nvd/cve-2023-52566)"
@@ -34268,7 +34307,7 @@
         },
         {
           "ruleId": "CVE-2023-52567",
-          "ruleIndex": 311,
+          "ruleIndex": 312,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52567\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52567](https://avd.aquasec.com/nvd/cve-2023-52567)"
@@ -34295,7 +34334,7 @@
         },
         {
           "ruleId": "CVE-2023-52574",
-          "ruleIndex": 312,
+          "ruleIndex": 313,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52574\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52574](https://avd.aquasec.com/nvd/cve-2023-52574)"
@@ -34322,7 +34361,7 @@
         },
         {
           "ruleId": "CVE-2023-52577",
-          "ruleIndex": 313,
+          "ruleIndex": 314,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52577\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52577](https://avd.aquasec.com/nvd/cve-2023-52577)"
@@ -34349,7 +34388,7 @@
         },
         {
           "ruleId": "CVE-2023-52583",
-          "ruleIndex": 314,
+          "ruleIndex": 315,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52583\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52583](https://avd.aquasec.com/nvd/cve-2023-52583)"
@@ -34376,7 +34415,7 @@
         },
         {
           "ruleId": "CVE-2023-52587",
-          "ruleIndex": 315,
+          "ruleIndex": 316,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52587\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52587](https://avd.aquasec.com/nvd/cve-2023-52587)"
@@ -34403,7 +34442,7 @@
         },
         {
           "ruleId": "CVE-2023-52597",
-          "ruleIndex": 316,
+          "ruleIndex": 317,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52597\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-52597](https://avd.aquasec.com/nvd/cve-2023-52597)"
@@ -34430,7 +34469,7 @@
         },
         {
           "ruleId": "CVE-2023-52601",
-          "ruleIndex": 317,
+          "ruleIndex": 318,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52601\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52601](https://avd.aquasec.com/nvd/cve-2023-52601)"
@@ -34457,7 +34496,7 @@
         },
         {
           "ruleId": "CVE-2023-52602",
-          "ruleIndex": 318,
+          "ruleIndex": 319,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52602\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52602](https://avd.aquasec.com/nvd/cve-2023-52602)"
@@ -34484,7 +34523,7 @@
         },
         {
           "ruleId": "CVE-2023-52606",
-          "ruleIndex": 319,
+          "ruleIndex": 320,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52606\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-52606](https://avd.aquasec.com/nvd/cve-2023-52606)"
@@ -34511,7 +34550,7 @@
         },
         {
           "ruleId": "CVE-2023-52607",
-          "ruleIndex": 320,
+          "ruleIndex": 321,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52607\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-52607](https://avd.aquasec.com/nvd/cve-2023-52607)"
@@ -34538,7 +34577,7 @@
         },
         {
           "ruleId": "CVE-2023-52609",
-          "ruleIndex": 321,
+          "ruleIndex": 322,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52609\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52609](https://avd.aquasec.com/nvd/cve-2023-52609)"
@@ -34565,7 +34604,7 @@
         },
         {
           "ruleId": "CVE-2023-52615",
-          "ruleIndex": 322,
+          "ruleIndex": 323,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52615\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52615](https://avd.aquasec.com/nvd/cve-2023-52615)"
@@ -34592,7 +34631,7 @@
         },
         {
           "ruleId": "CVE-2023-52619",
-          "ruleIndex": 323,
+          "ruleIndex": 324,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52619\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52619](https://avd.aquasec.com/nvd/cve-2023-52619)"
@@ -34619,7 +34658,7 @@
         },
         {
           "ruleId": "CVE-2023-52622",
-          "ruleIndex": 324,
+          "ruleIndex": 325,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52622\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52622](https://avd.aquasec.com/nvd/cve-2023-52622)"
@@ -34646,7 +34685,7 @@
         },
         {
           "ruleId": "CVE-2023-52623",
-          "ruleIndex": 325,
+          "ruleIndex": 326,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52623\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52623](https://avd.aquasec.com/nvd/cve-2023-52623)"
@@ -34673,7 +34712,7 @@
         },
         {
           "ruleId": "CVE-2023-52644",
-          "ruleIndex": 326,
+          "ruleIndex": 327,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52644\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52644](https://avd.aquasec.com/nvd/cve-2023-52644)"
@@ -34700,7 +34739,7 @@
         },
         {
           "ruleId": "CVE-2023-52650",
-          "ruleIndex": 327,
+          "ruleIndex": 328,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52650\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52650](https://avd.aquasec.com/nvd/cve-2023-52650)"
@@ -34727,7 +34766,7 @@
         },
         {
           "ruleId": "CVE-2023-52670",
-          "ruleIndex": 328,
+          "ruleIndex": 329,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52670\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52670](https://avd.aquasec.com/nvd/cve-2023-52670)"
@@ -34754,7 +34793,7 @@
         },
         {
           "ruleId": "CVE-2023-52675",
-          "ruleIndex": 329,
+          "ruleIndex": 330,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52675\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-52675](https://avd.aquasec.com/nvd/cve-2023-52675)"
@@ -34781,7 +34820,7 @@
         },
         {
           "ruleId": "CVE-2023-52683",
-          "ruleIndex": 330,
+          "ruleIndex": 331,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52683\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52683](https://avd.aquasec.com/nvd/cve-2023-52683)"
@@ -34808,7 +34847,7 @@
         },
         {
           "ruleId": "CVE-2023-52686",
-          "ruleIndex": 331,
+          "ruleIndex": 332,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52686\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-52686](https://avd.aquasec.com/nvd/cve-2023-52686)"
@@ -34835,7 +34874,7 @@
         },
         {
           "ruleId": "CVE-2023-52693",
-          "ruleIndex": 332,
+          "ruleIndex": 333,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52693\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52693](https://avd.aquasec.com/nvd/cve-2023-52693)"
@@ -34862,7 +34901,7 @@
         },
         {
           "ruleId": "CVE-2023-52698",
-          "ruleIndex": 333,
+          "ruleIndex": 334,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52698\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52698](https://avd.aquasec.com/nvd/cve-2023-52698)"
@@ -34889,7 +34928,7 @@
         },
         {
           "ruleId": "CVE-2023-52699",
-          "ruleIndex": 334,
+          "ruleIndex": 335,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52699\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52699](https://avd.aquasec.com/nvd/cve-2023-52699)"
@@ -34916,7 +34955,7 @@
         },
         {
           "ruleId": "CVE-2023-52753",
-          "ruleIndex": 335,
+          "ruleIndex": 336,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52753\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52753](https://avd.aquasec.com/nvd/cve-2023-52753)"
@@ -34943,7 +34982,7 @@
         },
         {
           "ruleId": "CVE-2023-52774",
-          "ruleIndex": 336,
+          "ruleIndex": 337,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52774\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52774](https://avd.aquasec.com/nvd/cve-2023-52774)"
@@ -34970,7 +35009,7 @@
         },
         {
           "ruleId": "CVE-2023-52789",
-          "ruleIndex": 337,
+          "ruleIndex": 338,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52789\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52789](https://avd.aquasec.com/nvd/cve-2023-52789)"
@@ -34997,7 +35036,7 @@
         },
         {
           "ruleId": "CVE-2023-52806",
-          "ruleIndex": 338,
+          "ruleIndex": 339,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52806\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52806](https://avd.aquasec.com/nvd/cve-2023-52806)"
@@ -35024,7 +35063,7 @@
         },
         {
           "ruleId": "CVE-2023-52809",
-          "ruleIndex": 339,
+          "ruleIndex": 340,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52809\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52809](https://avd.aquasec.com/nvd/cve-2023-52809)"
@@ -35051,7 +35090,7 @@
         },
         {
           "ruleId": "CVE-2023-52810",
-          "ruleIndex": 340,
+          "ruleIndex": 341,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52810\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52810](https://avd.aquasec.com/nvd/cve-2023-52810)"
@@ -35078,7 +35117,7 @@
         },
         {
           "ruleId": "CVE-2023-52813",
-          "ruleIndex": 341,
+          "ruleIndex": 342,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52813\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52813](https://avd.aquasec.com/nvd/cve-2023-52813)"
@@ -35105,7 +35144,7 @@
         },
         {
           "ruleId": "CVE-2023-52817",
-          "ruleIndex": 342,
+          "ruleIndex": 343,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52817\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52817](https://avd.aquasec.com/nvd/cve-2023-52817)"
@@ -35132,7 +35171,7 @@
         },
         {
           "ruleId": "CVE-2023-52819",
-          "ruleIndex": 343,
+          "ruleIndex": 344,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52819\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52819](https://avd.aquasec.com/nvd/cve-2023-52819)"
@@ -35159,7 +35198,7 @@
         },
         {
           "ruleId": "CVE-2023-52832",
-          "ruleIndex": 344,
+          "ruleIndex": 345,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52832\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52832](https://avd.aquasec.com/nvd/cve-2023-52832)"
@@ -35186,7 +35225,7 @@
         },
         {
           "ruleId": "CVE-2023-52838",
-          "ruleIndex": 345,
+          "ruleIndex": 346,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52838\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52838](https://avd.aquasec.com/nvd/cve-2023-52838)"
@@ -35213,7 +35252,7 @@
         },
         {
           "ruleId": "CVE-2023-52843",
-          "ruleIndex": 346,
+          "ruleIndex": 347,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52843\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52843](https://avd.aquasec.com/nvd/cve-2023-52843)"
@@ -35240,7 +35279,7 @@
         },
         {
           "ruleId": "CVE-2023-52845",
-          "ruleIndex": 347,
+          "ruleIndex": 348,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52845\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52845](https://avd.aquasec.com/nvd/cve-2023-52845)"
@@ -35267,7 +35306,7 @@
         },
         {
           "ruleId": "CVE-2023-52847",
-          "ruleIndex": 348,
+          "ruleIndex": 349,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52847\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52847](https://avd.aquasec.com/nvd/cve-2023-52847)"
@@ -35294,7 +35333,7 @@
         },
         {
           "ruleId": "CVE-2023-52853",
-          "ruleIndex": 349,
+          "ruleIndex": 350,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52853\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52853](https://avd.aquasec.com/nvd/cve-2023-52853)"
@@ -35321,7 +35360,7 @@
         },
         {
           "ruleId": "CVE-2023-52855",
-          "ruleIndex": 350,
+          "ruleIndex": 351,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52855\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52855](https://avd.aquasec.com/nvd/cve-2023-52855)"
@@ -35348,7 +35387,7 @@
         },
         {
           "ruleId": "CVE-2023-52865",
-          "ruleIndex": 351,
+          "ruleIndex": 352,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52865\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52865](https://avd.aquasec.com/nvd/cve-2023-52865)"
@@ -35375,7 +35414,7 @@
         },
         {
           "ruleId": "CVE-2023-52875",
-          "ruleIndex": 352,
+          "ruleIndex": 353,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52875\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52875](https://avd.aquasec.com/nvd/cve-2023-52875)"
@@ -35402,7 +35441,7 @@
         },
         {
           "ruleId": "CVE-2023-52880",
-          "ruleIndex": 353,
+          "ruleIndex": 354,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52880\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-52880](https://avd.aquasec.com/nvd/cve-2023-52880)"
@@ -35429,7 +35468,7 @@
         },
         {
           "ruleId": "CVE-2023-52881",
-          "ruleIndex": 354,
+          "ruleIndex": 355,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-52881\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2023-52881](https://avd.aquasec.com/nvd/cve-2023-52881)"
@@ -35456,7 +35495,7 @@
         },
         {
           "ruleId": "CVE-2023-7042",
-          "ruleIndex": 355,
+          "ruleIndex": 356,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2023-7042\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2023-7042](https://avd.aquasec.com/nvd/cve-2023-7042)"
@@ -35483,7 +35522,7 @@
         },
         {
           "ruleId": "CVE-2024-0340",
-          "ruleIndex": 356,
+          "ruleIndex": 357,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-0340\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-0340](https://avd.aquasec.com/nvd/cve-2024-0340)"
@@ -35510,7 +35549,7 @@
         },
         {
           "ruleId": "CVE-2024-0607",
-          "ruleIndex": 357,
+          "ruleIndex": 358,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-0607\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-0607](https://avd.aquasec.com/nvd/cve-2024-0607)"
@@ -35537,7 +35576,7 @@
         },
         {
           "ruleId": "CVE-2024-0639",
-          "ruleIndex": 358,
+          "ruleIndex": 359,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-0639\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2024-0639](https://avd.aquasec.com/nvd/cve-2024-0639)"
@@ -35564,7 +35603,7 @@
         },
         {
           "ruleId": "CVE-2024-22099",
-          "ruleIndex": 359,
+          "ruleIndex": 360,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-22099\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-22099](https://avd.aquasec.com/nvd/cve-2024-22099)"
@@ -35591,7 +35630,7 @@
         },
         {
           "ruleId": "CVE-2024-22386",
-          "ruleIndex": 360,
+          "ruleIndex": 361,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-22386\nSeverity: MEDIUM\nFixed Version: 4.19.304-1\nLink: [CVE-2024-22386](https://avd.aquasec.com/nvd/cve-2024-22386)"
@@ -35618,7 +35657,7 @@
         },
         {
           "ruleId": "CVE-2024-23848",
-          "ruleIndex": 361,
+          "ruleIndex": 362,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-23848\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-23848](https://avd.aquasec.com/nvd/cve-2024-23848)"
@@ -35645,7 +35684,7 @@
         },
         {
           "ruleId": "CVE-2024-23849",
-          "ruleIndex": 362,
+          "ruleIndex": 363,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-23849\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-23849](https://avd.aquasec.com/nvd/cve-2024-23849)"
@@ -35672,7 +35711,7 @@
         },
         {
           "ruleId": "CVE-2024-23851",
-          "ruleIndex": 363,
+          "ruleIndex": 364,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-23851\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-23851](https://avd.aquasec.com/nvd/cve-2024-23851)"
@@ -35699,7 +35738,7 @@
         },
         {
           "ruleId": "CVE-2024-24857",
-          "ruleIndex": 364,
+          "ruleIndex": 365,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-24857\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-24857](https://avd.aquasec.com/nvd/cve-2024-24857)"
@@ -35726,7 +35765,7 @@
         },
         {
           "ruleId": "CVE-2024-24858",
-          "ruleIndex": 365,
+          "ruleIndex": 366,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-24858\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-24858](https://avd.aquasec.com/nvd/cve-2024-24858)"
@@ -35753,7 +35792,7 @@
         },
         {
           "ruleId": "CVE-2024-24861",
-          "ruleIndex": 366,
+          "ruleIndex": 367,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-24861\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-24861](https://avd.aquasec.com/nvd/cve-2024-24861)"
@@ -35780,7 +35819,7 @@
         },
         {
           "ruleId": "CVE-2024-25739",
-          "ruleIndex": 367,
+          "ruleIndex": 368,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-25739\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-25739](https://avd.aquasec.com/nvd/cve-2024-25739)"
@@ -35807,7 +35846,7 @@
         },
         {
           "ruleId": "CVE-2024-26600",
-          "ruleIndex": 368,
+          "ruleIndex": 369,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26600\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26600](https://avd.aquasec.com/nvd/cve-2024-26600)"
@@ -35834,7 +35873,7 @@
         },
         {
           "ruleId": "CVE-2024-26602",
-          "ruleIndex": 369,
+          "ruleIndex": 370,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26602\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26602](https://avd.aquasec.com/nvd/cve-2024-26602)"
@@ -35861,7 +35900,7 @@
         },
         {
           "ruleId": "CVE-2024-26606",
-          "ruleIndex": 370,
+          "ruleIndex": 371,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26606\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26606](https://avd.aquasec.com/nvd/cve-2024-26606)"
@@ -35888,7 +35927,7 @@
         },
         {
           "ruleId": "CVE-2024-26615",
-          "ruleIndex": 371,
+          "ruleIndex": 372,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26615\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26615](https://avd.aquasec.com/nvd/cve-2024-26615)"
@@ -35915,7 +35954,7 @@
         },
         {
           "ruleId": "CVE-2024-26633",
-          "ruleIndex": 372,
+          "ruleIndex": 373,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26633\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26633](https://avd.aquasec.com/nvd/cve-2024-26633)"
@@ -35942,7 +35981,7 @@
         },
         {
           "ruleId": "CVE-2024-26635",
-          "ruleIndex": 373,
+          "ruleIndex": 374,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26635\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26635](https://avd.aquasec.com/nvd/cve-2024-26635)"
@@ -35969,7 +36008,7 @@
         },
         {
           "ruleId": "CVE-2024-26636",
-          "ruleIndex": 374,
+          "ruleIndex": 375,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26636\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26636](https://avd.aquasec.com/nvd/cve-2024-26636)"
@@ -35996,7 +36035,7 @@
         },
         {
           "ruleId": "CVE-2024-26642",
-          "ruleIndex": 375,
+          "ruleIndex": 376,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26642\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26642](https://avd.aquasec.com/nvd/cve-2024-26642)"
@@ -36023,7 +36062,7 @@
         },
         {
           "ruleId": "CVE-2024-26645",
-          "ruleIndex": 376,
+          "ruleIndex": 377,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26645\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26645](https://avd.aquasec.com/nvd/cve-2024-26645)"
@@ -36050,7 +36089,7 @@
         },
         {
           "ruleId": "CVE-2024-26651",
-          "ruleIndex": 377,
+          "ruleIndex": 378,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26651\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26651](https://avd.aquasec.com/nvd/cve-2024-26651)"
@@ -36077,7 +36116,7 @@
         },
         {
           "ruleId": "CVE-2024-26663",
-          "ruleIndex": 378,
+          "ruleIndex": 379,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26663\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26663](https://avd.aquasec.com/nvd/cve-2024-26663)"
@@ -36104,7 +36143,7 @@
         },
         {
           "ruleId": "CVE-2024-26671",
-          "ruleIndex": 379,
+          "ruleIndex": 380,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26671\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26671](https://avd.aquasec.com/nvd/cve-2024-26671)"
@@ -36131,7 +36170,7 @@
         },
         {
           "ruleId": "CVE-2024-26675",
-          "ruleIndex": 380,
+          "ruleIndex": 381,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26675\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26675](https://avd.aquasec.com/nvd/cve-2024-26675)"
@@ -36158,7 +36197,7 @@
         },
         {
           "ruleId": "CVE-2024-26679",
-          "ruleIndex": 381,
+          "ruleIndex": 382,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26679\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26679](https://avd.aquasec.com/nvd/cve-2024-26679)"
@@ -36185,7 +36224,7 @@
         },
         {
           "ruleId": "CVE-2024-26685",
-          "ruleIndex": 382,
+          "ruleIndex": 383,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26685\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26685](https://avd.aquasec.com/nvd/cve-2024-26685)"
@@ -36212,7 +36251,7 @@
         },
         {
           "ruleId": "CVE-2024-26696",
-          "ruleIndex": 383,
+          "ruleIndex": 384,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26696\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26696](https://avd.aquasec.com/nvd/cve-2024-26696)"
@@ -36239,7 +36278,7 @@
         },
         {
           "ruleId": "CVE-2024-26697",
-          "ruleIndex": 384,
+          "ruleIndex": 385,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26697\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26697](https://avd.aquasec.com/nvd/cve-2024-26697)"
@@ -36266,7 +36305,7 @@
         },
         {
           "ruleId": "CVE-2024-26722",
-          "ruleIndex": 385,
+          "ruleIndex": 386,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26722\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26722](https://avd.aquasec.com/nvd/cve-2024-26722)"
@@ -36293,7 +36332,7 @@
         },
         {
           "ruleId": "CVE-2024-26735",
-          "ruleIndex": 386,
+          "ruleIndex": 387,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26735\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26735](https://avd.aquasec.com/nvd/cve-2024-26735)"
@@ -36320,7 +36359,7 @@
         },
         {
           "ruleId": "CVE-2024-26744",
-          "ruleIndex": 387,
+          "ruleIndex": 388,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26744\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26744](https://avd.aquasec.com/nvd/cve-2024-26744)"
@@ -36347,7 +36386,7 @@
         },
         {
           "ruleId": "CVE-2024-26751",
-          "ruleIndex": 388,
+          "ruleIndex": 389,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26751\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2024-26751](https://avd.aquasec.com/nvd/cve-2024-26751)"
@@ -36374,7 +36413,7 @@
         },
         {
           "ruleId": "CVE-2024-26752",
-          "ruleIndex": 389,
+          "ruleIndex": 390,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26752\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26752](https://avd.aquasec.com/nvd/cve-2024-26752)"
@@ -36401,7 +36440,7 @@
         },
         {
           "ruleId": "CVE-2024-26766",
-          "ruleIndex": 390,
+          "ruleIndex": 391,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26766\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26766](https://avd.aquasec.com/nvd/cve-2024-26766)"
@@ -36428,7 +36467,7 @@
         },
         {
           "ruleId": "CVE-2024-26772",
-          "ruleIndex": 391,
+          "ruleIndex": 392,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26772\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26772](https://avd.aquasec.com/nvd/cve-2024-26772)"
@@ -36455,7 +36494,7 @@
         },
         {
           "ruleId": "CVE-2024-26773",
-          "ruleIndex": 392,
+          "ruleIndex": 393,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26773\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26773](https://avd.aquasec.com/nvd/cve-2024-26773)"
@@ -36482,7 +36521,7 @@
         },
         {
           "ruleId": "CVE-2024-26777",
-          "ruleIndex": 393,
+          "ruleIndex": 394,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26777\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26777](https://avd.aquasec.com/nvd/cve-2024-26777)"
@@ -36509,7 +36548,7 @@
         },
         {
           "ruleId": "CVE-2024-26778",
-          "ruleIndex": 394,
+          "ruleIndex": 395,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26778\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26778](https://avd.aquasec.com/nvd/cve-2024-26778)"
@@ -36536,7 +36575,7 @@
         },
         {
           "ruleId": "CVE-2024-26779",
-          "ruleIndex": 395,
+          "ruleIndex": 396,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26779\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26779](https://avd.aquasec.com/nvd/cve-2024-26779)"
@@ -36563,7 +36602,7 @@
         },
         {
           "ruleId": "CVE-2024-26801",
-          "ruleIndex": 396,
+          "ruleIndex": 397,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26801\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26801](https://avd.aquasec.com/nvd/cve-2024-26801)"
@@ -36590,7 +36629,7 @@
         },
         {
           "ruleId": "CVE-2024-26805",
-          "ruleIndex": 397,
+          "ruleIndex": 398,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26805\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26805](https://avd.aquasec.com/nvd/cve-2024-26805)"
@@ -36617,7 +36656,7 @@
         },
         {
           "ruleId": "CVE-2024-26816",
-          "ruleIndex": 398,
+          "ruleIndex": 399,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26816\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26816](https://avd.aquasec.com/nvd/cve-2024-26816)"
@@ -36644,7 +36683,7 @@
         },
         {
           "ruleId": "CVE-2024-26817",
-          "ruleIndex": 399,
+          "ruleIndex": 400,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26817\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26817](https://avd.aquasec.com/nvd/cve-2024-26817)"
@@ -36671,7 +36710,7 @@
         },
         {
           "ruleId": "CVE-2024-26820",
-          "ruleIndex": 400,
+          "ruleIndex": 401,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26820\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26820](https://avd.aquasec.com/nvd/cve-2024-26820)"
@@ -36698,7 +36737,7 @@
         },
         {
           "ruleId": "CVE-2024-26825",
-          "ruleIndex": 401,
+          "ruleIndex": 402,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26825\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26825](https://avd.aquasec.com/nvd/cve-2024-26825)"
@@ -36725,7 +36764,7 @@
         },
         {
           "ruleId": "CVE-2024-26839",
-          "ruleIndex": 402,
+          "ruleIndex": 403,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26839\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26839](https://avd.aquasec.com/nvd/cve-2024-26839)"
@@ -36752,7 +36791,7 @@
         },
         {
           "ruleId": "CVE-2024-26840",
-          "ruleIndex": 403,
+          "ruleIndex": 404,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26840\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26840](https://avd.aquasec.com/nvd/cve-2024-26840)"
@@ -36779,7 +36818,7 @@
         },
         {
           "ruleId": "CVE-2024-26845",
-          "ruleIndex": 404,
+          "ruleIndex": 405,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26845\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26845](https://avd.aquasec.com/nvd/cve-2024-26845)"
@@ -36806,7 +36845,7 @@
         },
         {
           "ruleId": "CVE-2024-26851",
-          "ruleIndex": 405,
+          "ruleIndex": 406,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26851\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26851](https://avd.aquasec.com/nvd/cve-2024-26851)"
@@ -36833,7 +36872,7 @@
         },
         {
           "ruleId": "CVE-2024-26857",
-          "ruleIndex": 406,
+          "ruleIndex": 407,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26857\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26857](https://avd.aquasec.com/nvd/cve-2024-26857)"
@@ -36860,7 +36899,7 @@
         },
         {
           "ruleId": "CVE-2024-26859",
-          "ruleIndex": 407,
+          "ruleIndex": 408,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26859\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26859](https://avd.aquasec.com/nvd/cve-2024-26859)"
@@ -36887,7 +36926,7 @@
         },
         {
           "ruleId": "CVE-2024-26863",
-          "ruleIndex": 408,
+          "ruleIndex": 409,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26863\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26863](https://avd.aquasec.com/nvd/cve-2024-26863)"
@@ -36914,7 +36953,7 @@
         },
         {
           "ruleId": "CVE-2024-26874",
-          "ruleIndex": 409,
+          "ruleIndex": 410,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26874\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26874](https://avd.aquasec.com/nvd/cve-2024-26874)"
@@ -36941,7 +36980,7 @@
         },
         {
           "ruleId": "CVE-2024-26875",
-          "ruleIndex": 410,
+          "ruleIndex": 411,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26875\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26875](https://avd.aquasec.com/nvd/cve-2024-26875)"
@@ -36968,7 +37007,7 @@
         },
         {
           "ruleId": "CVE-2024-26878",
-          "ruleIndex": 411,
+          "ruleIndex": 412,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26878\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26878](https://avd.aquasec.com/nvd/cve-2024-26878)"
@@ -36995,7 +37034,7 @@
         },
         {
           "ruleId": "CVE-2024-26880",
-          "ruleIndex": 412,
+          "ruleIndex": 413,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26880\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26880](https://avd.aquasec.com/nvd/cve-2024-26880)"
@@ -37022,7 +37061,7 @@
         },
         {
           "ruleId": "CVE-2024-26889",
-          "ruleIndex": 413,
+          "ruleIndex": 414,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26889\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26889](https://avd.aquasec.com/nvd/cve-2024-26889)"
@@ -37049,7 +37088,7 @@
         },
         {
           "ruleId": "CVE-2024-26894",
-          "ruleIndex": 414,
+          "ruleIndex": 415,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26894\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26894](https://avd.aquasec.com/nvd/cve-2024-26894)"
@@ -37076,7 +37115,7 @@
         },
         {
           "ruleId": "CVE-2024-26901",
-          "ruleIndex": 415,
+          "ruleIndex": 416,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26901\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26901](https://avd.aquasec.com/nvd/cve-2024-26901)"
@@ -37103,7 +37142,7 @@
         },
         {
           "ruleId": "CVE-2024-26903",
-          "ruleIndex": 416,
+          "ruleIndex": 417,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26903\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26903](https://avd.aquasec.com/nvd/cve-2024-26903)"
@@ -37130,7 +37169,7 @@
         },
         {
           "ruleId": "CVE-2024-26917",
-          "ruleIndex": 417,
+          "ruleIndex": 418,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26917\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26917](https://avd.aquasec.com/nvd/cve-2024-26917)"
@@ -37157,7 +37196,7 @@
         },
         {
           "ruleId": "CVE-2024-26922",
-          "ruleIndex": 418,
+          "ruleIndex": 419,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26922\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26922](https://avd.aquasec.com/nvd/cve-2024-26922)"
@@ -37184,7 +37223,7 @@
         },
         {
           "ruleId": "CVE-2024-26931",
-          "ruleIndex": 419,
+          "ruleIndex": 420,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26931\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26931](https://avd.aquasec.com/nvd/cve-2024-26931)"
@@ -37211,7 +37250,7 @@
         },
         {
           "ruleId": "CVE-2024-26955",
-          "ruleIndex": 420,
+          "ruleIndex": 421,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26955\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26955](https://avd.aquasec.com/nvd/cve-2024-26955)"
@@ -37238,7 +37277,7 @@
         },
         {
           "ruleId": "CVE-2024-26956",
-          "ruleIndex": 421,
+          "ruleIndex": 422,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26956\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26956](https://avd.aquasec.com/nvd/cve-2024-26956)"
@@ -37265,7 +37304,7 @@
         },
         {
           "ruleId": "CVE-2024-26965",
-          "ruleIndex": 422,
+          "ruleIndex": 423,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26965\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26965](https://avd.aquasec.com/nvd/cve-2024-26965)"
@@ -37292,7 +37331,7 @@
         },
         {
           "ruleId": "CVE-2024-26966",
-          "ruleIndex": 423,
+          "ruleIndex": 424,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26966\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26966](https://avd.aquasec.com/nvd/cve-2024-26966)"
@@ -37319,7 +37358,7 @@
         },
         {
           "ruleId": "CVE-2024-26969",
-          "ruleIndex": 424,
+          "ruleIndex": 425,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26969\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26969](https://avd.aquasec.com/nvd/cve-2024-26969)"
@@ -37346,7 +37385,7 @@
         },
         {
           "ruleId": "CVE-2024-26973",
-          "ruleIndex": 425,
+          "ruleIndex": 426,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26973\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26973](https://avd.aquasec.com/nvd/cve-2024-26973)"
@@ -37373,7 +37412,7 @@
         },
         {
           "ruleId": "CVE-2024-26976",
-          "ruleIndex": 426,
+          "ruleIndex": 427,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26976\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26976](https://avd.aquasec.com/nvd/cve-2024-26976)"
@@ -37400,7 +37439,7 @@
         },
         {
           "ruleId": "CVE-2024-26984",
-          "ruleIndex": 427,
+          "ruleIndex": 428,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26984\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26984](https://avd.aquasec.com/nvd/cve-2024-26984)"
@@ -37427,7 +37466,7 @@
         },
         {
           "ruleId": "CVE-2024-26993",
-          "ruleIndex": 428,
+          "ruleIndex": 429,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26993\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26993](https://avd.aquasec.com/nvd/cve-2024-26993)"
@@ -37454,7 +37493,7 @@
         },
         {
           "ruleId": "CVE-2024-26994",
-          "ruleIndex": 429,
+          "ruleIndex": 430,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26994\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26994](https://avd.aquasec.com/nvd/cve-2024-26994)"
@@ -37481,7 +37520,7 @@
         },
         {
           "ruleId": "CVE-2024-26997",
-          "ruleIndex": 430,
+          "ruleIndex": 431,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26997\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-26997](https://avd.aquasec.com/nvd/cve-2024-26997)"
@@ -37508,7 +37547,7 @@
         },
         {
           "ruleId": "CVE-2024-26999",
-          "ruleIndex": 431,
+          "ruleIndex": 432,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-26999\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2024-26999](https://avd.aquasec.com/nvd/cve-2024-26999)"
@@ -37535,7 +37574,7 @@
         },
         {
           "ruleId": "CVE-2024-27000",
-          "ruleIndex": 432,
+          "ruleIndex": 433,
           "level": "warning",
           "message": {
             "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27000\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2024-27000](https://avd.aquasec.com/nvd/cve-2024-27000)"
@@ -37562,37 +37601,10 @@
         },
         {
           "ruleId": "CVE-2024-27001",
-          "ruleIndex": 433,
-          "level": "warning",
-          "message": {
-            "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27001\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27001](https://avd.aquasec.com/nvd/cve-2024-27001)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "samoylenko/vulnerable",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "samoylenko/vulnerable: linux-libc-dev@4.19.289-2"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2024-27008",
           "ruleIndex": 434,
           "level": "warning",
           "message": {
-            "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27008\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27008](https://avd.aquasec.com/nvd/cve-2024-27008)"
+            "text": "Package: linux-libc-dev\nInstalled Version: 4.19.289-2\nVulnerability CVE-2024-27001\nSeverity: MEDIUM\nFixed Version: 4.19.316-1\nLink: [CVE-2024-27001](https://avd.aquasec.com/nvd/cve-2024-27001)"
           },
           "locations": [
             {

