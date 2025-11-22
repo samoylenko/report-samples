@@ -21,7 +21,7 @@ jobs:
     env:
       REPORT_SUFFIX: 'image'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-scanners
@@ -31,7 +31,7 @@ jobs:
           do
             ./scripts/scan-image.sh "${IMAGE}"
           done
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           path: ${{ env.REPORT_DIR }}/**/*
           name: image-${{ env.ARTIFACT_SUFFIX_REPORT }}
@@ -43,15 +43,15 @@ jobs:
       REPORT_SUFFIX: 'dir'
       TITLE: "vulnerable-app-node-js-express"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           repository: samoylenko/vulnerable-app-nodejs-express
           path: ${{ env.TITLE }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 18
       - run: npm i --package-lock
@@ -61,7 +61,7 @@ jobs:
           chmod +x ../scripts/scan-directory.sh
           ../scripts/scan-directory.sh
         working-directory: ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
           path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
@@ -69,7 +69,7 @@ jobs:
       - run: |
           rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
           tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
           path: ${{ env.TITLE }}.tgz
@@ -81,10 +81,10 @@ jobs:
       REPORT_SUFFIX: 'dir'
       TITLE: 'javaspringvulny'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           repository: kaakaww/javaspringvulny
@@ -103,7 +103,7 @@ jobs:
           chmod +x ../scripts/scan-directory.sh
           ../scripts/scan-directory.sh
         working-directory: ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
           path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
@@ -111,7 +111,7 @@ jobs:
       - run: |
           rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
           tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
           path: ${{ env.TITLE }}.tgz
@@ -123,15 +123,15 @@ jobs:
       REPORT_SUFFIX: 'dir'
       TITLE: 'juice-shop'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           repository: juice-shop/juice-shop
           path: ${{ env.TITLE }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - run: npm i --package-lock
@@ -141,7 +141,7 @@ jobs:
           chmod +x ../scripts/scan-directory.sh
           ../scripts/scan-directory.sh
         working-directory: ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
           path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
@@ -149,7 +149,7 @@ jobs:
       - run: |
           rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
           tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
           path: ${{ env.TITLE }}.tgz
@@ -161,10 +161,10 @@ jobs:
       REPORT_SUFFIX: 'dir'
       TITLE: 'benchmarkjava'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           repository: OWASP-Benchmark/BenchmarkJava
@@ -172,7 +172,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 11
+          java-version: 17
       - run: mvn compile # we don't use .war yet
         working-directory: ${{ env.TITLE }}
       - uses: ./.github/actions/setup-scanners
@@ -180,7 +180,7 @@ jobs:
           chmod +x ../scripts/scan-directory.sh
           ../scripts/scan-directory.sh
         working-directory: ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_REPORT }}
           path: ${{ env.TITLE }}/${{ env.REPORT_DIR }}/**/*
@@ -188,7 +188,7 @@ jobs:
       - run: |
           rm -rf ${{ env.TITLE }}/${{ env.REPORT_DIR }}
           tar -czf ${{ env.TITLE }}.tgz ${{ env.TITLE }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TITLE }}-${{ env.ARTIFACT_SUFFIX_CODE }}
           path: ${{ env.TITLE }}.tgz
