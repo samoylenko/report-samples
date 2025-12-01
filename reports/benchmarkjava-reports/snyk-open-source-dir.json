@@ -71,7 +71,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due several issues in the loading of untrusted configurations. An attacker can cause excessive resource consumption by manipulating the configuration data or introducing unexpected usage patterns. Users affected by this issue are recommended to upgrade to the 2.x version line `org.apache.commons:commons-configuration2`, which fixes these issues.\r\n\r\n**Note:** This is only exploitable if the application is configured to load untrusted configurations.\n## Remediation\nThere is no fixed version for `commons-configuration:commons-configuration`.\n\n## References\n- [Apache Mail](https://lists.apache.org/thread/y1pl0mn3opz6kwkm873zshjdxq3dwq5s)\n",
       "epssDetails": {
-        "percentile": "0.31951",
+        "percentile": "0.31989",
         "probability": "0.00122",
         "modelVersion": "v2025.03.14"
       },
@@ -219,8 +219,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Uncontrolled Recursion via the `ClassUtils.getClass` function. An attacker can cause the application to terminate unexpectedly by providing excessively long input values.\n## Remediation\nThere is no fixed version for `commons-lang:commons-lang`.\n\n## References\n- [Apache Pony Mail](https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1)\n- [GitHub Commit](https://github.com/apache/commons-lang/commit/b424803abdb2bec818e4fbcb251ce031c22aca53)\n",
       "epssDetails": {
-        "percentile": "0.29918",
-        "probability": "0.00149",
+        "percentile": "0.21484",
+        "probability": "0.00070",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -337,6 +337,13 @@
       ],
       "cvssDetails": [
         {
+          "assigner": "SUSE",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+          "cvssV3BaseScore": 6.1,
+          "modificationTime": "2024-03-11T09:46:26.800032Z"
+        },
+        {
           "assigner": "NVD",
           "severity": "high",
           "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
@@ -349,13 +356,6 @@
           "cvssV3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
           "cvssV3BaseScore": 5.3,
           "modificationTime": "2024-03-11T09:53:54.900402Z"
-        },
-        {
-          "assigner": "SUSE",
-          "severity": "medium",
-          "cvssV3Vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
-          "cvssV3BaseScore": 6.1,
-          "modificationTime": "2024-03-11T09:46:26.800032Z"
         }
       ],
       "cvssSources": [
@@ -367,6 +367,15 @@
           "baseScore": 7.5,
           "cvssVersion": "3.1",
           "modificationTime": "2024-03-06T14:00:55.789489Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+          "assigner": "SUSE",
+          "severity": "medium",
+          "baseScore": 6.1,
+          "cvssVersion": "3.0",
+          "modificationTime": "2024-03-11T09:46:26.800032Z"
         },
         {
           "type": "secondary",
@@ -385,21 +394,12 @@
           "baseScore": 5.3,
           "cvssVersion": "3.0",
           "modificationTime": "2024-03-11T09:53:54.900402Z"
-        },
-        {
-          "type": "secondary",
-          "vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
-          "assigner": "SUSE",
-          "severity": "medium",
-          "baseScore": 6.1,
-          "cvssVersion": "3.0",
-          "modificationTime": "2024-03-11T09:46:26.800032Z"
         }
       ],
       "description": "## Overview\n[dom4j:dom4j](https://github.com/dom4j/dom4j) is a flexible XML framework for Java. *Note*: this artifact has been deprecated for `org.dom4j:dom4j`.\n\nAffected versions of this package are vulnerable to XML External Entity (XXE) Injection due to improper validation of the `QName` inputs.\n\n## Details\nXXE Injection is a type of attack against an application that parses XML input.\nXML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. By default, many XML processors allow specification of an external entity, a URI that is dereferenced and evaluated during XML processing. When an XML document is being parsed, the parser can make a request and include the content at the specified URI inside of the XML document.\n\nAttacks can include disclosing local files, which may contain sensitive data such as passwords or private user data, using file: schemes or relative paths in the system identifier.\n\nFor example, below is a sample XML document, containing an XML element- username.\n\n```\n<xml>\n<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n   <username>John</username>\n</xml>\n```\n\nAn external XML entity - `xxe`, is defined using a system identifier and present within a DOCTYPE header. These entities can access local or remote content. For example the below code contains an external XML entity that would fetch the content of  `/etc/passwd` and display it to the user rendered by `username`.\n\n```\n<xml>\n<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<!DOCTYPE foo [\n   <!ENTITY xxe SYSTEM \"file:///etc/passwd\" >]>\n   <username>&xxe;</username>\n</xml>\n```\n\nOther XXE Injection attacks can access local resources that may not stop returning data, possibly impacting application availability and leading to Denial of Service.\n\n## Remediation\nThere is no fixed version for `dom4j:dom4j`.\n## References\n- [GitHub Commit](https://github.com/dom4j/dom4j/commit/e598eb43d418744c4dbf62f647dd2381c9ce9387)\n- [GitHub Issue](https://github.com/dom4j/dom4j/issues/48)\n- [POC: Ihacktoprotect Blog](https://ihacktoprotect.com/post/dom4j-xml-injection/)\n",
       "epssDetails": {
-        "percentile": "0.82086",
-        "probability": "0.01971",
+        "percentile": "0.76275",
+        "probability": "0.00997",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -516,18 +516,18 @@
       ],
       "cvssDetails": [
         {
-          "assigner": "NVD",
-          "severity": "critical",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "cvssV3BaseScore": 9.8,
-          "modificationTime": "2024-03-11T09:50:18.813214Z"
-        },
-        {
           "assigner": "Red Hat",
           "severity": "medium",
           "cvssV3Vector": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:H",
           "cvssV3BaseScore": 6.7,
           "modificationTime": "2025-11-22T12:54:12.515796Z"
+        },
+        {
+          "assigner": "NVD",
+          "severity": "critical",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "cvssV3BaseScore": 9.8,
+          "modificationTime": "2024-03-11T09:50:18.813214Z"
         }
       ],
       "cvssSources": [
@@ -542,27 +542,27 @@
         },
         {
           "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "NVD",
-          "severity": "critical",
-          "baseScore": 9.8,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:50:18.813214Z"
-        },
-        {
-          "type": "secondary",
           "vector": "CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:H",
           "assigner": "Red Hat",
           "severity": "medium",
           "baseScore": 6.7,
           "cvssVersion": "3.0",
           "modificationTime": "2025-11-22T12:54:12.515796Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "assigner": "NVD",
+          "severity": "critical",
+          "baseScore": 9.8,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:50:18.813214Z"
         }
       ],
       "description": "## Overview\n[dom4j:dom4j](https://github.com/dom4j/dom4j) is a flexible XML framework for Java. *Note*: this artifact has been deprecated for `org.dom4j:dom4j`.\n\nAffected versions of this package are vulnerable to XML External Entity (XXE) Injection. By using the default `SaxReader()` provided by Dom4J, external DTDs and External Entities are allowed, resulting in a possible XXE.\n\n## Details\nXXE Injection is a type of attack against an application that parses XML input.\nXML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. By default, many XML processors allow specification of an external entity, a URI that is dereferenced and evaluated during XML processing. When an XML document is being parsed, the parser can make a request and include the content at the specified URI inside of the XML document.\n\nAttacks can include disclosing local files, which may contain sensitive data such as passwords or private user data, using file: schemes or relative paths in the system identifier.\n\nFor example, below is a sample XML document, containing an XML element- username.\n\n```\n<xml>\n<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n   <username>John</username>\n</xml>\n```\n\nAn external XML entity - `xxe`, is defined using a system identifier and present within a DOCTYPE header. These entities can access local or remote content. For example the below code contains an external XML entity that would fetch the content of  `/etc/passwd` and display it to the user rendered by `username`.\n\n```\n<xml>\n<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<!DOCTYPE foo [\n   <!ENTITY xxe SYSTEM \"file:///etc/passwd\" >]>\n   <username>&xxe;</username>\n</xml>\n```\n\nOther XXE Injection attacks can access local resources that may not stop returning data, possibly impacting application availability and leading to Denial of Service.\n\n## Remediation\nThere is no fixed version for `dom4j:dom4j`.\n## References\n- [GitHub Commit](https://github.com/dom4j/dom4j/commit/a822852)\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1694235)\n",
       "epssDetails": {
-        "percentile": "0.86381",
-        "probability": "0.03485",
+        "percentile": "0.82947",
+        "probability": "0.01959",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -714,8 +714,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Uncontrolled Recursion via the `ClassUtils.getClass` function. An attacker can cause the application to terminate unexpectedly by providing excessively long input values.\n## Remediation\nUpgrade `org.apache.commons:commons-lang3` to version 3.18.0 or higher.\n## References\n- [Apache Pony Mail](https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1)\n- [GitHub Commit](https://github.com/apache/commons-lang/commit/b424803abdb2bec818e4fbcb251ce031c22aca53)\n",
       "epssDetails": {
-        "percentile": "0.29918",
-        "probability": "0.00149",
+        "percentile": "0.21484",
+        "probability": "0.00070",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -814,18 +814,18 @@
       ],
       "cvssDetails": [
         {
-          "assigner": "NVD",
-          "severity": "critical",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "cvssV3BaseScore": 9.8,
-          "modificationTime": "2025-02-12T01:13:06.544676Z"
-        },
-        {
           "assigner": "Red Hat",
           "severity": "high",
           "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
           "cvssV3BaseScore": 8.1,
           "modificationTime": "2024-12-26T13:32:49.427526Z"
+        },
+        {
+          "assigner": "NVD",
+          "severity": "critical",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "cvssV3BaseScore": 9.8,
+          "modificationTime": "2025-02-12T01:13:06.544676Z"
         }
       ],
       "cvssSources": [
@@ -849,27 +849,27 @@
         },
         {
           "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "NVD",
-          "severity": "critical",
-          "baseScore": 9.8,
-          "cvssVersion": "3.1",
-          "modificationTime": "2025-02-12T01:13:06.544676Z"
-        },
-        {
-          "type": "secondary",
           "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
           "assigner": "Red Hat",
           "severity": "high",
           "baseScore": 8.1,
           "cvssVersion": "3.1",
           "modificationTime": "2024-12-26T13:32:49.427526Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "assigner": "NVD",
+          "severity": "critical",
+          "baseScore": 9.8,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-02-12T01:13:06.544676Z"
         }
       ],
       "description": "## Overview\n[org.apache.mina:mina-core](http://mina.apache.org/) is a network application framework which helps users develop high performance and high scalability network applications easily.\n\nAffected versions of this package are vulnerable to Deserialization of Untrusted Data through the `ObjectSerializationDecoder` due to improper user input sanitization. An attacker can execute arbitrary code by sending specially crafted malicious serialized data.\r\n\r\n**Note:**\r\n\r\n1) This is only exploitable if the `IoBuffer#getObject` method is called and a `ProtocolCodecFilter` instance using the `ObjectSerializationCodecFactory` class is added to the filter chain.\r\n\r\n2)  The `FtpServer`, `SSHd` and `Vysper` sub-project are not affected by this issue.\r\n\r\n3) After upgrading to the fixed version, it is required to explicitly allow the classes the decoder will accept in the `ObjectSerializationDecoder` instance, using one of the three new methods: `accept(ClassNameMatcher classNameMatcher)`, `accept(Pattern pattern)`, or `accept(String... patterns)`.\n\n## Details\n\nSerialization is a process of converting an object into a sequence of bytes which can be persisted to a disk or database or can be sent through streams. The reverse process of creating object from sequence of bytes is called deserialization. Serialization is commonly used for communication (sharing objects between multiple hosts) and persistence (store the object state in a file or a database). It is an integral part of popular protocols like _Remote Method Invocation (RMI)_, _Java Management Extension (JMX)_, _Java Messaging System (JMS)_, _Action Message Format (AMF)_, _Java Server Faces (JSF) ViewState_, etc.\n\n_Deserialization of untrusted data_ ([CWE-502](https://cwe.mitre.org/data/definitions/502.html)) is when the application deserializes untrusted data without sufficiently verifying that the resulting data will be valid, thus allowing the attacker to control the state or the flow of the execution.\n  \n## Remediation\nUpgrade `org.apache.mina:mina-core` to version 2.0.27, 2.1.10, 2.2.4 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/4wxktgjpggdbto15d515wdctohb0qmv8)\n- [GitHub Commit](https://github.com/apache/mina/commit/834396355766e0c8f6bbf0493d4588b3fa9d347d)\n",
       "epssDetails": {
-        "percentile": "0.96760",
-        "probability": "0.34366",
+        "percentile": "0.97020",
+        "probability": "0.37672",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -997,7 +997,7 @@
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `ASN1ObjectIdentifier`. An attacker can cause excessive resource consumption by submitting specially crafted ASN.1 Object Identifiers, potentially leading to service disruption.\r\n\r\n**Note:** This issue only applies to applications which do consume unvetted, or otherwise unvalidated, ASN.1 encodings.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885)\n",
       "epssDetails": {
-        "percentile": "0.19584",
+        "percentile": "0.19496",
         "probability": "0.00063",
         "modelVersion": "v2025.03.14"
       },
@@ -1132,7 +1132,7 @@
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
       "epssDetails": {
-        "percentile": "0.19584",
+        "percentile": "0.19496",
         "probability": "0.00063",
         "modelVersion": "v2025.03.14"
       },
@@ -1233,18 +1233,18 @@
           "modificationTime": "2024-03-11T09:53:23.489671Z"
         },
         {
-          "assigner": "Red Hat",
-          "severity": "medium",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-          "cvssV3BaseScore": 5.3,
-          "modificationTime": "2024-03-11T09:54:01.546312Z"
-        },
-        {
           "assigner": "SUSE",
           "severity": "high",
           "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
           "cvssV3BaseScore": 8.1,
           "modificationTime": "2024-03-11T09:53:25.282919Z"
+        },
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2024-03-11T09:54:01.546312Z"
         }
       ],
       "cvssSources": [
@@ -1268,27 +1268,27 @@
         },
         {
           "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-          "assigner": "Red Hat",
-          "severity": "medium",
-          "baseScore": 5.3,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:54:01.546312Z"
-        },
-        {
-          "type": "secondary",
           "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
           "assigner": "SUSE",
           "severity": "high",
           "baseScore": 8.1,
           "cvssVersion": "3.1",
           "modificationTime": "2024-03-11T09:53:25.282919Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:01.546312Z"
         }
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Information Exposure due to missing validation for the X.500 name of any certificate, subject, or issuer. The presence of a wild card may lead to information disclosure. This could allow a malicious user to obtain unauthorized information via blind LDAP Injection, exploring the environment and enumerating data. \r\n\r\n**Note:**\r\n\r\nThe exploit depends on the structure of the target LDAP directory as well as what kind of errors are exposed to the user.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/b00b58873643abc7e834f07e345e0165bb3a1786)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33201)\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2215465)\n",
       "epssDetails": {
-        "percentile": "0.31569",
-        "probability": "0.00161",
+        "percentile": "0.49884",
+        "probability": "0.00266",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -1381,18 +1381,18 @@
       ],
       "cvssDetails": [
         {
-          "assigner": "NVD",
-          "severity": "medium",
-          "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-          "cvssV3BaseScore": 5.5,
-          "modificationTime": "2024-03-11T09:54:08.209045Z"
-        },
-        {
           "assigner": "Red Hat",
           "severity": "medium",
           "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
           "cvssV3BaseScore": 5.5,
           "modificationTime": "2024-06-19T13:32:28.019885Z"
+        },
+        {
+          "assigner": "NVD",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 5.5,
+          "modificationTime": "2024-03-11T09:54:08.209045Z"
         }
       ],
       "cvssSources": [
@@ -1408,26 +1408,26 @@
         {
           "type": "secondary",
           "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-          "assigner": "NVD",
-          "severity": "medium",
-          "baseScore": 5.5,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:54:08.209045Z"
-        },
-        {
-          "type": "secondary",
-          "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
           "assigner": "Red Hat",
           "severity": "medium",
           "baseScore": 5.5,
           "cvssVersion": "3.1",
           "modificationTime": "2024-06-19T13:32:28.019885Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "assigner": "NVD",
+          "severity": "medium",
+          "baseScore": 5.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:08.209045Z"
         }
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') within the `org.bouncycastle.openssl.PEMParser` class. Parsing a file that has crafted `ASN.1` data through the `PEMParser` causes an `OutOfMemoryError`.\r\n\r\n## Workaround\r\nThe attack can be avoided by filtering `PEM` requests containing `EXTERNAL` tagged encodings.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/0c576892862ed41894f49a8f639112e8d66d229c)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/eff6adf03f426dc4d55e8305255eb38c811ddda7)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33202)\n",
       "epssDetails": {
-        "percentile": "0.15195",
-        "probability": "0.00063",
+        "percentile": "0.18278",
+        "probability": "0.00059",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -1545,8 +1545,8 @@
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `solveQuadraticEquation()` function used for certificate verification in `ECCurve.java`. Passing a large f2m parameter can cause excessive CPU consumption.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-csharp/commit/45c6b993945f01076e386cb59988b1836a329999)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f)\n",
       "epssDetails": {
-        "percentile": "0.58553",
-        "probability": "0.00409",
+        "percentile": "0.42576",
+        "probability": "0.00203",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -1692,8 +1692,8 @@
       ],
       "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Observable Discrepancy due to the timing difference between exceptions thrown when processing RSA key exchange handshakes, AKA Marvin. \r\n\r\n**Note:** The implemented fix mitigates the leakage of data via the PKCS#1 interface, but does not fully alleviate the side-channel as it allows cases in which the padding check fails but the handshake succeeds.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/98b18399b112fd44b4de660b04ec9876d7117a25)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c84c414fd9bed10bf2a171c29b95d221c77f74c)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/e5b46eabbb6f818a291c145bd716c57ef11b2b6a)\n- [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528)\n- [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)\n",
       "epssDetails": {
-        "percentile": "0.52523",
-        "probability": "0.00326",
+        "percentile": "0.18840",
+        "probability": "0.00061",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -1912,8 +1912,8 @@
       ],
       "description": "## Overview\n[org.hibernate:hibernate-core](https://github.com/hibernate/hibernate-orm) is a library providing Object/Relational Mapping (ORM) support to applications, libraries, and frameworks.\n\nAffected versions of this package are vulnerable to SQL Injection. A SQL injection in the implementation of the JPA Criteria API can permit unsanitized literals when a literal is used in the SQL comments of the query. This flaw could allow an attacker to access unauthorized information or possibly conduct further attacks. The highest threat from this vulnerability is to data confidentiality and integrity.\n## Remediation\nUpgrade `org.hibernate:hibernate-core` to version 5.4.24.Final or higher.\n## References\n- [GitHub Commit](https://github.com/hibernate/hibernate-orm/commit/59fede7acaaa1579b561407aefa582311f7ebe78)\n- [Redhat CVE Details](https://access.redhat.com/security/cve/cve-2020-25638)\n",
       "epssDetails": {
-        "percentile": "0.76277",
-        "probability": "0.01110",
+        "percentile": "0.65954",
+        "probability": "0.00519",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -2140,8 +2140,8 @@
       ],
       "description": "## Overview\n[org.hibernate:hibernate-core](https://github.com/hibernate/hibernate-orm) is a library providing Object/Relational Mapping (ORM) support to applications, libraries, and frameworks.\n\nAffected versions of this package are vulnerable to SQL Injection. A SQL injection in the implementation of the JPA Criteria API can permit unsanitized literals when a literal is used in the SELECT or GROUP BY parts of the query. This flaw could allow an attacker to access unauthorized information or possibly conduct further attacks.\n## Remediation\nUpgrade `org.hibernate:hibernate-core` to version 5.3.18.Final, 5.4.18.Final or higher.\n## References\n- [GitHub Pull Request](https://github.com/hibernate/hibernate-orm/pull/3438)\n- [Jira Ticket](https://hibernate.atlassian.net/browse/HHH-14077)\n",
       "epssDetails": {
-        "percentile": "0.73766",
-        "probability": "0.00905",
+        "percentile": "0.79878",
+        "probability": "0.01405",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -2388,8 +2388,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-beans](https://www.baeldung.com/spring-bean) is a package that is the basis for Spring Framework's IoC container. The BeanFactory interface provides an advanced configuration mechanism capable of managing any type of object.\n\nAffected versions of this package are vulnerable to Relative Path Traversal when deployed on non-compliant Servlet containers. An unauthenticated attacker could gain access to files and directories outside the intended web root.\r\n\r\n**Notes:**\r\n\r\n1) This is only exploitable if the application is deployed as a WAR or with an embedded Servlet container, the Servlet container does not reject suspicious sequences and the application serves static resources with Spring resource handling.\r\n\r\n2) Applications deployed on Apache Tomcat or Eclipse Jetty are not vulnerable, as long as default security features are not disabled in the configuration.\r\n\r\n3) This vulnerability was also fixed in the commercial versions 6.1.22 and 5.3.44.\n## Remediation\nUpgrade `org.springframework:spring-beans` to version 6.2.10 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/3781ba223ed76823b99e9c699e0957b391e22bf9)\n- [GitHub Release](https://github.com/spring-projects/spring-framework/releases/tag/v6.2.10)\n- [Spring Release](https://spring.io/blog/2025/08/14/spring-framework-6-2-10-release-fixes-cve-2025-41242)\n- [Vendor Advisory](https://spring.io/security/cve-2025-41242)\n",
       "epssDetails": {
-        "percentile": "0.19842",
-        "probability": "0.00080",
+        "percentile": "0.26189",
+        "probability": "0.00090",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -2531,8 +2531,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-core](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-core%22) is a core package within the spring-framework that contains multiple classes and utilities.\n\nAffected versions of this package are vulnerable to Incorrect Authorization via the `AnnotationsScanner` and `AnnotatedMethod` class. An attacker can gain unauthorized access to sensitive information by exploiting improper resolution of annotations on methods within type hierarchies that use parameterized supertypes with unbounded generics.\r\n\r\n**Note:**\r\nThis is only exploitable if security annotations are used on methods in generic superclasses or generic interfaces and the `@EnableMethodSecurity` feature is enabled.\n## Remediation\nUpgrade `org.springframework:spring-core` to version 6.2.11 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/6d710d482a6785b069e35022e81758953afc21ff)\n- [GitHub Issue](https://github.com/spring-projects/spring-framework/issues/35342)\n- [GitHub Release](https://github.com/spring-projects/spring-framework/releases/tag/v6.2.11)\n- [Vendor Advisory](https://spring.io/security/cve-2025-41249)\n",
       "epssDetails": {
-        "percentile": "0.12413",
-        "probability": "0.00054",
+        "percentile": "0.18179",
+        "probability": "0.00059",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -2669,8 +2669,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-core](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-core%22) is a core package within the spring-framework that contains multiple classes and utilities.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-core` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.21562",
-        "probability": "0.00070",
+        "percentile": "0.66287",
+        "probability": "0.00528",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -2812,7 +2812,7 @@
       ],
       "description": "## Overview\n[org.springframework:spring-webmvc](https://mvnrepository.com/artifact/org.springframework/spring-webmvc) is a package that provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely coupled web applications.\n\nAffected versions of this package are vulnerable to Path Traversal via the `WebMvc.fn` and `WebFlux.fn` frameworks. An attacker can access any file on the file system that is also accessible to the process in which the Spring application is running by crafting malicious HTTP requests.\n\n**Note:**\n\nThis is only exploitable if the web application uses `RouterFunctions` to serve static resources and resource handling is explicitly configured with a `FileSystemResource` location.\n\n## Workaround\n\nThis vulnerability can be mitigated by using the Spring Security HTTP Firewall or running the application on Tomcat or Jetty.\n## Remediation\nUpgrade `org.springframework:spring-webmvc` to version 6.1.13 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/d86bf8b2056429edf5494456cffcb2b243331c49)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38816)\n- [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2024/CVE-2024-38816.yaml)\n- [PoC in GitHub](https://github.com/WULINPIN/CVE-2024-38816-PoC)\n",
       "epssDetails": {
-        "percentile": "0.99851",
+        "percentile": "0.99850",
         "probability": "0.93813",
         "modelVersion": "v2025.03.14"
       },
@@ -2855,7 +2855,7 @@
       },
       "publicationTime": "2024-09-13T07:28:37.537406Z",
       "severityBasedOn": "CVSS",
-      "modificationTime": "2025-11-20T05:03:00.398707Z",
+      "modificationTime": "2025-11-26T05:02:43.482823Z",
       "socialTrendAlert": false,
       "severityWithCritical": "high",
       "from": [
@@ -2948,8 +2948,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-webmvc](https://mvnrepository.com/artifact/org.springframework/spring-webmvc) is a package that provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely coupled web applications.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-webmvc` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.21562",
-        "probability": "0.00070",
+        "percentile": "0.66287",
+        "probability": "0.00528",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3085,8 +3085,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-webmvc](https://mvnrepository.com/artifact/org.springframework/spring-webmvc) is a package that provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely coupled web applications.\n\nAffected versions of this package are vulnerable to Path Traversal through the functional web frameworks `WebMvc.fn` or `WebFlux.fn`. An attacker can craft malicious HTTP requests and obtain any file on the file system that is also accessible.\r\n\r\n**Note:**\r\nThis is similar to [CVE-2024-38816](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-7945490), but with different input.\n## Remediation\nUpgrade `org.springframework:spring-webmvc` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/fb7890d73975a3d9e0763e0926df2bd0a608e87e)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38819)\n- [PoC in GitHub](https://github.com/masa42/CVE-2024-38819-POC)\n",
       "epssDetails": {
-        "percentile": "0.98517",
-        "probability": "0.67841",
+        "percentile": "0.98596",
+        "probability": "0.70001",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3216,7 +3216,7 @@
       ],
       "description": "## Overview\n[org.springframework:spring-webmvc](https://mvnrepository.com/artifact/org.springframework/spring-webmvc) is a package that provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely coupled web applications.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) via MVC controller `@RequestBody byte[]` method parameters. \r\n\r\n**Note:**\r\nThis vulnerable open source versions are no longer supported and the fixed version 5.3.42 is only available for the commercial release.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.springframework:spring-webmvc` to version 6.0.0 or higher.\n## References\n- [Security Advisory](https://spring.io/security/cve-2024-38828)\n",
       "epssDetails": {
-        "percentile": "0.47574",
+        "percentile": "0.47563",
         "probability": "0.00244",
         "modelVersion": "v2025.03.14"
       },
@@ -3349,8 +3349,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-context` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.21562",
-        "probability": "0.00070",
+        "percentile": "0.66287",
+        "probability": "0.00528",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3482,8 +3482,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-web](https://github.com/spring-projects/spring-framework) is a package that provides a comprehensive programming and configuration model for modern Java-based enterprise applications - on any kind of deployment platform.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-web` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.21562",
-        "probability": "0.00070",
+        "percentile": "0.66287",
+        "probability": "0.00528",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3709,7 +3709,7 @@
         ],
         "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due several issues in the loading of untrusted configurations. An attacker can cause excessive resource consumption by manipulating the configuration data or introducing unexpected usage patterns. Users affected by this issue are recommended to upgrade to the 2.x version line `org.apache.commons:commons-configuration2`, which fixes these issues.\r\n\r\n**Note:** This is only exploitable if the application is configured to load untrusted configurations.\n## Remediation\nThere is no fixed version for `commons-configuration:commons-configuration`.\n\n## References\n- [Apache Mail](https://lists.apache.org/thread/y1pl0mn3opz6kwkm873zshjdxq3dwq5s)\n",
         "epssDetails": {
-          "percentile": "0.31951",
+          "percentile": "0.31989",
           "probability": "0.00122",
           "modelVersion": "v2025.03.14"
         },
@@ -3860,8 +3860,8 @@
         ],
         "description": "## Overview\n\nAffected versions of this package are vulnerable to Uncontrolled Recursion via the `ClassUtils.getClass` function. An attacker can cause the application to terminate unexpectedly by providing excessively long input values.\n## Remediation\nThere is no fixed version for `commons-lang:commons-lang`.\n\n## References\n- [Apache Pony Mail](https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1)\n- [GitHub Commit](https://github.com/apache/commons-lang/commit/b424803abdb2bec818e4fbcb251ce031c22aca53)\n",
         "epssDetails": {
-          "percentile": "0.29918",
-          "probability": "0.00149",
+          "percentile": "0.21484",
+          "probability": "0.00070",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -4012,8 +4012,8 @@
         ],
         "description": "## Overview\n\nAffected versions of this package are vulnerable to Uncontrolled Recursion via the `ClassUtils.getClass` function. An attacker can cause the application to terminate unexpectedly by providing excessively long input values.\n## Remediation\nUpgrade `org.apache.commons:commons-lang3` to version 3.18.0 or higher.\n## References\n- [Apache Pony Mail](https://lists.apache.org/thread/bgv0lpswokgol11tloxnjfzdl7yrc1g1)\n- [GitHub Commit](https://github.com/apache/commons-lang/commit/b424803abdb2bec818e4fbcb251ce031c22aca53)\n",
         "epssDetails": {
-          "percentile": "0.29918",
-          "probability": "0.00149",
+          "percentile": "0.21484",
+          "probability": "0.00070",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -4115,18 +4115,18 @@
         ],
         "cvssDetails": [
           {
-            "assigner": "NVD",
-            "severity": "critical",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-            "cvssV3BaseScore": 9.8,
-            "modificationTime": "2025-02-12T01:13:06.544676Z"
-          },
-          {
             "assigner": "Red Hat",
             "severity": "high",
             "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
             "cvssV3BaseScore": 8.1,
             "modificationTime": "2024-12-26T13:32:49.427526Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "critical",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "cvssV3BaseScore": 9.8,
+            "modificationTime": "2025-02-12T01:13:06.544676Z"
           }
         ],
         "cvssSources": [
@@ -4150,27 +4150,27 @@
           },
           {
             "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-            "assigner": "NVD",
-            "severity": "critical",
-            "baseScore": 9.8,
-            "cvssVersion": "3.1",
-            "modificationTime": "2025-02-12T01:13:06.544676Z"
-          },
-          {
-            "type": "secondary",
             "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
             "assigner": "Red Hat",
             "severity": "high",
             "baseScore": 8.1,
             "cvssVersion": "3.1",
             "modificationTime": "2024-12-26T13:32:49.427526Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "assigner": "NVD",
+            "severity": "critical",
+            "baseScore": 9.8,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-02-12T01:13:06.544676Z"
           }
         ],
         "description": "## Overview\n[org.apache.mina:mina-core](http://mina.apache.org/) is a network application framework which helps users develop high performance and high scalability network applications easily.\n\nAffected versions of this package are vulnerable to Deserialization of Untrusted Data through the `ObjectSerializationDecoder` due to improper user input sanitization. An attacker can execute arbitrary code by sending specially crafted malicious serialized data.\r\n\r\n**Note:**\r\n\r\n1) This is only exploitable if the `IoBuffer#getObject` method is called and a `ProtocolCodecFilter` instance using the `ObjectSerializationCodecFactory` class is added to the filter chain.\r\n\r\n2)  The `FtpServer`, `SSHd` and `Vysper` sub-project are not affected by this issue.\r\n\r\n3) After upgrading to the fixed version, it is required to explicitly allow the classes the decoder will accept in the `ObjectSerializationDecoder` instance, using one of the three new methods: `accept(ClassNameMatcher classNameMatcher)`, `accept(Pattern pattern)`, or `accept(String... patterns)`.\n\n## Details\n\nSerialization is a process of converting an object into a sequence of bytes which can be persisted to a disk or database or can be sent through streams. The reverse process of creating object from sequence of bytes is called deserialization. Serialization is commonly used for communication (sharing objects between multiple hosts) and persistence (store the object state in a file or a database). It is an integral part of popular protocols like _Remote Method Invocation (RMI)_, _Java Management Extension (JMX)_, _Java Messaging System (JMS)_, _Action Message Format (AMF)_, _Java Server Faces (JSF) ViewState_, etc.\n\n_Deserialization of untrusted data_ ([CWE-502](https://cwe.mitre.org/data/definitions/502.html)) is when the application deserializes untrusted data without sufficiently verifying that the resulting data will be valid, thus allowing the attacker to control the state or the flow of the execution.\n  \n## Remediation\nUpgrade `org.apache.mina:mina-core` to version 2.0.27, 2.1.10, 2.2.4 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/4wxktgjpggdbto15d515wdctohb0qmv8)\n- [GitHub Commit](https://github.com/apache/mina/commit/834396355766e0c8f6bbf0493d4588b3fa9d347d)\n",
         "epssDetails": {
-          "percentile": "0.96760",
-          "probability": "0.34366",
+          "percentile": "0.97020",
+          "probability": "0.37672",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -4301,7 +4301,7 @@
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `ASN1ObjectIdentifier`. An attacker can cause excessive resource consumption by submitting specially crafted ASN.1 Object Identifiers, potentially leading to service disruption.\r\n\r\n**Note:** This issue only applies to applications which do consume unvetted, or otherwise unvalidated, ASN.1 encodings.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885)\n",
         "epssDetails": {
-          "percentile": "0.19584",
+          "percentile": "0.19496",
           "probability": "0.00063",
           "modelVersion": "v2025.03.14"
         },
@@ -4439,7 +4439,7 @@
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
         "epssDetails": {
-          "percentile": "0.19584",
+          "percentile": "0.19496",
           "probability": "0.00063",
           "modelVersion": "v2025.03.14"
         },
@@ -4543,18 +4543,18 @@
             "modificationTime": "2024-03-11T09:53:23.489671Z"
           },
           {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-            "cvssV3BaseScore": 5.3,
-            "modificationTime": "2024-03-11T09:54:01.546312Z"
-          },
-          {
             "assigner": "SUSE",
             "severity": "high",
             "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
             "cvssV3BaseScore": 8.1,
             "modificationTime": "2024-03-11T09:53:25.282919Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "cvssV3BaseScore": 5.3,
+            "modificationTime": "2024-03-11T09:54:01.546312Z"
           }
         ],
         "cvssSources": [
@@ -4578,27 +4578,27 @@
           },
           {
             "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.3,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:01.546312Z"
-          },
-          {
-            "type": "secondary",
             "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
             "assigner": "SUSE",
             "severity": "high",
             "baseScore": 8.1,
             "cvssVersion": "3.1",
             "modificationTime": "2024-03-11T09:53:25.282919Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "baseScore": 5.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-11T09:54:01.546312Z"
           }
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Information Exposure due to missing validation for the X.500 name of any certificate, subject, or issuer. The presence of a wild card may lead to information disclosure. This could allow a malicious user to obtain unauthorized information via blind LDAP Injection, exploring the environment and enumerating data. \r\n\r\n**Note:**\r\n\r\nThe exploit depends on the structure of the target LDAP directory as well as what kind of errors are exposed to the user.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/b00b58873643abc7e834f07e345e0165bb3a1786)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33201)\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2215465)\n",
         "epssDetails": {
-          "percentile": "0.31569",
-          "probability": "0.00161",
+          "percentile": "0.49884",
+          "probability": "0.00266",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -4694,18 +4694,18 @@
         ],
         "cvssDetails": [
           {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:54:08.209045Z"
-          },
-          {
             "assigner": "Red Hat",
             "severity": "medium",
             "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
             "cvssV3BaseScore": 5.5,
             "modificationTime": "2024-06-19T13:32:28.019885Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "medium",
+            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 5.5,
+            "modificationTime": "2024-03-11T09:54:08.209045Z"
           }
         ],
         "cvssSources": [
@@ -4721,26 +4721,26 @@
           {
             "type": "secondary",
             "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:08.209045Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
             "assigner": "Red Hat",
             "severity": "medium",
             "baseScore": 5.5,
             "cvssVersion": "3.1",
             "modificationTime": "2024-06-19T13:32:28.019885Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "medium",
+            "baseScore": 5.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-11T09:54:08.209045Z"
           }
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') within the `org.bouncycastle.openssl.PEMParser` class. Parsing a file that has crafted `ASN.1` data through the `PEMParser` causes an `OutOfMemoryError`.\r\n\r\n## Workaround\r\nThe attack can be avoided by filtering `PEM` requests containing `EXTERNAL` tagged encodings.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/0c576892862ed41894f49a8f639112e8d66d229c)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/eff6adf03f426dc4d55e8305255eb38c811ddda7)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33202)\n",
         "epssDetails": {
-          "percentile": "0.15195",
-          "probability": "0.00063",
+          "percentile": "0.18278",
+          "probability": "0.00059",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -4861,8 +4861,8 @@
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `solveQuadraticEquation()` function used for certificate verification in `ECCurve.java`. Passing a large f2m parameter can cause excessive CPU consumption.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-csharp/commit/45c6b993945f01076e386cb59988b1836a329999)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f)\n",
         "epssDetails": {
-          "percentile": "0.58553",
-          "probability": "0.00409",
+          "percentile": "0.42576",
+          "probability": "0.00203",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -5011,8 +5011,8 @@
         ],
         "description": "## Overview\n[org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms.\n\nAffected versions of this package are vulnerable to Observable Discrepancy due to the timing difference between exceptions thrown when processing RSA key exchange handshakes, AKA Marvin. \r\n\r\n**Note:** The implemented fix mitigates the leakage of data via the PKCS#1 interface, but does not fully alleviate the side-channel as it allows cases in which the padding check fails but the handshake succeeds.\n## Remediation\nThere is no fixed version for `org.bouncycastle:bcprov-jdk15on`.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/98b18399b112fd44b4de660b04ec9876d7117a25)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c84c414fd9bed10bf2a171c29b95d221c77f74c)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/e5b46eabbb6f818a291c145bd716c57ef11b2b6a)\n- [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528)\n- [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)\n",
         "epssDetails": {
-          "percentile": "0.52523",
-          "probability": "0.00326",
+          "percentile": "0.18840",
+          "probability": "0.00061",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
