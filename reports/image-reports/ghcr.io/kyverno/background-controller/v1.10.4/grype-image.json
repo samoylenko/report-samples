@@ -1751,6 +1751,111 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-f83f-xpx7-ffpw",
+    "dataSource": "https://github.com/advisories/GHSA-f83f-xpx7-ffpw",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-f83f-xpx7-ffpw"
+    ],
+    "description": "Fulcio allocates excessive memory during token parsing",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.8.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-66506",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-66506",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/sigstore/fulcio/commit/765a0e57608b9ef390e1eeeea8595b9054c63a5a",
+      "https://github.com/sigstore/fulcio/security/advisories/GHSA-f83f-xpx7-ffpw"
+     ],
+     "description": "Fulcio is a free-to-use certificate authority for issuing code signing certificates for an OpenID Connect (OIDC) identity. Prior to 1.8.3, function identity.extractIssuerURL splits (via a call to strings.Split) its argument (which is untrusted data) on periods. As a result, in the face of a malicious request with an (invalid) OIDC identity token in the payload containing many period characters, a call to extractIssuerURL incurs allocations to the tune of O(n) bytes (where n stands for the length of the function's argument), with a constant factor of about 16. This vulnerability is fixed in 1.8.3.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/fulcio",
+       "version": "v1.1.0"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=1.8.2 (unknown)",
+      "vulnerabilityID": "GHSA-f83f-xpx7-ffpw"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "fb7826c9b6897662",
+    "name": "github.com/sigstore/fulcio",
+    "version": "v1.1.0",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:fulcio:v1.1.0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/fulcio@v1.1.0",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:mzzJ05Ccu8Y2inyioklNvc8MpzlGHxu8YqNeTm0dHfU=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-2h5h-59f5-c5x9",
     "dataSource": "https://github.com/advisories/GHSA-2h5h-59f5-c5x9",
     "namespace": "github:language:go",
@@ -1985,6 +2090,103 @@
      "goCompiledVersion": "go1.21.3",
      "architecture": "amd64",
      "h1Digest": "h1:rcESXSNkAPRWFYZel9rarspdvneET60F2ngNkadi89c=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-4f99-4q7p-p3gh",
+    "dataSource": "https://github.com/advisories/GHSA-4f99-4q7p-p3gh",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-4f99-4q7p-p3gh"
+    ],
+    "description": "Logrus is vulnerable to DoS when using Entry.Writer()",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "1.9.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-65637",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-65637",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/mjuanxd/logrus-dos-poc",
+      "https://github.com/mjuanxd/logrus-dos-poc/blob/main/README.md",
+      "https://github.com/sirupsen/logrus/issues/1370",
+      "https://github.com/sirupsen/logrus/pull/1376",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.8.3",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.9.1",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.9.3",
+      "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391"
+     ],
+     "description": "A denial-of-service vulnerability exists in github.com/sirupsen/logrus when using Entry.Writer() to log a single-line payload larger than 64KB without newline characters. Due to limitations in the internal bufio.Scanner, the read fails with \"token too long\" and the writer pipe is closed, leaving Writer() unusable and causing application unavailability (DoS). This affects versions < 1.8.3, 1.9.0, and 1.9.2. The issue is fixed in 1.8.3, 1.9.1, and 1.9.3+, where the input is chunked and the writer continues to function even if an error is logged.",
+     "cvss": [
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sirupsen/logrus",
+       "version": "v1.9.0"
+      }
+     },
+     "found": {
+      "versionConstraint": "=1.9.0 (unknown)",
+      "vulnerabilityID": "GHSA-4f99-4q7p-p3gh"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7afccdad0e1e73d4",
+    "name": "github.com/sirupsen/logrus",
+    "version": "v1.9.0",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sirupsen:logrus:v1.9.0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sirupsen/logrus@v1.9.0",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:trlNQbNUG3OdDrDil03MCb1H2o9nJ1x4/5LYw7byDE0=",
      "mainModule": "github.com/kyverno/kyverno"
     }
    }
@@ -3988,6 +4190,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61729",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61729",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/725920",
+     "https://go.dev/issue/76445",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4155"
+    ],
+    "description": "Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61729",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61725",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61725",
     "namespace": "nvd:cpe",
@@ -3999,7 +4288,7 @@
      "https://pkg.go.dev/vuln/GO-2025-4006",
      "http://www.openwall.com/lists/oss-security/2025/10/08/1"
     ],
-    "description": "The ParseAddress function constructeds domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
+    "description": "The ParseAddress function constructs domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
     "cvss": [
      {
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -5072,6 +5361,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61727",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61727",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/723900",
+     "https://go.dev/issue/76442",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4175"
+    ],
+    "description": "An excluded subdomain constraint in a certificate chain does not restrict the usage of wildcard SANs in the leaf certificate. For example a constraint that excludes the subdomain test.example.com does not prevent a leaf certificate from claiming the SAN *.example.com.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61727",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61724",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61724",
     "namespace": "nvd:cpe",
@@ -5829,93 +6205,6 @@
      "found": {
       "vulnerabilityID": "CVE-2025-22866",
       "versionConstraint": "< 1.22.12 || >= 1.23.0-0, < 1.23.6 || >= 1.24.0-0, < 1.24.0-rc.3 (unknown)",
-      "cpes": [
-       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
-      ]
-     }
-    }
-   ],
-   "artifact": {
-    "id": "420dc4923a0acb39",
-    "name": "stdlib",
-    "version": "go1.21.3",
-    "type": "go-module",
-    "locations": [
-     {
-      "path": "/ko-app/background-controller",
-      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
-     }
-    ],
-    "language": "go",
-    "licenses": [
-     "BSD-3-Clause"
-    ],
-    "cpes": [
-     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:golang/stdlib@1.21.3",
-    "upstreams": [],
-    "metadataType": "GolangBinMetadata",
-    "metadata": {
-     "goCompiledVersion": "go1.21.3",
-     "architecture": ""
-    }
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-0913",
-    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-0913",
-    "namespace": "nvd:cpe",
-    "severity": "Medium",
-    "urls": [
-     "https://go.dev/cl/672396",
-     "https://go.dev/issue/73702",
-     "https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A",
-     "https://pkg.go.dev/vuln/GO-2025-3750"
-    ],
-    "description": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.",
-    "cvss": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
-      "metrics": {
-       "baseScore": 5.5,
-       "exploitabilityScore": 1.8,
-       "impactScore": 3.6
-      },
-      "vendorMetadata": {}
-     }
-    ],
-    "fix": {
-     "versions": [
-      "1.23.10",
-      "1.24.4"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [],
-   "matchDetails": [
-    {
-     "type": "cpe-match",
-     "matcher": "go-module-matcher",
-     "searchedBy": {
-      "namespace": "nvd:cpe",
-      "cpes": [
-       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
-      ],
-      "Package": {
-       "name": "stdlib",
-       "version": "go1.21.3"
-      }
-     },
-     "found": {
-      "vulnerabilityID": "CVE-2025-0913",
-      "versionConstraint": "< 1.23.10 || >= 1.24.0-0, < 1.24.4 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -7017,12 +7306,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-11-27T00:25:44Z",
+   "built": "2025-12-31T00:25:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:d58af86de29a31494167963bd87d5c8b6ebed0834c52530006fb73cdba25b5c2",
+   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
    "error": null
   },
-  "timestamp": "2025-12-01T02:42:07.558448387Z"
+  "timestamp": "2026-01-01T02:42:01.911416701Z"
  }
 }

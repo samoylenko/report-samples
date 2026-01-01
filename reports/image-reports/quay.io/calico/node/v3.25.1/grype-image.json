@@ -1095,6 +1095,103 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-4f99-4q7p-p3gh",
+    "dataSource": "https://github.com/advisories/GHSA-4f99-4q7p-p3gh",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-4f99-4q7p-p3gh"
+    ],
+    "description": "Logrus is vulnerable to DoS when using Entry.Writer()",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "1.9.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-65637",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-65637",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/mjuanxd/logrus-dos-poc",
+      "https://github.com/mjuanxd/logrus-dos-poc/blob/main/README.md",
+      "https://github.com/sirupsen/logrus/issues/1370",
+      "https://github.com/sirupsen/logrus/pull/1376",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.8.3",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.9.1",
+      "https://github.com/sirupsen/logrus/releases/tag/v1.9.3",
+      "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMSIRUPSENLOGRUS-5564391"
+     ],
+     "description": "A denial-of-service vulnerability exists in github.com/sirupsen/logrus when using Entry.Writer() to log a single-line payload larger than 64KB without newline characters. Due to limitations in the internal bufio.Scanner, the read fails with \"token too long\" and the writer pipe is closed, leaving Writer() unusable and causing application unavailability (DoS). This affects versions < 1.8.3, 1.9.0, and 1.9.2. The issue is fixed in 1.8.3, 1.9.1, and 1.9.3+, where the input is chunked and the writer continues to function even if an error is logged.",
+     "cvss": [
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sirupsen/logrus",
+       "version": "v1.9.0"
+      }
+     },
+     "found": {
+      "versionConstraint": "=1.9.0 (unknown)",
+      "vulnerabilityID": "GHSA-4f99-4q7p-p3gh"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "75a9a04fe20476c1",
+    "name": "github.com/sirupsen/logrus",
+    "version": "v1.9.0",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/calico-node",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sirupsen:logrus:v1.9.0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sirupsen/logrus@v1.9.0",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": "amd64",
+     "h1Digest": "h1:trlNQbNUG3OdDrDil03MCb1H2o9nJ1x4/5LYw7byDE0=",
+     "mainModule": "command-line-arguments"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2024-33599",
     "dataSource": "https://access.redhat.com/security/cve/CVE-2024-33599",
     "namespace": "redhat:distro:redhat:8",
@@ -9100,6 +9197,110 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-r6j8-c6r2-37rr",
+    "dataSource": "https://github.com/advisories/GHSA-r6j8-c6r2-37rr",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-r6j8-c6r2-37rr"
+    ],
+    "description": "kube-controller-manager is vulnerable to half-blind Server Side Request Forgery through in-tree Portworx StorageClass",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:H/I:N/A:N",
+      "metrics": {
+       "baseScore": 5.8,
+       "exploitabilityScore": 1.3,
+       "impactScore": 4
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.32.10"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-13281",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-13281",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/kubernetes/kubernetes/issues/135525",
+      "https://groups.google.com/g/kubernetes-security-announce/c/EORqZg0k1l4/m/TtD-q0v7AgAJ",
+      "http://www.openwall.com/lists/oss-security/2025/12/01/4"
+     ],
+     "description": "A half-blind Server Side Request Forgery (SSRF) vulnerability exists in kube-controller-manager when using the in-tree Portworx StorageClass. This vulnerability allows authorized users to leak arbitrary information from unprotected endpoints in the control plane’s host network (including link-local or loopback services).",
+     "cvss": [
+      {
+       "source": "jordan@liggitt.net",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:H/I:N/A:N",
+       "metrics": {
+        "baseScore": 5.8,
+        "exploitabilityScore": 1.3,
+        "impactScore": 4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "k8s.io/kubernetes",
+       "version": "v1.25.6"
+      }
+     },
+     "found": {
+      "versionConstraint": "<1.32.10 (unknown)",
+      "vulnerabilityID": "GHSA-r6j8-c6r2-37rr"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "1ee5d61e1618b0b3",
+    "name": "k8s.io/kubernetes",
+    "version": "v1.25.6",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/calico-node",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [],
+    "purl": "pkg:golang/k8s.io/kubernetes@v1.25.6",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": "amd64",
+     "h1Digest": "h1:3zBcz3I4CXKnzR/K37Kzjtmu4O+/5XV/tUCa7gSiJG4=",
+     "mainModule": "command-line-arguments"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-qc2g-gmh6-95p4",
     "dataSource": "https://github.com/advisories/GHSA-qc2g-gmh6-95p4",
     "namespace": "github:language:go",
@@ -9945,6 +10146,18 @@
       {
        "source": "nvd@nist.gov",
        "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 7.8,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
        "version": "3.1",
        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
        "metrics": {
@@ -15564,6 +15777,18 @@
         "impactScore": 1.4
        },
        "vendorMetadata": {}
+      },
+      {
+       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
       }
      ]
     }
@@ -18845,6 +19070,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61729",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61729",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/725920",
+     "https://go.dev/issue/76445",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4155"
+    ],
+    "description": "Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61729",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "74e353d66f6227a9",
+    "name": "stdlib",
+    "version": "go1.19.7",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/mountns",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61725",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61725",
     "namespace": "nvd:cpe",
@@ -18856,7 +19168,7 @@
      "https://pkg.go.dev/vuln/GO-2025-4006",
      "http://www.openwall.com/lists/oss-security/2025/10/08/1"
     ],
-    "description": "The ParseAddress function constructeds domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
+    "description": "The ParseAddress function constructs domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
     "cvss": [
      {
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -21160,6 +21472,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61727",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61727",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/723900",
+     "https://go.dev/issue/76442",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4175"
+    ],
+    "description": "An excluded subdomain constraint in a certificate chain does not restrict the usage of wildcard SANs in the leaf certificate. For example a constraint that excludes the subdomain test.example.com does not prevent a leaf certificate from claiming the SAN *.example.com.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61727",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "74e353d66f6227a9",
+    "name": "stdlib",
+    "version": "go1.19.7",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/mountns",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61724",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61724",
     "namespace": "nvd:cpe",
@@ -21917,93 +22316,6 @@
      "found": {
       "vulnerabilityID": "CVE-2025-22866",
       "versionConstraint": "< 1.22.12 || >= 1.23.0-0, < 1.23.6 || >= 1.24.0-0, < 1.24.0-rc.3 (unknown)",
-      "cpes": [
-       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
-      ]
-     }
-    }
-   ],
-   "artifact": {
-    "id": "74e353d66f6227a9",
-    "name": "stdlib",
-    "version": "go1.19.7",
-    "type": "go-module",
-    "locations": [
-     {
-      "path": "/usr/bin/mountns",
-      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
-     }
-    ],
-    "language": "go",
-    "licenses": [
-     "BSD-3-Clause"
-    ],
-    "cpes": [
-     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:golang/stdlib@1.19.7",
-    "upstreams": [],
-    "metadataType": "GolangBinMetadata",
-    "metadata": {
-     "goCompiledVersion": "go1.19.7",
-     "architecture": ""
-    }
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-0913",
-    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-0913",
-    "namespace": "nvd:cpe",
-    "severity": "Medium",
-    "urls": [
-     "https://go.dev/cl/672396",
-     "https://go.dev/issue/73702",
-     "https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A",
-     "https://pkg.go.dev/vuln/GO-2025-3750"
-    ],
-    "description": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.",
-    "cvss": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
-      "metrics": {
-       "baseScore": 5.5,
-       "exploitabilityScore": 1.8,
-       "impactScore": 3.6
-      },
-      "vendorMetadata": {}
-     }
-    ],
-    "fix": {
-     "versions": [
-      "1.23.10",
-      "1.24.4"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [],
-   "matchDetails": [
-    {
-     "type": "cpe-match",
-     "matcher": "go-module-matcher",
-     "searchedBy": {
-      "namespace": "nvd:cpe",
-      "cpes": [
-       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
-      ],
-      "Package": {
-       "name": "stdlib",
-       "version": "go1.19.7"
-      }
-     },
-     "found": {
-      "vulnerabilityID": "CVE-2025-0913",
-      "versionConstraint": "< 1.23.10 || >= 1.24.0-0, < 1.24.4 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -24190,6 +24502,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61729",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61729",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/725920",
+     "https://go.dev/issue/76445",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4155"
+    ],
+    "description": "Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7 X:boringcrypto"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61729",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "22bfc2afb208fdd6",
+    "name": "stdlib",
+    "version": "go1.19.7 X:boringcrypto",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/calico-node",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61725",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61725",
     "namespace": "nvd:cpe",
@@ -24201,7 +24600,7 @@
      "https://pkg.go.dev/vuln/GO-2025-4006",
      "http://www.openwall.com/lists/oss-security/2025/10/08/1"
     ],
-    "description": "The ParseAddress function constructeds domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
+    "description": "The ParseAddress function constructs domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
     "cvss": [
      {
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -26505,6 +26904,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61727",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61727",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/723900",
+     "https://go.dev/issue/76442",
+     "https://groups.google.com/g/golang-announce/c/8FJoBkPddm4",
+     "https://pkg.go.dev/vuln/GO-2025-4175"
+    ],
+    "description": "An excluded subdomain constraint in a certificate chain does not restrict the usage of wildcard SANs in the leaf certificate. For example a constraint that excludes the subdomain test.example.com does not prevent a leaf certificate from claiming the SAN *.example.com.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.11",
+      "1.25.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7 X:boringcrypto"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61727",
+      "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "22bfc2afb208fdd6",
+    "name": "stdlib",
+    "version": "go1.19.7 X:boringcrypto",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/bin/calico-node",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61724",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61724",
     "namespace": "nvd:cpe",
@@ -27262,93 +27748,6 @@
      "found": {
       "vulnerabilityID": "CVE-2025-22866",
       "versionConstraint": "< 1.22.12 || >= 1.23.0-0, < 1.23.6 || >= 1.24.0-0, < 1.24.0-rc.3 (unknown)",
-      "cpes": [
-       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
-      ]
-     }
-    }
-   ],
-   "artifact": {
-    "id": "22bfc2afb208fdd6",
-    "name": "stdlib",
-    "version": "go1.19.7 X:boringcrypto",
-    "type": "go-module",
-    "locations": [
-     {
-      "path": "/usr/bin/calico-node",
-      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
-     }
-    ],
-    "language": "go",
-    "licenses": [
-     "BSD-3-Clause"
-    ],
-    "cpes": [
-     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
-    "upstreams": [],
-    "metadataType": "GolangBinMetadata",
-    "metadata": {
-     "goCompiledVersion": "go1.19.7 X:boringcrypto",
-     "architecture": ""
-    }
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-0913",
-    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-0913",
-    "namespace": "nvd:cpe",
-    "severity": "Medium",
-    "urls": [
-     "https://go.dev/cl/672396",
-     "https://go.dev/issue/73702",
-     "https://groups.google.com/g/golang-announce/c/ufZ8WpEsA3A",
-     "https://pkg.go.dev/vuln/GO-2025-3750"
-    ],
-    "description": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.",
-    "cvss": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
-      "metrics": {
-       "baseScore": 5.5,
-       "exploitabilityScore": 1.8,
-       "impactScore": 3.6
-      },
-      "vendorMetadata": {}
-     }
-    ],
-    "fix": {
-     "versions": [
-      "1.23.10",
-      "1.24.4"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [],
-   "matchDetails": [
-    {
-     "type": "cpe-match",
-     "matcher": "go-module-matcher",
-     "searchedBy": {
-      "namespace": "nvd:cpe",
-      "cpes": [
-       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
-      ],
-      "Package": {
-       "name": "stdlib",
-       "version": "go1.19.7 X:boringcrypto"
-      }
-     },
-     "found": {
-      "vulnerabilityID": "CVE-2025-0913",
-      "versionConstraint": "< 1.23.10 || >= 1.24.0-0, < 1.24.4 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -28727,7 +29126,7 @@
       },
       "vendorMetadata": {
        "base_severity": "Medium",
-       "status": "draft"
+       "status": "verified"
       }
      }
     ],
@@ -28744,6 +29143,10 @@
      "namespace": "nvd:cpe",
      "severity": "Medium",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:22660",
+      "https://access.redhat.com/errata/RHSA-2025:22868",
+      "https://access.redhat.com/errata/RHSA-2025:23227",
+      "https://access.redhat.com/errata/RHSA-2025:23234",
       "https://access.redhat.com/security/cve/CVE-2025-4598",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2369242",
       "https://www.openwall.com/lists/oss-security/2025/05/29/3",
@@ -29418,7 +29821,7 @@
       },
       "vendorMetadata": {
        "base_severity": "Medium",
-       "status": "draft"
+       "status": "verified"
       }
      }
     ],
@@ -29435,6 +29838,10 @@
      "namespace": "nvd:cpe",
      "severity": "Medium",
      "urls": [
+      "https://access.redhat.com/errata/RHSA-2025:22660",
+      "https://access.redhat.com/errata/RHSA-2025:22868",
+      "https://access.redhat.com/errata/RHSA-2025:23227",
+      "https://access.redhat.com/errata/RHSA-2025:23234",
       "https://access.redhat.com/security/cve/CVE-2025-4598",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2369242",
       "https://www.openwall.com/lists/oss-security/2025/05/29/3",
@@ -30087,6 +30494,119 @@
      "modularityLabel": ""
     }
    }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-14104",
+    "dataSource": "https://access.redhat.com/security/cve/CVE-2025-14104",
+    "namespace": "redhat:distro:redhat:8",
+    "severity": "Medium",
+    "urls": [
+     "https://access.redhat.com/security/cve/CVE-2025-14104"
+    ],
+    "description": "A flaw was found in util-linux. This vulnerability allows a heap buffer overread when processing 256-byte usernames, specifically within the `setpwnam()` function, affecting SUID (Set User ID) login-utils utilities writing to the password database.",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:H",
+      "metrics": {
+       "baseScore": 6.1,
+       "exploitabilityScore": 1.8,
+       "impactScore": 4.2
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "draft"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-14104",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-14104",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://access.redhat.com/security/cve/CVE-2025-14104",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2419369"
+     ],
+     "description": "A flaw was found in util-linux. This vulnerability allows a heap buffer overread when processing 256-byte usernames, specifically within the `setpwnam()` function, affecting SUID (Set User ID) login-utils utilities writing to the password database.",
+     "cvss": [
+      {
+       "source": "secalert@redhat.com",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:H",
+       "metrics": {
+        "baseScore": 6.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 4.2
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "rpm-matcher",
+     "searchedBy": {
+      "distro": {
+       "type": "redhat",
+       "version": "8.7"
+      },
+      "namespace": "redhat:distro:redhat:8",
+      "package": {
+       "name": "util-linux",
+       "version": "0:2.32.1-39.el8_7"
+      }
+     },
+     "found": {
+      "versionConstraint": "none (rpm)",
+      "vulnerabilityID": "CVE-2025-14104"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "b35b9b32fd8121e0",
+    "name": "util-linux",
+    "version": "2.32.1-39.el8_7",
+    "type": "rpm",
+    "locations": [
+     {
+      "path": "/var/lib/rpm/Packages",
+      "layerID": "sha256:b1d7f02a32791d579abb161bccbf82ba1deaa7fb57805c93e84ddd30f0cb9560"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain"
+    ],
+    "cpes": [
+     "cpe:2.3:a:util-linux:util-linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:util-linux:util_linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:util_linux:util-linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:util_linux:util_linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:redhat:util-linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:redhat:util_linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:util:util-linux:2.32.1-39.el8_7:*:*:*:*:*:*:*",
+     "cpe:2.3:a:util:util_linux:2.32.1-39.el8_7:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:rpm/rhel/util-linux@2.32.1-39.el8_7?arch=x86_64&upstream=util-linux-2.32.1-39.el8_7.src.rpm&distro=rhel-8.7",
+    "upstreams": [],
+    "metadataType": "RpmMetadata",
+    "metadata": {
+     "epoch": null,
+     "modularityLabel": ""
+    }
+   }
   }
  ],
  "source": {
@@ -30218,12 +30738,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-11-27T00:25:44Z",
+   "built": "2025-12-31T00:25:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:d58af86de29a31494167963bd87d5c8b6ebed0834c52530006fb73cdba25b5c2",
+   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
    "error": null
   },
-  "timestamp": "2025-12-01T02:48:55.579758394Z"
+  "timestamp": "2026-01-01T02:48:38.44516412Z"
  }
 }

@@ -1436,6 +1436,110 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-vc5p-v9hr-52mj",
+    "dataSource": "https://github.com/advisories/GHSA-vc5p-v9hr-52mj",
+    "namespace": "github:language:java",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-vc5p-v9hr-52mj"
+    ],
+    "description": "Apache Log4j does not verify the TLS hostname in its Socket Appender",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "2.25.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-68161",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-68161",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/apache/logging-log4j2/pull/4002",
+      "https://lists.apache.org/thread/xr33kyxq3sl67lwb61ggvm1fzc8k7dvx",
+      "https://logging.apache.org/cyclonedx/vdr.xml",
+      "https://logging.apache.org/log4j/2.x/manual/appenders/network.html#SslConfiguration-attr-verifyHostName",
+      "https://logging.apache.org/log4j/2.x/manual/systemproperties.html#log4j2.sslVerifyHostName",
+      "https://logging.apache.org/security.html#CVE-2025-68161",
+      "http://www.openwall.com/lists/oss-security/2025/12/18/1"
+     ],
+     "description": "The Socket Appender in Apache Log4j Core versions 2.0-beta9 through 2.25.2 does not perform TLS hostname verification of the peer certificate, even when the  verifyHostName https://logging.apache.org/log4j/2.x/manual/appenders/network.html#SslConfiguration-attr-verifyHostName  configuration attribute or the  log4j2.sslVerifyHostName https://logging.apache.org/log4j/2.x/manual/systemproperties.html#log4j2.sslVerifyHostName  system property is set to true.\n\nThis issue may allow a man-in-the-middle attacker to intercept or redirect log traffic under the following conditions:\n\n  *  The attacker is able to intercept or redirect network traffic between the client and the log receiver.\n  *  The attacker can present a server certificate issued by a certification authority trusted by the Socket Appender’s configured trust store (or by the default Java trust store if no custom trust store is configured).\n\n\nUsers are advised to upgrade to Apache Log4j Core version 2.25.3, which addresses this issue.\n\nAs an alternative mitigation, the Socket Appender may be configured to use a private or restricted trust root to limit the set of trusted certificates.",
+     "cvss": [
+      {
+       "source": "security@apache.org",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 6.3
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "java-matcher",
+     "searchedBy": {
+      "language": "java",
+      "namespace": "github:language:java",
+      "package": {
+       "name": "log4j-core",
+       "version": "2.11.2"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=2.0-beta9,<2.25.3 (unknown)",
+      "vulnerabilityID": "GHSA-vc5p-v9hr-52mj"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "9df140e46804f37f",
+    "name": "log4j-core",
+    "version": "2.11.2",
+    "type": "java-archive",
+    "locations": [
+     {
+      "path": "/build/libs/java-spring-vuly-0.2.0.jar"
+     }
+    ],
+    "language": "java",
+    "licenses": [
+     "https://www.apache.org/licenses/LICENSE-2.0.txt"
+    ],
+    "cpes": [
+     "cpe:2.3:a:apache:log4j-core:2.11.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:apache:log4j_core:2.11.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:apache:log4j:2.11.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:apache:core:2.11.2:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:maven/org.apache.logging.log4j/log4j-core@2.11.2",
+    "upstreams": [],
+    "metadataType": "JavaMetadata",
+    "metadata": {
+     "virtualPath": "/build/libs/java-spring-vuly-0.2.0.jar:BOOT-INF/lib/log4j-core-2.11.2.jar",
+     "pomArtifactID": "log4j-core",
+     "pomGroupID": "org.apache.logging.log4j",
+     "manifestName": "",
+     "archiveDigests": [
+      {
+       "algorithm": "sha1",
+       "value": "6c2fb3f5b7cd27504726aef1b674b542a0c9cf53"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-8489-44mv-ggj8",
     "dataSource": "https://github.com/advisories/GHSA-8489-44mv-ggj8",
     "namespace": "github:language:java",
@@ -7254,12 +7358,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-11-27T00:25:44Z",
+   "built": "2025-12-31T00:25:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:d58af86de29a31494167963bd87d5c8b6ebed0834c52530006fb73cdba25b5c2",
+   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
    "error": null
   },
-  "timestamp": "2025-12-01T02:32:53.362051112Z"
+  "timestamp": "2026-01-01T02:31:42.585619117Z"
  }
 }

@@ -6689,6 +6689,18 @@
        "impactScore": 1.4
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -10622,6 +10634,18 @@
        "impactScore": 1.4
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -11855,6 +11879,18 @@
        "impactScore": 6
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7,
+       "exploitabilityScore": 1,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -11959,6 +11995,18 @@
        "baseScore": 8.1,
        "exploitabilityScore": 1.4,
        "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7,
+       "exploitabilityScore": 1,
+       "impactScore": 5.9
       },
       "vendorMetadata": {}
      }
@@ -15473,6 +15521,116 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-6rw7-vpxm-498p",
+    "dataSource": "https://github.com/advisories/GHSA-6rw7-vpxm-498p",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-6rw7-vpxm-498p"
+    ],
+    "description": "qs's arrayLimit bypass in its bracket notation allows DoS via memory exhaustion",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "6.14.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-15284",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-15284",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/ljharb/qs/commit/3086902ecf7f088d0d1803887643ac6c03d415b9",
+      "https://github.com/ljharb/qs/security/advisories/GHSA-6rw7-vpxm-498p"
+     ],
+     "description": "Improper Input Validation vulnerability in qs (parse modules) allows HTTP DoS.This issue affects qs: < 6.14.1.\n\n\nSummaryThe arrayLimit option in qs does not enforce limits for bracket notation (a[]=1&a[]=2), allowing attackers to cause denial-of-service via memory exhaustion. Applications using arrayLimit for DoS protection are vulnerable.\n\nDetailsThe arrayLimit option only checks limits for indexed notation (a[0]=1&a[1]=2) but completely bypasses it for bracket notation (a[]=1&a[]=2).\n\nVulnerable code (lib/parse.js:159-162):\n\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n\n\n\n\n\nWorking code (lib/parse.js:175):\n\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n\n\n\n\n\nThe bracket notation handler at line 159 uses utils.combine([], leaf) without validating against options.arrayLimit, while indexed notation at line 175 checks index <= options.arrayLimit before creating arrays.\n\nPoCTest 1 - Basic bypass:\n\nnpm install qs\n\n\n\n\n\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n\n\n\n\n\nTest 2 - DoS demonstration:\n\nconst qs = require('qs');\nconst attack = 'a[]=' + Array(10000).fill('x').join('&a[]=');\nconst result = qs.parse(attack, { arrayLimit: 100 });\nconsole.log(result.a.length);  // Output: 10000 (should be max 100)\n\n\n\n\n\nConfiguration:\n\n  *  arrayLimit: 5 (test 1) or arrayLimit: 100 (test 2)\n  *  Use bracket notation: a[]=value (not indexed a[0]=value)\n\n\nImpactDenial of Service via memory exhaustion. Affects applications using qs.parse() with user-controlled input and arrayLimit for protection.\n\nAttack scenario:\n\n  *  Attacker sends HTTP request: GET /api/search?filters[]=x&filters[]=x&...&filters[]=x (100,000+ times)\n  *  Application parses with qs.parse(query, { arrayLimit: 100 })\n  *  qs ignores limit, parses all 100,000 elements into array\n  *  Server memory exhausted → application crashes or becomes unresponsive\n  *  Service unavailable for all users\nReal-world impact:\n\n  *  Single malicious request can crash server\n  *  No authentication required\n  *  Easy to automate and scale\n  *  Affects any endpoint parsing query strings with bracket notation",
+     "cvss": [
+      {
+       "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 8.7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "qs",
+       "version": "6.7.0"
+      }
+     },
+     "found": {
+      "versionConstraint": "<6.14.1 (unknown)",
+      "vulnerabilityID": "GHSA-6rw7-vpxm-498p"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "51e33060435395ed",
+    "name": "qs",
+    "version": "6.7.0",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/node_modules/qs/package.json",
+      "layerID": "sha256:2846b51baf2441bb3de69228c73c8fb32998003df3b26a0258d9cce99526a979"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:qs_project:qs:6.7.0:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/qs@6.7.0",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-m6fv-jmcg-4jfg",
     "dataSource": "https://github.com/advisories/GHSA-m6fv-jmcg-4jfg",
     "namespace": "github:language:javascript",
@@ -18404,12 +18562,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-11-27T00:25:44Z",
+   "built": "2025-12-31T00:25:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:d58af86de29a31494167963bd87d5c8b6ebed0834c52530006fb73cdba25b5c2",
+   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
    "error": null
   },
-  "timestamp": "2025-12-01T02:33:12.829465955Z"
+  "timestamp": "2026-01-01T02:33:08.413728085Z"
  }
 }
