@@ -37,6 +37,87 @@
               }
             },
             {
+              "id": "CVE-2026-0861",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: Integer overflow in memalign leads to heap corruption"
+              },
+              "fullDescription": {
+                "text": "Passing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-0861",
+              "help": {
+                "text": "Vulnerability CVE-2026-0861\nSeverity: HIGH\nPackage: libc6\nFixed Version: \nLink: [CVE-2026-0861](https://avd.aquasec.com/nvd/cve-2026-0861)\nPassing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments.",
+                "markdown": "**Vulnerability CVE-2026-0861**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|libc6||[CVE-2026-0861](https://avd.aquasec.com/nvd/cve-2026-0861)|\n\nPassing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-15281",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: wordexp with WRDE_REUSE and WRDE_APPEND may return uninitialized memory"
+              },
+              "fullDescription": {
+                "text": "Calling wordexp with WRDE_REUSE in conjunction with WRDE_APPEND in the GNU C Library version 2.0 to version 2.42 may cause the interface to return uninitialized memory in the we_wordv member, which on subsequent calls to wordfree may abort the process."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-15281",
+              "help": {
+                "text": "Vulnerability CVE-2025-15281\nSeverity: MEDIUM\nPackage: libc6\nFixed Version: \nLink: [CVE-2025-15281](https://avd.aquasec.com/nvd/cve-2025-15281)\nCalling wordexp with WRDE_REUSE in conjunction with WRDE_APPEND in the GNU C Library version 2.0 to version 2.42 may cause the interface to return uninitialized memory in the we_wordv member, which on subsequent calls to wordfree may abort the process.",
+                "markdown": "**Vulnerability CVE-2025-15281**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libc6||[CVE-2025-15281](https://avd.aquasec.com/nvd/cve-2025-15281)|\n\nCalling wordexp with WRDE_REUSE in conjunction with WRDE_APPEND in the GNU C Library version 2.0 to version 2.42 may cause the interface to return uninitialized memory in the we_wordv member, which on subsequent calls to wordfree may abort the process."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-0915",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Information disclosure via zero-valued network query"
+              },
+              "fullDescription": {
+                "text": "Calling getnetbyaddr or getnetbyaddr_r with a configured nsswitch.conf that specifies the library's DNS backend for networks and queries for a zero-valued network in the GNU C Library version 2.0 to version 2.42 can leak stack contents to the configured DNS resolver."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-0915",
+              "help": {
+                "text": "Vulnerability CVE-2026-0915\nSeverity: MEDIUM\nPackage: libc6\nFixed Version: \nLink: [CVE-2026-0915](https://avd.aquasec.com/nvd/cve-2026-0915)\nCalling getnetbyaddr or getnetbyaddr_r with a configured nsswitch.conf that specifies the library's DNS backend for networks and queries for a zero-valued network in the GNU C Library version 2.0 to version 2.42 can leak stack contents to the configured DNS resolver.",
+                "markdown": "**Vulnerability CVE-2026-0915**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libc6||[CVE-2026-0915](https://avd.aquasec.com/nvd/cve-2026-0915)|\n\nCalling getnetbyaddr or getnetbyaddr_r with a configured nsswitch.conf that specifies the library's DNS backend for networks and queries for a zero-valued network in the GNU C Library version 2.0 to version 2.42 can leak stack contents to the configured DNS resolver."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2010-4756",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -226,6 +307,222 @@
               }
             },
             {
+              "id": "CVE-2025-15467",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Remote code execution or Denial of Service via oversized Initialization Vector in CMS parsing"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Parsing CMS AuthEnvelopedData message with maliciously\ncrafted AEAD parameters can trigger a stack buffer overflow.\n\nImpact summary: A stack buffer overflow may lead to a crash, causing Denial\nof Service, or potentially remote code execution.\n\nWhen parsing CMS AuthEnvelopedData structures that use AEAD ciphers such as\nAES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is\ncopied into a fixed-size stack buffer without verifying that its length fits\nthe destination. An attacker can supply a crafted CMS message with an\noversized IV, causing a stack-based out-of-bounds write before any\nauthentication or tag verification occurs.\n\nApplications and services that parse untrusted CMS or PKCS#7 content using\nAEAD ciphers (e.g., S/MIME AuthEnvelopedData with AES-GCM) are vulnerable.\nBecause the overflow occurs prior to authentication, no valid key material\nis required to trigger it. While exploitability to remote code execution\ndepends on platform and toolchain mitigations, the stack-based write\nprimitive represents a severe risk.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the CMS implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.\n\nOpenSSL 1.1.1 and 1.0.2 are not affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-15467",
+              "help": {
+                "text": "Vulnerability CVE-2025-15467\nSeverity: CRITICAL\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-15467](https://avd.aquasec.com/nvd/cve-2025-15467)\nIssue summary: Parsing CMS AuthEnvelopedData message with maliciously\ncrafted AEAD parameters can trigger a stack buffer overflow.\n\nImpact summary: A stack buffer overflow may lead to a crash, causing Denial\nof Service, or potentially remote code execution.\n\nWhen parsing CMS AuthEnvelopedData structures that use AEAD ciphers such as\nAES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is\ncopied into a fixed-size stack buffer without verifying that its length fits\nthe destination. An attacker can supply a crafted CMS message with an\noversized IV, causing a stack-based out-of-bounds write before any\nauthentication or tag verification occurs.\n\nApplications and services that parse untrusted CMS or PKCS#7 content using\nAEAD ciphers (e.g., S/MIME AuthEnvelopedData with AES-GCM) are vulnerable.\nBecause the overflow occurs prior to authentication, no valid key material\nis required to trigger it. While exploitability to remote code execution\ndepends on platform and toolchain mitigations, the stack-based write\nprimitive represents a severe risk.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the CMS implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.\n\nOpenSSL 1.1.1 and 1.0.2 are not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2025-15467**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|libssl3|3.0.18-1~deb12u2|[CVE-2025-15467](https://avd.aquasec.com/nvd/cve-2025-15467)|\n\nIssue summary: Parsing CMS AuthEnvelopedData message with maliciously\ncrafted AEAD parameters can trigger a stack buffer overflow.\n\nImpact summary: A stack buffer overflow may lead to a crash, causing Denial\nof Service, or potentially remote code execution.\n\nWhen parsing CMS AuthEnvelopedData structures that use AEAD ciphers such as\nAES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is\ncopied into a fixed-size stack buffer without verifying that its length fits\nthe destination. An attacker can supply a crafted CMS message with an\noversized IV, causing a stack-based out-of-bounds write before any\nauthentication or tag verification occurs.\n\nApplications and services that parse untrusted CMS or PKCS#7 content using\nAEAD ciphers (e.g., S/MIME AuthEnvelopedData with AES-GCM) are vulnerable.\nBecause the overflow occurs prior to authentication, no valid key material\nis required to trigger it. While exploitability to remote code execution\ndepends on platform and toolchain mitigations, the stack-based write\nprimitive represents a severe risk.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the CMS implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.\n\nOpenSSL 1.1.1 and 1.0.2 are not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "9.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-69419",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Arbitrary code execution due to out-of-bounds write in PKCS#12 processing"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Calling PKCS12_get_friendlyname() function on a maliciously\ncrafted PKCS#12 file with a BMPString (UTF-16BE) friendly name containing\nnon-ASCII BMP code point can trigger a one byte write before the allocated\nbuffer.\n\nImpact summary: The out-of-bounds write can cause a memory corruption\nwhich can have various consequences including a Denial of Service.\n\nThe OPENSSL_uni2utf8() function performs a two-pass conversion of a PKCS#12\nBMPString (UTF-16BE) to UTF-8. In the second pass, when emitting UTF-8 bytes,\nthe helper function bmp_to_utf8() incorrectly forwards the remaining UTF-16\nsource byte count as the destination buffer capacity to UTF8_putc(). For BMP\ncode points above U+07FF, UTF-8 requires three bytes, but the forwarded\ncapacity can be just two bytes. UTF8_putc() then returns -1, and this negative\nvalue is added to the output length without validation, causing the\nlength to become negative. The subsequent trailing NUL byte is then written\nat a negative offset, causing write outside of heap allocated buffer.\n\nThe vulnerability is reachable via the public PKCS12_get_friendlyname() API\nwhen parsing attacker-controlled PKCS#12 files. While PKCS12_parse() uses a\ndifferent code path that avoids this issue, PKCS12_get_friendlyname() directly\ninvokes the vulnerable function. Exploitation requires an attacker to provide\na malicious PKCS#12 file to be parsed by the application and the attacker\ncan just trigger a one zero byte write before the allocated buffer.\nFor that reason the issue was assessed as Low severity according to our\nSecurity Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-69419",
+              "help": {
+                "text": "Vulnerability CVE-2025-69419\nSeverity: HIGH\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69419](https://avd.aquasec.com/nvd/cve-2025-69419)\nIssue summary: Calling PKCS12_get_friendlyname() function on a maliciously\ncrafted PKCS#12 file with a BMPString (UTF-16BE) friendly name containing\nnon-ASCII BMP code point can trigger a one byte write before the allocated\nbuffer.\n\nImpact summary: The out-of-bounds write can cause a memory corruption\nwhich can have various consequences including a Denial of Service.\n\nThe OPENSSL_uni2utf8() function performs a two-pass conversion of a PKCS#12\nBMPString (UTF-16BE) to UTF-8. In the second pass, when emitting UTF-8 bytes,\nthe helper function bmp_to_utf8() incorrectly forwards the remaining UTF-16\nsource byte count as the destination buffer capacity to UTF8_putc(). For BMP\ncode points above U+07FF, UTF-8 requires three bytes, but the forwarded\ncapacity can be just two bytes. UTF8_putc() then returns -1, and this negative\nvalue is added to the output length without validation, causing the\nlength to become negative. The subsequent trailing NUL byte is then written\nat a negative offset, causing write outside of heap allocated buffer.\n\nThe vulnerability is reachable via the public PKCS12_get_friendlyname() API\nwhen parsing attacker-controlled PKCS#12 files. While PKCS12_parse() uses a\ndifferent code path that avoids this issue, PKCS12_get_friendlyname() directly\ninvokes the vulnerable function. Exploitation requires an attacker to provide\na malicious PKCS#12 file to be parsed by the application and the attacker\ncan just trigger a one zero byte write before the allocated buffer.\nFor that reason the issue was assessed as Low severity according to our\nSecurity Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2025-69419**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|libssl3|3.0.18-1~deb12u2|[CVE-2025-69419](https://avd.aquasec.com/nvd/cve-2025-69419)|\n\nIssue summary: Calling PKCS12_get_friendlyname() function on a maliciously\ncrafted PKCS#12 file with a BMPString (UTF-16BE) friendly name containing\nnon-ASCII BMP code point can trigger a one byte write before the allocated\nbuffer.\n\nImpact summary: The out-of-bounds write can cause a memory corruption\nwhich can have various consequences including a Denial of Service.\n\nThe OPENSSL_uni2utf8() function performs a two-pass conversion of a PKCS#12\nBMPString (UTF-16BE) to UTF-8. In the second pass, when emitting UTF-8 bytes,\nthe helper function bmp_to_utf8() incorrectly forwards the remaining UTF-16\nsource byte count as the destination buffer capacity to UTF8_putc(). For BMP\ncode points above U+07FF, UTF-8 requires three bytes, but the forwarded\ncapacity can be just two bytes. UTF8_putc() then returns -1, and this negative\nvalue is added to the output length without validation, causing the\nlength to become negative. The subsequent trailing NUL byte is then written\nat a negative offset, causing write outside of heap allocated buffer.\n\nThe vulnerability is reachable via the public PKCS12_get_friendlyname() API\nwhen parsing attacker-controlled PKCS#12 files. While PKCS12_parse() uses a\ndifferent code path that avoids this issue, PKCS12_get_friendlyname() directly\ninvokes the vulnerable function. Exploitation requires an attacker to provide\na malicious PKCS#12 file to be parsed by the application and the attacker\ncan just trigger a one zero byte write before the allocated buffer.\nFor that reason the issue was assessed as Low severity according to our\nSecurity Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-68160",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service due to out-of-bounds write in BIO filter"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Writing large, newline-free data into a BIO chain using the\nline-buffering filter where the next BIO performs short writes can trigger\na heap-based out-of-bounds write.\n\nImpact summary: This out-of-bounds write can cause memory corruption which\ntypically results in a crash, leading to Denial of Service for an application.\n\nThe line-buffering BIO filter (BIO_f_linebuffer) is not used by default in\nTLS/SSL data paths. In OpenSSL command-line applications, it is typically\nonly pushed onto stdout/stderr on VMS systems. Third-party applications that\nexplicitly use this filter with a BIO chain that can short-write and that\nwrite large, newline-free data influenced by an attacker would be affected.\nHowever, the circumstances where this could happen are unlikely to be under\nattacker control, and BIO_f_linebuffer is unlikely to be handling non-curated\ndata controlled by an attacker. For that reason the issue was assessed as\nLow severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the BIO implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-68160",
+              "help": {
+                "text": "Vulnerability CVE-2025-68160\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-68160](https://avd.aquasec.com/nvd/cve-2025-68160)\nIssue summary: Writing large, newline-free data into a BIO chain using the\nline-buffering filter where the next BIO performs short writes can trigger\na heap-based out-of-bounds write.\n\nImpact summary: This out-of-bounds write can cause memory corruption which\ntypically results in a crash, leading to Denial of Service for an application.\n\nThe line-buffering BIO filter (BIO_f_linebuffer) is not used by default in\nTLS/SSL data paths. In OpenSSL command-line applications, it is typically\nonly pushed onto stdout/stderr on VMS systems. Third-party applications that\nexplicitly use this filter with a BIO chain that can short-write and that\nwrite large, newline-free data influenced by an attacker would be affected.\nHowever, the circumstances where this could happen are unlikely to be under\nattacker control, and BIO_f_linebuffer is unlikely to be handling non-curated\ndata controlled by an attacker. For that reason the issue was assessed as\nLow severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the BIO implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+                "markdown": "**Vulnerability CVE-2025-68160**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2025-68160](https://avd.aquasec.com/nvd/cve-2025-68160)|\n\nIssue summary: Writing large, newline-free data into a BIO chain using the\nline-buffering filter where the next BIO performs short writes can trigger\na heap-based out-of-bounds write.\n\nImpact summary: This out-of-bounds write can cause memory corruption which\ntypically results in a crash, leading to Denial of Service for an application.\n\nThe line-buffering BIO filter (BIO_f_linebuffer) is not used by default in\nTLS/SSL data paths. In OpenSSL command-line applications, it is typically\nonly pushed onto stdout/stderr on VMS systems. Third-party applications that\nexplicitly use this filter with a BIO chain that can short-write and that\nwrite large, newline-free data influenced by an attacker would be affected.\nHowever, the circumstances where this could happen are unlikely to be under\nattacker control, and BIO_f_linebuffer is unlikely to be handling non-curated\ndata controlled by an attacker. For that reason the issue was assessed as\nLow severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the BIO implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-69418",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Information disclosure and data tampering via specific low-level OCB encryption/decryption calls"
+              },
+              "fullDescription": {
+                "text": "Issue summary: When using the low-level OCB API directly with AES-NI or\u003cbr\u003eother hardware-accelerated code paths, inputs whose length is not a multiple\u003cbr\u003eof 16 bytes can leave the final partial block unencrypted and unauthenticated.\u003cbr\u003e\u003cbr\u003eImpact summary: The trailing 1-15 bytes of a message may be exposed in\u003cbr\u003ecleartext on encryption and are not covered by the authentication tag,\u003cbr\u003eallowing an attacker to read or tamper with those bytes without detection.\u003cbr\u003e\u003cbr\u003eThe low-level OCB encrypt and decrypt routines in the hardware-accelerated\u003cbr\u003estream path process full 16-byte blocks but do not advance the input/output\u003cbr\u003epointers. The subsequent tail-handling code then operates on the original\u003cbr\u003ebase pointers, effectively reprocessing the beginning of the buffer while\u003cbr\u003eleaving the actual trailing bytes unprocessed. The authentication checksum\u003cbr\u003ealso excludes the true tail bytes.\u003cbr\u003e\u003cbr\u003eHowever, typical OpenSSL consumers using EVP are not affected because the\u003cbr\u003ehigher-level EVP and provider OCB implementations split inputs so that full\u003cbr\u003eblocks and trailing partial blocks are processed in separate calls, avoiding\u003cbr\u003ethe problematic code path. Additionally, TLS does not use OCB ciphersuites.\u003cbr\u003eThe vulnerability only affects applications that call the low-level\u003cbr\u003eCRYPTO_ocb128_encrypt() or CRYPTO_ocb128_decrypt() functions directly with\u003cbr\u003enon-block-aligned lengths in a single call on hardware-accelerated builds.\u003cbr\u003eFor these reasons the issue was assessed as Low severity.\u003cbr\u003e\u003cbr\u003eThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected\u003cbr\u003eby this issue, as OCB mode is not a FIPS-approved algorithm.\u003cbr\u003e\u003cbr\u003eOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\u003cbr\u003e\u003cbr\u003eOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-69418",
+              "help": {
+                "text": "Vulnerability CVE-2025-69418\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69418](https://avd.aquasec.com/nvd/cve-2025-69418)\nIssue summary: When using the low-level OCB API directly with AES-NI or\u003cbr\u003eother hardware-accelerated code paths, inputs whose length is not a multiple\u003cbr\u003eof 16 bytes can leave the final partial block unencrypted and unauthenticated.\u003cbr\u003e\u003cbr\u003eImpact summary: The trailing 1-15 bytes of a message may be exposed in\u003cbr\u003ecleartext on encryption and are not covered by the authentication tag,\u003cbr\u003eallowing an attacker to read or tamper with those bytes without detection.\u003cbr\u003e\u003cbr\u003eThe low-level OCB encrypt and decrypt routines in the hardware-accelerated\u003cbr\u003estream path process full 16-byte blocks but do not advance the input/output\u003cbr\u003epointers. The subsequent tail-handling code then operates on the original\u003cbr\u003ebase pointers, effectively reprocessing the beginning of the buffer while\u003cbr\u003eleaving the actual trailing bytes unprocessed. The authentication checksum\u003cbr\u003ealso excludes the true tail bytes.\u003cbr\u003e\u003cbr\u003eHowever, typical OpenSSL consumers using EVP are not affected because the\u003cbr\u003ehigher-level EVP and provider OCB implementations split inputs so that full\u003cbr\u003eblocks and trailing partial blocks are processed in separate calls, avoiding\u003cbr\u003ethe problematic code path. Additionally, TLS does not use OCB ciphersuites.\u003cbr\u003eThe vulnerability only affects applications that call the low-level\u003cbr\u003eCRYPTO_ocb128_encrypt() or CRYPTO_ocb128_decrypt() functions directly with\u003cbr\u003enon-block-aligned lengths in a single call on hardware-accelerated builds.\u003cbr\u003eFor these reasons the issue was assessed as Low severity.\u003cbr\u003e\u003cbr\u003eThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected\u003cbr\u003eby this issue, as OCB mode is not a FIPS-approved algorithm.\u003cbr\u003e\u003cbr\u003eOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\u003cbr\u003e\u003cbr\u003eOpenSSL 1.0.2 is not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2025-69418**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2025-69418](https://avd.aquasec.com/nvd/cve-2025-69418)|\n\nIssue summary: When using the low-level OCB API directly with AES-NI or\u003cbr\u003eother hardware-accelerated code paths, inputs whose length is not a multiple\u003cbr\u003eof 16 bytes can leave the final partial block unencrypted and unauthenticated.\u003cbr\u003e\u003cbr\u003eImpact summary: The trailing 1-15 bytes of a message may be exposed in\u003cbr\u003ecleartext on encryption and are not covered by the authentication tag,\u003cbr\u003eallowing an attacker to read or tamper with those bytes without detection.\u003cbr\u003e\u003cbr\u003eThe low-level OCB encrypt and decrypt routines in the hardware-accelerated\u003cbr\u003estream path process full 16-byte blocks but do not advance the input/output\u003cbr\u003epointers. The subsequent tail-handling code then operates on the original\u003cbr\u003ebase pointers, effectively reprocessing the beginning of the buffer while\u003cbr\u003eleaving the actual trailing bytes unprocessed. The authentication checksum\u003cbr\u003ealso excludes the true tail bytes.\u003cbr\u003e\u003cbr\u003eHowever, typical OpenSSL consumers using EVP are not affected because the\u003cbr\u003ehigher-level EVP and provider OCB implementations split inputs so that full\u003cbr\u003eblocks and trailing partial blocks are processed in separate calls, avoiding\u003cbr\u003ethe problematic code path. Additionally, TLS does not use OCB ciphersuites.\u003cbr\u003eThe vulnerability only affects applications that call the low-level\u003cbr\u003eCRYPTO_ocb128_encrypt() or CRYPTO_ocb128_decrypt() functions directly with\u003cbr\u003enon-block-aligned lengths in a single call on hardware-accelerated builds.\u003cbr\u003eFor these reasons the issue was assessed as Low severity.\u003cbr\u003e\u003cbr\u003eThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected\u003cbr\u003eby this issue, as OCB mode is not a FIPS-approved algorithm.\u003cbr\u003e\u003cbr\u003eOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\u003cbr\u003e\u003cbr\u003eOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-69420",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service via malformed TimeStamp Response"
+              },
+              "fullDescription": {
+                "text": "Issue summary: A type confusion vulnerability exists in the TimeStamp Response\nverification code where an ASN1_TYPE union member is accessed without first\nvalidating the type, causing an invalid or NULL pointer dereference when\nprocessing a malformed TimeStamp Response file.\n\nImpact summary: An application calling TS_RESP_verify_response() with a\nmalformed TimeStamp Response can be caused to dereference an invalid or\nNULL pointer when reading, resulting in a Denial of Service.\n\nThe functions ossl_ess_get_signing_cert() and ossl_ess_get_signing_cert_v2()\naccess the signing cert attribute value without validating its type.\nWhen the type is not V_ASN1_SEQUENCE, this results in accessing invalid memory\nthrough the ASN1_TYPE union, causing a crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nTimeStamp Response to an application that verifies timestamp responses. The\nTimeStamp protocol (RFC 3161) is not widely used and the impact of the\nexploit is just a Denial of Service. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the TimeStamp Response implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-69420",
+              "help": {
+                "text": "Vulnerability CVE-2025-69420\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69420](https://avd.aquasec.com/nvd/cve-2025-69420)\nIssue summary: A type confusion vulnerability exists in the TimeStamp Response\nverification code where an ASN1_TYPE union member is accessed without first\nvalidating the type, causing an invalid or NULL pointer dereference when\nprocessing a malformed TimeStamp Response file.\n\nImpact summary: An application calling TS_RESP_verify_response() with a\nmalformed TimeStamp Response can be caused to dereference an invalid or\nNULL pointer when reading, resulting in a Denial of Service.\n\nThe functions ossl_ess_get_signing_cert() and ossl_ess_get_signing_cert_v2()\naccess the signing cert attribute value without validating its type.\nWhen the type is not V_ASN1_SEQUENCE, this results in accessing invalid memory\nthrough the ASN1_TYPE union, causing a crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nTimeStamp Response to an application that verifies timestamp responses. The\nTimeStamp protocol (RFC 3161) is not widely used and the impact of the\nexploit is just a Denial of Service. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the TimeStamp Response implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2025-69420**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2025-69420](https://avd.aquasec.com/nvd/cve-2025-69420)|\n\nIssue summary: A type confusion vulnerability exists in the TimeStamp Response\nverification code where an ASN1_TYPE union member is accessed without first\nvalidating the type, causing an invalid or NULL pointer dereference when\nprocessing a malformed TimeStamp Response file.\n\nImpact summary: An application calling TS_RESP_verify_response() with a\nmalformed TimeStamp Response can be caused to dereference an invalid or\nNULL pointer when reading, resulting in a Denial of Service.\n\nThe functions ossl_ess_get_signing_cert() and ossl_ess_get_signing_cert_v2()\naccess the signing cert attribute value without validating its type.\nWhen the type is not V_ASN1_SEQUENCE, this results in accessing invalid memory\nthrough the ASN1_TYPE union, causing a crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nTimeStamp Response to an application that verifies timestamp responses. The\nTimeStamp protocol (RFC 3161) is not widely used and the impact of the\nexploit is just a Denial of Service. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the TimeStamp Response implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-69421",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service via malformed PKCS#12 file processing"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-69421",
+              "help": {
+                "text": "Vulnerability CVE-2025-69421\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69421](https://avd.aquasec.com/nvd/cve-2025-69421)\nIssue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+                "markdown": "**Vulnerability CVE-2025-69421**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2025-69421](https://avd.aquasec.com/nvd/cve-2025-69421)|\n\nIssue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-22795",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service due to type confusion in PKCS#12 file processing"
+              },
+              "fullDescription": {
+                "text": "Issue summary: An invalid or NULL pointer dereference can happen in\nan application processing a malformed PKCS#12 file.\n\nImpact summary: An application processing a malformed PKCS#12 file can be\ncaused to dereference an invalid or NULL pointer on memory read, resulting\nin a Denial of Service.\n\nA type confusion vulnerability exists in PKCS#12 parsing code where\nan ASN1_TYPE union member is accessed without first validating the type,\ncausing an invalid pointer read.\n\nThe location is constrained to a 1-byte address space, meaning any\nattempted pointer manipulation can only target addresses between 0x00 and 0xFF.\nThis range corresponds to the zero page, which is unmapped on most modern\noperating systems and will reliably result in a crash, leading only to a\nDenial of Service. Exploiting this issue also requires a user or application\nto process a maliciously crafted PKCS#12 file. It is uncommon to accept\nuntrusted PKCS#12 files in applications as they are usually used to store\nprivate keys which are trusted by definition. For these reasons, the issue\nwas assessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22795",
+              "help": {
+                "text": "Vulnerability CVE-2026-22795\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2026-22795](https://avd.aquasec.com/nvd/cve-2026-22795)\nIssue summary: An invalid or NULL pointer dereference can happen in\nan application processing a malformed PKCS#12 file.\n\nImpact summary: An application processing a malformed PKCS#12 file can be\ncaused to dereference an invalid or NULL pointer on memory read, resulting\nin a Denial of Service.\n\nA type confusion vulnerability exists in PKCS#12 parsing code where\nan ASN1_TYPE union member is accessed without first validating the type,\ncausing an invalid pointer read.\n\nThe location is constrained to a 1-byte address space, meaning any\nattempted pointer manipulation can only target addresses between 0x00 and 0xFF.\nThis range corresponds to the zero page, which is unmapped on most modern\noperating systems and will reliably result in a crash, leading only to a\nDenial of Service. Exploiting this issue also requires a user or application\nto process a maliciously crafted PKCS#12 file. It is uncommon to accept\nuntrusted PKCS#12 files in applications as they are usually used to store\nprivate keys which are trusted by definition. For these reasons, the issue\nwas assessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2026-22795**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2026-22795](https://avd.aquasec.com/nvd/cve-2026-22795)|\n\nIssue summary: An invalid or NULL pointer dereference can happen in\nan application processing a malformed PKCS#12 file.\n\nImpact summary: An application processing a malformed PKCS#12 file can be\ncaused to dereference an invalid or NULL pointer on memory read, resulting\nin a Denial of Service.\n\nA type confusion vulnerability exists in PKCS#12 parsing code where\nan ASN1_TYPE union member is accessed without first validating the type,\ncausing an invalid pointer read.\n\nThe location is constrained to a 1-byte address space, meaning any\nattempted pointer manipulation can only target addresses between 0x00 and 0xFF.\nThis range corresponds to the zero page, which is unmapped on most modern\noperating systems and will reliably result in a crash, leading only to a\nDenial of Service. Exploiting this issue also requires a user or application\nto process a maliciously crafted PKCS#12 file. It is uncommon to accept\nuntrusted PKCS#12 files in applications as they are usually used to store\nprivate keys which are trusted by definition. For these reasons, the issue\nwas assessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-22796",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service via type confusion in PKCS#7 signature verification"
+              },
+              "fullDescription": {
+                "text": "Issue summary: A type confusion vulnerability exists in the signature\nverification of signed PKCS#7 data where an ASN1_TYPE union member is\naccessed without first validating the type, causing an invalid or NULL\npointer dereference when processing malformed PKCS#7 data.\n\nImpact summary: An application performing signature verification of PKCS#7\ndata or calling directly the PKCS7_digest_from_attributes() function can be\ncaused to dereference an invalid or NULL pointer when reading, resulting in\na Denial of Service.\n\nThe function PKCS7_digest_from_attributes() accesses the message digest attribute\nvalue without validating its type. When the type is not V_ASN1_OCTET_STRING,\nthis results in accessing invalid memory through the ASN1_TYPE union, causing\na crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nsigned PKCS#7 to an application that verifies it. The impact of the\nexploit is just a Denial of Service, the PKCS7 API is legacy and applications\nshould be using the CMS API instead. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#7 parsing implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22796",
+              "help": {
+                "text": "Vulnerability CVE-2026-22796\nSeverity: MEDIUM\nPackage: libssl3\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2026-22796](https://avd.aquasec.com/nvd/cve-2026-22796)\nIssue summary: A type confusion vulnerability exists in the signature\nverification of signed PKCS#7 data where an ASN1_TYPE union member is\naccessed without first validating the type, causing an invalid or NULL\npointer dereference when processing malformed PKCS#7 data.\n\nImpact summary: An application performing signature verification of PKCS#7\ndata or calling directly the PKCS7_digest_from_attributes() function can be\ncaused to dereference an invalid or NULL pointer when reading, resulting in\na Denial of Service.\n\nThe function PKCS7_digest_from_attributes() accesses the message digest attribute\nvalue without validating its type. When the type is not V_ASN1_OCTET_STRING,\nthis results in accessing invalid memory through the ASN1_TYPE union, causing\na crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nsigned PKCS#7 to an application that verifies it. The impact of the\nexploit is just a Denial of Service, the PKCS7 API is legacy and applications\nshould be using the CMS API instead. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#7 parsing implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+                "markdown": "**Vulnerability CVE-2026-22796**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3|3.0.18-1~deb12u2|[CVE-2026-22796](https://avd.aquasec.com/nvd/cve-2026-22796)|\n\nIssue summary: A type confusion vulnerability exists in the signature\nverification of signed PKCS#7 data where an ASN1_TYPE union member is\naccessed without first validating the type, causing an invalid or NULL\npointer dereference when processing malformed PKCS#7 data.\n\nImpact summary: An application performing signature verification of PKCS#7\ndata or calling directly the PKCS7_digest_from_attributes() function can be\ncaused to dereference an invalid or NULL pointer when reading, resulting in\na Denial of Service.\n\nThe function PKCS7_digest_from_attributes() accesses the message digest attribute\nvalue without validating its type. When the type is not V_ASN1_OCTET_STRING,\nthis results in accessing invalid memory through the ASN1_TYPE union, causing\na crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nsigned PKCS#7 to an application that verifies it. The impact of the\nexploit is just a Denial of Service, the PKCS7 API is legacy and applications\nshould be using the CMS API instead. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#7 parsing implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-27587",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -392,6 +689,33 @@
               }
             },
             {
+              "id": "CVE-2026-24001",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "jsdiff: denial of service vulnerability in parsePatch and applyPatch"
+              },
+              "fullDescription": {
+                "text": "jsdiff is a JavaScript text differencing implementation. Prior to versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1, attempting to parse a patch whose filename headers contain the line break characters `\\r`, `\\u2028`, or `\\u2029` can cause the `parsePatch` method to enter an infinite loop. It then consumes memory without limit until the process crashes due to running out of memory. Applications are therefore likely to be vulnerable to a denial-of-service attack if they call `parsePatch` with a user-provided patch as input. A large payload is not needed to trigger the vulnerability, so size limits on user input do not provide any protection. Furthermore, some applications may be vulnerable even when calling `parsePatch` on a patch generated by the application itself if the user is nonetheless able to control the filename headers (e.g. by directly providing the filenames of the files to be diffed). The `applyPatch` method is similarly affected if (and only if) called with a string representation of a patch as an argument, since under the hood it parses that string using `parsePatch`. Other methods of the library are unaffected. Finally, a second and lesser interdependent bug - a ReDOS - also exhibits when those same line break characters are present in a patch's *patch* header (also known as its \"leading garbage\"). A maliciously-crafted patch header of length *n* can take `parsePatch` O(*n*³) time to parse. Versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1 contain a fix. As a workaround, do not attempt to parse patches that contain any of these characters: `\\r`, `\\u2028`, or `\\u2029`."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-24001",
+              "help": {
+                "text": "Vulnerability CVE-2026-24001\nSeverity: LOW\nPackage: diff\nFixed Version: 8.0.3, 5.2.2, 4.0.4, 3.5.1\nLink: [CVE-2026-24001](https://avd.aquasec.com/nvd/cve-2026-24001)\njsdiff is a JavaScript text differencing implementation. Prior to versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1, attempting to parse a patch whose filename headers contain the line break characters `\\r`, `\\u2028`, or `\\u2029` can cause the `parsePatch` method to enter an infinite loop. It then consumes memory without limit until the process crashes due to running out of memory. Applications are therefore likely to be vulnerable to a denial-of-service attack if they call `parsePatch` with a user-provided patch as input. A large payload is not needed to trigger the vulnerability, so size limits on user input do not provide any protection. Furthermore, some applications may be vulnerable even when calling `parsePatch` on a patch generated by the application itself if the user is nonetheless able to control the filename headers (e.g. by directly providing the filenames of the files to be diffed). The `applyPatch` method is similarly affected if (and only if) called with a string representation of a patch as an argument, since under the hood it parses that string using `parsePatch`. Other methods of the library are unaffected. Finally, a second and lesser interdependent bug - a ReDOS - also exhibits when those same line break characters are present in a patch's *patch* header (also known as its \"leading garbage\"). A maliciously-crafted patch header of length *n* can take `parsePatch` O(*n*³) time to parse. Versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1 contain a fix. As a workaround, do not attempt to parse patches that contain any of these characters: `\\r`, `\\u2028`, or `\\u2029`.",
+                "markdown": "**Vulnerability CVE-2026-24001**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|diff|8.0.3, 5.2.2, 4.0.4, 3.5.1|[CVE-2026-24001](https://avd.aquasec.com/nvd/cve-2026-24001)|\n\njsdiff is a JavaScript text differencing implementation. Prior to versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1, attempting to parse a patch whose filename headers contain the line break characters `\\r`, `\\u2028`, or `\\u2029` can cause the `parsePatch` method to enter an infinite loop. It then consumes memory without limit until the process crashes due to running out of memory. Applications are therefore likely to be vulnerable to a denial-of-service attack if they call `parsePatch` with a user-provided patch as input. A large payload is not needed to trigger the vulnerability, so size limits on user input do not provide any protection. Furthermore, some applications may be vulnerable even when calling `parsePatch` on a patch generated by the application itself if the user is nonetheless able to control the filename headers (e.g. by directly providing the filenames of the files to be diffed). The `applyPatch` method is similarly affected if (and only if) called with a string representation of a patch as an argument, since under the hood it parses that string using `parsePatch`. Other methods of the library are unaffected. Finally, a second and lesser interdependent bug - a ReDOS - also exhibits when those same line break characters are present in a patch's *patch* header (also known as its \"leading garbage\"). A maliciously-crafted patch header of length *n* can take `parsePatch` O(*n*³) time to parse. Versions 8.0.3, 5.2.2, 4.0.4, and 3.5.1 contain a fix. As a workaround, do not attempt to parse patches that contain any of these characters: `\\r`, `\\u2028`, or `\\u2029`."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
               "id": "CVE-2022-41940",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -543,15 +867,15 @@
                 "text": "js-yaml: js-yaml prototype pollution in merge"
               },
               "fullDescription": {
-                "text": "js-yaml is a JavaScript YAML parser and dumper. In js-yaml 4.1.0 and below, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default)."
+                "text": "js-yaml is a JavaScript YAML parser and dumper. In js-yaml before 4.1.1 and 3.14.2, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1 and 3.14.2. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default)."
               },
               "defaultConfiguration": {
                 "level": "warning"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2025-64718",
               "help": {
-                "text": "Vulnerability CVE-2025-64718\nSeverity: MEDIUM\nPackage: js-yaml\nFixed Version: 4.1.1, 3.14.2\nLink: [CVE-2025-64718](https://avd.aquasec.com/nvd/cve-2025-64718)\njs-yaml is a JavaScript YAML parser and dumper. In js-yaml 4.1.0 and below, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default).",
-                "markdown": "**Vulnerability CVE-2025-64718**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|js-yaml|4.1.1, 3.14.2|[CVE-2025-64718](https://avd.aquasec.com/nvd/cve-2025-64718)|\n\njs-yaml is a JavaScript YAML parser and dumper. In js-yaml 4.1.0 and below, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default)."
+                "text": "Vulnerability CVE-2025-64718\nSeverity: MEDIUM\nPackage: js-yaml\nFixed Version: 4.1.1, 3.14.2\nLink: [CVE-2025-64718](https://avd.aquasec.com/nvd/cve-2025-64718)\njs-yaml is a JavaScript YAML parser and dumper. In js-yaml before 4.1.1 and 3.14.2, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1 and 3.14.2. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default).",
+                "markdown": "**Vulnerability CVE-2025-64718**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|js-yaml|4.1.1, 3.14.2|[CVE-2025-64718](https://avd.aquasec.com/nvd/cve-2025-64718)|\n\njs-yaml is a JavaScript YAML parser and dumper. In js-yaml before 4.1.1 and 3.14.2, it's possible for an attacker to modify the prototype of the result of a parsed yaml document via prototype pollution (`__proto__`). All users who parse untrusted yaml documents may be impacted. The problem is patched in js-yaml 4.1.1 and 3.14.2. Users can protect against this kind of attack on the server by using `node --disable-proto=delete` or `deno` (in Deno, pollution protection is on by default)."
               },
               "properties": {
                 "cvssv3_baseScore": 5.3,
@@ -870,6 +1194,35 @@
                   "vulnerability",
                   "security",
                   "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-13465",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "lodash: prototype pollution in _.unset and _.omit functions"
+              },
+              "fullDescription": {
+                "text": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the _.unset and _.omit functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes.\n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.\n\nThis issue is patched on 4.17.23"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-13465",
+              "help": {
+                "text": "Vulnerability CVE-2025-13465\nSeverity: MEDIUM\nPackage: lodash\nFixed Version: 4.17.23\nLink: [CVE-2025-13465](https://avd.aquasec.com/nvd/cve-2025-13465)\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the _.unset and _.omit functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes.\n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.\n\nThis issue is patched on 4.17.23",
+                "markdown": "**Vulnerability CVE-2025-13465**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|lodash|4.17.23|[CVE-2025-13465](https://avd.aquasec.com/nvd/cve-2025-13465)|\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the _.unset and _.omit functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes.\n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.\n\nThis issue is patched on 4.17.23"
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+                "precision": "very-high",
+                "security-severity": "6.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
                 ]
               }
             },
@@ -1217,7 +1570,7 @@
               "id": "CVE-2025-15284",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "Improper Input Validation vulnerability in qs (parse modules) allows H ..."
+                "text": "qs: qs: Denial of Service via improper input validation in array parsing"
               },
               "fullDescription": {
                 "text": "Improper Input Validation vulnerability in qs (parse modules) allows HTTP DoS.This issue affects qs: \u003c 6.14.1.\n\n\nSummaryThe arrayLimit option in qs does not enforce limits for bracket notation (a[]=1\u0026a[]=2), allowing attackers to cause denial-of-service via memory exhaustion. Applications using arrayLimit for DoS protection are vulnerable.\n\nDetailsThe arrayLimit option only checks limits for indexed notation (a[0]=1\u0026a[1]=2) but completely bypasses it for bracket notation (a[]=1\u0026a[]=2).\n\nVulnerable code (lib/parse.js:159-162):\n\nif (root === '[]' \u0026\u0026 options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n\n\n\n\n\nWorking code (lib/parse.js:175):\n\nelse if (index \u003c= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n\n\n\n\n\nThe bracket notation handler at line 159 uses utils.combine([], leaf) without validating against options.arrayLimit, while indexed notation at line 175 checks index \u003c= options.arrayLimit before creating arrays.\n\nPoCTest 1 - Basic bypass:\n\nnpm install qs\n\n\n\n\n\nconst qs = require('qs');\nconst result = qs.parse('a[]=1\u0026a[]=2\u0026a[]=3\u0026a[]=4\u0026a[]=5\u0026a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n\n\n\n\n\nTest 2 - DoS demonstration:\n\nconst qs = require('qs');\nconst attack = 'a[]=' + Array(10000).fill('x').join('\u0026a[]=');\nconst result = qs.parse(attack, { arrayLimit: 100 });\nconsole.log(result.a.length);  // Output: 10000 (should be max 100)\n\n\n\n\n\nConfiguration:\n\n  *  arrayLimit: 5 (test 1) or arrayLimit: 100 (test 2)\n  *  Use bracket notation: a[]=value (not indexed a[0]=value)\n\n\nImpactDenial of Service via memory exhaustion. Affects applications using qs.parse() with user-controlled input and arrayLimit for protection.\n\nAttack scenario:\n\n  *  Attacker sends HTTP request: GET /api/search?filters[]=x\u0026filters[]=x\u0026...\u0026filters[]=x (100,000+ times)\n  *  Application parses with qs.parse(query, { arrayLimit: 100 })\n  *  qs ignores limit, parses all 100,000 elements into array\n  *  Server memory exhausted → application crashes or becomes unresponsive\n  *  Service unavailable for all users\nReal-world impact:\n\n  *  Single malicious request can crash server\n  *  No authentication required\n  *  Easy to automate and scale\n  *  Affects any endpoint parsing query strings with bracket notation"
@@ -1526,6 +1879,91 @@
               }
             },
             {
+              "id": "CVE-2026-23745",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file overwrite and symlink poisoning via unsanitized linkpaths in archives"
+              },
+              "fullDescription": {
+                "text": "node-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-23745",
+              "help": {
+                "text": "Vulnerability CVE-2026-23745\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)\nnode-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3.",
+                "markdown": "**Vulnerability CVE-2026-23745**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.3|[CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)|\n\nnode-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-23950",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file overwrite via Unicode path collision race condition"
+              },
+              "fullDescription": {
+                "text": "node-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-23950",
+              "help": {
+                "text": "Vulnerability CVE-2026-23950\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)\nnode-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue.",
+                "markdown": "**Vulnerability CVE-2026-23950**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.4|[CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)|\n\nnode-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue."
+              },
+              "properties": {
+                "cvssv3_baseScore": 8.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+                "precision": "very-high",
+                "security-severity": "8.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-24842",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file creation via path traversal bypass in hardlink security check"
+              },
+              "fullDescription": {
+                "text": "node-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-24842",
+              "help": {
+                "text": "Vulnerability CVE-2026-24842\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)\nnode-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue.",
+                "markdown": "**Vulnerability CVE-2026-24842**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.7|[CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)|\n\nnode-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue."
+              },
+              "properties": {
+                "cvssv3_baseScore": 8.2,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "8.2",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
               "id": "CVE-2024-28863",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -1590,15 +2028,15 @@
                 "text": "vm2: Promise handler sanitization can be bypassed allowing attackers to escape the sandbox and run arbitrary code"
               },
               "fullDescription": {
-                "text": "vm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox."
+                "text": "vm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue."
               },
               "defaultConfiguration": {
                 "level": "error"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2023-37466",
               "help": {
-                "text": "Vulnerability CVE-2023-37466\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: \nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox.",
-                "markdown": "**Vulnerability CVE-2023-37466**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2||[CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)|\n\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox."
+                "text": "Vulnerability CVE-2023-37466\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: 3.10.0\nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue.",
+                "markdown": "**Vulnerability CVE-2023-37466**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2|3.10.0|[CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)|\n\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue."
               },
               "properties": {
                 "cvssv3_baseScore": 9.8,
@@ -1628,6 +2066,35 @@
               "help": {
                 "text": "Vulnerability CVE-2023-37903\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: \nLink: [CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)\nvm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software.",
                 "markdown": "**Vulnerability CVE-2023-37903**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2||[CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)|\n\nvm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-22709",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "vm2 has a Sandbox Escape"
+              },
+              "fullDescription": {
+                "text": "vm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22709",
+              "help": {
+                "text": "Vulnerability CVE-2026-22709\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: 3.10.2\nLink: [CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)\nvm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue.",
+                "markdown": "**Vulnerability CVE-2026-22709**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2|3.10.2|[CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)|\n\nvm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue."
               },
               "properties": {
                 "cvssv3_baseScore": 9.8,
@@ -1754,7 +2221,7 @@
               }
             }
           ],
-          "version": "0.68.2"
+          "version": "0.69.0"
         }
       },
       "results": [
@@ -1786,8 +2253,89 @@
           ]
         },
         {
-          "ruleId": "CVE-2010-4756",
+          "ruleId": "CVE-2026-0861",
           "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2026-0861\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2026-0861](https://avd.aquasec.com/nvd/cve-2026-0861)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libc6@2.36-9+deb12u13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-15281",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2025-15281\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2025-15281](https://avd.aquasec.com/nvd/cve-2025-15281)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libc6@2.36-9+deb12u13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-0915",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2026-0915\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2026-0915](https://avd.aquasec.com/nvd/cve-2026-0915)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libc6@2.36-9+deb12u13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2010-4756",
+          "ruleIndex": 4,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2010-4756\nSeverity: LOW\nFixed Version: \nLink: [CVE-2010-4756](https://avd.aquasec.com/nvd/cve-2010-4756)"
@@ -1814,7 +2362,7 @@
         },
         {
           "ruleId": "CVE-2018-20796",
-          "ruleIndex": 2,
+          "ruleIndex": 5,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2018-20796\nSeverity: LOW\nFixed Version: \nLink: [CVE-2018-20796](https://avd.aquasec.com/nvd/cve-2018-20796)"
@@ -1841,7 +2389,7 @@
         },
         {
           "ruleId": "CVE-2019-1010022",
-          "ruleIndex": 3,
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2019-1010022\nSeverity: LOW\nFixed Version: \nLink: [CVE-2019-1010022](https://avd.aquasec.com/nvd/cve-2019-1010022)"
@@ -1868,7 +2416,7 @@
         },
         {
           "ruleId": "CVE-2019-1010023",
-          "ruleIndex": 4,
+          "ruleIndex": 7,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2019-1010023\nSeverity: LOW\nFixed Version: \nLink: [CVE-2019-1010023](https://avd.aquasec.com/nvd/cve-2019-1010023)"
@@ -1895,7 +2443,7 @@
         },
         {
           "ruleId": "CVE-2019-1010024",
-          "ruleIndex": 5,
+          "ruleIndex": 8,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2019-1010024\nSeverity: LOW\nFixed Version: \nLink: [CVE-2019-1010024](https://avd.aquasec.com/nvd/cve-2019-1010024)"
@@ -1922,7 +2470,7 @@
         },
         {
           "ruleId": "CVE-2019-1010025",
-          "ruleIndex": 6,
+          "ruleIndex": 9,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2019-1010025\nSeverity: LOW\nFixed Version: \nLink: [CVE-2019-1010025](https://avd.aquasec.com/nvd/cve-2019-1010025)"
@@ -1949,7 +2497,7 @@
         },
         {
           "ruleId": "CVE-2019-9192",
-          "ruleIndex": 7,
+          "ruleIndex": 10,
           "level": "note",
           "message": {
             "text": "Package: libc6\nInstalled Version: 2.36-9+deb12u13\nVulnerability CVE-2019-9192\nSeverity: LOW\nFixed Version: \nLink: [CVE-2019-9192](https://avd.aquasec.com/nvd/cve-2019-9192)"
@@ -2029,8 +2577,224 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-15467",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-15467\nSeverity: CRITICAL\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-15467](https://avd.aquasec.com/nvd/cve-2025-15467)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69419",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-69419\nSeverity: HIGH\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69419](https://avd.aquasec.com/nvd/cve-2025-69419)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-68160",
+          "ruleIndex": 13,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-68160\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-68160](https://avd.aquasec.com/nvd/cve-2025-68160)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69418",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-69418\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69418](https://avd.aquasec.com/nvd/cve-2025-69418)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69420",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-69420\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69420](https://avd.aquasec.com/nvd/cve-2025-69420)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69421",
+          "ruleIndex": 16,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-69421\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2025-69421](https://avd.aquasec.com/nvd/cve-2025-69421)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-22795",
+          "ruleIndex": 17,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2026-22795\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2026-22795](https://avd.aquasec.com/nvd/cve-2026-22795)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-22796",
+          "ruleIndex": 18,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2026-22796\nSeverity: MEDIUM\nFixed Version: 3.0.18-1~deb12u2\nLink: [CVE-2026-22796](https://avd.aquasec.com/nvd/cve-2026-22796)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3@3.0.17-1~deb12u3"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2025-27587",
-          "ruleIndex": 8,
+          "ruleIndex": 19,
           "level": "note",
           "message": {
             "text": "Package: libssl3\nInstalled Version: 3.0.17-1~deb12u3\nVulnerability CVE-2025-27587\nSeverity: LOW\nFixed Version: \nLink: [CVE-2025-27587](https://avd.aquasec.com/nvd/cve-2025-27587)"
@@ -2084,7 +2848,7 @@
         },
         {
           "ruleId": "NSWG-ECO-428",
-          "ruleIndex": 9,
+          "ruleIndex": 20,
           "level": "error",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability NSWG-ECO-428\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [NSWG-ECO-428](https://hackerone.com/reports/321687)"
@@ -2111,7 +2875,7 @@
         },
         {
           "ruleId": "GHSA-rvg8-pwq2-xj7q",
-          "ruleIndex": 10,
+          "ruleIndex": 21,
           "level": "warning",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability GHSA-rvg8-pwq2-xj7q\nSeverity: MEDIUM\nFixed Version: 3.0.0\nLink: [GHSA-rvg8-pwq2-xj7q](https://github.com/advisories/GHSA-rvg8-pwq2-xj7q)"
@@ -2138,7 +2902,7 @@
         },
         {
           "ruleId": "CVE-2024-4068",
-          "ruleIndex": 11,
+          "ruleIndex": 22,
           "level": "error",
           "message": {
             "text": "Package: braces\nInstalled Version: 2.3.2\nVulnerability CVE-2024-4068\nSeverity: HIGH\nFixed Version: 3.0.3\nLink: [CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)"
@@ -2165,7 +2929,7 @@
         },
         {
           "ruleId": "CVE-2024-47764",
-          "ruleIndex": 12,
+          "ruleIndex": 23,
           "level": "note",
           "message": {
             "text": "Package: cookie\nInstalled Version: 0.4.2\nVulnerability CVE-2024-47764\nSeverity: LOW\nFixed Version: 0.7.0\nLink: [CVE-2024-47764](https://avd.aquasec.com/nvd/cve-2024-47764)"
@@ -2192,7 +2956,7 @@
         },
         {
           "ruleId": "CVE-2023-46233",
-          "ruleIndex": 13,
+          "ruleIndex": 24,
           "level": "error",
           "message": {
             "text": "Package: crypto-js\nInstalled Version: 3.3.0\nVulnerability CVE-2023-46233\nSeverity: CRITICAL\nFixed Version: 4.2.0\nLink: [CVE-2023-46233](https://avd.aquasec.com/nvd/cve-2023-46233)"
@@ -2218,8 +2982,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-24001",
+          "ruleIndex": 25,
+          "level": "note",
+          "message": {
+            "text": "Package: diff\nInstalled Version: 4.0.2\nVulnerability CVE-2026-24001\nSeverity: LOW\nFixed Version: 8.0.3, 5.2.2, 4.0.4, 3.5.1\nLink: [CVE-2026-24001](https://avd.aquasec.com/nvd/cve-2026-24001)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json: diff@4.0.2"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2022-41940",
-          "ruleIndex": 14,
+          "ruleIndex": 26,
           "level": "warning",
           "message": {
             "text": "Package: engine.io\nInstalled Version: 4.1.2\nVulnerability CVE-2022-41940\nSeverity: MEDIUM\nFixed Version: 3.6.1, 6.2.1\nLink: [CVE-2022-41940](https://avd.aquasec.com/nvd/cve-2022-41940)"
@@ -2246,7 +3037,7 @@
         },
         {
           "ruleId": "CVE-2020-15084",
-          "ruleIndex": 15,
+          "ruleIndex": 27,
           "level": "error",
           "message": {
             "text": "Package: express-jwt\nInstalled Version: 0.1.3\nVulnerability CVE-2020-15084\nSeverity: HIGH\nFixed Version: 6.0.0\nLink: [CVE-2020-15084](https://avd.aquasec.com/nvd/cve-2020-15084)"
@@ -2273,7 +3064,7 @@
         },
         {
           "ruleId": "CVE-2022-33987",
-          "ruleIndex": 16,
+          "ruleIndex": 28,
           "level": "warning",
           "message": {
             "text": "Package: got\nInstalled Version: 8.3.2\nVulnerability CVE-2022-33987\nSeverity: MEDIUM\nFixed Version: 12.1.0, 11.8.5\nLink: [CVE-2022-33987](https://avd.aquasec.com/nvd/cve-2022-33987)"
@@ -2300,7 +3091,7 @@
         },
         {
           "ruleId": "CVE-2022-25881",
-          "ruleIndex": 17,
+          "ruleIndex": 29,
           "level": "error",
           "message": {
             "text": "Package: http-cache-semantics\nInstalled Version: 3.8.1\nVulnerability CVE-2022-25881\nSeverity: HIGH\nFixed Version: 4.1.1\nLink: [CVE-2022-25881](https://avd.aquasec.com/nvd/cve-2022-25881)"
@@ -2327,7 +3118,7 @@
         },
         {
           "ruleId": "CVE-2024-29415",
-          "ruleIndex": 18,
+          "ruleIndex": 30,
           "level": "error",
           "message": {
             "text": "Package: ip\nInstalled Version: 2.0.1\nVulnerability CVE-2024-29415\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2024-29415](https://avd.aquasec.com/nvd/cve-2024-29415)"
@@ -2354,7 +3145,7 @@
         },
         {
           "ruleId": "CVE-2025-64718",
-          "ruleIndex": 19,
+          "ruleIndex": 31,
           "level": "warning",
           "message": {
             "text": "Package: js-yaml\nInstalled Version: 3.14.1\nVulnerability CVE-2025-64718\nSeverity: MEDIUM\nFixed Version: 4.1.1, 3.14.2\nLink: [CVE-2025-64718](https://avd.aquasec.com/nvd/cve-2025-64718)"
@@ -2381,7 +3172,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 20,
+          "ruleIndex": 32,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2408,7 +3199,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 21,
+          "ruleIndex": 33,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2435,7 +3226,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 22,
+          "ruleIndex": 34,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2462,7 +3253,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 23,
+          "ruleIndex": 35,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2489,7 +3280,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 24,
+          "ruleIndex": 36,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2516,7 +3307,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 20,
+          "ruleIndex": 32,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2543,7 +3334,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 21,
+          "ruleIndex": 33,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2570,7 +3361,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 22,
+          "ruleIndex": 34,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2597,7 +3388,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 23,
+          "ruleIndex": 35,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2624,7 +3415,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 24,
+          "ruleIndex": 36,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2651,7 +3442,7 @@
         },
         {
           "ruleId": "CVE-2016-1000223",
-          "ruleIndex": 25,
+          "ruleIndex": 37,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2016-1000223\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [CVE-2016-1000223](https://avd.aquasec.com/nvd/cve-2016-1000223)"
@@ -2678,7 +3469,7 @@
         },
         {
           "ruleId": "CVE-2025-65945",
-          "ruleIndex": 26,
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2025-65945\nSeverity: HIGH\nFixed Version: 3.2.3, 4.0.1\nLink: [CVE-2025-65945](https://avd.aquasec.com/nvd/cve-2025-65945)"
@@ -2705,7 +3496,7 @@
         },
         {
           "ruleId": "CVE-2019-10744",
-          "ruleIndex": 27,
+          "ruleIndex": 39,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2019-10744\nSeverity: CRITICAL\nFixed Version: 4.17.12\nLink: [CVE-2019-10744](https://avd.aquasec.com/nvd/cve-2019-10744)"
@@ -2732,7 +3523,7 @@
         },
         {
           "ruleId": "CVE-2018-16487",
-          "ruleIndex": 28,
+          "ruleIndex": 40,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-16487\nSeverity: HIGH\nFixed Version: \u003e=4.17.11\nLink: [CVE-2018-16487](https://avd.aquasec.com/nvd/cve-2018-16487)"
@@ -2759,7 +3550,7 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 29,
+          "ruleIndex": 41,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2021-23337\nSeverity: HIGH\nFixed Version: 4.17.21\nLink: [CVE-2021-23337](https://avd.aquasec.com/nvd/cve-2021-23337)"
@@ -2786,7 +3577,7 @@
         },
         {
           "ruleId": "CVE-2018-3721",
-          "ruleIndex": 30,
+          "ruleIndex": 42,
           "level": "note",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-3721\nSeverity: LOW\nFixed Version: \u003e=4.17.5\nLink: [CVE-2018-3721](https://avd.aquasec.com/nvd/cve-2018-3721)"
@@ -2812,8 +3603,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-13465",
+          "ruleIndex": 43,
+          "level": "warning",
+          "message": {
+            "text": "Package: lodash\nInstalled Version: 4.17.21\nVulnerability CVE-2025-13465\nSeverity: MEDIUM\nFixed Version: 4.17.23\nLink: [CVE-2025-13465](https://avd.aquasec.com/nvd/cve-2025-13465)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/lodash/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/lodash/package.json: lodash@4.17.21"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2020-8203",
-          "ruleIndex": 31,
+          "ruleIndex": 44,
           "level": "error",
           "message": {
             "text": "Package: lodash.set\nInstalled Version: 4.3.2\nVulnerability CVE-2020-8203\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2020-8203](https://avd.aquasec.com/nvd/cve-2020-8203)"
@@ -2840,7 +3658,7 @@
         },
         {
           "ruleId": "GHSA-5mrr-rgp6-x4gr",
-          "ruleIndex": 32,
+          "ruleIndex": 45,
           "level": "error",
           "message": {
             "text": "Package: marsdb\nInstalled Version: 0.6.11\nVulnerability GHSA-5mrr-rgp6-x4gr\nSeverity: CRITICAL\nFixed Version: \nLink: [GHSA-5mrr-rgp6-x4gr](https://github.com/advisories/GHSA-5mrr-rgp6-x4gr)"
@@ -2867,7 +3685,7 @@
         },
         {
           "ruleId": "CVE-2025-57349",
-          "ruleIndex": 33,
+          "ruleIndex": 46,
           "level": "note",
           "message": {
             "text": "Package: messageformat\nInstalled Version: 2.3.0\nVulnerability CVE-2025-57349\nSeverity: LOW\nFixed Version: 3.0.0-beta.0\nLink: [CVE-2025-57349](https://avd.aquasec.com/nvd/cve-2025-57349)"
@@ -2894,7 +3712,7 @@
         },
         {
           "ruleId": "CVE-2024-4067",
-          "ruleIndex": 34,
+          "ruleIndex": 47,
           "level": "warning",
           "message": {
             "text": "Package: micromatch\nInstalled Version: 3.1.10\nVulnerability CVE-2024-4067\nSeverity: MEDIUM\nFixed Version: 4.0.8\nLink: [CVE-2024-4067](https://avd.aquasec.com/nvd/cve-2024-4067)"
@@ -2921,7 +3739,7 @@
         },
         {
           "ruleId": "CVE-2017-18214",
-          "ruleIndex": 35,
+          "ruleIndex": 48,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2017-18214\nSeverity: HIGH\nFixed Version: 2.19.3\nLink: [CVE-2017-18214](https://avd.aquasec.com/nvd/cve-2017-18214)"
@@ -2948,7 +3766,7 @@
         },
         {
           "ruleId": "CVE-2022-24785",
-          "ruleIndex": 36,
+          "ruleIndex": 49,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2022-24785\nSeverity: HIGH\nFixed Version: 2.29.2\nLink: [CVE-2022-24785](https://avd.aquasec.com/nvd/cve-2022-24785)"
@@ -2975,7 +3793,7 @@
         },
         {
           "ruleId": "CVE-2016-4055",
-          "ruleIndex": 37,
+          "ruleIndex": 50,
           "level": "warning",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2016-4055\nSeverity: MEDIUM\nFixed Version: \u003e=2.11.2\nLink: [CVE-2016-4055](https://avd.aquasec.com/nvd/cve-2016-4055)"
@@ -3002,7 +3820,7 @@
         },
         {
           "ruleId": "CVE-2025-47935",
-          "ruleIndex": 38,
+          "ruleIndex": 51,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47935\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47935](https://avd.aquasec.com/nvd/cve-2025-47935)"
@@ -3029,7 +3847,7 @@
         },
         {
           "ruleId": "CVE-2025-47944",
-          "ruleIndex": 39,
+          "ruleIndex": 52,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47944\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47944](https://avd.aquasec.com/nvd/cve-2025-47944)"
@@ -3056,7 +3874,7 @@
         },
         {
           "ruleId": "CVE-2025-48997",
-          "ruleIndex": 40,
+          "ruleIndex": 53,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-48997\nSeverity: HIGH\nFixed Version: 2.0.1\nLink: [CVE-2025-48997](https://avd.aquasec.com/nvd/cve-2025-48997)"
@@ -3083,7 +3901,7 @@
         },
         {
           "ruleId": "CVE-2025-7338",
-          "ruleIndex": 41,
+          "ruleIndex": 54,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-7338\nSeverity: HIGH\nFixed Version: 2.0.2\nLink: [CVE-2025-7338](https://avd.aquasec.com/nvd/cve-2025-7338)"
@@ -3110,7 +3928,7 @@
         },
         {
           "ruleId": "CVE-2021-23771",
-          "ruleIndex": 42,
+          "ruleIndex": 55,
           "level": "warning",
           "message": {
             "text": "Package: notevil\nInstalled Version: 1.3.3\nVulnerability CVE-2021-23771\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2021-23771](https://avd.aquasec.com/nvd/cve-2021-23771)"
@@ -3137,7 +3955,7 @@
         },
         {
           "ruleId": "CVE-2025-15284",
-          "ruleIndex": 43,
+          "ruleIndex": 56,
           "level": "error",
           "message": {
             "text": "Package: qs\nInstalled Version: 6.14.0\nVulnerability CVE-2025-15284\nSeverity: HIGH\nFixed Version: 6.14.1\nLink: [CVE-2025-15284](https://avd.aquasec.com/nvd/cve-2025-15284)"
@@ -3164,7 +3982,7 @@
         },
         {
           "ruleId": "CVE-2022-25887",
-          "ruleIndex": 44,
+          "ruleIndex": 57,
           "level": "error",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2022-25887\nSeverity: HIGH\nFixed Version: 2.7.1\nLink: [CVE-2022-25887](https://avd.aquasec.com/nvd/cve-2022-25887)"
@@ -3191,7 +4009,7 @@
         },
         {
           "ruleId": "CVE-2016-1000237",
-          "ruleIndex": 45,
+          "ruleIndex": 58,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2016-1000237\nSeverity: MEDIUM\nFixed Version: \u003e=1.4.3\nLink: [CVE-2016-1000237](https://avd.aquasec.com/nvd/cve-2016-1000237)"
@@ -3218,7 +4036,7 @@
         },
         {
           "ruleId": "CVE-2017-16016",
-          "ruleIndex": 46,
+          "ruleIndex": 59,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2017-16016\nSeverity: MEDIUM\nFixed Version: 1.11.4\nLink: [CVE-2017-16016](https://avd.aquasec.com/nvd/cve-2017-16016)"
@@ -3245,7 +4063,7 @@
         },
         {
           "ruleId": "CVE-2019-25225",
-          "ruleIndex": 47,
+          "ruleIndex": 60,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2019-25225\nSeverity: MEDIUM\nFixed Version: 2.0.0-beta\nLink: [CVE-2019-25225](https://avd.aquasec.com/nvd/cve-2019-25225)"
@@ -3272,7 +4090,7 @@
         },
         {
           "ruleId": "CVE-2021-26539",
-          "ruleIndex": 48,
+          "ruleIndex": 61,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26539\nSeverity: MEDIUM\nFixed Version: 2.3.1\nLink: [CVE-2021-26539](https://avd.aquasec.com/nvd/cve-2021-26539)"
@@ -3299,7 +4117,7 @@
         },
         {
           "ruleId": "CVE-2021-26540",
-          "ruleIndex": 49,
+          "ruleIndex": 62,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26540\nSeverity: MEDIUM\nFixed Version: 2.3.2\nLink: [CVE-2021-26540](https://avd.aquasec.com/nvd/cve-2021-26540)"
@@ -3326,7 +4144,7 @@
         },
         {
           "ruleId": "CVE-2024-21501",
-          "ruleIndex": 50,
+          "ruleIndex": 63,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2024-21501\nSeverity: MEDIUM\nFixed Version: 2.12.1\nLink: [CVE-2024-21501](https://avd.aquasec.com/nvd/cve-2024-21501)"
@@ -3353,7 +4171,7 @@
         },
         {
           "ruleId": "NSWG-ECO-154",
-          "ruleIndex": 51,
+          "ruleIndex": 64,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability NSWG-ECO-154\nSeverity: MEDIUM\nFixed Version: \u003e=1.11.4\nLink: [NSWG-ECO-154]()"
@@ -3380,7 +4198,7 @@
         },
         {
           "ruleId": "CVE-2024-38355",
-          "ruleIndex": 52,
+          "ruleIndex": 65,
           "level": "warning",
           "message": {
             "text": "Package: socket.io\nInstalled Version: 3.1.2\nVulnerability CVE-2024-38355\nSeverity: MEDIUM\nFixed Version: 2.5.1, 4.6.2\nLink: [CVE-2024-38355](https://avd.aquasec.com/nvd/cve-2024-38355)"
@@ -3407,7 +4225,7 @@
         },
         {
           "ruleId": "CVE-2023-32695",
-          "ruleIndex": 53,
+          "ruleIndex": 66,
           "level": "warning",
           "message": {
             "text": "Package: socket.io-parser\nInstalled Version: 4.0.5\nVulnerability CVE-2023-32695\nSeverity: MEDIUM\nFixed Version: 4.2.3, 3.4.3, 3.3.4\nLink: [CVE-2023-32695](https://avd.aquasec.com/nvd/cve-2023-32695)"
@@ -3433,8 +4251,89 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-23745",
+          "ruleIndex": 67,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json: tar@4.4.19"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 68,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json: tar@4.4.19"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 69,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json: tar@4.4.19"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2024-28863",
-          "ruleIndex": 54,
+          "ruleIndex": 70,
           "level": "warning",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2024-28863\nSeverity: MEDIUM\nFixed Version: 6.2.1\nLink: [CVE-2024-28863](https://avd.aquasec.com/nvd/cve-2024-28863)"
@@ -3460,8 +4359,170 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-23745",
+          "ruleIndex": 67,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json: tar@6.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 68,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json: tar@6.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 69,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/sqlite3/node_modules/tar/package.json: tar@6.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23745",
+          "ruleIndex": 67,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 7.5.2\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/tar/package.json: tar@7.5.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 68,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 7.5.2\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/tar/package.json: tar@7.5.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 69,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 7.5.2\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/tar/package.json: tar@7.5.2"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2023-32314",
-          "ruleIndex": 55,
+          "ruleIndex": 71,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32314\nSeverity: CRITICAL\nFixed Version: 3.9.18\nLink: [CVE-2023-32314](https://avd.aquasec.com/nvd/cve-2023-32314)"
@@ -3488,10 +4549,10 @@
         },
         {
           "ruleId": "CVE-2023-37466",
-          "ruleIndex": 56,
+          "ruleIndex": 72,
           "level": "error",
           "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37466\nSeverity: CRITICAL\nFixed Version: \nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)"
+            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37466\nSeverity: CRITICAL\nFixed Version: 3.10.0\nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)"
           },
           "locations": [
             {
@@ -3515,7 +4576,7 @@
         },
         {
           "ruleId": "CVE-2023-37903",
-          "ruleIndex": 57,
+          "ruleIndex": 73,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37903\nSeverity: CRITICAL\nFixed Version: \nLink: [CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)"
@@ -3541,8 +4602,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-22709",
+          "ruleIndex": 74,
+          "level": "error",
+          "message": {
+            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2026-22709\nSeverity: CRITICAL\nFixed Version: 3.10.2\nLink: [CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "juice-shop/node_modules/vm2/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "juice-shop/node_modules/vm2/package.json: vm2@3.9.17"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2023-32313",
-          "ruleIndex": 58,
+          "ruleIndex": 75,
           "level": "warning",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32313\nSeverity: MEDIUM\nFixed Version: 3.9.18\nLink: [CVE-2023-32313](https://avd.aquasec.com/nvd/cve-2023-32313)"
@@ -3569,7 +4657,7 @@
         },
         {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 59,
+          "ruleIndex": 76,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -3596,7 +4684,7 @@
         },
         {
           "ruleId": "private-key",
-          "ruleIndex": 60,
+          "ruleIndex": 77,
           "level": "error",
           "message": {
             "text": "Artifact: /juice-shop/build/lib/insecurity.js\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"
@@ -3623,7 +4711,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 61,
+          "ruleIndex": 78,
           "level": "warning",
           "message": {
             "text": "Artifact: /juice-shop/frontend/src/app/app.guard.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '***********************************************************************************************************************************************************')"
@@ -3650,7 +4738,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 61,
+          "ruleIndex": 78,
           "level": "warning",
           "message": {
             "text": "Artifact: /juice-shop/frontend/src/app/last-login-ip/last-login-ip.component.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '*******************************************************************************************************************************')"
@@ -3677,7 +4765,7 @@
         },
         {
           "ruleId": "private-key",
-          "ruleIndex": 60,
+          "ruleIndex": 77,
           "level": "error",
           "message": {
             "text": "Artifact: /juice-shop/lib/insecurity.ts\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"
@@ -3710,10 +4798,10 @@
         }
       },
       "properties": {
-        "imageID": "sha256:859475888c3eaab0ab2d32fc0f4a39736501e11525aecf53ce1d2f1c3c8565de",
+        "imageID": "sha256:6ce4baa03610d74eaed5c14db6e4d73d212d40fa0ed15ada75a5f1adc7c65853",
         "imageName": "bkimminich/juice-shop:latest",
         "repoDigests": [
-          "bkimminich/juice-shop@sha256:ca5dfbae3868c967f7fff7f057090ef02159e38d2481f004c842156dc837cdd2"
+          "bkimminich/juice-shop@sha256:e68bd19091f952a0cdf75c5ca318d92e7a06b350ab5a88446f2bf62daf2e88c9"
         ],
         "repoTags": [
           "bkimminich/juice-shop:latest"

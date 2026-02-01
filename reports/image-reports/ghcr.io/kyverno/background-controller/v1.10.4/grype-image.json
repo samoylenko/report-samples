@@ -1309,18 +1309,6 @@
      "description": "A SMB force-authentication vulnerability exists in all versions of OPA for Windows prior to v0.68.0. The vulnerability exists because of improper input validation, allowing a user to pass an arbitrary SMB share instead of a Rego file as an argument to OPA CLI or to one of the OPA Go library’s functions.",
      "cvss": [
       {
-       "source": "nvd@nist.gov",
-       "type": "Primary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
-       "metrics": {
-        "baseScore": 7.3,
-        "exploitabilityScore": 1.3,
-        "impactScore": 5.9
-       },
-       "vendorMetadata": {}
-      },
-      {
        "source": "vulnreport@tenable.com",
        "type": "Secondary",
        "version": "3.1",
@@ -1329,6 +1317,18 @@
         "baseScore": 6.1,
         "exploitabilityScore": 1.3,
         "impactScore": 4.7
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 7.3,
+        "exploitabilityScore": 1.3,
+        "impactScore": 5.9
        },
        "vendorMetadata": {}
       }
@@ -1856,6 +1856,111 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-59jp-pj84-45mr",
+    "dataSource": "https://github.com/advisories/GHSA-59jp-pj84-45mr",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-59jp-pj84-45mr"
+    ],
+    "description": "Fulcio is vulnerable to Server-Side Request Forgery (SSRF) via MetaIssuer Regex Bypass",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N",
+      "metrics": {
+       "baseScore": 5.8,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.8.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-22772",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-22772",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/sigstore/fulcio/commit/eaae2f2be56df9dea5f9b439ec81bedae4c0978d",
+      "https://github.com/sigstore/fulcio/security/advisories/GHSA-59jp-pj84-45mr"
+     ],
+     "description": "Fulcio is a certificate authority for issuing code signing certificates for an OpenID Connect (OIDC) identity. Prior to 1.8.5, Fulcio's metaRegex() function uses unanchored regex, allowing attackers to bypass MetaIssuer URL validation and trigger SSRF to arbitrary internal services. Since the SSRF only can trigger GET requests, the request cannot mutate state. The response from the GET request is not returned to the caller so data exfiltration is not possible. A malicious actor could attempt to probe an internal network through Blind SSRF. This vulnerability is fixed in 1.8.5.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N",
+       "metrics": {
+        "baseScore": 5.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/fulcio",
+       "version": "v1.1.0"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=1.8.4 (unknown)",
+      "vulnerabilityID": "GHSA-59jp-pj84-45mr"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "fb7826c9b6897662",
+    "name": "github.com/sigstore/fulcio",
+    "version": "v1.1.0",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:fulcio:v1.1.0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/fulcio@v1.1.0",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:mzzJ05Ccu8Y2inyioklNvc8MpzlGHxu8YqNeTm0dHfU=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-2h5h-59f5-c5x9",
     "dataSource": "https://github.com/advisories/GHSA-2h5h-59f5-c5x9",
     "namespace": "github:language:go",
@@ -2090,6 +2195,324 @@
      "goCompiledVersion": "go1.21.3",
      "architecture": "amd64",
      "h1Digest": "h1:rcESXSNkAPRWFYZel9rarspdvneET60F2ngNkadi89c=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-4c4x-jm2x-pf9j",
+    "dataSource": "https://github.com/advisories/GHSA-4c4x-jm2x-pf9j",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-4c4x-jm2x-pf9j"
+    ],
+    "description": "Rekor affected by Server-Side Request Forgery (SSRF) via provided public key URL",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.5.0"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-24117",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-24117",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/sigstore/rekor/commit/60ef2bceba192c5bf9327d003bceea8bf1f8275f",
+      "https://github.com/sigstore/rekor/releases/tag/v1.5.0",
+      "https://github.com/sigstore/rekor/security/advisories/GHSA-4c4x-jm2x-pf9j"
+     ],
+     "description": "Rekor is a software supply chain transparency log. In versions 1.4.3 and below, attackers can trigger SSRF to arbitrary internal services because /api/v1/index/retrieve supports retrieving a public key via user-provided URL. Since the SSRF only can trigger GET requests, the request cannot mutate state. The response from the GET request is not returned to the caller so data exfiltration is not possible. A malicious actor could attempt to probe an internal network through Blind SSRF. The issue has been fixed in version 1.5.0. To workaround this issue, disable the search endpoint with --enable_retrieve_api=false.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/rekor",
+       "version": "v1.0.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=1.4.3 (unknown)",
+      "vulnerabilityID": "GHSA-4c4x-jm2x-pf9j"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "135bce7da7f36d76",
+    "name": "github.com/sigstore/rekor",
+    "version": "v1.0.1",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:rekor:v1.0.1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/rekor@v1.0.1",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:rcESXSNkAPRWFYZel9rarspdvneET60F2ngNkadi89c=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-273p-m2cw-6833",
+    "dataSource": "https://github.com/advisories/GHSA-273p-m2cw-6833",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-273p-m2cw-6833"
+    ],
+    "description": "Rekor's COSE v0.0.1 entry type nil pointer dereference in Canonicalize via empty Message",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.5.0"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-23831",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23831",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/sigstore/rekor/commit/39bae3d192bce48ef4ef2cbd1788fb5770fee8cd",
+      "https://github.com/sigstore/rekor/releases/tag/v1.5.0",
+      "https://github.com/sigstore/rekor/security/advisories/GHSA-273p-m2cw-6833"
+     ],
+     "description": "Rekor is a software supply chain transparency log. In versions 1.4.3 and below, the entry implementation can panic on attacker-controlled input when canonicalizing a proposed entry with an empty spec.message, causing nil Pointer Dereference. Function validate() returns nil (success) when message is empty, leaving sign1Msg uninitialized, and Canonicalize() later dereferences v.sign1Msg.Payload. A malformed proposed entry of the cose/v0.0.1 type can cause a panic on a thread within the Rekor process. The thread is recovered so the client receives a 500 error message and service still continues, so the availability impact of this is minimal. This issue has been fixed in version 1.5.0.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+       "metrics": {
+        "baseScore": 5.3,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/rekor",
+       "version": "v1.0.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=1.4.3 (unknown)",
+      "vulnerabilityID": "GHSA-273p-m2cw-6833"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "135bce7da7f36d76",
+    "name": "github.com/sigstore/rekor",
+    "version": "v1.0.1",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:rekor:v1.0.1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/rekor@v1.0.1",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:rcESXSNkAPRWFYZel9rarspdvneET60F2ngNkadi89c=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-fcv2-xgw5-pqxf",
+    "dataSource": "https://github.com/advisories/GHSA-fcv2-xgw5-pqxf",
+    "namespace": "github:language:go",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/advisories/GHSA-fcv2-xgw5-pqxf"
+    ],
+    "description": "sigstore legacy TUF client allows for arbitrary file writes with target cache path traversal",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:N/I:H/A:N",
+      "metrics": {
+       "baseScore": 5.8,
+       "exploitabilityScore": 1.3,
+       "impactScore": 4
+      },
+      "vendorMetadata": {
+       "base_severity": "Medium",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.10.4"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-24137",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-24137",
+     "namespace": "nvd:cpe",
+     "severity": "Medium",
+     "urls": [
+      "https://github.com/sigstore/sigstore/commit/8ec410a2993ea78083aecf0e473a85453039496e",
+      "https://github.com/sigstore/sigstore/releases/tag/v1.10.4",
+      "https://github.com/sigstore/sigstore/security/advisories/GHSA-fcv2-xgw5-pqxf"
+     ],
+     "description": "sigstore framework is a common go library shared across sigstore services and clients. In versions 1.10.3 and below, the legacy TUF client (pkg/tuf/client.go) supports caching target files to disk. It constructs a filesystem path by joining a cache base directory with a target name sourced from signed target metadata; however, it does not validate that the resulting path stays within the cache base directory. A malicious TUF repository can trigger arbitrary file overwriting, limited to the permissions that the calling process has. Note that this should only affect clients that are directly using the TUF client in sigstore/sigstore or are using an older version of Cosign. Public Sigstore deployment users are unaffected, as TUF metadata is validated by a quorum of trusted collaborators. This issue has been fixed in version 1.10.4. As a workaround, users can disable disk caching for the legacy client by setting SIGSTORE_NO_CACHE=true in the environment, migrate to https://github.com/sigstore/sigstore-go/tree/main/pkg/tuf, or upgrade to the latest sigstore/sigstore release.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:C/C:N/I:H/A:N",
+       "metrics": {
+        "baseScore": 5.8,
+        "exploitabilityScore": 1.3,
+        "impactScore": 4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/sigstore",
+       "version": "v1.5.2"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=1.10.3 (unknown)",
+      "vulnerabilityID": "GHSA-fcv2-xgw5-pqxf"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d319c01f71bf839e",
+    "name": "github.com/sigstore/sigstore",
+    "version": "v1.5.2",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:sigstore:v1.5.2:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/sigstore@v1.5.2",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:rvZSPJDH2ysoc8kjW9v4nv1UX3XwSA8y4x6Dk7hA0D4=",
      "mainModule": "github.com/kyverno/kyverno"
     }
    }
@@ -4190,6 +4613,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61731",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61731",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/736711",
+     "https://go.dev/issue/77100",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4339"
+    ],
+    "description": "Building a malicious file with cmd/go can cause can cause a write to an attacker-controlled file with partial control of the file content. The \"#cgo pkg-config:\" directive in a Go source file provides command-line arguments to provide to the Go pkg-config command. An attacker can provide a \"--log-file\" argument to this directive, causing pkg-config to write to an attacker-controlled location.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7.8,
+       "exploitabilityScore": 1.8,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61731",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61729",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61729",
     "namespace": "nvd:cpe",
@@ -4242,6 +4752,93 @@
      "found": {
       "vulnerabilityID": "CVE-2025-61729",
       "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61726",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61726",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/736712",
+     "https://go.dev/issue/77101",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4341"
+    ],
+    "description": "The net/url package does not set a limit on the number of query parameters in a query. While the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61726",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -5326,6 +5923,181 @@
      "found": {
       "vulnerabilityID": "CVE-2023-45285",
       "versionConstraint": "< 1.20.12 || >= 1.21.0-0, < 1.21.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61730",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61730",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/724120",
+     "https://go.dev/issue/76443",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4340"
+    ],
+    "description": "During the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "metrics": {
+       "baseScore": 6.2,
+       "exploitabilityScore": 2.5,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61730",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61728",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61728",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/736713",
+     "https://go.dev/issue/77102",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4342",
+     "http://www.openwall.com/lists/oss-security/2026/01/15/4"
+    ],
+    "description": "archive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 2.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61728",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -7306,12 +8078,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-12-31T00:25:26Z",
+   "built": "2026-01-31T00:31:57Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
+   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
    "error": null
   },
-  "timestamp": "2026-01-01T02:42:01.911416701Z"
+  "timestamp": "2026-02-01T03:30:07.682666588Z"
  }
 }

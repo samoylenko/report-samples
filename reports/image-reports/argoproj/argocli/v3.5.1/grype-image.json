@@ -472,6 +472,107 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-cv78-6m8q-ph82",
+    "dataSource": "https://github.com/advisories/GHSA-cv78-6m8q-ph82",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-cv78-6m8q-ph82"
+    ],
+    "description": "Argo Workflows affected by stored XSS in the artifact directory listing",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.6.17"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-23960",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23960",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/argoproj/argo-workflows/blob/9872c296d29dcc5e9c78493054961ede9fc30797/server/artifacts/artifact_server.go#L194-L244",
+      "https://github.com/argoproj/argo-workflows/commit/159a5c56285ecd4d3bb0a67aeef4507779a44e17",
+      "https://github.com/argoproj/argo-workflows/releases/tag/v3.6.17",
+      "https://github.com/argoproj/argo-workflows/releases/tag/v3.7.8",
+      "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-cv78-6m8q-ph82"
+     ],
+     "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. Prior to versions 3.6.17 and 3.7.8, stored XSS in the artifact directory listing allows any workflow author to execute arbitrary JavaScript in another user’s browser under the Argo Server origin, enabling API actions with the victim’s privileges. Versions 3.6.17 and 3.7.8 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:L/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 7.3
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/argoproj/argo-workflows/v3",
+       "version": "v3.5.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.6.17 (unknown)",
+      "vulnerabilityID": "GHSA-cv78-6m8q-ph82"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "af4e658db1eaf575",
+    "name": "github.com/argoproj/argo-workflows/v3",
+    "version": "v3.5.1",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/bin/argo",
+      "layerID": "sha256:f29bd5ccb4a6bd6d28edec5d3331108c45bed70381f26ca3178f114983ac35f3"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:argoproj:argo-workflows/v3:v3.5.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:argoproj:argo_workflows/v3:v3.5.1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/argoproj/argo-workflows@v3.5.1#v3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goBuildSettings": {
+      "-buildmode": "exe",
+      "-compiler": "gc",
+      "-ldflags": "-X github.com/argoproj/argo-workflows/v3.version=v3.5.1 -X github.com/argoproj/argo-workflows/v3.buildDate=2023-11-03T18:41:46Z -X github.com/argoproj/argo-workflows/v3.gitCommit=877c5523066e17687856fe3484c9b2d398e986f5 -X github.com/argoproj/argo-workflows/v3.gitTreeState=clean -X github.com/argoproj/argo-workflows/v3.gitTag=v3.5.1 -extldflags -static",
+      "CGO_ENABLED": "0",
+      "GOAMD64": "v1",
+      "GOARCH": "amd64",
+      "GOOS": "linux"
+     },
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "mainModule": "github.com/argoproj/argo-workflows/v3"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-c2hv-4pfj-mm2r",
     "dataSource": "https://github.com/advisories/GHSA-c2hv-4pfj-mm2r",
     "namespace": "github:language:go",
@@ -3147,6 +3248,93 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-61731",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61731",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/736711",
+     "https://go.dev/issue/77100",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4339"
+    ],
+    "description": "Building a malicious file with cmd/go can cause can cause a write to an attacker-controlled file with partial control of the file content. The \"#cgo pkg-config:\" directive in a Go source file provides command-line arguments to provide to the Go pkg-config command. An attacker can provide a \"--log-file\" argument to this directive, causing pkg-config to write to an attacker-controlled location.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7.8,
+       "exploitabilityScore": 1.8,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61731",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7364dbf3d678f9b2",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/bin/argo",
+      "layerID": "sha256:f29bd5ccb4a6bd6d28edec5d3331108c45bed70381f26ca3178f114983ac35f3"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61729",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61729",
     "namespace": "nvd:cpe",
@@ -3199,6 +3387,93 @@
      "found": {
       "vulnerabilityID": "CVE-2025-61729",
       "versionConstraint": "< 1.24.11 || >= 1.25.0, < 1.25.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7364dbf3d678f9b2",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/bin/argo",
+      "layerID": "sha256:f29bd5ccb4a6bd6d28edec5d3331108c45bed70381f26ca3178f114983ac35f3"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61726",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61726",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/736712",
+     "https://go.dev/issue/77101",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4341"
+    ],
+    "description": "The net/url package does not set a limit on the number of query parameters in a query. While the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61726",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -4283,6 +4558,181 @@
      "found": {
       "vulnerabilityID": "CVE-2023-45285",
       "versionConstraint": "< 1.20.12 || >= 1.21.0-0, < 1.21.5 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7364dbf3d678f9b2",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/bin/argo",
+      "layerID": "sha256:f29bd5ccb4a6bd6d28edec5d3331108c45bed70381f26ca3178f114983ac35f3"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61730",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61730",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/724120",
+     "https://go.dev/issue/76443",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4340"
+    ],
+    "description": "During the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "metrics": {
+       "baseScore": 6.2,
+       "exploitabilityScore": 2.5,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61730",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7364dbf3d678f9b2",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/bin/argo",
+      "layerID": "sha256:f29bd5ccb4a6bd6d28edec5d3331108c45bed70381f26ca3178f114983ac35f3"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61728",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61728",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://go.dev/cl/736713",
+     "https://go.dev/issue/77102",
+     "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc",
+     "https://pkg.go.dev/vuln/GO-2026-4342",
+     "http://www.openwall.com/lists/oss-security/2026/01/15/4"
+    ],
+    "description": "archive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 2.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.12",
+      "1.25.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61728",
+      "versionConstraint": "< 1.24.12 || >= 1.25.0, < 1.25.6 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -6313,12 +6763,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2025-12-31T00:25:26Z",
+   "built": "2026-01-31T00:31:57Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:681f8bb475fd8238d6a88b90ba904e36c0f72d71559abd14fedf7120fef34643",
+   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
    "error": null
   },
-  "timestamp": "2026-01-01T02:37:41.774893756Z"
+  "timestamp": "2026-02-01T03:26:07.809834917Z"
  }
 }

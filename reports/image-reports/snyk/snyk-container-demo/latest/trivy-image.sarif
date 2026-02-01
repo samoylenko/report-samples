@@ -25916,7 +25916,7 @@
               "id": "CVE-2025-15284",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "Improper Input Validation vulnerability in qs (parse modules) allows H ..."
+                "text": "qs: qs: Denial of Service via improper input validation in array parsing"
               },
               "fullDescription": {
                 "text": "Improper Input Validation vulnerability in qs (parse modules) allows HTTP DoS.This issue affects qs: \u003c 6.14.1.\n\n\nSummaryThe arrayLimit option in qs does not enforce limits for bracket notation (a[]=1\u0026a[]=2), allowing attackers to cause denial-of-service via memory exhaustion. Applications using arrayLimit for DoS protection are vulnerable.\n\nDetailsThe arrayLimit option only checks limits for indexed notation (a[0]=1\u0026a[1]=2) but completely bypasses it for bracket notation (a[]=1\u0026a[]=2).\n\nVulnerable code (lib/parse.js:159-162):\n\nif (root === '[]' \u0026\u0026 options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n\n\n\n\n\nWorking code (lib/parse.js:175):\n\nelse if (index \u003c= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n\n\n\n\n\nThe bracket notation handler at line 159 uses utils.combine([], leaf) without validating against options.arrayLimit, while indexed notation at line 175 checks index \u003c= options.arrayLimit before creating arrays.\n\nPoCTest 1 - Basic bypass:\n\nnpm install qs\n\n\n\n\n\nconst qs = require('qs');\nconst result = qs.parse('a[]=1\u0026a[]=2\u0026a[]=3\u0026a[]=4\u0026a[]=5\u0026a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n\n\n\n\n\nTest 2 - DoS demonstration:\n\nconst qs = require('qs');\nconst attack = 'a[]=' + Array(10000).fill('x').join('\u0026a[]=');\nconst result = qs.parse(attack, { arrayLimit: 100 });\nconsole.log(result.a.length);  // Output: 10000 (should be max 100)\n\n\n\n\n\nConfiguration:\n\n  *  arrayLimit: 5 (test 1) or arrayLimit: 100 (test 2)\n  *  Use bracket notation: a[]=value (not indexed a[0]=value)\n\n\nImpactDenial of Service via memory exhaustion. Affects applications using qs.parse() with user-controlled input and arrayLimit for protection.\n\nAttack scenario:\n\n  *  Attacker sends HTTP request: GET /api/search?filters[]=x\u0026filters[]=x\u0026...\u0026filters[]=x (100,000+ times)\n  *  Application parses with qs.parse(query, { arrayLimit: 100 })\n  *  qs ignores limit, parses all 100,000 elements into array\n  *  Server memory exhausted → application crashes or becomes unresponsive\n  *  Service unavailable for all users\nReal-world impact:\n\n  *  Single malicious request can crash server\n  *  No authentication required\n  *  Easy to automate and scale\n  *  Affects any endpoint parsing query strings with bracket notation"
@@ -26247,6 +26247,91 @@
               "properties": {
                 "cvssv3_baseScore": 8.2,
                 "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N",
+                "precision": "very-high",
+                "security-severity": "8.2",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-23745",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file overwrite and symlink poisoning via unsanitized linkpaths in archives"
+              },
+              "fullDescription": {
+                "text": "node-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-23745",
+              "help": {
+                "text": "Vulnerability CVE-2026-23745\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)\nnode-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3.",
+                "markdown": "**Vulnerability CVE-2026-23745**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.3|[CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)|\n\nnode-tar is a Tar for Node.js. The node-tar library (\u003c= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-23950",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file overwrite via Unicode path collision race condition"
+              },
+              "fullDescription": {
+                "text": "node-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-23950",
+              "help": {
+                "text": "Vulnerability CVE-2026-23950\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)\nnode-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue.",
+                "markdown": "**Vulnerability CVE-2026-23950**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.4|[CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)|\n\nnode-tar,a Tar for Node.js, has a race condition vulnerability in versions up to and including 7.5.3. This is due to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently. This is a Race Condition which enables Arbitrary File Overwrite. This vulnerability affects users and systems using node-tar on macOS (APFS/HFS+). Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive. The patch in version 7.5.4 updates `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`. As a workaround, users who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue."
+              },
+              "properties": {
+                "cvssv3_baseScore": 8.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:L",
+                "precision": "very-high",
+                "security-severity": "8.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-24842",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "node-tar: tar: node-tar: Arbitrary file creation via path traversal bypass in hardlink security check"
+              },
+              "fullDescription": {
+                "text": "node-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-24842",
+              "help": {
+                "text": "Vulnerability CVE-2026-24842\nSeverity: HIGH\nPackage: tar\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)\nnode-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue.",
+                "markdown": "**Vulnerability CVE-2026-24842**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|tar|7.5.7|[CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)|\n\nnode-tar,a Tar for Node.js, contains a vulnerability in versions prior to 7.5.7 where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory. Version 7.5.7 contains a fix for the issue."
+              },
+              "properties": {
+                "cvssv3_baseScore": 8.2,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
                 "precision": "very-high",
                 "security-severity": "8.2",
                 "tags": [
@@ -26605,7 +26690,7 @@
               }
             }
           ],
-          "version": "0.68.2"
+          "version": "0.69.0"
         }
       },
       "results": [
@@ -96027,8 +96112,89 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-28863",
+          "ruleId": "CVE-2026-23745",
           "ruleIndex": 870,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 2.2.1\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json: tar@2.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 871,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 2.2.1\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json: tar@2.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 872,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 2.2.1\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json: tar@2.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-28863",
+          "ruleIndex": 873,
           "level": "warning",
           "message": {
             "text": "Package: tar\nInstalled Version: 2.2.1\nVulnerability CVE-2024-28863\nSeverity: MEDIUM\nFixed Version: 6.2.1\nLink: [CVE-2024-28863](https://avd.aquasec.com/nvd/cve-2024-28863)"
@@ -96055,7 +96221,7 @@
         },
         {
           "ruleId": "CVE-2021-32803",
-          "ruleIndex": 871,
+          "ruleIndex": 874,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2021-32803\nSeverity: HIGH\nFixed Version: 3.2.3, 4.4.15, 5.0.7, 6.1.2\nLink: [CVE-2021-32803](https://avd.aquasec.com/nvd/cve-2021-32803)"
@@ -96109,7 +96275,7 @@
         },
         {
           "ruleId": "CVE-2021-37701",
-          "ruleIndex": 872,
+          "ruleIndex": 875,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2021-37701\nSeverity: HIGH\nFixed Version: 4.4.16, 5.0.8, 6.1.7\nLink: [CVE-2021-37701](https://avd.aquasec.com/nvd/cve-2021-37701)"
@@ -96136,7 +96302,7 @@
         },
         {
           "ruleId": "CVE-2021-37712",
-          "ruleIndex": 873,
+          "ruleIndex": 876,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2021-37712\nSeverity: HIGH\nFixed Version: 4.4.18, 5.0.10, 6.1.9\nLink: [CVE-2021-37712](https://avd.aquasec.com/nvd/cve-2021-37712)"
@@ -96189,8 +96355,89 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-28863",
+          "ruleId": "CVE-2026-23745",
           "ruleIndex": 870,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/tar/package.json: tar@4.4.4"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-23950",
+          "ruleIndex": 871,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/tar/package.json: tar@4.4.4"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24842",
+          "ruleIndex": 872,
+          "level": "error",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/lib/node_modules/npm/node_modules/tar/package.json: tar@4.4.4"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-28863",
+          "ruleIndex": 873,
           "level": "warning",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.4\nVulnerability CVE-2024-28863\nSeverity: MEDIUM\nFixed Version: 6.2.1\nLink: [CVE-2024-28863](https://avd.aquasec.com/nvd/cve-2024-28863)"
@@ -96217,7 +96464,7 @@
         },
         {
           "ruleId": "CVE-2023-26136",
-          "ruleIndex": 874,
+          "ruleIndex": 877,
           "level": "warning",
           "message": {
             "text": "Package: tough-cookie\nInstalled Version: 2.3.4\nVulnerability CVE-2023-26136\nSeverity: MEDIUM\nFixed Version: 4.1.3\nLink: [CVE-2023-26136](https://avd.aquasec.com/nvd/cve-2023-26136)"
@@ -96244,7 +96491,7 @@
         },
         {
           "ruleId": "CVE-2020-7774",
-          "ruleIndex": 875,
+          "ruleIndex": 878,
           "level": "error",
           "message": {
             "text": "Package: y18n\nInstalled Version: 3.2.1\nVulnerability CVE-2020-7774\nSeverity: HIGH\nFixed Version: 3.2.2, 4.0.1, 5.0.5\nLink: [CVE-2020-7774](https://avd.aquasec.com/nvd/cve-2020-7774)"
@@ -96271,7 +96518,7 @@
         },
         {
           "ruleId": "CVE-2020-7774",
-          "ruleIndex": 875,
+          "ruleIndex": 878,
           "level": "error",
           "message": {
             "text": "Package: y18n\nInstalled Version: 4.0.0\nVulnerability CVE-2020-7774\nSeverity: HIGH\nFixed Version: 3.2.2, 4.0.1, 5.0.5\nLink: [CVE-2020-7774](https://avd.aquasec.com/nvd/cve-2020-7774)"
@@ -96298,7 +96545,7 @@
         },
         {
           "ruleId": "CVE-2020-7608",
-          "ruleIndex": 876,
+          "ruleIndex": 879,
           "level": "warning",
           "message": {
             "text": "Package: yargs-parser\nInstalled Version: 9.0.2\nVulnerability CVE-2020-7608\nSeverity: MEDIUM\nFixed Version: 13.1.2, 15.0.1, 18.1.1, 5.0.1\nLink: [CVE-2020-7608](https://avd.aquasec.com/nvd/cve-2020-7608)"
@@ -96325,7 +96572,7 @@
         },
         {
           "ruleId": "CVE-2019-10773",
-          "ruleIndex": 877,
+          "ruleIndex": 880,
           "level": "error",
           "message": {
             "text": "Package: yarn\nInstalled Version: 1.9.2\nVulnerability CVE-2019-10773\nSeverity: HIGH\nFixed Version: 1.22.0\nLink: [CVE-2019-10773](https://avd.aquasec.com/nvd/cve-2019-10773)"
@@ -96352,7 +96599,7 @@
         },
         {
           "ruleId": "CVE-2019-5448",
-          "ruleIndex": 878,
+          "ruleIndex": 881,
           "level": "error",
           "message": {
             "text": "Package: yarn\nInstalled Version: 1.9.2\nVulnerability CVE-2019-5448\nSeverity: HIGH\nFixed Version: 1.17.3\nLink: [CVE-2019-5448](https://avd.aquasec.com/nvd/cve-2019-5448)"
@@ -96379,7 +96626,7 @@
         },
         {
           "ruleId": "CVE-2020-8131",
-          "ruleIndex": 879,
+          "ruleIndex": 882,
           "level": "error",
           "message": {
             "text": "Package: yarn\nInstalled Version: 1.9.2\nVulnerability CVE-2020-8131\nSeverity: HIGH\nFixed Version: 1.22.0\nLink: [CVE-2020-8131](https://avd.aquasec.com/nvd/cve-2020-8131)"
@@ -96406,7 +96653,7 @@
         },
         {
           "ruleId": "CVE-2021-4435",
-          "ruleIndex": 880,
+          "ruleIndex": 883,
           "level": "error",
           "message": {
             "text": "Package: yarn\nInstalled Version: 1.9.2\nVulnerability CVE-2021-4435\nSeverity: HIGH\nFixed Version: 1.22.13\nLink: [CVE-2021-4435](https://avd.aquasec.com/nvd/cve-2021-4435)"
@@ -96433,7 +96680,7 @@
         },
         {
           "ruleId": "CVE-2019-15608",
-          "ruleIndex": 881,
+          "ruleIndex": 884,
           "level": "warning",
           "message": {
             "text": "Package: yarn\nInstalled Version: 1.9.2\nVulnerability CVE-2019-15608\nSeverity: MEDIUM\nFixed Version: 1.19.0\nLink: [CVE-2019-15608](https://avd.aquasec.com/nvd/cve-2019-15608)"

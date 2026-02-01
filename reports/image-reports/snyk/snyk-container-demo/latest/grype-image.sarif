@@ -86572,6 +86572,78 @@
               }
             },
             {
+              "id": "CVE-2025-55131-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-55131 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js's buffer allocation logic can expose uninitialized memory when allocations are interrupted, when using the `vm` module with the timeout option. Under specific timing conditions, buffers allocated with `Buffer.alloc` and other `TypedArray` instances like `Uint8Array` may contain leftover data from previous operations, allowing in-process secrets like tokens or passwords to leak or causing data corruption. While exploitation typically requires precise timing or in-process code execution, it can become remotely exploitable when untrusted input influences workload and timeouts, leading to potential confidentiality and integrity impact."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-55131\nSeverity: high\nPackage: node\nVersion: 10.8.0\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /usr/local/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55131](https://nvd.nist.gov/vuln/detail/CVE-2025-55131)",
+                "markdown": "**Vulnerability CVE-2025-55131**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 10.8.0  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /usr/local/bin/node  | nvd:cpe  | [CVE-2025-55131](https://nvd.nist.gov/vuln/detail/CVE-2025-55131)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.1"
+              }
+            },
+            {
+              "id": "CVE-2025-59465-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-59465 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A malformed `HTTP/2 HEADERS` frame with oversized, invalid `HPACK` data can cause Node.js to crash by triggering an unhandled `TLSSocket` error `ECONNRESET`. Instead of safely closing the connection, the process crashes, enabling a remote denial of service. This primarily affects applications that do not attach explicit error handlers to secure sockets, for example:\n```\nserver.on('secureConnection', socket =\u003e {\n  socket.on('error', err =\u003e {\n    console.log(err)\n  })\n})\n```"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-59465\nSeverity: high\nPackage: node\nVersion: 10.8.0\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /usr/local/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-59465](https://nvd.nist.gov/vuln/detail/CVE-2025-59465)",
+                "markdown": "**Vulnerability CVE-2025-59465**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 10.8.0  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /usr/local/bin/node  | nvd:cpe  | [CVE-2025-59465](https://nvd.nist.gov/vuln/detail/CVE-2025-59465)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2025-59466-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-59466 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "We have identified a bug in Node.js error handling where \"Maximum call stack size exceeded\" errors become uncatchable when `async_hooks.createHook()` is enabled. Instead of reaching `process.on('uncaughtException')`, the process terminates, making the crash unrecoverable. Applications that rely on `AsyncLocalStorage` (v22, v20) or `async_hooks.createHook()` (v24, v22, v20) become vulnerable to denial-of-service crashes triggered by deep recursion under specific conditions."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-59466\nSeverity: high\nPackage: node\nVersion: 10.8.0\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /usr/local/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-59466](https://nvd.nist.gov/vuln/detail/CVE-2025-59466)",
+                "markdown": "**Vulnerability CVE-2025-59466**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 10.8.0  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /usr/local/bin/node  | nvd:cpe  | [CVE-2025-59466](https://nvd.nist.gov/vuln/detail/CVE-2025-59466)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2026-21637-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2026-21637 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js TLS error handling allows remote attackers to crash or exhaust resources of a TLS server when `pskCallback` or `ALPNCallback` are in use. Synchronous exceptions thrown during these callbacks bypass standard TLS error handling paths (tlsClientError and error), causing either immediate process termination or silent file descriptor leaks that eventually lead to denial of service. Because these callbacks process attacker-controlled input during the TLS handshake, a remote client can repeatedly trigger the issue. This vulnerability affects TLS servers using PSK or ALPN callbacks across Node.js versions where these callbacks throw without being safely wrapped."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-21637\nSeverity: high\nPackage: node\nVersion: 10.8.0\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /usr/local/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2026-21637](https://nvd.nist.gov/vuln/detail/CVE-2026-21637)",
+                "markdown": "**Vulnerability CVE-2026-21637**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 10.8.0  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /usr/local/bin/node  | nvd:cpe  | [CVE-2026-21637](https://nvd.nist.gov/vuln/detail/CVE-2026-21637)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
               "id": "GHSA-2mj8-pj3j-h362-bin-links",
               "name": "JavascriptMatcherExactDirectMatch",
               "shortDescription": {
@@ -86623,6 +86695,24 @@
               },
               "properties": {
                 "security-severity": "8.1"
+              }
+            },
+            {
+              "id": "GHSA-34x7-hfp2-rc4v-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-34x7-hfp2-rc4v high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-34x7-hfp2-rc4v\nSeverity: high\nPackage: tar\nVersion: 2.2.1\nFix Version: 7.5.7\nType: npm\nLocation: /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-34x7-hfp2-rc4v](https://github.com/advisories/GHSA-34x7-hfp2-rc4v)",
+                "markdown": "**Vulnerability GHSA-34x7-hfp2-rc4v**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 2.2.1  | 7.5.7  | npm  | /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-34x7-hfp2-rc4v](https://github.com/advisories/GHSA-34x7-hfp2-rc4v)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.2"
               }
             },
             {
@@ -87127,6 +87217,24 @@
               },
               "properties": {
                 "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-8qq5-rm4j-mr97-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-8qq5-rm4j-mr97 high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-8qq5-rm4j-mr97\nSeverity: high\nPackage: tar\nVersion: 2.2.1\nFix Version: 7.5.3\nType: npm\nLocation: /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-8qq5-rm4j-mr97](https://github.com/advisories/GHSA-8qq5-rm4j-mr97)",
+                "markdown": "**Vulnerability GHSA-8qq5-rm4j-mr97**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 2.2.1  | 7.5.3  | npm  | /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-8qq5-rm4j-mr97](https://github.com/advisories/GHSA-8qq5-rm4j-mr97)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.2"
               }
             },
             {
@@ -87901,6 +88009,24 @@
               },
               "properties": {
                 "security-severity": "8.2"
+              }
+            },
+            {
+              "id": "GHSA-r6q2-hw4h-h46w-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-r6q2-hw4h-h46w high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-r6q2-hw4h-h46w\nSeverity: high\nPackage: tar\nVersion: 2.2.1\nFix Version: 7.5.4\nType: npm\nLocation: /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-r6q2-hw4h-h46w](https://github.com/advisories/GHSA-r6q2-hw4h-h46w)",
+                "markdown": "**Vulnerability GHSA-r6q2-hw4h-h46w**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 2.2.1  | 7.5.4  | npm  | /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-r6q2-hw4h-h46w](https://github.com/advisories/GHSA-r6q2-hw4h-h46w)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.8"
               }
             },
             {
@@ -257869,6 +257995,114 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-55131-node",
+          "message": {
+            "text": "The path /usr/local/bin/node reports node at version 10.8.0  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/bin/node",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-59465-node",
+          "message": {
+            "text": "The path /usr/local/bin/node reports node at version 10.8.0  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/bin/node",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-59466-node",
+          "message": {
+            "text": "The path /usr/local/bin/node reports node at version 10.8.0  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/bin/node",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-21637-node",
+          "message": {
+            "text": "The path /usr/local/bin/node reports node at version 10.8.0  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/bin/node",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "GHSA-2mj8-pj3j-h362-bin-links",
           "message": {
             "text": "The path /usr/local/lib/node_modules/npm/node_modules/bin-links/package.json reports bin-links at version 1.1.2  which is a vulnerable (npm) package installed in the container"
@@ -257944,6 +258178,60 @@
                 {
                   "name": "/usr/local/lib/node_modules/npm/node_modules/ip/package.json",
                   "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/ip/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-34x7-hfp2-rc4v-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json reports tar at version 2.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-34x7-hfp2-rc4v-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/tar/package.json reports tar at version 4.4.4  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
                 }
               ]
             }
@@ -258787,6 +259075,60 @@
           ]
         },
         {
+          "ruleId": "GHSA-8qq5-rm4j-mr97-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json reports tar at version 2.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-8qq5-rm4j-mr97-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/tar/package.json reports tar at version 4.4.4  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "GHSA-93f3-23rq-pjfp-npm",
           "message": {
             "text": "The path /usr/local/lib/node_modules/npm/package.json reports npm at version 6.2.0  which is a vulnerable (npm) package installed in the container"
@@ -258816,33 +259158,6 @@
         {
           "ruleId": "GHSA-93q8-gq69-wqmw-ansi-regex",
           "message": {
-            "text": "The path /usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json reports ansi-regex at version 3.0.0  which is a vulnerable (npm) package installed in the container"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "name": "/usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json",
-                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "ruleId": "GHSA-93q8-gq69-wqmw-ansi-regex",
-          "message": {
             "text": "The path /usr/local/lib/node_modules/npm/node_modules/string-width/node_modules/ansi-regex/package.json reports ansi-regex at version 3.0.0  which is a vulnerable (npm) package installed in the container"
           },
           "locations": [
@@ -258862,6 +259177,33 @@
                 {
                   "name": "/usr/local/lib/node_modules/npm/node_modules/string-width/node_modules/ansi-regex/package.json",
                   "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/string-width/node_modules/ansi-regex/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-93q8-gq69-wqmw-ansi-regex",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json reports ansi-regex at version 3.0.0  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/cliui/node_modules/ansi-regex/package.json"
                 }
               ]
             }
@@ -260115,6 +260457,60 @@
         },
         {
           "ruleId": "GHSA-r628-mhmh-qjhw-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/tar/package.json reports tar at version 4.4.4  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
+          "message": {
+            "text": "The path /usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json reports tar at version 2.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "snyk/snyk-container-demo:latest@sha256:0f905224ac84cddd2691ef63e4690358d0ec34c893f1996a511496708ff01c29:/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
           "message": {
             "text": "The path /usr/local/lib/node_modules/npm/node_modules/tar/package.json reports tar at version 4.4.4  which is a vulnerable (npm) package installed in the container"
           },

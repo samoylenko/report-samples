@@ -208,6 +208,42 @@
               }
             },
             {
+              "id": "CVE-2025-15281-libc6",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-15281 high vulnerability for libc6 package"
+              },
+              "fullDescription": {
+                "text": "Calling wordexp with WRDE_REUSE in conjunction with WRDE_APPEND in the GNU C Library version 2.0 to version 2.42 may cause the interface to return uninitialized memory in the we_wordv member, which on subsequent calls to wordfree may abort the process."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-15281\nSeverity: high\nPackage: libc6\nVersion: 2.36-9+deb12u13\nFix Version: \nType: deb\nLocation: /usr/share/doc/libc6/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-15281](https://security-tracker.debian.org/tracker/CVE-2025-15281)",
+                "markdown": "**Vulnerability CVE-2025-15281**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libc6  | 2.36-9+deb12u13  |   | deb  | /usr/share/doc/libc6/copyright  | debian:distro:debian:12  | [CVE-2025-15281](https://security-tracker.debian.org/tracker/CVE-2025-15281)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2025-15467-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-15467 critical vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Parsing CMS AuthEnvelopedData message with maliciously crafted AEAD parameters can trigger a stack buffer overflow.  Impact summary: A stack buffer overflow may lead to a crash, causing Denial of Service, or potentially remote code execution.  When parsing CMS AuthEnvelopedData structures that use AEAD ciphers such as AES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is copied into a fixed-size stack buffer without verifying that its length fits the destination. An attacker can supply a crafted CMS message with an oversized IV, causing a stack-based out-of-bounds write before any authentication or tag verification occurs.  Applications and services that parse untrusted CMS or PKCS#7 content using AEAD ciphers (e.g., S/MIME AuthEnvelopedData with AES-GCM) are vulnerable. Because the overflow occurs prior to authentication, no valid key material is required to trigger it. While exploitability to remote code execution depends on platform and toolchain mitigations, the stack-based write primitive represents a severe risk.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the CMS implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.  OpenSSL 1.1.1 and 1.0.2 are not affected by this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-15467\nSeverity: critical\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-15467](https://security-tracker.debian.org/tracker/CVE-2025-15467)",
+                "markdown": "**Vulnerability CVE-2025-15467**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-15467](https://security-tracker.debian.org/tracker/CVE-2025-15467)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.8"
+              }
+            },
+            {
               "id": "CVE-2025-27587-libssl3",
               "name": "DpkgMatcherExactIndirectMatch",
               "shortDescription": {
@@ -220,6 +256,276 @@
               "help": {
                 "text": "Vulnerability CVE-2025-27587\nSeverity: low\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: \nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-27587](https://security-tracker.debian.org/tracker/CVE-2025-27587)",
                 "markdown": "**Vulnerability CVE-2025-27587**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | libssl3  | 3.0.17-1~deb12u3  |   | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-27587](https://security-tracker.debian.org/tracker/CVE-2025-27587)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "CVE-2025-55130-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-55130 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js’s Permissions model allows attackers to bypass `--allow-fs-read` and `--allow-fs-write` restrictions using crafted relative symlink paths. By chaining directories and symlinks, a script granted access only to the current directory can escape the allowed path and read sensitive files. This breaks the expected isolation guarantees and enables arbitrary file read/write, leading to potential system compromise.\nThis vulnerability affects users of the permission model on Node.js v20,  v22,  v24, and v25."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-55130\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)",
+                "markdown": "**Vulnerability CVE-2025-55130**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.1"
+              }
+            },
+            {
+              "id": "CVE-2025-55131-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-55131 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js's buffer allocation logic can expose uninitialized memory when allocations are interrupted, when using the `vm` module with the timeout option. Under specific timing conditions, buffers allocated with `Buffer.alloc` and other `TypedArray` instances like `Uint8Array` may contain leftover data from previous operations, allowing in-process secrets like tokens or passwords to leak or causing data corruption. While exploitation typically requires precise timing or in-process code execution, it can become remotely exploitable when untrusted input influences workload and timeouts, leading to potential confidentiality and integrity impact."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-55131\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55131](https://nvd.nist.gov/vuln/detail/CVE-2025-55131)",
+                "markdown": "**Vulnerability CVE-2025-55131**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55131](https://nvd.nist.gov/vuln/detail/CVE-2025-55131)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.1"
+              }
+            },
+            {
+              "id": "CVE-2025-55132-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-55132 low vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js's permission model allows a file's access and modification timestamps to be changed via `futimes()` even when the process has only read permissions. Unlike `utimes()`, `futimes()` does not apply the expected write-permission checks, which means file metadata can be modified in read-only directories. This behavior could be used to alter timestamps in ways that obscure activity, reducing the reliability of logs. This vulnerability affects users of the permission model on Node.js v20,  v22,  v24, and v25."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-55132\nSeverity: low\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)",
+                "markdown": "**Vulnerability CVE-2025-55132**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)  |\n"
+              },
+              "properties": {
+                "security-severity": "2.8"
+              }
+            },
+            {
+              "id": "CVE-2025-59465-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-59465 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A malformed `HTTP/2 HEADERS` frame with oversized, invalid `HPACK` data can cause Node.js to crash by triggering an unhandled `TLSSocket` error `ECONNRESET`. Instead of safely closing the connection, the process crashes, enabling a remote denial of service. This primarily affects applications that do not attach explicit error handlers to secure sockets, for example:\n```\nserver.on('secureConnection', socket =\u003e {\n  socket.on('error', err =\u003e {\n    console.log(err)\n  })\n})\n```"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-59465\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-59465](https://nvd.nist.gov/vuln/detail/CVE-2025-59465)",
+                "markdown": "**Vulnerability CVE-2025-59465**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-59465](https://nvd.nist.gov/vuln/detail/CVE-2025-59465)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2025-59466-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2025-59466 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "We have identified a bug in Node.js error handling where \"Maximum call stack size exceeded\" errors become uncatchable when `async_hooks.createHook()` is enabled. Instead of reaching `process.on('uncaughtException')`, the process terminates, making the crash unrecoverable. Applications that rely on `AsyncLocalStorage` (v22, v20) or `async_hooks.createHook()` (v24, v22, v20) become vulnerable to denial-of-service crashes triggered by deep recursion under specific conditions."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-59466\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-59466](https://nvd.nist.gov/vuln/detail/CVE-2025-59466)",
+                "markdown": "**Vulnerability CVE-2025-59466**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-59466](https://nvd.nist.gov/vuln/detail/CVE-2025-59466)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2025-68160-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-68160 medium vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Writing large, newline-free data into a BIO chain using the line-buffering filter where the next BIO performs short writes can trigger a heap-based out-of-bounds write.  Impact summary: This out-of-bounds write can cause memory corruption which typically results in a crash, leading to Denial of Service for an application.  The line-buffering BIO filter (BIO_f_linebuffer) is not used by default in TLS/SSL data paths. In OpenSSL command-line applications, it is typically only pushed onto stdout/stderr on VMS systems. Third-party applications that explicitly use this filter with a BIO chain that can short-write and that write large, newline-free data influenced by an attacker would be affected. However, the circumstances where this could happen are unlikely to be under attacker control, and BIO_f_linebuffer is unlikely to be handling non-curated data controlled by an attacker. For that reason the issue was assessed as Low severity.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the BIO implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-68160\nSeverity: medium\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-68160](https://security-tracker.debian.org/tracker/CVE-2025-68160)",
+                "markdown": "**Vulnerability CVE-2025-68160**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-68160](https://security-tracker.debian.org/tracker/CVE-2025-68160)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.7"
+              }
+            },
+            {
+              "id": "CVE-2025-69418-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-69418 medium vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: When using the low-level OCB API directly with AES-NI or\u003cbr\u003eother hardware-accelerated code paths, inputs whose length is not a multiple\u003cbr\u003eof 16 bytes can leave the final partial block unencrypted and unauthenticated.\u003cbr\u003e\u003cbr\u003eImpact summary: The trailing 1-15 bytes of a message may be exposed in\u003cbr\u003ecleartext on encryption and are not covered by the authentication tag,\u003cbr\u003eallowing an attacker to read or tamper with those bytes without detection.\u003cbr\u003e\u003cbr\u003eThe low-level OCB encrypt and decrypt routines in the hardware-accelerated\u003cbr\u003estream path process full 16-byte blocks but do not advance the input/output\u003cbr\u003epointers. The subsequent tail-handling code then operates on the original\u003cbr\u003ebase pointers, effectively reprocessing the beginning of the buffer while\u003cbr\u003eleaving the actual trailing bytes unprocessed. The authentication checksum\u003cbr\u003ealso excludes the true tail bytes.\u003cbr\u003e\u003cbr\u003eHowever, typical OpenSSL consumers using EVP are not affected because the\u003cbr\u003ehigher-level EVP and provider OCB implementations split inputs so that full\u003cbr\u003eblocks and trailing partial blocks are processed in separate calls, avoiding\u003cbr\u003ethe problematic code path. Additionally, TLS does not use OCB ciphersuites.\u003cbr\u003eThe vulnerability only affects applications that call the low-level\u003cbr\u003eCRYPTO_ocb128_encrypt() or CRYPTO_ocb128_decrypt() functions directly with\u003cbr\u003enon-block-aligned lengths in a single call on hardware-accelerated builds.\u003cbr\u003eFor these reasons the issue was assessed as Low severity.\u003cbr\u003e\u003cbr\u003eThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.2, 3.1 and 3.0 are not affected\u003cbr\u003eby this issue, as OCB mode is not a FIPS-approved algorithm.\u003cbr\u003e\u003cbr\u003eOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\u003cbr\u003e\u003cbr\u003eOpenSSL 1.0.2 is not affected by this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-69418\nSeverity: medium\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69418](https://security-tracker.debian.org/tracker/CVE-2025-69418)",
+                "markdown": "**Vulnerability CVE-2025-69418**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69418](https://security-tracker.debian.org/tracker/CVE-2025-69418)  |\n"
+              },
+              "properties": {
+                "security-severity": "4.0"
+              }
+            },
+            {
+              "id": "CVE-2025-69419-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-69419 high vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Calling PKCS12_get_friendlyname() function on a maliciously crafted PKCS#12 file with a BMPString (UTF-16BE) friendly name containing non-ASCII BMP code point can trigger a one byte write before the allocated buffer.  Impact summary: The out-of-bounds write can cause a memory corruption which can have various consequences including a Denial of Service.  The OPENSSL_uni2utf8() function performs a two-pass conversion of a PKCS#12 BMPString (UTF-16BE) to UTF-8. In the second pass, when emitting UTF-8 bytes, the helper function bmp_to_utf8() incorrectly forwards the remaining UTF-16 source byte count as the destination buffer capacity to UTF8_putc(). For BMP code points above U+07FF, UTF-8 requires three bytes, but the forwarded capacity can be just two bytes. UTF8_putc() then returns -1, and this negative value is added to the output length without validation, causing the length to become negative. The subsequent trailing NUL byte is then written at a negative offset, causing write outside of heap allocated buffer.  The vulnerability is reachable via the public PKCS12_get_friendlyname() API when parsing attacker-controlled PKCS#12 files. While PKCS12_parse() uses a different code path that avoids this issue, PKCS12_get_friendlyname() directly invokes the vulnerable function. Exploitation requires an attacker to provide a malicious PKCS#12 file to be parsed by the application and the attacker can just trigger a one zero byte write before the allocated buffer. For that reason the issue was assessed as Low severity according to our Security Policy.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.  OpenSSL 1.0.2 is not affected by this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-69419\nSeverity: high\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69419](https://security-tracker.debian.org/tracker/CVE-2025-69419)",
+                "markdown": "**Vulnerability CVE-2025-69419**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69419](https://security-tracker.debian.org/tracker/CVE-2025-69419)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.4"
+              }
+            },
+            {
+              "id": "CVE-2025-69420-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-69420 high vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: A type confusion vulnerability exists in the TimeStamp Response verification code where an ASN1_TYPE union member is accessed without first validating the type, causing an invalid or NULL pointer dereference when processing a malformed TimeStamp Response file.  Impact summary: An application calling TS_RESP_verify_response() with a malformed TimeStamp Response can be caused to dereference an invalid or NULL pointer when reading, resulting in a Denial of Service.  The functions ossl_ess_get_signing_cert() and ossl_ess_get_signing_cert_v2() access the signing cert attribute value without validating its type. When the type is not V_ASN1_SEQUENCE, this results in accessing invalid memory through the ASN1_TYPE union, causing a crash.  Exploiting this vulnerability requires an attacker to provide a malformed TimeStamp Response to an application that verifies timestamp responses. The TimeStamp protocol (RFC 3161) is not widely used and the impact of the exploit is just a Denial of Service. For these reasons the issue was assessed as Low severity.  The FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the TimeStamp Response implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.  OpenSSL 1.0.2 is not affected by this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-69420\nSeverity: high\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69420](https://security-tracker.debian.org/tracker/CVE-2025-69420)",
+                "markdown": "**Vulnerability CVE-2025-69420**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69420](https://security-tracker.debian.org/tracker/CVE-2025-69420)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2025-69421-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2025-69421 low vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer dereference in the PKCS12_item_decrypt_d2i_ex() function.  Impact summary: A NULL pointer dereference can trigger a crash which leads to Denial of Service for an application processing PKCS#12 files.  The PKCS12_item_decrypt_d2i_ex() function does not check whether the oct parameter is NULL before dereferencing it. When called from PKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can be NULL, causing a crash. The vulnerability is limited to Denial of Service and cannot be escalated to achieve code execution or memory disclosure.  Exploiting this issue requires an attacker to provide a malformed PKCS#12 file to an application that processes it. For that reason the issue was assessed as Low severity according to our Security Policy.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2025-69421\nSeverity: low\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)",
+                "markdown": "**Vulnerability CVE-2025-69421**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)  |\n"
+              },
+              "properties": {
+                "security-severity": "0.0"
+              }
+            },
+            {
+              "id": "CVE-2026-0861-libc6",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2026-0861 high vulnerability for libc6 package"
+              },
+              "fullDescription": {
+                "text": "Passing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.  Note that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.  Typically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-0861\nSeverity: high\nPackage: libc6\nVersion: 2.36-9+deb12u13\nFix Version: \nType: deb\nLocation: /usr/share/doc/libc6/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2026-0861](https://security-tracker.debian.org/tracker/CVE-2026-0861)",
+                "markdown": "**Vulnerability CVE-2026-0861**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libc6  | 2.36-9+deb12u13  |   | deb  | /usr/share/doc/libc6/copyright  | debian:distro:debian:12  | [CVE-2026-0861](https://security-tracker.debian.org/tracker/CVE-2026-0861)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.4"
+              }
+            },
+            {
+              "id": "CVE-2026-0915-libc6",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2026-0915 high vulnerability for libc6 package"
+              },
+              "fullDescription": {
+                "text": "Calling getnetbyaddr or getnetbyaddr_r with a configured nsswitch.conf that specifies the library's DNS backend for networks and queries for a zero-valued network in the GNU C Library version 2.0 to version 2.42 can leak stack contents to the configured DNS resolver."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-0915\nSeverity: high\nPackage: libc6\nVersion: 2.36-9+deb12u13\nFix Version: \nType: deb\nLocation: /usr/share/doc/libc6/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2026-0915](https://security-tracker.debian.org/tracker/CVE-2026-0915)",
+                "markdown": "**Vulnerability CVE-2026-0915**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libc6  | 2.36-9+deb12u13  |   | deb  | /usr/share/doc/libc6/copyright  | debian:distro:debian:12  | [CVE-2026-0915](https://security-tracker.debian.org/tracker/CVE-2026-0915)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2026-21637-node",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2026-21637 high vulnerability for node package"
+              },
+              "fullDescription": {
+                "text": "A flaw in Node.js TLS error handling allows remote attackers to crash or exhaust resources of a TLS server when `pskCallback` or `ALPNCallback` are in use. Synchronous exceptions thrown during these callbacks bypass standard TLS error handling paths (tlsClientError and error), causing either immediate process termination or silent file descriptor leaks that eventually lead to denial of service. Because these callbacks process attacker-controlled input during the TLS handshake, a remote client can repeatedly trigger the issue. This vulnerability affects TLS servers using PSK or ALPN callbacks across Node.js versions where these callbacks throw without being safely wrapped."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-21637\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2026-21637](https://nvd.nist.gov/vuln/detail/CVE-2026-21637)",
+                "markdown": "**Vulnerability CVE-2026-21637**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2026-21637](https://nvd.nist.gov/vuln/detail/CVE-2026-21637)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "CVE-2026-22795-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2026-22795 medium vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: An invalid or NULL pointer dereference can happen in an application processing a malformed PKCS#12 file.  Impact summary: An application processing a malformed PKCS#12 file can be caused to dereference an invalid or NULL pointer on memory read, resulting in a Denial of Service.  A type confusion vulnerability exists in PKCS#12 parsing code where an ASN1_TYPE union member is accessed without first validating the type, causing an invalid pointer read.  The location is constrained to a 1-byte address space, meaning any attempted pointer manipulation can only target addresses between 0x00 and 0xFF. This range corresponds to the zero page, which is unmapped on most modern operating systems and will reliably result in a crash, leading only to a Denial of Service. Exploiting this issue also requires a user or application to process a maliciously crafted PKCS#12 file. It is uncommon to accept untrusted PKCS#12 files in applications as they are usually used to store private keys which are trusted by definition. For these reasons, the issue was assessed as Low severity.  The FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the PKCS12 implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.  OpenSSL 1.0.2 is not affected by this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-22795\nSeverity: medium\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2026-22795](https://security-tracker.debian.org/tracker/CVE-2026-22795)",
+                "markdown": "**Vulnerability CVE-2026-22795**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2026-22795](https://security-tracker.debian.org/tracker/CVE-2026-22795)  |\n"
+              },
+              "properties": {
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "CVE-2026-22796-libssl3",
+              "name": "DpkgMatcherExactIndirectMatch",
+              "shortDescription": {
+                "text": "CVE-2026-22796 medium vulnerability for libssl3 package"
+              },
+              "fullDescription": {
+                "text": "Issue summary: A type confusion vulnerability exists in the signature verification of signed PKCS#7 data where an ASN1_TYPE union member is accessed without first validating the type, causing an invalid or NULL pointer dereference when processing malformed PKCS#7 data.  Impact summary: An application performing signature verification of PKCS#7 data or calling directly the PKCS7_digest_from_attributes() function can be caused to dereference an invalid or NULL pointer when reading, resulting in a Denial of Service.  The function PKCS7_digest_from_attributes() accesses the message digest attribute value without validating its type. When the type is not V_ASN1_OCTET_STRING, this results in accessing invalid memory through the ASN1_TYPE union, causing a crash.  Exploiting this vulnerability requires an attacker to provide a malformed signed PKCS#7 to an application that verifies it. The impact of the exploit is just a Denial of Service, the PKCS7 API is legacy and applications should be using the CMS API instead. For these reasons the issue was assessed as Low severity.  The FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the PKCS#7 parsing implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2026-22796\nSeverity: medium\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2026-22796](https://security-tracker.debian.org/tracker/CVE-2026-22796)",
+                "markdown": "**Vulnerability CVE-2026-22796**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2026-22796](https://security-tracker.debian.org/tracker/CVE-2026-22796)  |\n"
               },
               "properties": {
                 "security-severity": "5.3"
@@ -259,6 +565,24 @@
               },
               "properties": {
                 "security-severity": "8.1"
+              }
+            },
+            {
+              "id": "GHSA-34x7-hfp2-rc4v-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-34x7-hfp2-rc4v high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-34x7-hfp2-rc4v\nSeverity: high\nPackage: tar\nVersion: 4.4.19\nFix Version: 7.5.7\nType: npm\nLocation: /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-34x7-hfp2-rc4v](https://github.com/advisories/GHSA-34x7-hfp2-rc4v)",
+                "markdown": "**Vulnerability GHSA-34x7-hfp2-rc4v**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 4.4.19  | 7.5.7  | npm  | /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-34x7-hfp2-rc4v](https://github.com/advisories/GHSA-34x7-hfp2-rc4v)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.2"
               }
             },
             {
@@ -442,6 +766,24 @@
               }
             },
             {
+              "id": "GHSA-73rr-hh4g-fpgx-diff",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-73rr-hh4g-fpgx low vulnerability for diff package"
+              },
+              "fullDescription": {
+                "text": "jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-73rr-hh4g-fpgx\nSeverity: low\nPackage: diff\nVersion: 4.0.2\nFix Version: 4.0.4\nType: npm\nLocation: /juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-73rr-hh4g-fpgx](https://github.com/advisories/GHSA-73rr-hh4g-fpgx)",
+                "markdown": "**Vulnerability GHSA-73rr-hh4g-fpgx**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | diff  | 4.0.2  | 4.0.4  | npm  | /juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json  | github:language:javascript  | [GHSA-73rr-hh4g-fpgx](https://github.com/advisories/GHSA-73rr-hh4g-fpgx)  |\n"
+              },
+              "properties": {
+                "security-severity": "2.7"
+              }
+            },
+            {
               "id": "GHSA-869p-cjfg-cm3x-jws",
               "name": "JavascriptMatcherExactDirectMatch",
               "shortDescription": {
@@ -532,6 +874,24 @@
               }
             },
             {
+              "id": "GHSA-8qq5-rm4j-mr97-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-8qq5-rm4j-mr97 high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-8qq5-rm4j-mr97\nSeverity: high\nPackage: tar\nVersion: 4.4.19\nFix Version: 7.5.3\nType: npm\nLocation: /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-8qq5-rm4j-mr97](https://github.com/advisories/GHSA-8qq5-rm4j-mr97)",
+                "markdown": "**Vulnerability GHSA-8qq5-rm4j-mr97**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 4.4.19  | 7.5.3  | npm  | /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-8qq5-rm4j-mr97](https://github.com/advisories/GHSA-8qq5-rm4j-mr97)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.2"
+              }
+            },
+            {
               "id": "GHSA-952p-6rrq-rcjv-micromatch",
               "name": "JavascriptMatcherExactDirectMatch",
               "shortDescription": {
@@ -547,6 +907,24 @@
               },
               "properties": {
                 "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "GHSA-99p7-6v5w-7xg8-vm2",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-99p7-6v5w-7xg8 critical vulnerability for vm2 package"
+              },
+              "fullDescription": {
+                "text": "vm2 has a Sandbox Escape"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-99p7-6v5w-7xg8\nSeverity: critical\nPackage: vm2\nVersion: 3.9.17\nFix Version: 3.10.2\nType: npm\nLocation: /juice-shop/node_modules/vm2/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-99p7-6v5w-7xg8](https://github.com/advisories/GHSA-99p7-6v5w-7xg8)",
+                "markdown": "**Vulnerability GHSA-99p7-6v5w-7xg8**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | vm2  | 3.9.17  | 3.10.2  | npm  | /juice-shop/node_modules/vm2/package.json  | github:language:javascript  | [GHSA-99p7-6v5w-7xg8](https://github.com/advisories/GHSA-99p7-6v5w-7xg8)  |\n"
+              },
+              "properties": {
+                "security-severity": "9.8"
               }
             },
             {
@@ -578,8 +956,8 @@
               },
               "helpUri": "https://github.com/anchore/grype",
               "help": {
-                "text": "Vulnerability GHSA-cchq-frgv-rjh5\nSeverity: critical\nPackage: vm2\nVersion: 3.9.17\nFix Version: \nType: npm\nLocation: /juice-shop/node_modules/vm2/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-cchq-frgv-rjh5](https://github.com/advisories/GHSA-cchq-frgv-rjh5)",
-                "markdown": "**Vulnerability GHSA-cchq-frgv-rjh5**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | vm2  | 3.9.17  |   | npm  | /juice-shop/node_modules/vm2/package.json  | github:language:javascript  | [GHSA-cchq-frgv-rjh5](https://github.com/advisories/GHSA-cchq-frgv-rjh5)  |\n"
+                "text": "Vulnerability GHSA-cchq-frgv-rjh5\nSeverity: critical\nPackage: vm2\nVersion: 3.9.17\nFix Version: 3.10.0\nType: npm\nLocation: /juice-shop/node_modules/vm2/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-cchq-frgv-rjh5](https://github.com/advisories/GHSA-cchq-frgv-rjh5)",
+                "markdown": "**Vulnerability GHSA-cchq-frgv-rjh5**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | vm2  | 3.9.17  | 3.10.0  | npm  | /juice-shop/node_modules/vm2/package.json  | github:language:javascript  | [GHSA-cchq-frgv-rjh5](https://github.com/advisories/GHSA-cchq-frgv-rjh5)  |\n"
               },
               "properties": {
                 "security-severity": "9.8"
@@ -928,6 +1306,24 @@
               }
             },
             {
+              "id": "GHSA-r6q2-hw4h-h46w-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-r6q2-hw4h-h46w high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-r6q2-hw4h-h46w\nSeverity: high\nPackage: tar\nVersion: 4.4.19\nFix Version: 7.5.4\nType: npm\nLocation: /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-r6q2-hw4h-h46w](https://github.com/advisories/GHSA-r6q2-hw4h-h46w)",
+                "markdown": "**Vulnerability GHSA-r6q2-hw4h-h46w**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 4.4.19  | 7.5.4  | npm  | /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-r6q2-hw4h-h46w](https://github.com/advisories/GHSA-r6q2-hw4h-h46w)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.8"
+              }
+            },
+            {
               "id": "GHSA-r7qp-cfhv-p84w-engine.io",
               "name": "JavascriptMatcherExactDirectMatch",
               "shortDescription": {
@@ -1069,6 +1465,24 @@
               },
               "properties": {
                 "security-severity": "9.1"
+              }
+            },
+            {
+              "id": "GHSA-xxjr-mmjv-4gpg-lodash",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-xxjr-mmjv-4gpg medium vulnerability for lodash package"
+              },
+              "fullDescription": {
+                "text": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-xxjr-mmjv-4gpg\nSeverity: medium\nPackage: lodash\nVersion: 4.17.21\nFix Version: 4.17.23\nType: npm\nLocation: /juice-shop/node_modules/lodash/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-xxjr-mmjv-4gpg](https://github.com/advisories/GHSA-xxjr-mmjv-4gpg)",
+                "markdown": "**Vulnerability GHSA-xxjr-mmjv-4gpg**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | lodash  | 4.17.21  | 4.17.23  | npm  | /juice-shop/node_modules/lodash/package.json  | github:language:javascript  | [GHSA-xxjr-mmjv-4gpg](https://github.com/advisories/GHSA-xxjr-mmjv-4gpg)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.5"
               }
             }
           ]
@@ -1461,7 +1875,554 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-15281-libc6",
+          "message": {
+            "text": "The path /usr/share/doc/libc6/copyright reports libc6 at version 2.36-9+deb12u13  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libc6/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libc6/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/usr/share/doc/libc6/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-15467-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2025-27587-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-55130-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-55131-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-55132-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-59465-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-59466-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-68160-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69418-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69419-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69420-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69421-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-0861-libc6",
+          "message": {
+            "text": "The path /usr/share/doc/libc6/copyright reports libc6 at version 2.36-9+deb12u13  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libc6/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libc6/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/usr/share/doc/libc6/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-0915-libc6",
+          "message": {
+            "text": "The path /usr/share/doc/libc6/copyright reports libc6 at version 2.36-9+deb12u13  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libc6/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libc6/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/usr/share/doc/libc6/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libc6.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:bd29502adf199ad9c03afba9bc79df572a26ec60a2a6ffdda4883a5b7a1632fe:/var/lib/dpkg/status.d/libc6.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-21637-node",
+          "message": {
+            "text": "The path /nodejs/bin/node reports node at version 22.21.1  which is a vulnerable (binary) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//nodejs/bin/node"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/nodejs/bin/node",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:c112f2a93ec11ba48dfd76e5762a637fe879d59b79de064c56048491071dc531:/nodejs/bin/node"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-22795-libssl3",
+          "message": {
+            "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//usr/share/doc/libssl3/copyright"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/usr/share/doc/libssl3/copyright",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/usr/share/doc/libssl3/copyright"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3"
+                },
+                {
+                  "name": "/var/lib/dpkg/status.d/libssl3.md5sums",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:8127a9673224dfe54799359062e838de50453d217ddc48df68bf3615828b86d9:/var/lib/dpkg/status.d/libssl3.md5sums"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-22796-libssl3",
           "message": {
             "text": "The path /usr/share/doc/libssl3/copyright reports libssl3 at version 3.0.17-1~deb12u3  which is a vulnerable (deb) package installed in the container"
           },
@@ -1516,7 +2477,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/socket.io/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/socket.io/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/socket.io/package.json"
                 }
               ]
             }
@@ -1543,7 +2504,88 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/ip/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/ip/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ip/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-34x7-hfp2-rc4v-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json reports tar at version 4.4.19  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-34x7-hfp2-rc4v-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/tar/package.json reports tar at version 6.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-34x7-hfp2-rc4v-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/tar/package.json reports tar at version 7.5.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/tar/package.json"
                 }
               ]
             }
@@ -1570,7 +2612,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
                 }
               ]
             }
@@ -1597,7 +2639,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/engine.io/node_modules/ws/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/engine.io/node_modules/ws/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/engine.io/node_modules/ws/package.json"
                 }
               ]
             }
@@ -1624,7 +2666,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -1651,7 +2693,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/moment/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
                 }
               ]
             }
@@ -1678,7 +2720,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/multer/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/multer/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/multer/package.json"
                 }
               ]
             }
@@ -1705,7 +2747,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/multer/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/multer/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/multer/package.json"
                 }
               ]
             }
@@ -1732,7 +2774,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
                 }
               ]
             }
@@ -1759,7 +2801,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/marsdb/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/marsdb/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/marsdb/package.json"
                 }
               ]
             }
@@ -1786,7 +2828,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/package.json"
                 }
               ]
             }
@@ -1813,7 +2855,34 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/qs/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/qs/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/qs/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-73rr-hh4g-fpgx-diff",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json reports diff at version 4.0.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json"
                 }
               ]
             }
@@ -1840,7 +2909,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jws/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jws/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jws/package.json"
                 }
               ]
             }
@@ -1867,7 +2936,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/moment/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
                 }
               ]
             }
@@ -1894,7 +2963,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -1921,7 +2990,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -1948,7 +3017,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/notevil/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/notevil/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/notevil/package.json"
                 }
               ]
             }
@@ -1975,7 +3044,88 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/moment/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/moment/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-8qq5-rm4j-mr97-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json reports tar at version 4.4.19  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-8qq5-rm4j-mr97-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/tar/package.json reports tar at version 6.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-8qq5-rm4j-mr97-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/tar/package.json reports tar at version 7.5.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/tar/package.json"
                 }
               ]
             }
@@ -2002,7 +3152,34 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/micromatch/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/micromatch/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/micromatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-99p7-6v5w-7xg8-vm2",
+          "message": {
+            "text": "The path /juice-shop/node_modules/vm2/package.json reports vm2 at version 3.9.17  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/vm2/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/vm2/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/vm2/package.json"
                 }
               ]
             }
@@ -2029,7 +3206,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -2056,7 +3233,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -2083,7 +3260,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/vm2/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/vm2/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/vm2/package.json"
                 }
               ]
             }
@@ -2110,7 +3287,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2137,7 +3314,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/socket.io-parser/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/socket.io-parser/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/socket.io-parser/package.json"
                 }
               ]
             }
@@ -2164,7 +3341,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
                 }
               ]
             }
@@ -2191,7 +3368,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/multer/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/multer/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/multer/package.json"
                 }
               ]
             }
@@ -2218,7 +3395,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
                 }
               ]
             }
@@ -2245,7 +3422,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/multer/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/multer/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/multer/package.json"
                 }
               ]
             }
@@ -2272,7 +3449,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/vm2/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/vm2/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/vm2/package.json"
                 }
               ]
             }
@@ -2299,7 +3476,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jws/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jws/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jws/package.json"
                 }
               ]
             }
@@ -2326,7 +3503,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/braces/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/braces/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/braces/package.json"
                 }
               ]
             }
@@ -2353,7 +3530,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -2380,7 +3557,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -2407,7 +3584,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/node_modules/lodash/package.json"
                 }
               ]
             }
@@ -2434,7 +3611,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/js-yaml/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/js-yaml/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/js-yaml/package.json"
                 }
               ]
             }
@@ -2461,7 +3638,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2488,7 +3665,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/vm2/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/vm2/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/vm2/package.json"
                 }
               ]
             }
@@ -2515,7 +3692,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/lodash.set/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/lodash.set/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/lodash.set/package.json"
                 }
               ]
             }
@@ -2542,7 +3719,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/got/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/got/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/got/package.json"
                 }
               ]
             }
@@ -2569,7 +3746,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/engine.io/node_modules/cookie/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/engine.io/node_modules/cookie/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/engine.io/node_modules/cookie/package.json"
                 }
               ]
             }
@@ -2596,7 +3773,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2623,7 +3800,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/express-jwt/node_modules/jsonwebtoken/package.json"
                 }
               ]
             }
@@ -2650,7 +3827,88 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/jsonwebtoken/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/jsonwebtoken/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/jsonwebtoken/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json reports tar at version 4.4.19  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/tar/package.json reports tar at version 6.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/tar/package.json reports tar at version 7.5.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/tar/package.json"
                 }
               ]
             }
@@ -2677,7 +3935,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/engine.io/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/engine.io/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/engine.io/package.json"
                 }
               ]
             }
@@ -2704,7 +3962,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/http-cache-semantics/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/http-cache-semantics/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/http-cache-semantics/package.json"
                 }
               ]
             }
@@ -2731,7 +3989,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2758,7 +4016,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2785,7 +4043,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/base64url/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/base64url/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/base64url/package.json"
                 }
               ]
             }
@@ -2812,7 +4070,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/vm2/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/vm2/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/vm2/package.json"
                 }
               ]
             }
@@ -2839,7 +4097,7 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/sanitize-html/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/sanitize-html/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sanitize-html/package.json"
                 }
               ]
             }
@@ -2866,7 +4124,34 @@
               "logicalLocations": [
                 {
                   "name": "/juice-shop/node_modules/crypto-js/package.json",
-                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:e754230c561bdc38dea4aa1ec6bd4ee1640e1320d9196cd94082cfed265fbfcf:/juice-shop/node_modules/crypto-js/package.json"
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/crypto-js/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-xxjr-mmjv-4gpg-lodash",
+          "message": {
+            "text": "The path /juice-shop/node_modules/lodash/package.json reports lodash at version 4.17.21  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/lodash/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/lodash/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/lodash/package.json"
                 }
               ]
             }

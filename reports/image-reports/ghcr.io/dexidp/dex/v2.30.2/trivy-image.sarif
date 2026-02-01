@@ -599,7 +599,7 @@
               "id": "CVE-2025-47914",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "golang.org/x/crypto/ssh/agent: in golang.org/x/crypto/ssh/agent"
+                "text": "golang.org/x/crypto/ssh/agent: SSH Agent servers: Denial of Service due to malformed messages"
               },
               "fullDescription": {
                 "text": "SSH Agent servers do not validate the size of messages when processing new identity requests, which may cause the program to panic if the message is malformed due to an out of bounds read."
@@ -628,7 +628,7 @@
               "id": "CVE-2025-58181",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "golang.org/x/crypto/ssh: in golang.org/x/crypto/ssh"
+                "text": "golang.org/x/crypto/ssh: golang.org/x/crypto/ssh: Denial of Service via unbounded memory consumption in GSSAPI authentication"
               },
               "fullDescription": {
                 "text": "SSH servers parsing GSSAPI authentication requests do not validate the number of mechanisms specified in the request, allowing an attacker to cause unbounded memory consumption."
@@ -2346,10 +2346,64 @@
               }
             },
             {
+              "id": "CVE-2025-61726",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "The net/url package does not set a limit on the number of query parame ..."
+              },
+              "fullDescription": {
+                "text": "The net/url package does not set a limit on the number of query parameters in a query. While the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-61726",
+              "help": {
+                "text": "Vulnerability CVE-2025-61726\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61726](https://avd.aquasec.com/nvd/cve-2025-61726)\nThe net/url package does not set a limit on the number of query parameters in a query. While the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption.",
+                "markdown": "**Vulnerability CVE-2025-61726**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.24.12, 1.25.6|[CVE-2025-61726](https://avd.aquasec.com/nvd/cve-2025-61726)|\n\nThe net/url package does not set a limit on the number of query parameters in a query. While the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-61728",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "golang: archive/zip: Excessive CPU consumption when building archive index in archive/zip"
+              },
+              "fullDescription": {
+                "text": "archive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-61728",
+              "help": {
+                "text": "Vulnerability CVE-2025-61728\nSeverity: HIGH\nPackage: stdlib\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61728](https://avd.aquasec.com/nvd/cve-2025-61728)\narchive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive.",
+                "markdown": "**Vulnerability CVE-2025-61728**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|stdlib|1.24.12, 1.25.6|[CVE-2025-61728](https://avd.aquasec.com/nvd/cve-2025-61728)|\n\narchive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-61729",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "crypto/x509: Excessive resource consumption when printing error string for host certificate validation in crypto/x509"
+                "text": "crypto/x509: golang: Denial of Service due to excessive resource consumption via crafted certificate"
               },
               "fullDescription": {
                 "text": "Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption."
@@ -3429,6 +3483,33 @@
               }
             },
             {
+              "id": "CVE-2025-61730",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "During the TLS 1.3 handshake if multiple messages are sent in records  ..."
+              },
+              "fullDescription": {
+                "text": "During the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-61730",
+              "help": {
+                "text": "Vulnerability CVE-2025-61730\nSeverity: MEDIUM\nPackage: stdlib\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61730](https://avd.aquasec.com/nvd/cve-2025-61730)\nDuring the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake.",
+                "markdown": "**Vulnerability CVE-2025-61730**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|stdlib|1.24.12, 1.25.6|[CVE-2025-61730](https://avd.aquasec.com/nvd/cve-2025-61730)|\n\nDuring the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2022-30629",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -3467,41 +3548,12 @@
                 "text": "Randomly-generated alphanumeric strings contain significantly less entropy than expected. The RandomAlphaNumeric and CryptoRandomAlphaNumeric functions always return strings containing at least one digit from 0 to 9. This significantly reduces the amount of entropy in short strings generated by these functions."
               },
               "defaultConfiguration": {
-                "level": "error"
+                "level": "note"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2021-4238",
               "help": {
-                "text": "Vulnerability CVE-2021-4238\nSeverity: CRITICAL\nPackage: github.com/Masterminds/goutils\nFixed Version: 1.1.1\nLink: [CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)\nRandomly-generated alphanumeric strings contain significantly less entropy than expected. The RandomAlphaNumeric and CryptoRandomAlphaNumeric functions always return strings containing at least one digit from 0 to 9. This significantly reduces the amount of entropy in short strings generated by these functions.",
-                "markdown": "**Vulnerability CVE-2021-4238**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|github.com/Masterminds/goutils|1.1.1|[CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)|\n\nRandomly-generated alphanumeric strings contain significantly less entropy than expected. The RandomAlphaNumeric and CryptoRandomAlphaNumeric functions always return strings containing at least one digit from 0 to 9. This significantly reduces the amount of entropy in short strings generated by these functions."
-              },
-              "properties": {
-                "cvssv3_baseScore": 9.1,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
-                "precision": "very-high",
-                "security-severity": "9.1",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "CRITICAL"
-                ]
-              }
-            },
-            {
-              "id": "GHSA-xg2h-wx96-xgxr",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "RandomAlphaNumeric and CryptoRandomAlphaNumeric are not as random as they should be"
-              },
-              "fullDescription": {
-                "text": "### Impact\n\nA security-sensitive bug was discovered by Open Source Developer *Erik Sundell of Sundell Open Source Consulting AB*.\n\nThe functions `RandomAlphaNumeric(int)` and `CryptoRandomAlphaNumeric(int)` are not as random as they should be. Small values of `int` in the functions above will return a smaller subset of results than they should. For example, `RandomAlphaNumeric(1)` will always return a digit in the 0-9 range, while `RandomAlphaNumeric(4)` will return around ~7 million of the ~13M possible permutations.\n\nThis is considered a security release because programs that rely upon random generators for passwords are at an increased risk of brute force-style password guessing. There is also a higher probability of collision.\n\nThe problem was the result of a mistaken regular expression that only accepted random strings if they contained a digit from `[0-9]`. That restriction has been removed.\n\n### Patches\n\nThis issue has been corrected in v1.1.1.\n\n### Workarounds\n\nIf you cannot upgrade to v1.1.1, you can work around the issue by calling `RandomAlphaNumericCustom(N, true, true)`|`CryptoRandomAlphaNumericCustom(N, true, true)`  instead. (Where `N` is the desired length, and `true` is the literal boolean `true`.)        "
-              },
-              "defaultConfiguration": {
-                "level": "note"
-              },
-              "helpUri": "https://github.com/advisories/GHSA-xg2h-wx96-xgxr",
-              "help": {
-                "text": "Vulnerability GHSA-xg2h-wx96-xgxr\nSeverity: LOW\nPackage: github.com/Masterminds/goutils\nFixed Version: 1.1.1\nLink: [GHSA-xg2h-wx96-xgxr](https://github.com/advisories/GHSA-xg2h-wx96-xgxr)\n### Impact\n\nA security-sensitive bug was discovered by Open Source Developer *Erik Sundell of Sundell Open Source Consulting AB*.\n\nThe functions `RandomAlphaNumeric(int)` and `CryptoRandomAlphaNumeric(int)` are not as random as they should be. Small values of `int` in the functions above will return a smaller subset of results than they should. For example, `RandomAlphaNumeric(1)` will always return a digit in the 0-9 range, while `RandomAlphaNumeric(4)` will return around ~7 million of the ~13M possible permutations.\n\nThis is considered a security release because programs that rely upon random generators for passwords are at an increased risk of brute force-style password guessing. There is also a higher probability of collision.\n\nThe problem was the result of a mistaken regular expression that only accepted random strings if they contained a digit from `[0-9]`. That restriction has been removed.\n\n### Patches\n\nThis issue has been corrected in v1.1.1.\n\n### Workarounds\n\nIf you cannot upgrade to v1.1.1, you can work around the issue by calling `RandomAlphaNumericCustom(N, true, true)`|`CryptoRandomAlphaNumericCustom(N, true, true)`  instead. (Where `N` is the desired length, and `true` is the literal boolean `true`.)        ",
-                "markdown": "**Vulnerability GHSA-xg2h-wx96-xgxr**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|github.com/Masterminds/goutils|1.1.1|[GHSA-xg2h-wx96-xgxr](https://github.com/advisories/GHSA-xg2h-wx96-xgxr)|\n\n### Impact\n\nA security-sensitive bug was discovered by Open Source Developer *Erik Sundell of Sundell Open Source Consulting AB*.\n\nThe functions `RandomAlphaNumeric(int)` and `CryptoRandomAlphaNumeric(int)` are not as random as they should be. Small values of `int` in the functions above will return a smaller subset of results than they should. For example, `RandomAlphaNumeric(1)` will always return a digit in the 0-9 range, while `RandomAlphaNumeric(4)` will return around ~7 million of the ~13M possible permutations.\n\nThis is considered a security release because programs that rely upon random generators for passwords are at an increased risk of brute force-style password guessing. There is also a higher probability of collision.\n\nThe problem was the result of a mistaken regular expression that only accepted random strings if they contained a digit from `[0-9]`. That restriction has been removed.\n\n### Patches\n\nThis issue has been corrected in v1.1.1.\n\n### Workarounds\n\nIf you cannot upgrade to v1.1.1, you can work around the issue by calling `RandomAlphaNumericCustom(N, true, true)`|`CryptoRandomAlphaNumericCustom(N, true, true)`  instead. (Where `N` is the desired length, and `true` is the literal boolean `true`.)        "
+                "text": "Vulnerability CVE-2021-4238\nSeverity: LOW\nPackage: github.com/Masterminds/goutils\nFixed Version: 1.1.1\nLink: [CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)\nRandomly-generated alphanumeric strings contain significantly less entropy than expected. The RandomAlphaNumeric and CryptoRandomAlphaNumeric functions always return strings containing at least one digit from 0 to 9. This significantly reduces the amount of entropy in short strings generated by these functions.",
+                "markdown": "**Vulnerability CVE-2021-4238**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|github.com/Masterminds/goutils|1.1.1|[CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)|\n\nRandomly-generated alphanumeric strings contain significantly less entropy than expected. The RandomAlphaNumeric and CryptoRandomAlphaNumeric functions always return strings containing at least one digit from 0 to 9. This significantly reduces the amount of entropy in short strings generated by these functions."
               },
               "properties": {
                 "precision": "very-high",
@@ -3905,7 +3957,7 @@
               }
             }
           ],
-          "version": "0.68.2"
+          "version": "0.69.0"
         }
       },
       "results": [
@@ -6664,8 +6716,62 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-61729",
+          "ruleId": "CVE-2025-61726",
           "ruleIndex": 80,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61726\nSeverity: HIGH\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61726](https://avd.aquasec.com/nvd/cve-2025-61726)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/dex",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/dex: stdlib@v1.16.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-61728",
+          "ruleIndex": 81,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61728\nSeverity: HIGH\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61728](https://avd.aquasec.com/nvd/cve-2025-61728)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/dex",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/dex: stdlib@v1.16.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-61729",
+          "ruleIndex": 82,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61729\nSeverity: HIGH\nFixed Version: 1.24.11, 1.25.5\nLink: [CVE-2025-61729](https://avd.aquasec.com/nvd/cve-2025-61729)"
@@ -6692,7 +6798,7 @@
         },
         {
           "ruleId": "CVE-2021-36221",
-          "ruleIndex": 81,
+          "ruleIndex": 83,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2021-36221\nSeverity: MEDIUM\nFixed Version: 1.15.15, 1.16.7\nLink: [CVE-2021-36221](https://avd.aquasec.com/nvd/cve-2021-36221)"
@@ -6719,7 +6825,7 @@
         },
         {
           "ruleId": "CVE-2021-44717",
-          "ruleIndex": 82,
+          "ruleIndex": 84,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2021-44717\nSeverity: MEDIUM\nFixed Version: 1.16.12, 1.17.5\nLink: [CVE-2021-44717](https://avd.aquasec.com/nvd/cve-2021-44717)"
@@ -6746,7 +6852,7 @@
         },
         {
           "ruleId": "CVE-2022-1705",
-          "ruleIndex": 83,
+          "ruleIndex": 85,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2022-1705\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-1705](https://avd.aquasec.com/nvd/cve-2022-1705)"
@@ -6773,7 +6879,7 @@
         },
         {
           "ruleId": "CVE-2022-1962",
-          "ruleIndex": 84,
+          "ruleIndex": 86,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2022-1962\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-1962](https://avd.aquasec.com/nvd/cve-2022-1962)"
@@ -6827,7 +6933,7 @@
         },
         {
           "ruleId": "CVE-2022-32148",
-          "ruleIndex": 85,
+          "ruleIndex": 87,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2022-32148\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-32148](https://avd.aquasec.com/nvd/cve-2022-32148)"
@@ -6881,7 +6987,7 @@
         },
         {
           "ruleId": "CVE-2023-24532",
-          "ruleIndex": 86,
+          "ruleIndex": 88,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-24532\nSeverity: MEDIUM\nFixed Version: 1.19.7, 1.20.2\nLink: [CVE-2023-24532](https://avd.aquasec.com/nvd/cve-2023-24532)"
@@ -6908,7 +7014,7 @@
         },
         {
           "ruleId": "CVE-2023-29406",
-          "ruleIndex": 87,
+          "ruleIndex": 89,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-29406\nSeverity: MEDIUM\nFixed Version: 1.19.11, 1.20.6\nLink: [CVE-2023-29406](https://avd.aquasec.com/nvd/cve-2023-29406)"
@@ -6935,7 +7041,7 @@
         },
         {
           "ruleId": "CVE-2023-29409",
-          "ruleIndex": 88,
+          "ruleIndex": 90,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-29409\nSeverity: MEDIUM\nFixed Version: 1.19.12, 1.20.7, 1.21.0-rc.4\nLink: [CVE-2023-29409](https://avd.aquasec.com/nvd/cve-2023-29409)"
@@ -6962,7 +7068,7 @@
         },
         {
           "ruleId": "CVE-2023-39318",
-          "ruleIndex": 89,
+          "ruleIndex": 91,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-39318\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39318](https://avd.aquasec.com/nvd/cve-2023-39318)"
@@ -6989,7 +7095,7 @@
         },
         {
           "ruleId": "CVE-2023-39319",
-          "ruleIndex": 90,
+          "ruleIndex": 92,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-39319\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39319](https://avd.aquasec.com/nvd/cve-2023-39319)"
@@ -7016,7 +7122,7 @@
         },
         {
           "ruleId": "CVE-2023-39326",
-          "ruleIndex": 91,
+          "ruleIndex": 93,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-39326\nSeverity: MEDIUM\nFixed Version: 1.20.12, 1.21.5\nLink: [CVE-2023-39326](https://avd.aquasec.com/nvd/cve-2023-39326)"
@@ -7043,7 +7149,7 @@
         },
         {
           "ruleId": "CVE-2023-45284",
-          "ruleIndex": 92,
+          "ruleIndex": 94,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-45284\nSeverity: MEDIUM\nFixed Version: 1.20.11, 1.21.4\nLink: [CVE-2023-45284](https://avd.aquasec.com/nvd/cve-2023-45284)"
@@ -7070,7 +7176,7 @@
         },
         {
           "ruleId": "CVE-2023-45289",
-          "ruleIndex": 93,
+          "ruleIndex": 95,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-45289\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45289](https://avd.aquasec.com/nvd/cve-2023-45289)"
@@ -7097,7 +7203,7 @@
         },
         {
           "ruleId": "CVE-2023-45290",
-          "ruleIndex": 94,
+          "ruleIndex": 96,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2023-45290\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45290](https://avd.aquasec.com/nvd/cve-2023-45290)"
@@ -7124,7 +7230,7 @@
         },
         {
           "ruleId": "CVE-2024-24783",
-          "ruleIndex": 95,
+          "ruleIndex": 97,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-24783\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24783](https://avd.aquasec.com/nvd/cve-2024-24783)"
@@ -7151,7 +7257,7 @@
         },
         {
           "ruleId": "CVE-2024-24784",
-          "ruleIndex": 96,
+          "ruleIndex": 98,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-24784\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24784](https://avd.aquasec.com/nvd/cve-2024-24784)"
@@ -7178,7 +7284,7 @@
         },
         {
           "ruleId": "CVE-2024-24785",
-          "ruleIndex": 97,
+          "ruleIndex": 99,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-24785\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24785](https://avd.aquasec.com/nvd/cve-2024-24785)"
@@ -7205,7 +7311,7 @@
         },
         {
           "ruleId": "CVE-2024-24789",
-          "ruleIndex": 98,
+          "ruleIndex": 100,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-24789\nSeverity: MEDIUM\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24789](https://avd.aquasec.com/nvd/cve-2024-24789)"
@@ -7232,7 +7338,7 @@
         },
         {
           "ruleId": "CVE-2024-24791",
-          "ruleIndex": 99,
+          "ruleIndex": 101,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-24791\nSeverity: MEDIUM\nFixed Version: 1.21.12, 1.22.5\nLink: [CVE-2024-24791](https://avd.aquasec.com/nvd/cve-2024-24791)"
@@ -7259,7 +7365,7 @@
         },
         {
           "ruleId": "CVE-2024-34155",
-          "ruleIndex": 100,
+          "ruleIndex": 102,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-34155\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34155](https://avd.aquasec.com/nvd/cve-2024-34155)"
@@ -7286,7 +7392,7 @@
         },
         {
           "ruleId": "CVE-2024-34158",
-          "ruleIndex": 101,
+          "ruleIndex": 103,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-34158\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34158](https://avd.aquasec.com/nvd/cve-2024-34158)"
@@ -7313,7 +7419,7 @@
         },
         {
           "ruleId": "CVE-2024-45336",
-          "ruleIndex": 102,
+          "ruleIndex": 104,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-45336\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45336](https://avd.aquasec.com/nvd/cve-2024-45336)"
@@ -7340,7 +7446,7 @@
         },
         {
           "ruleId": "CVE-2024-45341",
-          "ruleIndex": 103,
+          "ruleIndex": 105,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2024-45341\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45341](https://avd.aquasec.com/nvd/cve-2024-45341)"
@@ -7367,7 +7473,7 @@
         },
         {
           "ruleId": "CVE-2025-0913",
-          "ruleIndex": 104,
+          "ruleIndex": 106,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-0913\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-0913](https://avd.aquasec.com/nvd/cve-2025-0913)"
@@ -7394,7 +7500,7 @@
         },
         {
           "ruleId": "CVE-2025-22866",
-          "ruleIndex": 105,
+          "ruleIndex": 107,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-22866\nSeverity: MEDIUM\nFixed Version: 1.22.12, 1.23.6, 1.24.0-rc.3\nLink: [CVE-2025-22866](https://avd.aquasec.com/nvd/cve-2025-22866)"
@@ -7421,7 +7527,7 @@
         },
         {
           "ruleId": "CVE-2025-22871",
-          "ruleIndex": 106,
+          "ruleIndex": 108,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-22871\nSeverity: MEDIUM\nFixed Version: 1.23.8, 1.24.2\nLink: [CVE-2025-22871](https://avd.aquasec.com/nvd/cve-2025-22871)"
@@ -7448,7 +7554,7 @@
         },
         {
           "ruleId": "CVE-2025-4673",
-          "ruleIndex": 107,
+          "ruleIndex": 109,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-4673\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-4673](https://avd.aquasec.com/nvd/cve-2025-4673)"
@@ -7475,7 +7581,7 @@
         },
         {
           "ruleId": "CVE-2025-47906",
-          "ruleIndex": 108,
+          "ruleIndex": 110,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-47906\nSeverity: MEDIUM\nFixed Version: 1.23.12, 1.24.6\nLink: [CVE-2025-47906](https://avd.aquasec.com/nvd/cve-2025-47906)"
@@ -7502,7 +7608,7 @@
         },
         {
           "ruleId": "CVE-2025-47912",
-          "ruleIndex": 109,
+          "ruleIndex": 111,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-47912\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-47912](https://avd.aquasec.com/nvd/cve-2025-47912)"
@@ -7529,7 +7635,7 @@
         },
         {
           "ruleId": "CVE-2025-58185",
-          "ruleIndex": 110,
+          "ruleIndex": 112,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-58185\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58185](https://avd.aquasec.com/nvd/cve-2025-58185)"
@@ -7556,7 +7662,7 @@
         },
         {
           "ruleId": "CVE-2025-58186",
-          "ruleIndex": 111,
+          "ruleIndex": 113,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-58186\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58186](https://avd.aquasec.com/nvd/cve-2025-58186)"
@@ -7583,7 +7689,7 @@
         },
         {
           "ruleId": "CVE-2025-58187",
-          "ruleIndex": 112,
+          "ruleIndex": 114,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-58187\nSeverity: MEDIUM\nFixed Version: 1.24.9, 1.25.3\nLink: [CVE-2025-58187](https://avd.aquasec.com/nvd/cve-2025-58187)"
@@ -7610,7 +7716,7 @@
         },
         {
           "ruleId": "CVE-2025-58188",
-          "ruleIndex": 113,
+          "ruleIndex": 115,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-58188\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58188](https://avd.aquasec.com/nvd/cve-2025-58188)"
@@ -7637,7 +7743,7 @@
         },
         {
           "ruleId": "CVE-2025-58189",
-          "ruleIndex": 114,
+          "ruleIndex": 116,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-58189\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58189](https://avd.aquasec.com/nvd/cve-2025-58189)"
@@ -7664,7 +7770,7 @@
         },
         {
           "ruleId": "CVE-2025-61723",
-          "ruleIndex": 115,
+          "ruleIndex": 117,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61723\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61723](https://avd.aquasec.com/nvd/cve-2025-61723)"
@@ -7691,7 +7797,7 @@
         },
         {
           "ruleId": "CVE-2025-61724",
-          "ruleIndex": 116,
+          "ruleIndex": 118,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61724\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61724](https://avd.aquasec.com/nvd/cve-2025-61724)"
@@ -7718,7 +7824,7 @@
         },
         {
           "ruleId": "CVE-2025-61725",
-          "ruleIndex": 117,
+          "ruleIndex": 119,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61725\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61725](https://avd.aquasec.com/nvd/cve-2025-61725)"
@@ -7745,7 +7851,7 @@
         },
         {
           "ruleId": "CVE-2025-61727",
-          "ruleIndex": 118,
+          "ruleIndex": 120,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61727\nSeverity: MEDIUM\nFixed Version: 1.24.11, 1.25.5\nLink: [CVE-2025-61727](https://avd.aquasec.com/nvd/cve-2025-61727)"
@@ -7771,8 +7877,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-61730",
+          "ruleIndex": 121,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2025-61730\nSeverity: MEDIUM\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61730](https://avd.aquasec.com/nvd/cve-2025-61730)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/dex",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/dex: stdlib@v1.16.6"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2022-30629",
-          "ruleIndex": 119,
+          "ruleIndex": 122,
           "level": "note",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.16.6\nVulnerability CVE-2022-30629\nSeverity: LOW\nFixed Version: 1.17.11, 1.18.3\nLink: [CVE-2022-30629](https://avd.aquasec.com/nvd/cve-2022-30629)"
@@ -7799,37 +7932,10 @@
         },
         {
           "ruleId": "CVE-2021-4238",
-          "ruleIndex": 120,
-          "level": "error",
-          "message": {
-            "text": "Package: github.com/Masterminds/goutils\nInstalled Version: v1.1.0\nVulnerability CVE-2021-4238\nSeverity: CRITICAL\nFixed Version: 1.1.1\nLink: [CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "usr/local/bin/gomplate",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "usr/local/bin/gomplate: github.com/Masterminds/goutils@v1.1.0"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "GHSA-xg2h-wx96-xgxr",
-          "ruleIndex": 121,
+          "ruleIndex": 123,
           "level": "note",
           "message": {
-            "text": "Package: github.com/Masterminds/goutils\nInstalled Version: v1.1.0\nVulnerability GHSA-xg2h-wx96-xgxr\nSeverity: LOW\nFixed Version: 1.1.1\nLink: [GHSA-xg2h-wx96-xgxr](https://github.com/advisories/GHSA-xg2h-wx96-xgxr)"
+            "text": "Package: github.com/Masterminds/goutils\nInstalled Version: v1.1.0\nVulnerability CVE-2021-4238\nSeverity: LOW\nFixed Version: 1.1.1\nLink: [CVE-2021-4238](https://avd.aquasec.com/nvd/cve-2021-4238)"
           },
           "locations": [
             {
@@ -7853,7 +7959,7 @@
         },
         {
           "ruleId": "CVE-2023-49569",
-          "ruleIndex": 122,
+          "ruleIndex": 124,
           "level": "error",
           "message": {
             "text": "Package: github.com/go-git/go-git/v5\nInstalled Version: v5.2.0\nVulnerability CVE-2023-49569\nSeverity: CRITICAL\nFixed Version: 5.11.0\nLink: [CVE-2023-49569](https://avd.aquasec.com/nvd/cve-2023-49569)"
@@ -7880,7 +7986,7 @@
         },
         {
           "ruleId": "CVE-2025-21613",
-          "ruleIndex": 123,
+          "ruleIndex": 125,
           "level": "error",
           "message": {
             "text": "Package: github.com/go-git/go-git/v5\nInstalled Version: v5.2.0\nVulnerability CVE-2025-21613\nSeverity: CRITICAL\nFixed Version: 5.13.0\nLink: [CVE-2025-21613](https://avd.aquasec.com/nvd/cve-2025-21613)"
@@ -7907,7 +8013,7 @@
         },
         {
           "ruleId": "CVE-2023-49568",
-          "ruleIndex": 124,
+          "ruleIndex": 126,
           "level": "error",
           "message": {
             "text": "Package: github.com/go-git/go-git/v5\nInstalled Version: v5.2.0\nVulnerability CVE-2023-49568\nSeverity: HIGH\nFixed Version: 5.11.0\nLink: [CVE-2023-49568](https://avd.aquasec.com/nvd/cve-2023-49568)"
@@ -7934,7 +8040,7 @@
         },
         {
           "ruleId": "CVE-2025-21614",
-          "ruleIndex": 125,
+          "ruleIndex": 127,
           "level": "error",
           "message": {
             "text": "Package: github.com/go-git/go-git/v5\nInstalled Version: v5.2.0\nVulnerability CVE-2025-21614\nSeverity: HIGH\nFixed Version: 5.13.0\nLink: [CVE-2025-21614](https://avd.aquasec.com/nvd/cve-2025-21614)"
@@ -7961,7 +8067,7 @@
         },
         {
           "ruleId": "CVE-2024-6104",
-          "ruleIndex": 126,
+          "ruleIndex": 128,
           "level": "warning",
           "message": {
             "text": "Package: github.com/hashicorp/go-retryablehttp\nInstalled Version: v0.5.4\nVulnerability CVE-2024-6104\nSeverity: MEDIUM\nFixed Version: 0.7.7\nLink: [CVE-2024-6104](https://avd.aquasec.com/nvd/cve-2024-6104)"
@@ -8285,7 +8391,7 @@
         },
         {
           "ruleId": "CVE-2021-31525",
-          "ruleIndex": 127,
+          "ruleIndex": 129,
           "level": "warning",
           "message": {
             "text": "Package: golang.org/x/net\nInstalled Version: v0.0.0-20201202161906-c7110b5ffcbb\nVulnerability CVE-2021-31525\nSeverity: MEDIUM\nFixed Version: 0.0.0-20210428140749-89ef3d95e781\nLink: [CVE-2021-31525](https://avd.aquasec.com/nvd/cve-2021-31525)"
@@ -8663,7 +8769,7 @@
         },
         {
           "ruleId": "CVE-2022-28948",
-          "ruleIndex": 128,
+          "ruleIndex": 130,
           "level": "error",
           "message": {
             "text": "Package: gopkg.in/yaml.v3\nInstalled Version: v3.0.0-20210107192922-496545a6307b\nVulnerability CVE-2022-28948\nSeverity: HIGH\nFixed Version: 3.0.1\nLink: [CVE-2022-28948](https://avd.aquasec.com/nvd/cve-2022-28948)"
@@ -8798,7 +8904,7 @@
         },
         {
           "ruleId": "CVE-2021-27918",
-          "ruleIndex": 129,
+          "ruleIndex": 131,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-27918\nSeverity: HIGH\nFixed Version: 1.15.9, 1.16.1\nLink: [CVE-2021-27918](https://avd.aquasec.com/nvd/cve-2021-27918)"
@@ -8825,7 +8931,7 @@
         },
         {
           "ruleId": "CVE-2021-33195",
-          "ruleIndex": 130,
+          "ruleIndex": 132,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-33195\nSeverity: HIGH\nFixed Version: 1.15.13, 1.16.5\nLink: [CVE-2021-33195](https://avd.aquasec.com/nvd/cve-2021-33195)"
@@ -8852,7 +8958,7 @@
         },
         {
           "ruleId": "CVE-2021-33196",
-          "ruleIndex": 131,
+          "ruleIndex": 133,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-33196\nSeverity: HIGH\nFixed Version: 1.15.13, 1.16.5\nLink: [CVE-2021-33196](https://avd.aquasec.com/nvd/cve-2021-33196)"
@@ -8879,7 +8985,7 @@
         },
         {
           "ruleId": "CVE-2021-33198",
-          "ruleIndex": 132,
+          "ruleIndex": 134,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-33198\nSeverity: HIGH\nFixed Version: 1.15.13, 1.16.5\nLink: [CVE-2021-33198](https://avd.aquasec.com/nvd/cve-2021-33198)"
@@ -10012,8 +10118,62 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-61729",
+          "ruleId": "CVE-2025-61726",
           "ruleIndex": 80,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61726\nSeverity: HIGH\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61726](https://avd.aquasec.com/nvd/cve-2025-61726)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/gomplate",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/gomplate: stdlib@v1.15.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-61728",
+          "ruleIndex": 81,
+          "level": "error",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61728\nSeverity: HIGH\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61728](https://avd.aquasec.com/nvd/cve-2025-61728)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/gomplate",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/gomplate: stdlib@v1.15.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-61729",
+          "ruleIndex": 82,
           "level": "error",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61729\nSeverity: HIGH\nFixed Version: 1.24.11, 1.25.5\nLink: [CVE-2025-61729](https://avd.aquasec.com/nvd/cve-2025-61729)"
@@ -10040,7 +10200,7 @@
         },
         {
           "ruleId": "CVE-2021-31525",
-          "ruleIndex": 127,
+          "ruleIndex": 129,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-31525\nSeverity: MEDIUM\nFixed Version: 1.15.12, 1.16.4\nLink: [CVE-2021-31525](https://avd.aquasec.com/nvd/cve-2021-31525)"
@@ -10067,7 +10227,7 @@
         },
         {
           "ruleId": "CVE-2021-33197",
-          "ruleIndex": 133,
+          "ruleIndex": 135,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-33197\nSeverity: MEDIUM\nFixed Version: 1.15.13, 1.16.5\nLink: [CVE-2021-33197](https://avd.aquasec.com/nvd/cve-2021-33197)"
@@ -10094,7 +10254,7 @@
         },
         {
           "ruleId": "CVE-2021-34558",
-          "ruleIndex": 134,
+          "ruleIndex": 136,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-34558\nSeverity: MEDIUM\nFixed Version: 1.15.14, 1.16.6\nLink: [CVE-2021-34558](https://avd.aquasec.com/nvd/cve-2021-34558)"
@@ -10121,7 +10281,7 @@
         },
         {
           "ruleId": "CVE-2021-36221",
-          "ruleIndex": 81,
+          "ruleIndex": 83,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-36221\nSeverity: MEDIUM\nFixed Version: 1.15.15, 1.16.7\nLink: [CVE-2021-36221](https://avd.aquasec.com/nvd/cve-2021-36221)"
@@ -10148,7 +10308,7 @@
         },
         {
           "ruleId": "CVE-2021-44717",
-          "ruleIndex": 82,
+          "ruleIndex": 84,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2021-44717\nSeverity: MEDIUM\nFixed Version: 1.16.12, 1.17.5\nLink: [CVE-2021-44717](https://avd.aquasec.com/nvd/cve-2021-44717)"
@@ -10175,7 +10335,7 @@
         },
         {
           "ruleId": "CVE-2022-1705",
-          "ruleIndex": 83,
+          "ruleIndex": 85,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2022-1705\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-1705](https://avd.aquasec.com/nvd/cve-2022-1705)"
@@ -10202,7 +10362,7 @@
         },
         {
           "ruleId": "CVE-2022-1962",
-          "ruleIndex": 84,
+          "ruleIndex": 86,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2022-1962\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-1962](https://avd.aquasec.com/nvd/cve-2022-1962)"
@@ -10256,7 +10416,7 @@
         },
         {
           "ruleId": "CVE-2022-32148",
-          "ruleIndex": 85,
+          "ruleIndex": 87,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2022-32148\nSeverity: MEDIUM\nFixed Version: 1.17.12, 1.18.4\nLink: [CVE-2022-32148](https://avd.aquasec.com/nvd/cve-2022-32148)"
@@ -10310,7 +10470,7 @@
         },
         {
           "ruleId": "CVE-2023-24532",
-          "ruleIndex": 86,
+          "ruleIndex": 88,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-24532\nSeverity: MEDIUM\nFixed Version: 1.19.7, 1.20.2\nLink: [CVE-2023-24532](https://avd.aquasec.com/nvd/cve-2023-24532)"
@@ -10337,7 +10497,7 @@
         },
         {
           "ruleId": "CVE-2023-29406",
-          "ruleIndex": 87,
+          "ruleIndex": 89,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-29406\nSeverity: MEDIUM\nFixed Version: 1.19.11, 1.20.6\nLink: [CVE-2023-29406](https://avd.aquasec.com/nvd/cve-2023-29406)"
@@ -10364,7 +10524,7 @@
         },
         {
           "ruleId": "CVE-2023-29409",
-          "ruleIndex": 88,
+          "ruleIndex": 90,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-29409\nSeverity: MEDIUM\nFixed Version: 1.19.12, 1.20.7, 1.21.0-rc.4\nLink: [CVE-2023-29409](https://avd.aquasec.com/nvd/cve-2023-29409)"
@@ -10391,7 +10551,7 @@
         },
         {
           "ruleId": "CVE-2023-39318",
-          "ruleIndex": 89,
+          "ruleIndex": 91,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-39318\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39318](https://avd.aquasec.com/nvd/cve-2023-39318)"
@@ -10418,7 +10578,7 @@
         },
         {
           "ruleId": "CVE-2023-39319",
-          "ruleIndex": 90,
+          "ruleIndex": 92,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-39319\nSeverity: MEDIUM\nFixed Version: 1.20.8, 1.21.1\nLink: [CVE-2023-39319](https://avd.aquasec.com/nvd/cve-2023-39319)"
@@ -10445,7 +10605,7 @@
         },
         {
           "ruleId": "CVE-2023-39326",
-          "ruleIndex": 91,
+          "ruleIndex": 93,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-39326\nSeverity: MEDIUM\nFixed Version: 1.20.12, 1.21.5\nLink: [CVE-2023-39326](https://avd.aquasec.com/nvd/cve-2023-39326)"
@@ -10472,7 +10632,7 @@
         },
         {
           "ruleId": "CVE-2023-45284",
-          "ruleIndex": 92,
+          "ruleIndex": 94,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-45284\nSeverity: MEDIUM\nFixed Version: 1.20.11, 1.21.4\nLink: [CVE-2023-45284](https://avd.aquasec.com/nvd/cve-2023-45284)"
@@ -10499,7 +10659,7 @@
         },
         {
           "ruleId": "CVE-2023-45289",
-          "ruleIndex": 93,
+          "ruleIndex": 95,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-45289\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45289](https://avd.aquasec.com/nvd/cve-2023-45289)"
@@ -10526,7 +10686,7 @@
         },
         {
           "ruleId": "CVE-2023-45290",
-          "ruleIndex": 94,
+          "ruleIndex": 96,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2023-45290\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2023-45290](https://avd.aquasec.com/nvd/cve-2023-45290)"
@@ -10553,7 +10713,7 @@
         },
         {
           "ruleId": "CVE-2024-24783",
-          "ruleIndex": 95,
+          "ruleIndex": 97,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-24783\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24783](https://avd.aquasec.com/nvd/cve-2024-24783)"
@@ -10580,7 +10740,7 @@
         },
         {
           "ruleId": "CVE-2024-24784",
-          "ruleIndex": 96,
+          "ruleIndex": 98,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-24784\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24784](https://avd.aquasec.com/nvd/cve-2024-24784)"
@@ -10607,7 +10767,7 @@
         },
         {
           "ruleId": "CVE-2024-24785",
-          "ruleIndex": 97,
+          "ruleIndex": 99,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-24785\nSeverity: MEDIUM\nFixed Version: 1.21.8, 1.22.1\nLink: [CVE-2024-24785](https://avd.aquasec.com/nvd/cve-2024-24785)"
@@ -10634,7 +10794,7 @@
         },
         {
           "ruleId": "CVE-2024-24789",
-          "ruleIndex": 98,
+          "ruleIndex": 100,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-24789\nSeverity: MEDIUM\nFixed Version: 1.21.11, 1.22.4\nLink: [CVE-2024-24789](https://avd.aquasec.com/nvd/cve-2024-24789)"
@@ -10661,7 +10821,7 @@
         },
         {
           "ruleId": "CVE-2024-24791",
-          "ruleIndex": 99,
+          "ruleIndex": 101,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-24791\nSeverity: MEDIUM\nFixed Version: 1.21.12, 1.22.5\nLink: [CVE-2024-24791](https://avd.aquasec.com/nvd/cve-2024-24791)"
@@ -10688,7 +10848,7 @@
         },
         {
           "ruleId": "CVE-2024-34155",
-          "ruleIndex": 100,
+          "ruleIndex": 102,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-34155\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34155](https://avd.aquasec.com/nvd/cve-2024-34155)"
@@ -10715,7 +10875,7 @@
         },
         {
           "ruleId": "CVE-2024-34158",
-          "ruleIndex": 101,
+          "ruleIndex": 103,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-34158\nSeverity: MEDIUM\nFixed Version: 1.22.7, 1.23.1\nLink: [CVE-2024-34158](https://avd.aquasec.com/nvd/cve-2024-34158)"
@@ -10742,7 +10902,7 @@
         },
         {
           "ruleId": "CVE-2024-45336",
-          "ruleIndex": 102,
+          "ruleIndex": 104,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-45336\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45336](https://avd.aquasec.com/nvd/cve-2024-45336)"
@@ -10769,7 +10929,7 @@
         },
         {
           "ruleId": "CVE-2024-45341",
-          "ruleIndex": 103,
+          "ruleIndex": 105,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2024-45341\nSeverity: MEDIUM\nFixed Version: 1.22.11, 1.23.5, 1.24.0-rc.2\nLink: [CVE-2024-45341](https://avd.aquasec.com/nvd/cve-2024-45341)"
@@ -10796,7 +10956,7 @@
         },
         {
           "ruleId": "CVE-2025-0913",
-          "ruleIndex": 104,
+          "ruleIndex": 106,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-0913\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-0913](https://avd.aquasec.com/nvd/cve-2025-0913)"
@@ -10823,7 +10983,7 @@
         },
         {
           "ruleId": "CVE-2025-22866",
-          "ruleIndex": 105,
+          "ruleIndex": 107,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-22866\nSeverity: MEDIUM\nFixed Version: 1.22.12, 1.23.6, 1.24.0-rc.3\nLink: [CVE-2025-22866](https://avd.aquasec.com/nvd/cve-2025-22866)"
@@ -10850,7 +11010,7 @@
         },
         {
           "ruleId": "CVE-2025-22871",
-          "ruleIndex": 106,
+          "ruleIndex": 108,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-22871\nSeverity: MEDIUM\nFixed Version: 1.23.8, 1.24.2\nLink: [CVE-2025-22871](https://avd.aquasec.com/nvd/cve-2025-22871)"
@@ -10877,7 +11037,7 @@
         },
         {
           "ruleId": "CVE-2025-4673",
-          "ruleIndex": 107,
+          "ruleIndex": 109,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-4673\nSeverity: MEDIUM\nFixed Version: 1.23.10, 1.24.4\nLink: [CVE-2025-4673](https://avd.aquasec.com/nvd/cve-2025-4673)"
@@ -10904,7 +11064,7 @@
         },
         {
           "ruleId": "CVE-2025-47906",
-          "ruleIndex": 108,
+          "ruleIndex": 110,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-47906\nSeverity: MEDIUM\nFixed Version: 1.23.12, 1.24.6\nLink: [CVE-2025-47906](https://avd.aquasec.com/nvd/cve-2025-47906)"
@@ -10931,7 +11091,7 @@
         },
         {
           "ruleId": "CVE-2025-47912",
-          "ruleIndex": 109,
+          "ruleIndex": 111,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-47912\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-47912](https://avd.aquasec.com/nvd/cve-2025-47912)"
@@ -10958,7 +11118,7 @@
         },
         {
           "ruleId": "CVE-2025-58185",
-          "ruleIndex": 110,
+          "ruleIndex": 112,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-58185\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58185](https://avd.aquasec.com/nvd/cve-2025-58185)"
@@ -10985,7 +11145,7 @@
         },
         {
           "ruleId": "CVE-2025-58186",
-          "ruleIndex": 111,
+          "ruleIndex": 113,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-58186\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58186](https://avd.aquasec.com/nvd/cve-2025-58186)"
@@ -11012,7 +11172,7 @@
         },
         {
           "ruleId": "CVE-2025-58187",
-          "ruleIndex": 112,
+          "ruleIndex": 114,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-58187\nSeverity: MEDIUM\nFixed Version: 1.24.9, 1.25.3\nLink: [CVE-2025-58187](https://avd.aquasec.com/nvd/cve-2025-58187)"
@@ -11039,7 +11199,7 @@
         },
         {
           "ruleId": "CVE-2025-58188",
-          "ruleIndex": 113,
+          "ruleIndex": 115,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-58188\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58188](https://avd.aquasec.com/nvd/cve-2025-58188)"
@@ -11066,7 +11226,7 @@
         },
         {
           "ruleId": "CVE-2025-58189",
-          "ruleIndex": 114,
+          "ruleIndex": 116,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-58189\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-58189](https://avd.aquasec.com/nvd/cve-2025-58189)"
@@ -11093,7 +11253,7 @@
         },
         {
           "ruleId": "CVE-2025-61723",
-          "ruleIndex": 115,
+          "ruleIndex": 117,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61723\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61723](https://avd.aquasec.com/nvd/cve-2025-61723)"
@@ -11120,7 +11280,7 @@
         },
         {
           "ruleId": "CVE-2025-61724",
-          "ruleIndex": 116,
+          "ruleIndex": 118,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61724\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61724](https://avd.aquasec.com/nvd/cve-2025-61724)"
@@ -11147,7 +11307,7 @@
         },
         {
           "ruleId": "CVE-2025-61725",
-          "ruleIndex": 117,
+          "ruleIndex": 119,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61725\nSeverity: MEDIUM\nFixed Version: 1.24.8, 1.25.2\nLink: [CVE-2025-61725](https://avd.aquasec.com/nvd/cve-2025-61725)"
@@ -11174,7 +11334,7 @@
         },
         {
           "ruleId": "CVE-2025-61727",
-          "ruleIndex": 118,
+          "ruleIndex": 120,
           "level": "warning",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61727\nSeverity: MEDIUM\nFixed Version: 1.24.11, 1.25.5\nLink: [CVE-2025-61727](https://avd.aquasec.com/nvd/cve-2025-61727)"
@@ -11200,8 +11360,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2025-61730",
+          "ruleIndex": 121,
+          "level": "warning",
+          "message": {
+            "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2025-61730\nSeverity: MEDIUM\nFixed Version: 1.24.12, 1.25.6\nLink: [CVE-2025-61730](https://avd.aquasec.com/nvd/cve-2025-61730)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "usr/local/bin/gomplate",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "usr/local/bin/gomplate: stdlib@v1.15.7"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2022-30629",
-          "ruleIndex": 119,
+          "ruleIndex": 122,
           "level": "note",
           "message": {
             "text": "Package: stdlib\nInstalled Version: v1.15.7\nVulnerability CVE-2022-30629\nSeverity: LOW\nFixed Version: 1.17.11, 1.18.3\nLink: [CVE-2022-30629](https://avd.aquasec.com/nvd/cve-2022-30629)"
