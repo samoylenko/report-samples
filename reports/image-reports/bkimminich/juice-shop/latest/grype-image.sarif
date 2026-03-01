@@ -232,7 +232,7 @@
                 "text": "CVE-2025-15467 critical vulnerability for libssl3 package"
               },
               "fullDescription": {
-                "text": "Issue summary: Parsing CMS AuthEnvelopedData message with maliciously crafted AEAD parameters can trigger a stack buffer overflow.  Impact summary: A stack buffer overflow may lead to a crash, causing Denial of Service, or potentially remote code execution.  When parsing CMS AuthEnvelopedData structures that use AEAD ciphers such as AES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is copied into a fixed-size stack buffer without verifying that its length fits the destination. An attacker can supply a crafted CMS message with an oversized IV, causing a stack-based out-of-bounds write before any authentication or tag verification occurs.  Applications and services that parse untrusted CMS or PKCS#7 content using AEAD ciphers (e.g., S/MIME AuthEnvelopedData with AES-GCM) are vulnerable. Because the overflow occurs prior to authentication, no valid key material is required to trigger it. While exploitability to remote code execution depends on platform and toolchain mitigations, the stack-based write primitive represents a severe risk.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the CMS implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.  OpenSSL 1.1.1 and 1.0.2 are not affected by this issue."
+                "text": "Issue summary: Parsing CMS AuthEnvelopedData or EnvelopedData message with maliciously crafted AEAD parameters can trigger a stack buffer overflow.  Impact summary: A stack buffer overflow may lead to a crash, causing Denial of Service, or potentially remote code execution.  When parsing CMS (Auth)EnvelopedData structures that use AEAD ciphers such as AES-GCM, the IV (Initialization Vector) encoded in the ASN.1 parameters is copied into a fixed-size stack buffer without verifying that its length fits the destination. An attacker can supply a crafted CMS message with an oversized IV, causing a stack-based out-of-bounds write before any authentication or tag verification occurs.  Applications and services that parse untrusted CMS or PKCS#7 content using AEAD ciphers (e.g., S/MIME (Auth)EnvelopedData with AES-GCM) are vulnerable. Because the overflow occurs prior to authentication, no valid key material is required to trigger it. While exploitability to remote code execution depends on platform and toolchain mitigations, the stack-based write primitive represents a severe risk.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the CMS implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3 and 3.0 are vulnerable to this issue.  OpenSSL 1.1.1 and 1.0.2 are not affected by this issue."
               },
               "helpUri": "https://github.com/anchore/grype",
               "help": {
@@ -265,18 +265,18 @@
               "id": "CVE-2025-55130-node",
               "name": "StockMatcherCpeMatch",
               "shortDescription": {
-                "text": "CVE-2025-55130 high vulnerability for node package"
+                "text": "CVE-2025-55130 critical vulnerability for node package"
               },
               "fullDescription": {
                 "text": "A flaw in Node.js’s Permissions model allows attackers to bypass `--allow-fs-read` and `--allow-fs-write` restrictions using crafted relative symlink paths. By chaining directories and symlinks, a script granted access only to the current directory can escape the allowed path and read sensitive files. This breaks the expected isolation guarantees and enables arbitrary file read/write, leading to potential system compromise.\nThis vulnerability affects users of the permission model on Node.js v20,  v22,  v24, and v25."
               },
               "helpUri": "https://github.com/anchore/grype",
               "help": {
-                "text": "Vulnerability CVE-2025-55130\nSeverity: high\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)",
-                "markdown": "**Vulnerability CVE-2025-55130**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)  |\n"
+                "text": "Vulnerability CVE-2025-55130\nSeverity: critical\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)",
+                "markdown": "**Vulnerability CVE-2025-55130**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55130](https://nvd.nist.gov/vuln/detail/CVE-2025-55130)  |\n"
               },
               "properties": {
-                "security-severity": "7.1"
+                "security-severity": "9.1"
               }
             },
             {
@@ -301,18 +301,18 @@
               "id": "CVE-2025-55132-node",
               "name": "StockMatcherCpeMatch",
               "shortDescription": {
-                "text": "CVE-2025-55132 low vulnerability for node package"
+                "text": "CVE-2025-55132 medium vulnerability for node package"
               },
               "fullDescription": {
                 "text": "A flaw in Node.js's permission model allows a file's access and modification timestamps to be changed via `futimes()` even when the process has only read permissions. Unlike `utimes()`, `futimes()` does not apply the expected write-permission checks, which means file metadata can be modified in read-only directories. This behavior could be used to alter timestamps in ways that obscure activity, reducing the reliability of logs. This vulnerability affects users of the permission model on Node.js v20,  v22,  v24, and v25."
               },
               "helpUri": "https://github.com/anchore/grype",
               "help": {
-                "text": "Vulnerability CVE-2025-55132\nSeverity: low\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)",
-                "markdown": "**Vulnerability CVE-2025-55132**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)  |\n"
+                "text": "Vulnerability CVE-2025-55132\nSeverity: medium\nPackage: node\nVersion: 22.21.1\nFix Version: 20.20.0,22.22.0,24.13.0,25.3.0\nType: binary\nLocation: /nodejs/bin/node\nData Namespace: nvd:cpe\nLink: [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)",
+                "markdown": "**Vulnerability CVE-2025-55132**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | node  | 22.21.1  | 20.20.0,22.22.0,24.13.0,25.3.0  | binary  | /nodejs/bin/node  | nvd:cpe  | [CVE-2025-55132](https://nvd.nist.gov/vuln/detail/CVE-2025-55132)  |\n"
               },
               "properties": {
-                "security-severity": "2.8"
+                "security-severity": "5.3"
               }
             },
             {
@@ -427,18 +427,18 @@
               "id": "CVE-2025-69421-libssl3",
               "name": "DpkgMatcherExactIndirectMatch",
               "shortDescription": {
-                "text": "CVE-2025-69421 low vulnerability for libssl3 package"
+                "text": "CVE-2025-69421 high vulnerability for libssl3 package"
               },
               "fullDescription": {
                 "text": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer dereference in the PKCS12_item_decrypt_d2i_ex() function.  Impact summary: A NULL pointer dereference can trigger a crash which leads to Denial of Service for an application processing PKCS#12 files.  The PKCS12_item_decrypt_d2i_ex() function does not check whether the oct parameter is NULL before dereferencing it. When called from PKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can be NULL, causing a crash. The vulnerability is limited to Denial of Service and cannot be escalated to achieve code execution or memory disclosure.  Exploiting this issue requires an attacker to provide a malformed PKCS#12 file to an application that processes it. For that reason the issue was assessed as Low severity according to our Security Policy.  The FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue, as the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.  OpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue."
               },
               "helpUri": "https://github.com/anchore/grype",
               "help": {
-                "text": "Vulnerability CVE-2025-69421\nSeverity: low\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)",
-                "markdown": "**Vulnerability CVE-2025-69421**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)  |\n"
+                "text": "Vulnerability CVE-2025-69421\nSeverity: high\nPackage: libssl3\nVersion: 3.0.17-1~deb12u3\nFix Version: 3.0.18-1~deb12u2\nType: deb\nLocation: /usr/share/doc/libssl3/copyright\nData Namespace: debian:distro:debian:12\nLink: [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)",
+                "markdown": "**Vulnerability CVE-2025-69421**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | libssl3  | 3.0.17-1~deb12u3  | 3.0.18-1~deb12u2  | deb  | /usr/share/doc/libssl3/copyright  | debian:distro:debian:12  | [CVE-2025-69421](https://security-tracker.debian.org/tracker/CVE-2025-69421)  |\n"
               },
               "properties": {
-                "security-severity": "0.0"
+                "security-severity": "7.5"
               }
             },
             {
@@ -529,6 +529,24 @@
               },
               "properties": {
                 "security-severity": "5.3"
+              }
+            },
+            {
+              "id": "GHSA-23c5-xmqv-rm74-minimatch",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-23c5-xmqv-rm74 high vulnerability for minimatch package"
+              },
+              "fullDescription": {
+                "text": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-23c5-xmqv-rm74\nSeverity: high\nPackage: minimatch\nVersion: 3.0.5\nFix Version: 3.1.4\nType: npm\nLocation: /juice-shop/node_modules/replace/node_modules/minimatch/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-23c5-xmqv-rm74](https://github.com/advisories/GHSA-23c5-xmqv-rm74)",
+                "markdown": "**Vulnerability GHSA-23c5-xmqv-rm74**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | minimatch  | 3.0.5  | 3.1.4  | npm  | /juice-shop/node_modules/replace/node_modules/minimatch/package.json  | github:language:javascript  | [GHSA-23c5-xmqv-rm74](https://github.com/advisories/GHSA-23c5-xmqv-rm74)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
               }
             },
             {
@@ -637,6 +655,24 @@
               },
               "properties": {
                 "security-severity": "6.1"
+              }
+            },
+            {
+              "id": "GHSA-3ppc-4f35-3m26-minimatch",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-3ppc-4f35-3m26 high vulnerability for minimatch package"
+              },
+              "fullDescription": {
+                "text": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-3ppc-4f35-3m26\nSeverity: high\nPackage: minimatch\nVersion: 3.0.5\nFix Version: 3.1.3\nType: npm\nLocation: /juice-shop/node_modules/replace/node_modules/minimatch/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-3ppc-4f35-3m26](https://github.com/advisories/GHSA-3ppc-4f35-3m26)",
+                "markdown": "**Vulnerability GHSA-3ppc-4f35-3m26**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | minimatch  | 3.0.5  | 3.1.3  | npm  | /juice-shop/node_modules/replace/node_modules/minimatch/package.json  | github:language:javascript  | [GHSA-3ppc-4f35-3m26](https://github.com/advisories/GHSA-3ppc-4f35-3m26)  |\n"
+              },
+              "properties": {
+                "security-severity": "8.7"
               }
             },
             {
@@ -781,6 +817,42 @@
               },
               "properties": {
                 "security-severity": "2.7"
+              }
+            },
+            {
+              "id": "GHSA-7r86-cg39-jmmj-minimatch",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-7r86-cg39-jmmj high vulnerability for minimatch package"
+              },
+              "fullDescription": {
+                "text": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-7r86-cg39-jmmj\nSeverity: high\nPackage: minimatch\nVersion: 3.0.5\nFix Version: 3.1.3\nType: npm\nLocation: /juice-shop/node_modules/replace/node_modules/minimatch/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-7r86-cg39-jmmj](https://github.com/advisories/GHSA-7r86-cg39-jmmj)",
+                "markdown": "**Vulnerability GHSA-7r86-cg39-jmmj**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | minimatch  | 3.0.5  | 3.1.3  | npm  | /juice-shop/node_modules/replace/node_modules/minimatch/package.json  | github:language:javascript  | [GHSA-7r86-cg39-jmmj](https://github.com/advisories/GHSA-7r86-cg39-jmmj)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "GHSA-83g3-92jg-28cx-tar",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-83g3-92jg-28cx high vulnerability for tar package"
+              },
+              "fullDescription": {
+                "text": "Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-83g3-92jg-28cx\nSeverity: high\nPackage: tar\nVersion: 4.4.19\nFix Version: 7.5.8\nType: npm\nLocation: /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-83g3-92jg-28cx](https://github.com/advisories/GHSA-83g3-92jg-28cx)",
+                "markdown": "**Vulnerability GHSA-83g3-92jg-28cx**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | tar  | 4.4.19  | 7.5.8  | npm  | /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json  | github:language:javascript  | [GHSA-83g3-92jg-28cx](https://github.com/advisories/GHSA-83g3-92jg-28cx)  |\n"
+              },
+              "properties": {
+                "security-severity": "7.1"
               }
             },
             {
@@ -1306,6 +1378,24 @@
               }
             },
             {
+              "id": "GHSA-r5mx-6wc6-7h9w-dottie",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-r5mx-6wc6-7h9w medium vulnerability for dottie package"
+              },
+              "fullDescription": {
+                "text": "dottie is vulnerable to Prototype Pollution bypass via non-first path segments in set() and transform()"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-r5mx-6wc6-7h9w\nSeverity: medium\nPackage: dottie\nVersion: 2.0.6\nFix Version: 2.0.7\nType: npm\nLocation: /juice-shop/node_modules/dottie/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-r5mx-6wc6-7h9w](https://github.com/advisories/GHSA-r5mx-6wc6-7h9w)",
+                "markdown": "**Vulnerability GHSA-r5mx-6wc6-7h9w**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | dottie  | 2.0.6  | 2.0.7  | npm  | /juice-shop/node_modules/dottie/package.json  | github:language:javascript  | [GHSA-r5mx-6wc6-7h9w](https://github.com/advisories/GHSA-r5mx-6wc6-7h9w)  |\n"
+              },
+              "properties": {
+                "security-severity": "6.3"
+              }
+            },
+            {
               "id": "GHSA-r6q2-hw4h-h46w-tar",
               "name": "JavascriptMatcherExactDirectMatch",
               "shortDescription": {
@@ -1411,6 +1501,24 @@
               },
               "properties": {
                 "security-severity": "4.0"
+              }
+            },
+            {
+              "id": "GHSA-w7fw-mjwx-w883-qs",
+              "name": "JavascriptMatcherExactDirectMatch",
+              "shortDescription": {
+                "text": "GHSA-w7fw-mjwx-w883 low vulnerability for qs package"
+              },
+              "fullDescription": {
+                "text": "qs's arrayLimit bypass in comma parsing allows denial of service"
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability GHSA-w7fw-mjwx-w883\nSeverity: low\nPackage: qs\nVersion: 6.14.0\nFix Version: 6.14.2\nType: npm\nLocation: /juice-shop/node_modules/qs/package.json\nData Namespace: github:language:javascript\nLink: [GHSA-w7fw-mjwx-w883](https://github.com/advisories/GHSA-w7fw-mjwx-w883)",
+                "markdown": "**Vulnerability GHSA-w7fw-mjwx-w883**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | qs  | 6.14.0  | 6.14.2  | npm  | /juice-shop/node_modules/qs/package.json  | github:language:javascript  | [GHSA-w7fw-mjwx-w883](https://github.com/advisories/GHSA-w7fw-mjwx-w883)  |\n"
+              },
+              "properties": {
+                "security-severity": "3.7"
               }
             },
             {
@@ -2457,6 +2565,357 @@
           ]
         },
         {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/replace/node_modules/minimatch/package.json reports minimatch at version 3.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/replace/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/grunt/node_modules/minimatch/package.json reports minimatch at version 3.0.8  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/grunt/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/file-js/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/file-js/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/fstream/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/fstream/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/rimraf/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/filehound/node_modules/minimatch/package.json reports minimatch at version 5.1.6  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/filehound/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-23c5-xmqv-rm74-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/glob/node_modules/minimatch/package.json reports minimatch at version 9.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/glob/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "GHSA-25hc-qcg6-38wj-socket.io",
           "message": {
             "text": "The path /juice-shop/node_modules/socket.io/package.json reports socket.io at version 3.1.2  which is a vulnerable (npm) package installed in the container"
@@ -2673,6 +3132,357 @@
           ]
         },
         {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/replace/node_modules/minimatch/package.json reports minimatch at version 3.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/replace/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/grunt/node_modules/minimatch/package.json reports minimatch at version 3.0.8  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/grunt/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/file-js/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/file-js/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/rimraf/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/fstream/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/fstream/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/filehound/node_modules/minimatch/package.json reports minimatch at version 5.1.6  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/filehound/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-3ppc-4f35-3m26-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/glob/node_modules/minimatch/package.json reports minimatch at version 9.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/glob/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "GHSA-446m-mv8f-q348-moment",
           "message": {
             "text": "The path /juice-shop/node_modules/express-jwt/node_modules/moment/package.json reports moment at version 2.0.0  which is a vulnerable (npm) package installed in the container"
@@ -2883,6 +3693,438 @@
                 {
                   "name": "/juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json",
                   "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ts-node-dev/node_modules/diff/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/replace/node_modules/minimatch/package.json reports minimatch at version 3.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/replace/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/replace/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/grunt/node_modules/minimatch/package.json reports minimatch at version 3.0.8  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/grunt/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/grunt/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/fstream/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/fstream/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/fstream/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ts-node-dev/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver-utils/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/ignore-walk/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/archiver/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/archiver/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/archiver/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/file-js/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/file-js/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/file-js/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/rimraf/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/rimraf/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json reports minimatch at version 3.1.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/filehound/node_modules/minimatch/package.json reports minimatch at version 5.1.6  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/filehound/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/filehound/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-7r86-cg39-jmmj-minimatch",
+          "message": {
+            "text": "The path /juice-shop/node_modules/glob/node_modules/minimatch/package.json reports minimatch at version 9.0.5  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/glob/node_modules/minimatch/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/glob/node_modules/minimatch/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-83g3-92jg-28cx-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json reports tar at version 4.4.19  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-83g3-92jg-28cx-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/sqlite3/node_modules/tar/package.json reports tar at version 6.2.1  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/sqlite3/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/sqlite3/node_modules/tar/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-83g3-92jg-28cx-tar",
+          "message": {
+            "text": "The path /juice-shop/node_modules/tar/package.json reports tar at version 7.5.2  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/tar/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/tar/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/tar/package.json"
                 }
               ]
             }
@@ -3834,6 +5076,33 @@
           ]
         },
         {
+          "ruleId": "GHSA-r5mx-6wc6-7h9w-dottie",
+          "message": {
+            "text": "The path /juice-shop/node_modules/dottie/package.json reports dottie at version 2.0.6  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/dottie/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/dottie/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/dottie/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "GHSA-r6q2-hw4h-h46w-tar",
           "message": {
             "text": "The path /juice-shop/node_modules/node-pre-gyp/node_modules/tar/package.json reports tar at version 4.4.19  which is a vulnerable (npm) package installed in the container"
@@ -4044,6 +5313,33 @@
                 {
                   "name": "/juice-shop/node_modules/base64url/package.json",
                   "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/base64url/package.json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-w7fw-mjwx-w883-qs",
+          "message": {
+            "text": "The path /juice-shop/node_modules/qs/package.json reports qs at version 6.14.0  which is a vulnerable (npm) package installed in the container"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "image//juice-shop/node_modules/qs/package.json"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/juice-shop/node_modules/qs/package.json",
+                  "fullyQualifiedName": "bkimminich/juice-shop:latest@sha256:f965ccfcf3e78e46276d4d75518fadadb10cfa32ce06fb6601cca4e90ff53dfa:/juice-shop/node_modules/qs/package.json"
                 }
               ]
             }

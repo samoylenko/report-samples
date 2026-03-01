@@ -6,8 +6,8 @@
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1302.1",
-          "version": "1.1302.1",
+          "semanticVersion": "1.1303.0",
+          "version": "1.1303.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 21
@@ -1914,15 +1914,15 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/docker-image|docker/scout-demo-service/2026-02-01T03:21:43.180Z"
+        "id": "Snyk/Container/docker-image|docker/scout-demo-service/0/2026-03-01T15:08:03.858Z"
       }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1302.1",
-          "version": "1.1302.1",
+          "semanticVersion": "1.1303.0",
+          "version": "1.1303.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 50
@@ -2101,6 +2101,31 @@
                 ],
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-JS-QS-15268416",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in qs"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-2391) qs@6.7.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[qs](https://www.npmjs.com/package/qs) is a querystring parser that supports nesting and arrays, with a depth limit.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `parseArrayValue` function when the `comma` option is in use. An attacker can exhaust system memory by submitting a parameter containing a large number of comma-separated values, resulting in the allocation of excessively large arrays.\r\n\r\n**Note:**\r\nThis is only exploitable if the `comma` option is explicitly set to true. `arrayLimit` is properly enforced for index and bracket notation.\n## PoC\n```js\r\nconst qs = require('qs');\r\n\r\nconst payload = 'a=' + ','.repeat(25);  // 26 elements after split (bypasses arrayLimit: 5)\r\nconst options = { comma: true, arrayLimit: 5, throwOnLimitExceeded: true };\r\n\r\ntry {\r\n  const result = qs.parse(payload, options);\r\n  console.log(result.a.length);  // Outputs: 26 (bypass successful)\r\n} catch (e) {\r\n  console.log('Limit enforced:', e.message);  // Not thrown\r\n}\r\n```\n## Remediation\nUpgrade `qs` to version 6.14.2 or higher.\n## References\n- [GitHub Commit](https://github.com/ljharb/qs/commit/f6a7abff1f13d644db9b05fe4f2c98ada6bf8482)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "npm"
+                ],
+                "cvssv3_baseScore": 8.2,
+                "security-severity": "8.2"
               }
             },
             {
@@ -2519,6 +2544,54 @@
           ]
         },
         {
+          "ruleId": "SNYK-JS-QS-15268416",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable qs package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/package.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "qs@6.7.0"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to express@4.22.0"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "/package.json"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "express@4.22.0"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-JS-QS-3153490",
           "level": "error",
           "message": {
@@ -2664,7 +2737,7 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/@docker/scout-demo-service/2026-02-01T03:21:43.180Z"
+        "id": "Snyk/Container/@docker/scout-demo-service/1/2026-03-01T15:08:03.858Z"
       }
     }
   ]

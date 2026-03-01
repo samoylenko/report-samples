@@ -67,6 +67,94 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-q9hv-hpm4-hj6x",
+    "dataSource": "https://github.com/advisories/GHSA-q9hv-hpm4-hj6x",
+    "namespace": "github:language:go",
+    "severity": "Low",
+    "urls": [
+     "https://github.com/advisories/GHSA-q9hv-hpm4-hj6x"
+    ],
+    "description": "CIRCL has an incorrect calculation in secp384r1 CombinedMult",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "1.6.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-1229",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-1229",
+     "namespace": "nvd:cpe",
+     "severity": "Low",
+     "urls": [
+      "https://github.com/cloudflare/circl"
+     ],
+     "description": "The CombinedMult function in the CIRCL ecc/p384 package (secp384r1 curve) produces an incorrect value for specific inputs. The issue is fixed by using complete addition formulas.\nECDH and ECDSA signing relying on this curve are not affected.\n\nThe bug was fixed in  v1.6.3 https://github.com/cloudflare/circl/releases/tag/v1.6.3 .",
+     "cvss": [
+      {
+       "source": "cna@cloudflare.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:L/SI:L/SA:L/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:N/AU:Y/R:X/V:X/RE:X/U:Amber",
+       "metrics": {
+        "baseScore": 2.9
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/cloudflare/circl",
+       "version": "v1.3.3"
+      }
+     },
+     "found": {
+      "versionConstraint": "<1.6.3 (unknown)",
+      "vulnerabilityID": "GHSA-q9hv-hpm4-hj6x"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "48012f52f3428706",
+    "name": "github.com/cloudflare/circl",
+    "version": "v1.3.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:cloudflare:circl:v1.3.3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/cloudflare/circl@v1.3.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:fE/Qz0QdIGqeWfnwq0RE0R7MI51s0M2E4Ga9kq5AEMs=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-2x5j-vhc8-9cwm",
     "dataSource": "https://github.com/advisories/GHSA-2x5j-vhc8-9cwm",
     "namespace": "github:language:go",
@@ -240,7 +328,8 @@
       "https://github.com/moby/moby/security/advisories/GHSA-v23v-6jw2-98fq",
       "https://lists.debian.org/debian-lts-announce/2024/10/msg00009.html",
       "https://security.netapp.com/advisory/ntap-20240802-0001/",
-      "https://www.docker.com/blog/docker-security-advisory-docker-engine-authz-plugin"
+      "https://www.docker.com/blog/docker-security-advisory-docker-engine-authz-plugin",
+      "https://github.com/moby/moby/releases/tag/v25.0.6"
      ],
      "description": "Moby is an open-source project created by Docker for software containerization. A security vulnerability has been detected in certain versions of Docker Engine, which could allow an attacker to bypass authorization plugins (AuthZ) under specific circumstances. The base likelihood of this being exploited is low.\n\nUsing a specially-crafted API request, an Engine API client could make the daemon forward the request or response to an authorization plugin without the body. In certain circumstances, the authorization plugin may allow a request which it would have otherwise denied if the body had been forwarded to it.\n\nA security issue was discovered In 2018, where an attacker could bypass AuthZ plugins using a specially crafted API request. This could lead to unauthorized actions, including privilege escalation. Although this issue was fixed in Docker Engine v18.09.1 in January 2019, the fix was not carried forward to later major versions, resulting in a regression. Anyone who depends on authorization plugins that introspect the request and/or response body to make access control decisions is potentially impacted.\n\nDocker EE v19.03.x and all versions of Mirantis Container Runtime are not vulnerable.\n\ndocker-ce v27.1.1 containes patches to fix the vulnerability. Patches have also been merged into the master, 19.03, 20.0, 23.0, 24.0, 25.0, 26.0, and 26.1 release branches. If one is unable to upgrade immediately, avoid using AuthZ plugins and/or restrict access to the Docker API to trusted parties, following the principle of least privilege.",
      "cvss": [
@@ -1600,6 +1689,112 @@
      "found": {
       "versionConstraint": "<=2.2.3 (unknown)",
       "vulnerabilityID": "GHSA-88jx-383q-w4qc"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "5ae973e0d54bdbeb",
+    "name": "github.com/sigstore/cosign",
+    "version": "v1.13.1",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:sigstore:cosign:v1.13.1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/sigstore/cosign@v1.13.1",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:+5oF8jisEcDw2TuXxCADC1u5//HfdnJhGbpv9Isiwu4=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-wfqv-66vq-46rm",
+    "dataSource": "https://github.com/advisories/GHSA-wfqv-66vq-46rm",
+    "namespace": "github:language:go",
+    "severity": "Low",
+    "urls": [
+     "https://github.com/advisories/GHSA-wfqv-66vq-46rm"
+    ],
+    "description": "Cosign considered signatures valid with expired intermediate certificates when transparency log verification is skipped",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "metrics": {
+       "baseScore": 3.7,
+       "exploitabilityScore": 2.2,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {
+       "base_severity": "Low",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.0.5"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-24122",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-24122",
+     "namespace": "nvd:cpe",
+     "severity": "Low",
+     "urls": [
+      "https://github.com/sigstore/cosign/commit/3c9a7363f563db76d78e2de2cabd945450f3781e",
+      "https://github.com/sigstore/cosign/releases/tag/v3.0.5",
+      "https://github.com/sigstore/cosign/security/advisories/GHSA-wfqv-66vq-46rm"
+     ],
+     "description": "Cosign provides code signing and transparency for containers and binaries. In versions 3.0.4 and below, an issuing certificate with a validity that expires before the leaf certificate will be considered valid during verification even if the provided timestamp would mean the issuing certificate should be considered expired. When verifying artifact signatures using a certificate, Cosign first verifies the certificate chain using the leaf certificate's \"not before\" timestamp and later checks expiry of the leaf certificate using either a signed timestamp provided by the Rekor transparency log or from a timestamp authority, or using the current time. The root and all issuing certificates are assumed to be valid during the leaf certificate's validity. There is no impact to users of the public Sigstore infrastructure. This may affect private deployments with customized PKIs. This issue has been fixed in version 3.0.5.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+       "metrics": {
+        "baseScore": 3.7,
+        "exploitabilityScore": 2.2,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/sigstore/cosign",
+       "version": "v1.13.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=3.0.4 (unknown)",
+      "vulnerabilityID": "GHSA-wfqv-66vq-46rm"
      }
     }
    ],
@@ -4419,6 +4614,106 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-68121",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+    "namespace": "nvd:cpe",
+    "severity": "Critical",
+    "urls": [
+     "https://go.dev/cl/737700",
+     "https://go.dev/issue/77217",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4337"
+    ],
+    "description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 10,
+       "exploitabilityScore": 3.9,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.4,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7",
+      "1.26.0-rc.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-68121",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 || >= 1.26.0-rc.1, < 1.26.0-rc.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-22871",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-22871",
     "namespace": "nvd:cpe",
@@ -4578,6 +4873,93 @@
      "found": {
       "vulnerabilityID": "CVE-2024-24790",
       "versionConstraint": "< 1.21.11 || >= 1.22.0-0, < 1.22.4 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61732",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61732",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/734220",
+     "https://go.dev/issue/76697",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4433"
+    ],
+    "description": "A discrepancy between how Go and C/C++ comments were parsed allowed for code smuggling into the resulting cgo binary.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.6,
+       "exploitabilityScore": 1.8,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61732",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -5974,11 +6356,11 @@
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
       "type": "Secondary",
       "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "metrics": {
-       "baseScore": 6.2,
-       "exploitabilityScore": 2.5,
-       "impactScore": 3.6
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
       },
       "vendorMetadata": {}
      }
@@ -7953,6 +8335,94 @@
      "architecture": ""
     }
    }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-22873",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-22873",
+    "namespace": "nvd:cpe",
+    "severity": "Low",
+    "urls": [
+     "https://go.dev/cl/670036",
+     "https://go.dev/issue/73555",
+     "https://groups.google.com/g/golang-announce/c/UZoIkUT367A/m/5WDxKizJAQAJ",
+     "https://pkg.go.dev/vuln/GO-2026-4403",
+     "http://www.openwall.com/lists/oss-security/2025/05/06/2"
+    ],
+    "description": "It was possible to improperly access the parent directory of an os.Root by opening a filename ending in \"../\". For example, Root.Open(\"../\") would open the parent directory of the Root. This escape only permits opening the parent directory itself, not ancestors of the parent or files contained within the parent.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N",
+      "metrics": {
+       "baseScore": 3.8,
+       "exploitabilityScore": 2,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.23.9",
+      "1.24.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.21.3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-22873",
+      "versionConstraint": "< 1.23.9 || >= 1.24.0-0, < 1.24.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "420dc4923a0acb39",
+    "name": "stdlib",
+    "version": "go1.21.3",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/background-controller",
+      "layerID": "sha256:815f5cfe1304894383e4bca2ac7921e3dc8f12e7149e8b2eff5561c3535ec25b"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.21.3:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.21.3",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": ""
+    }
+   }
   }
  ],
  "source": {
@@ -8078,12 +8548,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-01-31T00:31:57Z",
+   "built": "2026-03-01T00:32:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
+   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
    "error": null
   },
-  "timestamp": "2026-02-01T03:30:07.682666588Z"
+  "timestamp": "2026-03-01T15:16:38.169148899Z"
  }
 }

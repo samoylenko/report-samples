@@ -814,7 +814,12 @@
       "https://www.phoronix.com/news/HTTP2-Rapid-Reset-Attack",
       "https://www.theregister.com/2023/10/10/http2_rapid_reset_zeroday/",
       "https://www.vicarius.io/vsociety/posts/rapid-reset-cve-2023-44487-dos-in-http2-understanding-the-root-cause",
-      "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2023-44487"
+      "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2023-44487",
+      "https://github.com/envoyproxy/envoy/security/advisories/GHSA-jhv4-f7mr-xx76",
+      "https://github.com/kubernetes/ingress-nginx/blob/4b5c5efe2508dc915a48c54de7f23912ff2ec695/changelog/controller-1.9.3.md?plain=1#L15",
+      "https://varnish-cache.org/releases/rel6.0.12.html#rel6-0-12",
+      "https://varnish-cache.org/releases/rel7.3.1.html#rel7-3-1",
+      "https://varnish-cache.org/releases/rel7.4.2.html#rel7-4-2"
      ],
      "description": "The HTTP/2 protocol allows a denial of service (server resource consumption) because request cancellation can reset many streams quickly, as exploited in the wild in August through October 2023.",
      "cvss": [
@@ -1308,6 +1313,106 @@
      "architecture": "amd64",
      "h1Digest": "h1:d0NfwRgPtno5B1Wa6L2DAG+KivqkdutMf1UhdNx175w=",
      "mainModule": "command-line-arguments"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-68121",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+    "namespace": "nvd:cpe",
+    "severity": "Critical",
+    "urls": [
+     "https://go.dev/cl/737700",
+     "https://go.dev/issue/77217",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4337"
+    ],
+    "description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 10,
+       "exploitabilityScore": 3.9,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.4,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7",
+      "1.26.0-rc.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7 X:boringcrypto"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-68121",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 || >= 1.26.0-rc.1, < 1.26.0-rc.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f964eacfc793b7f7",
+    "name": "stdlib",
+    "version": "go1.19.7 X:boringcrypto",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/csi-driver",
+      "layerID": "sha256:91dbabdc3121b7f431ad40c00a6c7a448c43a682429d5f59f12c3e97ec36967c"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": ""
     }
    }
   },
@@ -2105,6 +2210,93 @@
      "found": {
       "vulnerabilityID": "CVE-2023-24531",
       "versionConstraint": "< 1.21.0-0 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f964eacfc793b7f7",
+    "name": "stdlib",
+    "version": "go1.19.7 X:boringcrypto",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/csi-driver",
+      "layerID": "sha256:91dbabdc3121b7f431ad40c00a6c7a448c43a682429d5f59f12c3e97ec36967c"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61732",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61732",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/734220",
+     "https://go.dev/issue/76697",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4433"
+    ],
+    "description": "A discrepancy between how Go and C/C++ comments were parsed allowed for code smuggling into the resulting cgo binary.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.6,
+       "exploitabilityScore": 1.8,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7 X:boringcrypto"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61732",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 (unknown)",
       "cpes": [
        "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
       ]
@@ -3971,7 +4163,12 @@
      "https://www.phoronix.com/news/HTTP2-Rapid-Reset-Attack",
      "https://www.theregister.com/2023/10/10/http2_rapid_reset_zeroday/",
      "https://www.vicarius.io/vsociety/posts/rapid-reset-cve-2023-44487-dos-in-http2-understanding-the-root-cause",
-     "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2023-44487"
+     "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2023-44487",
+     "https://github.com/envoyproxy/envoy/security/advisories/GHSA-jhv4-f7mr-xx76",
+     "https://github.com/kubernetes/ingress-nginx/blob/4b5c5efe2508dc915a48c54de7f23912ff2ec695/changelog/controller-1.9.3.md?plain=1#L15",
+     "https://varnish-cache.org/releases/rel6.0.12.html#rel6-0-12",
+     "https://varnish-cache.org/releases/rel7.3.1.html#rel7-3-1",
+     "https://varnish-cache.org/releases/rel7.4.2.html#rel7-4-2"
     ],
     "description": "The HTTP/2 protocol allows a denial of service (server resource consumption) because request cancellation can reset many streams quickly, as exploited in the wild in August through October 2023.",
     "cvss": [
@@ -4833,11 +5030,11 @@
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
       "type": "Secondary",
       "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "metrics": {
-       "baseScore": 6.2,
-       "exploitabilityScore": 2.5,
-       "impactScore": 3.6
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
       },
       "vendorMetadata": {}
      }
@@ -7382,6 +7579,94 @@
      "architecture": ""
     }
    }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-22873",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-22873",
+    "namespace": "nvd:cpe",
+    "severity": "Low",
+    "urls": [
+     "https://go.dev/cl/670036",
+     "https://go.dev/issue/73555",
+     "https://groups.google.com/g/golang-announce/c/UZoIkUT367A/m/5WDxKizJAQAJ",
+     "https://pkg.go.dev/vuln/GO-2026-4403",
+     "http://www.openwall.com/lists/oss-security/2025/05/06/2"
+    ],
+    "description": "It was possible to improperly access the parent directory of an os.Root by opening a filename ending in \"../\". For example, Root.Open(\"../\") would open the parent directory of the Root. This escape only permits opening the parent directory itself, not ancestors of the parent or files contained within the parent.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N",
+      "metrics": {
+       "baseScore": 3.8,
+       "exploitabilityScore": 2,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.23.9",
+      "1.24.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.19.7 X:boringcrypto"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-22873",
+      "versionConstraint": "< 1.23.9 || >= 1.24.0-0, < 1.24.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f964eacfc793b7f7",
+    "name": "stdlib",
+    "version": "go1.19.7 X:boringcrypto",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/usr/local/bin/csi-driver",
+      "layerID": "sha256:91dbabdc3121b7f431ad40c00a6c7a448c43a682429d5f59f12c3e97ec36967c"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.19.7:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.19.7%20X:boringcrypto",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.19.7 X:boringcrypto",
+     "architecture": ""
+    }
+   }
   }
  ],
  "source": {
@@ -7531,12 +7816,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-01-31T00:31:57Z",
+   "built": "2026-03-01T00:32:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
+   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
    "error": null
   },
-  "timestamp": "2026-02-01T03:35:17.608945798Z"
+  "timestamp": "2026-03-01T15:21:57.399415261Z"
  }
 }

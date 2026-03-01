@@ -1085,105 +1085,6 @@
   },
   {
    "vulnerability": {
-    "id": "GHSA-p5wg-g6qr-c7cg",
-    "dataSource": "https://github.com/advisories/GHSA-p5wg-g6qr-c7cg",
-    "namespace": "github:language:javascript",
-    "severity": "Medium",
-    "urls": [
-     "https://github.com/advisories/GHSA-p5wg-g6qr-c7cg"
-    ],
-    "description": "eslint has a Stack Overflow when serializing objects with circular references",
-    "cvss": [
-     {
-      "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-      "metrics": {
-       "baseScore": 5.5,
-       "exploitabilityScore": 1.8,
-       "impactScore": 3.6
-      },
-      "vendorMetadata": {
-       "base_severity": "Medium",
-       "status": "N/A"
-      }
-     }
-    ],
-    "fix": {
-     "versions": [
-      "9.26.0"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2025-50537",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-50537",
-     "namespace": "nvd:cpe",
-     "severity": "Medium",
-     "urls": [
-      "https://gist.github.com/lyyffee/2ee1815e5c2da82c05e9838b9bfefbbc",
-      "https://github.com/eslint/eslint/issues/19646"
-     ],
-     "description": "Stack overflow vulnerability in eslint before 9.26.0 when serializing objects with circular references in eslint/lib/shared/serialization.js. The exploit is triggered via the RuleTester.run() method, which validates test cases and checks for duplicates. During validation, the internal function checkDuplicateTestCase() is called, which in turn uses the isSerializable() function for serialization checks. When a circular reference object is passed in, isSerializable() enters infinite recursion, ultimately causing a stack overflow.",
-     "cvss": [
-      {
-       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-       "type": "Secondary",
-       "version": "3.1",
-       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
-       "metrics": {
-        "baseScore": 5.5,
-        "exploitabilityScore": 1.8,
-        "impactScore": 3.6
-       },
-       "vendorMetadata": {}
-      }
-     ]
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-direct-match",
-     "matcher": "javascript-matcher",
-     "searchedBy": {
-      "language": "javascript",
-      "namespace": "github:language:javascript",
-      "package": {
-       "name": "eslint",
-       "version": "8.57.1"
-      }
-     },
-     "found": {
-      "versionConstraint": "<9.26.0 (unknown)",
-      "vulnerabilityID": "GHSA-p5wg-g6qr-c7cg"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "71e6be6c63bc4058",
-    "name": "eslint",
-    "version": "8.57.1",
-    "type": "npm",
-    "locations": [
-     {
-      "path": "/package-lock.json"
-     }
-    ],
-    "language": "javascript",
-    "licenses": [
-     "MIT"
-    ],
-    "cpes": [
-     "cpe:2.3:a:eslint:eslint:8.57.1:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:npm/eslint@8.57.1",
-    "upstreams": []
-   }
-  },
-  {
-   "vulnerability": {
     "id": "GHSA-6g6m-m6h5-w9gf",
     "dataSource": "https://github.com/advisories/GHSA-6g6m-m6h5-w9gf",
     "namespace": "github:language:javascript",
@@ -3726,6 +3627,1170 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "dataSource": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-7r86-cg39-jmmj"
+    ],
+    "description": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27903",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27903",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-7r86-cg39-jmmj"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3, `matchOne()` performs unbounded recursive backtracking when a glob pattern contains multiple non-adjacent `**` (GLOBSTAR) segments and the input path does not match. The time complexity is O(C(n, k)) -- binomial -- where `n` is the number of path segments and `k` is the number of globstars. With k=11 and n=30, a call to the default `minimatch()` API stalls for roughly 5 seconds. With k=13, it exceeds 15 seconds. No memoization or call budget exists to bound this behavior. Any application where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments (ESLint, Webpack, Rollup config), multi-tenant systems where one tenant configures glob-based rules that run in a shared process, admin or developer interfaces that accept ignore-rule or filter configuration as globs, and CI/CD pipelines that evaluate user-submitted config files containing glob patterns. An attacker who can place a crafted pattern into any of these paths can stall the Node.js event loop for tens of seconds per invocation. The pattern is 56 bytes for a 5-second stall and does not require authentication in contexts where pattern input is part of the feature. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.4"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-7r86-cg39-jmmj"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "899621fea61ef0ff",
+    "name": "minimatch",
+    "version": "3.0.4",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.4:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.4",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "dataSource": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-3ppc-4f35-3m26"
+    ],
+    "description": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26996",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26996",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/commit/2e111f3a79abc00fa73110195de2c0f2351904f5",
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-3ppc-4f35-3m26"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Versions 10.2.0 and below are vulnerable to Regular Expression Denial of Service (ReDoS) when a glob pattern contains many consecutive * wildcards followed by a literal character that doesn't appear in the test string. Each * compiles to a separate [^/]*? regex group, and when the match fails, V8's regex engine backtracks exponentially across all possible splits. The time complexity is O(4^N) where N is the number of * characters. With N=15, a single minimatch() call takes ~2 seconds. With N=34, it hangs effectively forever. Any application that passes user-controlled strings to minimatch() as the pattern argument is vulnerable to DoS. This issue has been fixed in version 10.2.1.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 8.7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.4"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-3ppc-4f35-3m26"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "899621fea61ef0ff",
+    "name": "minimatch",
+    "version": "3.0.4",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.4:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.4",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "dataSource": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-23c5-xmqv-rm74"
+    ],
+    "description": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.4"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27904",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27904",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-23c5-xmqv-rm74"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4, nested `*()` extglobs produce regexps with nested unbounded quantifiers (e.g. `(?:(?:a|b)*)*`), which exhibit catastrophic backtracking in V8. With a 12-byte pattern `*(*(*(a|b)))` and an 18-byte non-matching input, `minimatch()` stalls for over 7 seconds. Adding a single nesting level or a few input characters pushes this to minutes. This is the most severe finding: it is triggered by the default `minimatch()` API with no special options, and the minimum viable pattern is only 12 bytes. The same issue affects `+()` extglobs equally. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.4"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.4 (unknown)",
+      "vulnerabilityID": "GHSA-23c5-xmqv-rm74"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "899621fea61ef0ff",
+    "name": "minimatch",
+    "version": "3.0.4",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.4:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.4",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "dataSource": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-7r86-cg39-jmmj"
+    ],
+    "description": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27903",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27903",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-7r86-cg39-jmmj"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3, `matchOne()` performs unbounded recursive backtracking when a glob pattern contains multiple non-adjacent `**` (GLOBSTAR) segments and the input path does not match. The time complexity is O(C(n, k)) -- binomial -- where `n` is the number of path segments and `k` is the number of globstars. With k=11 and n=30, a call to the default `minimatch()` API stalls for roughly 5 seconds. With k=13, it exceeds 15 seconds. No memoization or call budget exists to bound this behavior. Any application where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments (ESLint, Webpack, Rollup config), multi-tenant systems where one tenant configures glob-based rules that run in a shared process, admin or developer interfaces that accept ignore-rule or filter configuration as globs, and CI/CD pipelines that evaluate user-submitted config files containing glob patterns. An attacker who can place a crafted pattern into any of these paths can stall the Node.js event loop for tens of seconds per invocation. The pattern is 56 bytes for a 5-second stall and does not require authentication in contexts where pattern input is part of the feature. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.5"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-7r86-cg39-jmmj"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "fd9cb72fc423e315",
+    "name": "minimatch",
+    "version": "3.0.5",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.5:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.5",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "dataSource": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-3ppc-4f35-3m26"
+    ],
+    "description": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26996",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26996",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/commit/2e111f3a79abc00fa73110195de2c0f2351904f5",
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-3ppc-4f35-3m26"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Versions 10.2.0 and below are vulnerable to Regular Expression Denial of Service (ReDoS) when a glob pattern contains many consecutive * wildcards followed by a literal character that doesn't appear in the test string. Each * compiles to a separate [^/]*? regex group, and when the match fails, V8's regex engine backtracks exponentially across all possible splits. The time complexity is O(4^N) where N is the number of * characters. With N=15, a single minimatch() call takes ~2 seconds. With N=34, it hangs effectively forever. Any application that passes user-controlled strings to minimatch() as the pattern argument is vulnerable to DoS. This issue has been fixed in version 10.2.1.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 8.7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.5"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-3ppc-4f35-3m26"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "fd9cb72fc423e315",
+    "name": "minimatch",
+    "version": "3.0.5",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.5:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.5",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "dataSource": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-23c5-xmqv-rm74"
+    ],
+    "description": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.4"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27904",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27904",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-23c5-xmqv-rm74"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4, nested `*()` extglobs produce regexps with nested unbounded quantifiers (e.g. `(?:(?:a|b)*)*`), which exhibit catastrophic backtracking in V8. With a 12-byte pattern `*(*(*(a|b)))` and an 18-byte non-matching input, `minimatch()` stalls for over 7 seconds. Adding a single nesting level or a few input characters pushes this to minutes. This is the most severe finding: it is triggered by the default `minimatch()` API with no special options, and the minimum viable pattern is only 12 bytes. The same issue affects `+()` extglobs equally. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.5"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.4 (unknown)",
+      "vulnerabilityID": "GHSA-23c5-xmqv-rm74"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "fd9cb72fc423e315",
+    "name": "minimatch",
+    "version": "3.0.5",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.5:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.5",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "dataSource": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-7r86-cg39-jmmj"
+    ],
+    "description": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27903",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27903",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-7r86-cg39-jmmj"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3, `matchOne()` performs unbounded recursive backtracking when a glob pattern contains multiple non-adjacent `**` (GLOBSTAR) segments and the input path does not match. The time complexity is O(C(n, k)) -- binomial -- where `n` is the number of path segments and `k` is the number of globstars. With k=11 and n=30, a call to the default `minimatch()` API stalls for roughly 5 seconds. With k=13, it exceeds 15 seconds. No memoization or call budget exists to bound this behavior. Any application where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments (ESLint, Webpack, Rollup config), multi-tenant systems where one tenant configures glob-based rules that run in a shared process, admin or developer interfaces that accept ignore-rule or filter configuration as globs, and CI/CD pipelines that evaluate user-submitted config files containing glob patterns. An attacker who can place a crafted pattern into any of these paths can stall the Node.js event loop for tens of seconds per invocation. The pattern is 56 bytes for a 5-second stall and does not require authentication in contexts where pattern input is part of the feature. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.8"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-7r86-cg39-jmmj"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "4dd86056d223465c",
+    "name": "minimatch",
+    "version": "3.0.8",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.8",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "dataSource": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-3ppc-4f35-3m26"
+    ],
+    "description": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26996",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26996",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/commit/2e111f3a79abc00fa73110195de2c0f2351904f5",
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-3ppc-4f35-3m26"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Versions 10.2.0 and below are vulnerable to Regular Expression Denial of Service (ReDoS) when a glob pattern contains many consecutive * wildcards followed by a literal character that doesn't appear in the test string. Each * compiles to a separate [^/]*? regex group, and when the match fails, V8's regex engine backtracks exponentially across all possible splits. The time complexity is O(4^N) where N is the number of * characters. With N=15, a single minimatch() call takes ~2 seconds. With N=34, it hangs effectively forever. Any application that passes user-controlled strings to minimatch() as the pattern argument is vulnerable to DoS. This issue has been fixed in version 10.2.1.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 8.7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.8"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.3 (unknown)",
+      "vulnerabilityID": "GHSA-3ppc-4f35-3m26"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "4dd86056d223465c",
+    "name": "minimatch",
+    "version": "3.0.8",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.8",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "dataSource": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-23c5-xmqv-rm74"
+    ],
+    "description": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "3.1.4"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27904",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27904",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-23c5-xmqv-rm74"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4, nested `*()` extglobs produce regexps with nested unbounded quantifiers (e.g. `(?:(?:a|b)*)*`), which exhibit catastrophic backtracking in V8. With a 12-byte pattern `*(*(*(a|b)))` and an 18-byte non-matching input, `minimatch()` stalls for over 7 seconds. Adding a single nesting level or a few input characters pushes this to minutes. This is the most severe finding: it is triggered by the default `minimatch()` API with no special options, and the minimum viable pattern is only 12 bytes. The same issue affects `+()` extglobs equally. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "3.0.8"
+      }
+     },
+     "found": {
+      "versionConstraint": "<3.1.4 (unknown)",
+      "vulnerabilityID": "GHSA-23c5-xmqv-rm74"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "4dd86056d223465c",
+    "name": "minimatch",
+    "version": "3.0.8",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:3.0.8:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@3.0.8",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "dataSource": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-7r86-cg39-jmmj"
+    ],
+    "description": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "9.0.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27903",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27903",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-7r86-cg39-jmmj"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3, `matchOne()` performs unbounded recursive backtracking when a glob pattern contains multiple non-adjacent `**` (GLOBSTAR) segments and the input path does not match. The time complexity is O(C(n, k)) -- binomial -- where `n` is the number of path segments and `k` is the number of globstars. With k=11 and n=30, a call to the default `minimatch()` API stalls for roughly 5 seconds. With k=13, it exceeds 15 seconds. No memoization or call budget exists to bound this behavior. Any application where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments (ESLint, Webpack, Rollup config), multi-tenant systems where one tenant configures glob-based rules that run in a shared process, admin or developer interfaces that accept ignore-rule or filter configuration as globs, and CI/CD pipelines that evaluate user-submitted config files containing glob patterns. An attacker who can place a crafted pattern into any of these paths can stall the Node.js event loop for tens of seconds per invocation. The pattern is 56 bytes for a 5-second stall and does not require authentication in contexts where pattern input is part of the feature. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.3 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "9.0.3"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=9.0.0,<9.0.7 (unknown)",
+      "vulnerabilityID": "GHSA-7r86-cg39-jmmj"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f0c02a36a8d02929",
+    "name": "minimatch",
+    "version": "9.0.3",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:9.0.3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@9.0.3",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "dataSource": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-3ppc-4f35-3m26"
+    ],
+    "description": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "9.0.6"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26996",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26996",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/commit/2e111f3a79abc00fa73110195de2c0f2351904f5",
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-3ppc-4f35-3m26"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Versions 10.2.0 and below are vulnerable to Regular Expression Denial of Service (ReDoS) when a glob pattern contains many consecutive * wildcards followed by a literal character that doesn't appear in the test string. Each * compiles to a separate [^/]*? regex group, and when the match fails, V8's regex engine backtracks exponentially across all possible splits. The time complexity is O(4^N) where N is the number of * characters. With N=15, a single minimatch() call takes ~2 seconds. With N=34, it hangs effectively forever. Any application that passes user-controlled strings to minimatch() as the pattern argument is vulnerable to DoS. This issue has been fixed in version 10.2.1.",
+     "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 8.7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "9.0.3"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=9.0.0,<9.0.6 (unknown)",
+      "vulnerabilityID": "GHSA-3ppc-4f35-3m26"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f0c02a36a8d02929",
+    "name": "minimatch",
+    "version": "9.0.3",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:9.0.3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@9.0.3",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "dataSource": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-23c5-xmqv-rm74"
+    ],
+    "description": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "9.0.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-27904",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27904",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/minimatch/security/advisories/GHSA-23c5-xmqv-rm74"
+     ],
+     "description": "minimatch is a minimal matching utility for converting glob expressions into JavaScript RegExp objects. Prior to version 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4, nested `*()` extglobs produce regexps with nested unbounded quantifiers (e.g. `(?:(?:a|b)*)*`), which exhibit catastrophic backtracking in V8. With a 12-byte pattern `*(*(*(a|b)))` and an 18-byte non-matching input, `minimatch()` stalls for over 7 seconds. Adding a single nesting level or a few input characters pushes this to minutes. This is the most severe finding: it is triggered by the default `minimatch()` API with no special options, and the minimum viable pattern is only 12 bytes. The same issue affects `+()` extglobs equally. Versions 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, and 3.1.4 fix the issue.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+       "metrics": {
+        "baseScore": 7.5,
+        "exploitabilityScore": 3.9,
+        "impactScore": 3.6
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "minimatch",
+       "version": "9.0.3"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=9.0.0,<9.0.7 (unknown)",
+      "vulnerabilityID": "GHSA-23c5-xmqv-rm74"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f0c02a36a8d02929",
+    "name": "minimatch",
+    "version": "9.0.3",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:minimatch:minimatch:9.0.3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/minimatch@9.0.3",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-8hfj-j24r-96c4",
     "dataSource": "https://github.com/advisories/GHSA-8hfj-j24r-96c4",
     "namespace": "github:language:javascript",
@@ -4908,13 +5973,13 @@
     }
    ],
    "artifact": {
-    "id": "3587287a8c580d1f",
+    "id": "3c2720b5b8991f08",
     "name": "parseuri",
     "version": "0.0.6",
     "type": "npm",
     "locations": [
      {
-      "path": "/frontend/package-lock.json"
+      "path": "/package-lock.json"
      }
     ],
     "language": "javascript",
@@ -4991,13 +6056,13 @@
     }
    ],
    "artifact": {
-    "id": "3c2720b5b8991f08",
+    "id": "3587287a8c580d1f",
     "name": "parseuri",
     "version": "0.0.6",
     "type": "npm",
     "locations": [
      {
-      "path": "/package-lock.json"
+      "path": "/frontend/package-lock.json"
      }
     ],
     "language": "javascript",
@@ -5906,6 +6971,162 @@
   },
   {
    "vulnerability": {
+    "id": "GHSA-5c6j-r48x-rmvq",
+    "dataSource": "https://github.com/advisories/GHSA-5c6j-r48x-rmvq",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-5c6j-r48x-rmvq"
+    ],
+    "description": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.1,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "7.0.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "serialize-javascript",
+       "version": "5.0.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=7.0.2 (unknown)",
+      "vulnerabilityID": "GHSA-5c6j-r48x-rmvq"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "7e374891dcca8beb",
+    "name": "serialize-javascript",
+    "version": "5.0.1",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:serialize-javascript:serialize-javascript:5.0.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize-javascript:serialize_javascript:5.0.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize_javascript:serialize-javascript:5.0.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize_javascript:serialize_javascript:5.0.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize:serialize-javascript:5.0.1:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize:serialize_javascript:5.0.1:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/serialize-javascript@5.0.1",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-5c6j-r48x-rmvq",
+    "dataSource": "https://github.com/advisories/GHSA-5c6j-r48x-rmvq",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-5c6j-r48x-rmvq"
+    ],
+    "description": "Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString()",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.1,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "7.0.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "serialize-javascript",
+       "version": "6.0.2"
+      }
+     },
+     "found": {
+      "versionConstraint": "<=7.0.2 (unknown)",
+      "vulnerabilityID": "GHSA-5c6j-r48x-rmvq"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "bdfb39988dda49bc",
+    "name": "serialize-javascript",
+    "version": "6.0.2",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/frontend/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:serialize-javascript:serialize-javascript:6.0.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize-javascript:serialize_javascript:6.0.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize_javascript:serialize-javascript:6.0.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize_javascript:serialize_javascript:6.0.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize:serialize-javascript:6.0.2:*:*:*:*:*:*:*",
+     "cpe:2.3:a:serialize:serialize_javascript:6.0.2:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:npm/serialize-javascript@6.0.2",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
     "id": "GHSA-25hc-qcg6-38wj",
     "dataSource": "https://github.com/advisories/GHSA-25hc-qcg6-38wj",
     "namespace": "github:language:javascript",
@@ -6105,13 +7326,13 @@
     }
    ],
    "artifact": {
-    "id": "d059463d6af25832",
+    "id": "4108dde1058f54e0",
     "name": "socket.io-parser",
     "version": "4.0.5",
     "type": "npm",
     "locations": [
      {
-      "path": "/package-lock.json"
+      "path": "/frontend/package-lock.json"
      }
     ],
     "language": "javascript",
@@ -6227,13 +7448,13 @@
     }
    ],
    "artifact": {
-    "id": "4108dde1058f54e0",
+    "id": "d059463d6af25832",
     "name": "socket.io-parser",
     "version": "4.0.5",
     "type": "npm",
     "locations": [
      {
-      "path": "/frontend/package-lock.json"
+      "path": "/package-lock.json"
      }
     ],
     "language": "javascript",
@@ -6254,6 +7475,376 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-68121",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+    "namespace": "nvd:cpe",
+    "severity": "Critical",
+    "urls": [
+     "https://go.dev/cl/737700",
+     "https://go.dev/issue/77217",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4337"
+    ],
+    "description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 10,
+       "exploitabilityScore": 3.9,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.4,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7",
+      "1.26.0-rc.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.23.12"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-68121",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 || >= 1.26.0-rc.1, < 1.26.0-rc.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f1d9b2ffc914e128",
+    "name": "stdlib",
+    "version": "go1.23.12",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/frontend/node_modules/esbuild/bin/esbuild"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.23.12",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.23.12",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-68121",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+    "namespace": "nvd:cpe",
+    "severity": "Critical",
+    "urls": [
+     "https://go.dev/cl/737700",
+     "https://go.dev/issue/77217",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4337"
+    ],
+    "description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 10,
+       "exploitabilityScore": 3.9,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.4,
+       "exploitabilityScore": 2.2,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7",
+      "1.26.0-rc.3"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.23.12"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-68121",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 || >= 1.26.0-rc.1, < 1.26.0-rc.3 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f464a8d202ca6406",
+    "name": "stdlib",
+    "version": "go1.23.12",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.23.12",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.23.12",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61732",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61732",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/734220",
+     "https://go.dev/issue/76697",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4433"
+    ],
+    "description": "A discrepancy between how Go and C/C++ comments were parsed allowed for code smuggling into the resulting cgo binary.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.6,
+       "exploitabilityScore": 1.8,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.23.12"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61732",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f1d9b2ffc914e128",
+    "name": "stdlib",
+    "version": "go1.23.12",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/frontend/node_modules/esbuild/bin/esbuild"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.23.12",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.23.12",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-61732",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61732",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://go.dev/cl/734220",
+     "https://go.dev/issue/76697",
+     "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+     "https://pkg.go.dev/vuln/GO-2026-4433"
+    ],
+    "description": "A discrepancy between how Go and C/C++ comments were parsed allowed for code smuggling into the resulting cgo binary.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 8.6,
+       "exploitabilityScore": 1.8,
+       "impactScore": 6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.24.13",
+      "1.25.7"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "stdlib",
+       "version": "go1.23.12"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-61732",
+      "versionConstraint": "< 1.24.13 || >= 1.25.0-0, < 1.25.7 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "f464a8d202ca6406",
+    "name": "stdlib",
+    "version": "go1.23.12",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
+     }
+    ],
+    "language": "go",
+    "licenses": [
+     "BSD-3-Clause"
+    ],
+    "cpes": [
+     "cpe:2.3:a:golang:go:1.23.12:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.23.12",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.23.12",
+     "architecture": ""
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-61731",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-61731",
     "namespace": "nvd:cpe",
@@ -6830,13 +8421,13 @@
     }
    ],
    "artifact": {
-    "id": "f1d9b2ffc914e128",
+    "id": "f464a8d202ca6406",
     "name": "stdlib",
     "version": "go1.23.12",
     "type": "go-module",
     "locations": [
      {
-      "path": "/frontend/node_modules/esbuild/bin/esbuild"
+      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
      }
     ],
     "language": "go",
@@ -6917,13 +8508,13 @@
     }
    ],
    "artifact": {
-    "id": "f464a8d202ca6406",
+    "id": "f1d9b2ffc914e128",
     "name": "stdlib",
     "version": "go1.23.12",
     "type": "go-module",
     "locations": [
      {
-      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
+      "path": "/frontend/node_modules/esbuild/bin/esbuild"
      }
     ],
     "language": "go",
@@ -7482,11 +9073,11 @@
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
       "type": "Secondary",
       "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "metrics": {
-       "baseScore": 6.2,
-       "exploitabilityScore": 2.5,
-       "impactScore": 3.6
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
       },
       "vendorMetadata": {}
      }
@@ -7568,11 +9159,11 @@
       "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
       "type": "Secondary",
       "version": "3.1",
-      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "metrics": {
-       "baseScore": 6.2,
-       "exploitabilityScore": 2.5,
-       "impactScore": 3.6
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
       },
       "vendorMetadata": {}
      }
@@ -8044,13 +9635,13 @@
     }
    ],
    "artifact": {
-    "id": "f464a8d202ca6406",
+    "id": "f1d9b2ffc914e128",
     "name": "stdlib",
     "version": "go1.23.12",
     "type": "go-module",
     "locations": [
      {
-      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
+      "path": "/frontend/node_modules/esbuild/bin/esbuild"
      }
     ],
     "language": "go",
@@ -8131,13 +9722,13 @@
     }
    ],
    "artifact": {
-    "id": "f1d9b2ffc914e128",
+    "id": "f464a8d202ca6406",
     "name": "stdlib",
     "version": "go1.23.12",
     "type": "go-module",
     "locations": [
      {
-      "path": "/frontend/node_modules/esbuild/bin/esbuild"
+      "path": "/frontend/node_modules/@esbuild/linux-x64/bin/esbuild"
      }
     ],
     "language": "go",
@@ -9064,7 +10655,7 @@
      "id": "CVE-2026-23950",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23950",
      "namespace": "nvd:cpe",
-     "severity": "High",
+     "severity": "Medium",
      "urls": [
       "https://github.com/isaacs/node-tar/commit/3b1abfae650056edfabcbe0a0df5954d390521e6",
       "https://github.com/isaacs/node-tar/security/advisories/GHSA-r6q2-hw4h-h46w"
@@ -9080,6 +10671,18 @@
         "baseScore": 8.8,
         "exploitabilityScore": 2.8,
         "impactScore": 5.3
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+       "metrics": {
+        "baseScore": 5.9,
+        "exploitabilityScore": 2.2,
+        "impactScore": 3.6
        },
        "vendorMetadata": {}
       }
@@ -9150,13 +10753,25 @@
      "id": "CVE-2026-23745",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23745",
      "namespace": "nvd:cpe",
-     "severity": "High",
+     "severity": "Medium",
      "urls": [
       "https://github.com/isaacs/node-tar/commit/340eb285b6d986e91969a1170d7fe9b0face405e",
       "https://github.com/isaacs/node-tar/security/advisories/GHSA-8qq5-rm4j-mr97"
      ],
      "description": "node-tar is a Tar for Node.js. The node-tar library (<= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3.",
      "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+       "metrics": {
+        "baseScore": 6.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 4.2
+       },
+       "vendorMetadata": {}
+      },
       {
        "source": "security-advisories@github.com",
        "type": "Secondary",
@@ -9185,6 +10800,119 @@
      "found": {
       "versionConstraint": "<=7.5.2 (unknown)",
       "vulnerabilityID": "GHSA-8qq5-rm4j-mr97"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "8da816e7b12f415c",
+    "name": "tar",
+    "version": "4.4.19",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "BlueOak-1.0.0",
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:tar_project:tar:4.4.19:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/tar@4.4.19",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-83g3-92jg-28cx",
+    "dataSource": "https://github.com/advisories/GHSA-83g3-92jg-28cx",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-83g3-92jg-28cx"
+    ],
+    "description": "Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.1,
+       "exploitabilityScore": 1.8,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "7.5.8"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26960",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26960",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/node-tar/commit/2cb1120bcefe28d7ecc719b41441ade59c52e384",
+      "https://github.com/isaacs/node-tar/commit/d18e4e1f846f4ddddc153b0f536a19c050e7499f",
+      "https://github.com/isaacs/node-tar/security/advisories/GHSA-83g3-92jg-28cx"
+     ],
+     "description": "node-tar is a full-featured Tar for Node.js. When using default options in versions 7.5.7 and below, an attacker-controlled archive can create a hardlink inside the extraction directory that points to a file outside the extraction root, enabling arbitrary file read and write as the extracting user. Severity is high because the primitive bypasses path protections and turns archive extraction into a direct filesystem access primitive. This issue has been fixed in version 7.5.8.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+       "metrics": {
+        "baseScore": 7.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.2
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+       "metrics": {
+        "baseScore": 7.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.2
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "tar",
+       "version": "4.4.19"
+      }
+     },
+     "found": {
+      "versionConstraint": "<7.5.8 (unknown)",
+      "vulnerabilityID": "GHSA-83g3-92jg-28cx"
      }
     }
    ],
@@ -9452,7 +11180,7 @@
      "id": "CVE-2026-23950",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23950",
      "namespace": "nvd:cpe",
-     "severity": "High",
+     "severity": "Medium",
      "urls": [
       "https://github.com/isaacs/node-tar/commit/3b1abfae650056edfabcbe0a0df5954d390521e6",
       "https://github.com/isaacs/node-tar/security/advisories/GHSA-r6q2-hw4h-h46w"
@@ -9468,6 +11196,18 @@
         "baseScore": 8.8,
         "exploitabilityScore": 2.8,
         "impactScore": 5.3
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+       "metrics": {
+        "baseScore": 5.9,
+        "exploitabilityScore": 2.2,
+        "impactScore": 3.6
        },
        "vendorMetadata": {}
       }
@@ -9538,13 +11278,25 @@
      "id": "CVE-2026-23745",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-23745",
      "namespace": "nvd:cpe",
-     "severity": "High",
+     "severity": "Medium",
      "urls": [
       "https://github.com/isaacs/node-tar/commit/340eb285b6d986e91969a1170d7fe9b0face405e",
       "https://github.com/isaacs/node-tar/security/advisories/GHSA-8qq5-rm4j-mr97"
      ],
      "description": "node-tar is a Tar for Node.js. The node-tar library (<= 7.5.2) fails to sanitize the linkpath of Link (hardlink) and SymbolicLink entries when preservePaths is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to Arbitrary File Overwrite via hardlinks and Symlink Poisoning via absolute symlink targets. This vulnerability is fixed in 7.5.3.",
      "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+       "metrics": {
+        "baseScore": 6.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 4.2
+       },
+       "vendorMetadata": {}
+      },
       {
        "source": "security-advisories@github.com",
        "type": "Secondary",
@@ -9573,6 +11325,119 @@
      "found": {
       "versionConstraint": "<=7.5.2 (unknown)",
       "vulnerabilityID": "GHSA-8qq5-rm4j-mr97"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "c1108051ecb2e889",
+    "name": "tar",
+    "version": "6.2.1",
+    "type": "npm",
+    "locations": [
+     {
+      "path": "/package-lock.json"
+     }
+    ],
+    "language": "javascript",
+    "licenses": [
+     "BlueOak-1.0.0",
+     "ISC"
+    ],
+    "cpes": [
+     "cpe:2.3:a:tar_project:tar:6.2.1:*:*:*:*:node.js:*:*"
+    ],
+    "purl": "pkg:npm/tar@6.2.1",
+    "upstreams": []
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-83g3-92jg-28cx",
+    "dataSource": "https://github.com/advisories/GHSA-83g3-92jg-28cx",
+    "namespace": "github:language:javascript",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-83g3-92jg-28cx"
+    ],
+    "description": "Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction",
+    "cvss": [
+     {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+      "metrics": {
+       "baseScore": 7.1,
+       "exploitabilityScore": 1.8,
+       "impactScore": 5.2
+      },
+      "vendorMetadata": {
+       "base_severity": "High",
+       "status": "N/A"
+      }
+     }
+    ],
+    "fix": {
+     "versions": [
+      "7.5.8"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2026-26960",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-26960",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://github.com/isaacs/node-tar/commit/2cb1120bcefe28d7ecc719b41441ade59c52e384",
+      "https://github.com/isaacs/node-tar/commit/d18e4e1f846f4ddddc153b0f536a19c050e7499f",
+      "https://github.com/isaacs/node-tar/security/advisories/GHSA-83g3-92jg-28cx"
+     ],
+     "description": "node-tar is a full-featured Tar for Node.js. When using default options in versions 7.5.7 and below, an attacker-controlled archive can create a hardlink inside the extraction directory that points to a file outside the extraction root, enabling arbitrary file read and write as the extracting user. Severity is high because the primitive bypasses path protections and turns archive extraction into a direct filesystem access primitive. This issue has been fixed in version 7.5.8.",
+     "cvss": [
+      {
+       "source": "security-advisories@github.com",
+       "type": "Secondary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+       "metrics": {
+        "baseScore": 7.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.2
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+       "metrics": {
+        "baseScore": 7.1,
+        "exploitabilityScore": 1.8,
+        "impactScore": 5.2
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "javascript-matcher",
+     "searchedBy": {
+      "language": "javascript",
+      "namespace": "github:language:javascript",
+      "package": {
+       "name": "tar",
+       "version": "6.2.1"
+      }
+     },
+     "found": {
+      "versionConstraint": "<7.5.8 (unknown)",
+      "vulnerabilityID": "GHSA-83g3-92jg-28cx"
      }
     }
    ],
@@ -10098,6 +11963,18 @@
         "impactScore": 5.9
        },
        "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 10,
+        "exploitabilityScore": 3.9,
+        "impactScore": 6
+       },
+       "vendorMetadata": {}
       }
      ]
     }
@@ -10575,12 +12452,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-01-31T00:31:57Z",
+   "built": "2026-03-01T00:32:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
+   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
    "error": null
   },
-  "timestamp": "2026-02-01T03:23:46.811598319Z"
+  "timestamp": "2026-03-01T15:10:12.066895082Z"
  }
 }

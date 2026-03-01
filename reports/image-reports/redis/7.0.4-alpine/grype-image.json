@@ -1250,6 +1250,182 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-69421",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69421",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/3524a29271f8191b8fd8a5257eb05173982a097b",
+     "https://github.com/openssl/openssl/commit/36ecb4960872a4ce04bf6f1e1f4e78d75ec0c0c7",
+     "https://github.com/openssl/openssl/commit/4bbc8d41a72c842ce4077a8a3eccd1109aaf74bd",
+     "https://github.com/openssl/openssl/commit/643986985cd1c21221f941129d76fe0c2785aeb3",
+     "https://github.com/openssl/openssl/commit/a2dbc539f0f9cc63832709fa5aa33ad9495eb19c",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.0.2zn",
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-69421",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "b105bd24f5ff8f3c",
+    "name": "libcrypto1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libcrypto1.1:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto1.1:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libcrypto1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/etc"
+      },
+      {
+       "path": "/etc/ssl"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/certs"
+      },
+      {
+       "path": "/etc/ssl/misc"
+      },
+      {
+       "path": "/etc/ssl/misc/CA.pl"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget.pl"
+      },
+      {
+       "path": "/etc/ssl/private"
+      },
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/afalg.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/capi.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/padlock.so"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-69420",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69420",
     "namespace": "nvd:cpe",
@@ -2393,6 +2569,333 @@
      "found": {
       "versionConstraint": "< 1.1.1t-r0 (apk)",
       "vulnerabilityID": "CVE-2022-4450"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "b105bd24f5ff8f3c",
+    "name": "libcrypto1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libcrypto1.1:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto1.1:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libcrypto1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/etc"
+      },
+      {
+       "path": "/etc/ssl"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/certs"
+      },
+      {
+       "path": "/etc/ssl/misc"
+      },
+      {
+       "path": "/etc/ssl/misc/CA.pl"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget.pl"
+      },
+      {
+       "path": "/etc/ssl/private"
+      },
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/afalg.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/capi.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/padlock.so"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-22796",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-22796",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/2502e7b7d4c0cf4f972a881641fe09edc67aeec4",
+     "https://github.com/openssl/openssl/commit/572844beca95068394c916626a6d3a490f831a49",
+     "https://github.com/openssl/openssl/commit/7bbca05be55b129651d9df4bdb92becc45002c12",
+     "https://github.com/openssl/openssl/commit/eeee3cbd4d682095ed431052f00403004596373e",
+     "https://github.com/openssl/openssl/commit/ef2fb66ec571564d64d1c74a12e388a2a54d05d2",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: A type confusion vulnerability exists in the signature\nverification of signed PKCS#7 data where an ASN1_TYPE union member is\naccessed without first validating the type, causing an invalid or NULL\npointer dereference when processing malformed PKCS#7 data.\n\nImpact summary: An application performing signature verification of PKCS#7\ndata or calling directly the PKCS7_digest_from_attributes() function can be\ncaused to dereference an invalid or NULL pointer when reading, resulting in\na Denial of Service.\n\nThe function PKCS7_digest_from_attributes() accesses the message digest attribute\nvalue without validating its type. When the type is not V_ASN1_OCTET_STRING,\nthis results in accessing invalid memory through the ASN1_TYPE union, causing\na crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nsigned PKCS#7 to an application that verifies it. The impact of the\nexploit is just a Denial of Service, the PKCS7 API is legacy and applications\nshould be using the CMS API instead. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#7 parsing implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.0.2zn",
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2026-22796",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "b105bd24f5ff8f3c",
+    "name": "libcrypto1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libcrypto1.1:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto1.1:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libcrypto:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libcrypto1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/etc"
+      },
+      {
+       "path": "/etc/ssl"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf"
+      },
+      {
+       "path": "/etc/ssl/ct_log_list.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf"
+      },
+      {
+       "path": "/etc/ssl/openssl.cnf.dist"
+      },
+      {
+       "path": "/etc/ssl/certs"
+      },
+      {
+       "path": "/etc/ssl/misc"
+      },
+      {
+       "path": "/etc/ssl/misc/CA.pl"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget"
+      },
+      {
+       "path": "/etc/ssl/misc/tsget.pl"
+      },
+      {
+       "path": "/etc/ssl/private"
+      },
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libcrypto.so.1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/afalg.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/capi.so"
+      },
+      {
+       "path": "/usr/lib/engines-1.1/padlock.so"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-22795",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-22795",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/2502e7b7d4c0cf4f972a881641fe09edc67aeec4",
+     "https://github.com/openssl/openssl/commit/572844beca95068394c916626a6d3a490f831a49",
+     "https://github.com/openssl/openssl/commit/7bbca05be55b129651d9df4bdb92becc45002c12",
+     "https://github.com/openssl/openssl/commit/eeee3cbd4d682095ed431052f00403004596373e",
+     "https://github.com/openssl/openssl/commit/ef2fb66ec571564d64d1c74a12e388a2a54d05d2",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: An invalid or NULL pointer dereference can happen in\nan application processing a malformed PKCS#12 file.\n\nImpact summary: An application processing a malformed PKCS#12 file can be\ncaused to dereference an invalid or NULL pointer on memory read, resulting\nin a Denial of Service.\n\nA type confusion vulnerability exists in PKCS#12 parsing code where\nan ASN1_TYPE union member is accessed without first validating the type,\ncausing an invalid pointer read.\n\nThe location is constrained to a 1-byte address space, meaning any\nattempted pointer manipulation can only target addresses between 0x00 and 0xFF.\nThis range corresponds to the zero page, which is unmapped on most modern\noperating systems and will reliably result in a crash, leading only to a\nDenial of Service. Exploiting this issue also requires a user or application\nto process a maliciously crafted PKCS#12 file. It is uncommon to accept\nuntrusted PKCS#12 files in applications as they are usually used to store\nprivate keys which are trusted by definition. For these reasons, the issue\nwas assessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 5.5,
+       "exploitabilityScore": 1.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2026-22795",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
      }
     }
    ],
@@ -4737,157 +5240,6 @@
      "found": {
       "versionConstraint": "< 1.1.1t-r0 (apk)",
       "vulnerabilityID": "CVE-2022-4304"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "b105bd24f5ff8f3c",
-    "name": "libcrypto1.1",
-    "version": "1.1.1q-r0",
-    "type": "apk",
-    "locations": [
-     {
-      "path": "/lib/apk/db/installed",
-      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "OpenSSL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libcrypto1.1:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libcrypto1.1:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libcrypto:libcrypto1.1:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libcrypto:libcrypto:1.1.1q-r0:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:apk/alpine/libcrypto1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
-    "upstreams": [
-     {
-      "name": "openssl"
-     }
-    ],
-    "metadataType": "ApkMetadata",
-    "metadata": {
-     "files": [
-      {
-       "path": "/etc"
-      },
-      {
-       "path": "/etc/ssl"
-      },
-      {
-       "path": "/etc/ssl/ct_log_list.cnf"
-      },
-      {
-       "path": "/etc/ssl/ct_log_list.cnf.dist"
-      },
-      {
-       "path": "/etc/ssl/openssl.cnf"
-      },
-      {
-       "path": "/etc/ssl/openssl.cnf.dist"
-      },
-      {
-       "path": "/etc/ssl/certs"
-      },
-      {
-       "path": "/etc/ssl/misc"
-      },
-      {
-       "path": "/etc/ssl/misc/CA.pl"
-      },
-      {
-       "path": "/etc/ssl/misc/tsget"
-      },
-      {
-       "path": "/etc/ssl/misc/tsget.pl"
-      },
-      {
-       "path": "/etc/ssl/private"
-      },
-      {
-       "path": "/lib"
-      },
-      {
-       "path": "/lib/libcrypto.so.1.1"
-      },
-      {
-       "path": "/usr"
-      },
-      {
-       "path": "/usr/lib"
-      },
-      {
-       "path": "/usr/lib/libcrypto.so.1.1"
-      },
-      {
-       "path": "/usr/lib/engines-1.1"
-      },
-      {
-       "path": "/usr/lib/engines-1.1/afalg.so"
-      },
-      {
-       "path": "/usr/lib/engines-1.1/capi.so"
-      },
-      {
-       "path": "/usr/lib/engines-1.1/padlock.so"
-      }
-     ]
-    }
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-69421",
-    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69421",
-    "namespace": "nvd:cpe",
-    "severity": "Unknown",
-    "urls": [
-     "https://github.com/openssl/openssl/commit/3524a29271f8191b8fd8a5257eb05173982a097b",
-     "https://github.com/openssl/openssl/commit/36ecb4960872a4ce04bf6f1e1f4e78d75ec0c0c7",
-     "https://github.com/openssl/openssl/commit/4bbc8d41a72c842ce4077a8a3eccd1109aaf74bd",
-     "https://github.com/openssl/openssl/commit/643986985cd1c21221f941129d76fe0c2785aeb3",
-     "https://github.com/openssl/openssl/commit/a2dbc539f0f9cc63832709fa5aa33ad9495eb19c",
-     "https://openssl-library.org/news/secadv/20260127.txt"
-    ],
-    "description": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
-    "cvss": [],
-    "fix": {
-     "versions": [
-      "1.0.2zn",
-      "1.1.1ze",
-      "3.0.19",
-      "3.3.6",
-      "3.4.4",
-      "3.5.5",
-      "3.6.1"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [],
-   "matchDetails": [
-    {
-     "type": "cpe-match",
-     "matcher": "apk-matcher",
-     "searchedBy": {
-      "namespace": "nvd:cpe",
-      "cpes": [
-       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
-      ],
-      "Package": {
-       "name": "openssl",
-       "version": "1.1.1q-r0"
-      }
-     },
-     "found": {
-      "vulnerabilityID": "CVE-2025-69421",
-      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
-      "cpes": [
-       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
-      ]
      }
     }
    ],
@@ -5241,6 +5593,134 @@
   },
   {
    "vulnerability": {
+    "id": "CVE-2025-69421",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69421",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/3524a29271f8191b8fd8a5257eb05173982a097b",
+     "https://github.com/openssl/openssl/commit/36ecb4960872a4ce04bf6f1e1f4e78d75ec0c0c7",
+     "https://github.com/openssl/openssl/commit/4bbc8d41a72c842ce4077a8a3eccd1109aaf74bd",
+     "https://github.com/openssl/openssl/commit/643986985cd1c21221f941129d76fe0c2785aeb3",
+     "https://github.com/openssl/openssl/commit/a2dbc539f0f9cc63832709fa5aa33ad9495eb19c",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+    "cvss": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.0.2zn",
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2025-69421",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d7b59edcca323d80",
+    "name": "libssl1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssl1.1:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl1.1:libssl:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libssl1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libssl.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libssl.so.1.1"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
     "id": "CVE-2025-69420",
     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69420",
     "namespace": "nvd:cpe",
@@ -6096,6 +6576,237 @@
      "found": {
       "versionConstraint": "< 1.1.1t-r0 (apk)",
       "vulnerabilityID": "CVE-2022-4450"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d7b59edcca323d80",
+    "name": "libssl1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssl1.1:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl1.1:libssl:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libssl1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libssl.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libssl.so.1.1"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-22796",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-22796",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/2502e7b7d4c0cf4f972a881641fe09edc67aeec4",
+     "https://github.com/openssl/openssl/commit/572844beca95068394c916626a6d3a490f831a49",
+     "https://github.com/openssl/openssl/commit/7bbca05be55b129651d9df4bdb92becc45002c12",
+     "https://github.com/openssl/openssl/commit/eeee3cbd4d682095ed431052f00403004596373e",
+     "https://github.com/openssl/openssl/commit/ef2fb66ec571564d64d1c74a12e388a2a54d05d2",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: A type confusion vulnerability exists in the signature\nverification of signed PKCS#7 data where an ASN1_TYPE union member is\naccessed without first validating the type, causing an invalid or NULL\npointer dereference when processing malformed PKCS#7 data.\n\nImpact summary: An application performing signature verification of PKCS#7\ndata or calling directly the PKCS7_digest_from_attributes() function can be\ncaused to dereference an invalid or NULL pointer when reading, resulting in\na Denial of Service.\n\nThe function PKCS7_digest_from_attributes() accesses the message digest attribute\nvalue without validating its type. When the type is not V_ASN1_OCTET_STRING,\nthis results in accessing invalid memory through the ASN1_TYPE union, causing\na crash.\n\nExploiting this vulnerability requires an attacker to provide a malformed\nsigned PKCS#7 to an application that verifies it. The impact of the\nexploit is just a Denial of Service, the PKCS7 API is legacy and applications\nshould be using the CMS API instead. For these reasons the issue was\nassessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#7 parsing implementation is outside the OpenSSL FIPS module\nboundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 5.3,
+       "exploitabilityScore": 3.9,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.0.2zn",
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2026-22796",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "d7b59edcca323d80",
+    "name": "libssl1.1",
+    "version": "1.1.1q-r0",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "OpenSSL"
+    ],
+    "cpes": [
+     "cpe:2.3:a:libssl1.1:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl1.1:libssl:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
+     "cpe:2.3:a:libssl:libssl:1.1.1q-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/libssl1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "openssl"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libssl.so.1.1"
+      },
+      {
+       "path": "/usr"
+      },
+      {
+       "path": "/usr/lib"
+      },
+      {
+       "path": "/usr/lib/libssl.so.1.1"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-22795",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-22795",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://github.com/openssl/openssl/commit/2502e7b7d4c0cf4f972a881641fe09edc67aeec4",
+     "https://github.com/openssl/openssl/commit/572844beca95068394c916626a6d3a490f831a49",
+     "https://github.com/openssl/openssl/commit/7bbca05be55b129651d9df4bdb92becc45002c12",
+     "https://github.com/openssl/openssl/commit/eeee3cbd4d682095ed431052f00403004596373e",
+     "https://github.com/openssl/openssl/commit/ef2fb66ec571564d64d1c74a12e388a2a54d05d2",
+     "https://openssl-library.org/news/secadv/20260127.txt"
+    ],
+    "description": "Issue summary: An invalid or NULL pointer dereference can happen in\nan application processing a malformed PKCS#12 file.\n\nImpact summary: An application processing a malformed PKCS#12 file can be\ncaused to dereference an invalid or NULL pointer on memory read, resulting\nin a Denial of Service.\n\nA type confusion vulnerability exists in PKCS#12 parsing code where\nan ASN1_TYPE union member is accessed without first validating the type,\ncausing an invalid pointer read.\n\nThe location is constrained to a 1-byte address space, meaning any\nattempted pointer manipulation can only target addresses between 0x00 and 0xFF.\nThis range corresponds to the zero page, which is unmapped on most modern\noperating systems and will reliably result in a crash, leading only to a\nDenial of Service. Exploiting this issue also requires a user or application\nto process a maliciously crafted PKCS#12 file. It is uncommon to accept\nuntrusted PKCS#12 files in applications as they are usually used to store\nprivate keys which are trusted by definition. For these reasons, the issue\nwas assessed as Low severity.\n\nThe FIPS modules in 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0 and 1.1.1 are vulnerable to this issue.\n\nOpenSSL 1.0.2 is not affected by this issue.",
+    "cvss": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 5.5,
+       "exploitabilityScore": 1.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.1.1ze",
+      "3.0.19",
+      "3.3.6",
+      "3.4.4",
+      "3.5.5",
+      "3.6.1"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "openssl",
+       "version": "1.1.1q-r0"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2026-22795",
+      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze (unknown)",
+      "cpes": [
+       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
+      ]
      }
     }
    ],
@@ -7816,109 +8527,6 @@
      "found": {
       "versionConstraint": "< 1.1.1t-r0 (apk)",
       "vulnerabilityID": "CVE-2022-4304"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "d7b59edcca323d80",
-    "name": "libssl1.1",
-    "version": "1.1.1q-r0",
-    "type": "apk",
-    "locations": [
-     {
-      "path": "/lib/apk/db/installed",
-      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "OpenSSL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libssl1.1:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssl1.1:libssl:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssl:libssl1.1:1.1.1q-r0:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libssl:libssl:1.1.1q-r0:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:apk/alpine/libssl1.1@1.1.1q-r0?arch=x86_64&upstream=openssl&distro=alpine-3.16.2",
-    "upstreams": [
-     {
-      "name": "openssl"
-     }
-    ],
-    "metadataType": "ApkMetadata",
-    "metadata": {
-     "files": [
-      {
-       "path": "/lib"
-      },
-      {
-       "path": "/lib/libssl.so.1.1"
-      },
-      {
-       "path": "/usr"
-      },
-      {
-       "path": "/usr/lib"
-      },
-      {
-       "path": "/usr/lib/libssl.so.1.1"
-      }
-     ]
-    }
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2025-69421",
-    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-69421",
-    "namespace": "nvd:cpe",
-    "severity": "Unknown",
-    "urls": [
-     "https://github.com/openssl/openssl/commit/3524a29271f8191b8fd8a5257eb05173982a097b",
-     "https://github.com/openssl/openssl/commit/36ecb4960872a4ce04bf6f1e1f4e78d75ec0c0c7",
-     "https://github.com/openssl/openssl/commit/4bbc8d41a72c842ce4077a8a3eccd1109aaf74bd",
-     "https://github.com/openssl/openssl/commit/643986985cd1c21221f941129d76fe0c2785aeb3",
-     "https://github.com/openssl/openssl/commit/a2dbc539f0f9cc63832709fa5aa33ad9495eb19c",
-     "https://openssl-library.org/news/secadv/20260127.txt"
-    ],
-    "description": "Issue summary: Processing a malformed PKCS#12 file can trigger a NULL pointer\ndereference in the PKCS12_item_decrypt_d2i_ex() function.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to\nDenial of Service for an application processing PKCS#12 files.\n\nThe PKCS12_item_decrypt_d2i_ex() function does not check whether the oct\nparameter is NULL before dereferencing it. When called from\nPKCS12_unpack_p7encdata() with a malformed PKCS#12 file, this parameter can\nbe NULL, causing a crash. The vulnerability is limited to Denial of Service\nand cannot be escalated to achieve code execution or memory disclosure.\n\nExploiting this issue requires an attacker to provide a malformed PKCS#12 file\nto an application that processes it. For that reason the issue was assessed as\nLow severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the PKCS#12 implementation is outside the OpenSSL FIPS module boundary.\n\nOpenSSL 3.6, 3.5, 3.4, 3.3, 3.0, 1.1.1 and 1.0.2 are vulnerable to this issue.",
-    "cvss": [],
-    "fix": {
-     "versions": [
-      "1.0.2zn",
-      "1.1.1ze",
-      "3.0.19",
-      "3.3.6",
-      "3.4.4",
-      "3.5.5",
-      "3.6.1"
-     ],
-     "state": "fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [],
-   "matchDetails": [
-    {
-     "type": "cpe-match",
-     "matcher": "apk-matcher",
-     "searchedBy": {
-      "namespace": "nvd:cpe",
-      "cpes": [
-       "cpe:2.3:a:openssl:openssl:1.1.1q-r0:*:*:*:*:*:*:*"
-      ],
-      "Package": {
-       "name": "openssl",
-       "version": "1.1.1q-r0"
-      }
-     },
-     "found": {
-      "vulnerabilityID": "CVE-2025-69421",
-      "versionConstraint": ">= 3.6.0, < 3.6.1 || >= 3.5.0, < 3.5.5 || >= 3.4.0, < 3.4.4 || >= 3.3.0, < 3.3.6 || >= 3.0.0, < 3.0.19 || >= 1.1.1, < 1.1.1ze || >= 1.0.2, < 1.0.2zn (unknown)",
-      "cpes": [
-       "cpe:2.3:a:openssl:openssl:*:*:*:*:*:*:*:*"
-      ]
      }
     }
    ],
@@ -9061,7 +9669,8 @@
      "https://github.com/redis/redis/releases/tag/7.2.10",
      "https://github.com/redis/redis/releases/tag/7.4.5",
      "https://github.com/redis/redis/releases/tag/8.0.3",
-     "https://github.com/redis/redis/security/advisories/GHSA-rp2m-q4j6-gr43"
+     "https://github.com/redis/redis/security/advisories/GHSA-rp2m-q4j6-gr43",
+     "https://www.exploit-db.com/exploits/52477"
     ],
     "description": "Redis is an open source, in-memory database that persists on disk. From 2.8 to before 8.0.3, 7.4.5, 7.2.10, and 6.2.19, an authenticated user may use a specially crafted string to trigger a stack/heap out of bounds write on hyperloglog operations, potentially leading to remote code execution. The bug likely affects all Redis versions with hyperloglog operations implemented. This vulnerability is fixed in 8.0.3, 7.4.5, 7.2.10, and 6.2.19. An additional workaround to mitigate the problem without patching the redis-server executable is to prevent users from executing hyperloglog operations. This can be done using ACL to restrict HLL commands.",
     "cvss": [
@@ -9177,7 +9786,9 @@
      "https://github.com/redis/redis/releases/tag/7.4.3",
      "https://github.com/redis/redis/security/advisories/GHSA-r67f-p999-2gff",
      "https://github.com/valkey-io/valkey/releases/tag/8.1.1",
-     "https://lists.debian.org/debian-lts-announce/2025/05/msg00014.html"
+     "https://lists.debian.org/debian-lts-announce/2025/05/msg00014.html",
+     "https://www.vicarius.io/vsociety/posts/cve-2025-21605-detection-script-memory-exhaustion-vulnerability-in-redis-database",
+     "https://www.vicarius.io/vsociety/posts/cve-2025-21605-mitigation-script-memory-exhaustion-vulnerability-in-redis-database"
     ],
     "description": "Redis is an open source, in-memory database that persists on disk. In versions starting at 2.6 and prior to 7.4.3, An unauthenticated client can cause unlimited growth of output buffers, until the server runs out of memory or is killed. By default, the Redis configuration does not limit the output buffer of normal clients (see client-output-buffer-limit). Therefore, the output buffer can grow unlimitedly over time. As a result, the service is exhausted and the memory is unavailable. When password authentication is enabled on the Redis server, but no password is provided, the client can still cause the output buffer to grow from \"NOAUTH\" responses until the system will run out of memory. This issue has been patched in version 7.4.3. An additional workaround to mitigate this problem without patching the redis-server executable is to block access to prevent unauthenticated users from connecting to Redis. This can be done in different ways. Either using network access control tools like firewalls, iptables, security groups, etc, or enabling TLS and requiring users to authenticate using client side certificates.",
     "cvss": [
@@ -9586,7 +10197,10 @@
     "namespace": "nvd:cpe",
     "severity": "Medium",
     "urls": [
-     "https://github.com/redis/redis/security/advisories/GHSA-prpq-rh5h-46g9"
+     "https://github.com/redis/redis/security/advisories/GHSA-prpq-rh5h-46g9",
+     "https://github.com/valkey-io/valkey/releases/tag/8.0.2",
+     "https://codeberg.org/redict/redict/releases/tag/7.3.2",
+     "https://redict.io/posts/2025-01-08-redict-7.3.2-released"
     ],
     "description": "Redis is an open source, in-memory database that persists on disk. An authenticated with sufficient privileges may create a malformed ACL selector which, when accessed, triggers a server panic and subsequent denial of service. The problem is fixed in Redis 7.2.7 and 7.4.2.",
     "cvss": [
@@ -10399,7 +11013,8 @@
     "urls": [
      "https://github.com/redis/redis/blob/994bc96bb1744cb153392fc96bdba43eae56e17f/src/networking.c#L783",
      "https://github.com/valkey-io/valkey/blob/daea05b1e26db29bfd1c033e27f9d519a2f8ccbb/src/networking.c#L886",
-     "https://github.com/valkey-io/valkey/pull/2101"
+     "https://github.com/valkey-io/valkey/pull/2101",
+     "https://github.com/redis/redis/issues/14199"
     ],
     "description": "setDeferredReply in networking.c in Valkey through 8.1.1 has an integer underflow for prev->size - prev->used.",
     "cvss": [
@@ -11405,6 +12020,119 @@
      ]
     }
    }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-27171",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-27171",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+     "https://7asecurity.com/blog/2026/02/zlib-7asecurity-audit/",
+     "https://7asecurity.com/reports/pentest-report-zlib-RC1.1.pdf",
+     "https://github.com/madler/zlib/issues/904",
+     "https://github.com/madler/zlib/releases/tag/v1.3.2",
+     "https://ostif.org/zlib-audit-complete/",
+     "https://7asecurity.com/reports/pentest-report-zlib-RC1.1.pdf"
+    ],
+    "description": "zlib before 1.3.2 allows CPU consumption via crc32_combine64 and crc32_combine_gen64 because x2nmodp can do right shifts within a loop that has no termination condition.",
+    "cvss": [
+     {
+      "source": "cve@mitre.org",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "metrics": {
+       "baseScore": 2.9,
+       "exploitabilityScore": 1.4,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 5.5,
+       "exploitabilityScore": 1.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     }
+    ],
+    "fix": {
+     "versions": [
+      "1.3.2"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [],
+   "matchDetails": [
+    {
+     "type": "cpe-match",
+     "matcher": "apk-matcher",
+     "searchedBy": {
+      "namespace": "nvd:cpe",
+      "cpes": [
+       "cpe:2.3:a:zlib:zlib:1.2.12-r3:*:*:*:*:*:*:*"
+      ],
+      "Package": {
+       "name": "zlib",
+       "version": "1.2.12-r3"
+      }
+     },
+     "found": {
+      "vulnerabilityID": "CVE-2026-27171",
+      "versionConstraint": "< 1.3.2 (unknown)",
+      "cpes": [
+       "cpe:2.3:a:zlib:zlib:*:*:*:*:*:*:*:*"
+      ]
+     }
+    }
+   ],
+   "artifact": {
+    "id": "562de40387135d9f",
+    "name": "zlib",
+    "version": "1.2.12-r3",
+    "type": "apk",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed",
+      "layerID": "sha256:5e99779c52a46a82430900c5f32b7f5ae50c0e80729c645995ee5f5bfedd383b"
+     }
+    ],
+    "language": "",
+    "licenses": [
+     "Zlib"
+    ],
+    "cpes": [
+     "cpe:2.3:a:zlib:zlib:1.2.12-r3:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/alpine/zlib@1.2.12-r3?arch=x86_64&distro=alpine-3.16.2",
+    "upstreams": [
+     {
+      "name": "zlib"
+     }
+    ],
+    "metadataType": "ApkMetadata",
+    "metadata": {
+     "files": [
+      {
+       "path": "/lib"
+      },
+      {
+       "path": "/lib/libz.so.1"
+      },
+      {
+       "path": "/lib/libz.so.1.2.12"
+      }
+     ]
+    }
+   }
   }
  ],
  "source": {
@@ -11545,12 +12273,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-01-31T00:31:57Z",
+   "built": "2026-03-01T00:32:26Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:eb7decddf7376f1c3786f9953edf7c5adeec81f47fb1c685edb7d48e75ef173f",
+   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
    "error": null
   },
-  "timestamp": "2026-02-01T03:38:32.854390623Z"
+  "timestamp": "2026-03-01T15:25:58.335572455Z"
  }
 }

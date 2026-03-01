@@ -6,8 +6,8 @@
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1302.1",
-          "version": "1.1302.1",
+          "semanticVersion": "1.1303.0",
+          "version": "1.1303.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 152
@@ -89,31 +89,6 @@
               }
             },
             {
-              "id": "SNYK-UBUNTU2004-CURL-12613446",
-              "shortDescription": {
-                "text": "Low severity - Out-of-bounds Read vulnerability in curl"
-              },
-              "fullDescription": {
-                "text": "(CVE-2025-9086) curl/libcurl4@7.68.0-1ubuntu2.7"
-              },
-              "help": {
-                "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `curl` package and not the `curl` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\n1. A cookie is set using the `secure` keyword for `https://target` \n 2. curl is redirected to or otherwise made to speak with `http://target` (same \n   hostname, but using clear text HTTP) using the same cookie set \n 3. The same cookie name is set - but with just a slash as path (`path=\\&#34;/\\&#34;,`).\n   Since this site is not secure, the cookie *should* just be ignored.\n4. A bug in the path comparison logic makes curl read outside a heap buffer\n   boundary\n\nThe bug either causes a crash or it potentially makes the comparison come to\nthe wrong conclusion and lets the clear-text site override the contents of the\nsecure cookie, contrary to expectations and depending on the memory contents\nimmediately following the single-byte allocation that holds the path.\n\nThe presumed and correct behavior would be to plainly ignore the second set of\nthe cookie since it was already set as secure on a secure host so overriding\nit on an insecure host should not be okay.\n## Remediation\nThere is no fixed version for `Ubuntu:20.04` `curl`.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-9086](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-9086)\n- [https://curl.se/docs/CVE-2025-9086.html](https://curl.se/docs/CVE-2025-9086.html)\n- [https://curl.se/docs/CVE-2025-9086.json](https://curl.se/docs/CVE-2025-9086.json)\n- [https://hackerone.com/reports/3294999](https://hackerone.com/reports/3294999)\n- [http://www.openwall.com/lists/oss-security/2025/09/10/1](http://www.openwall.com/lists/oss-security/2025/09/10/1)\n- [https://lists.debian.org/debian-lts-announce/2026/01/msg00002.html](https://lists.debian.org/debian-lts-announce/2026/01/msg00002.html)\n"
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "properties": {
-                "tags": [
-                  "security",
-                  "CWE-125",
-                  "deb"
-                ],
-                "cvssv3_baseScore": null,
-                "security-severity": "null"
-              }
-            },
-            {
               "id": "SNYK-UBUNTU2004-CURL-14894713",
               "shortDescription": {
                 "text": "Low severity - CVE-2025-15224 vulnerability in curl"
@@ -162,16 +137,16 @@
               }
             },
             {
-              "id": "SNYK-UBUNTU2004-CURL-14894742",
+              "id": "SNYK-UBUNTU2004-CURL-14905899",
               "shortDescription": {
-                "text": "Low severity - Open Redirect vulnerability in curl"
+                "text": "Medium severity - CVE-2025-14017 vulnerability in curl"
               },
               "fullDescription": {
-                "text": "(CVE-2025-14524) curl/libcurl4@7.68.0-1ubuntu2.7"
+                "text": "(CVE-2025-14017) curl/libcurl4@7.68.0-1ubuntu2.7"
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `curl` package and not the `curl` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nWhen an OAuth2 bearer token is used for an HTTP(S) transfer, and that transfer\nperforms a cross-protocol redirect to a second URL that uses an IMAP, LDAP,\nPOP3 or SMTP scheme, curl might wrongly pass on the bearer token to the new\ntarget host.\n## Remediation\nThere is no fixed version for `Ubuntu:20.04` `curl`.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-14524](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-14524)\n- [https://curl.se/docs/CVE-2025-14524.html](https://curl.se/docs/CVE-2025-14524.html)\n- [https://curl.se/docs/CVE-2025-14524.json](https://curl.se/docs/CVE-2025-14524.json)\n- [https://hackerone.com/reports/3459417](https://hackerone.com/reports/3459417)\n- [http://www.openwall.com/lists/oss-security/2026/01/07/4](http://www.openwall.com/lists/oss-security/2026/01/07/4)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `curl` package and not the `curl` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nWhen doing multi-threaded LDAPS transfers (LDAP over TLS) with libcurl,\nchanging TLS options in one thread would inadvertently change them globally\nand therefore possibly also affect other concurrently setup transfers.\n\nDisabling certificate verification for a specific transfer could\nunintentionally disable the feature for other threads as well.\n## Remediation\nThere is no fixed version for `Ubuntu:20.04` `curl`.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-14017](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-14017)\n- [https://curl.se/docs/CVE-2025-14017.html](https://curl.se/docs/CVE-2025-14017.html)\n- [https://curl.se/docs/CVE-2025-14017.json](https://curl.se/docs/CVE-2025-14017.json)\n- [http://www.openwall.com/lists/oss-security/2026/01/07/3](http://www.openwall.com/lists/oss-security/2026/01/07/3)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -179,7 +154,6 @@
               "properties": {
                 "tags": [
                   "security",
-                  "CWE-601",
                   "deb"
                 ],
                 "cvssv3_baseScore": null,
@@ -1112,7 +1086,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nThe regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if some previous allocation fails. It can be \naccomplished either by a malloc failure or by using an interposed malloc\n that injects random malloc failures. The double free can allow buffer \nmanipulation depending of how the regex is constructed. This issue \naffects all architectures and ABIs supported by the GNU C library.\n## Remediation\nThere is no fixed version for `Ubuntu:20.04` `glibc`.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8058](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8058)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33185](https://sourceware.org/bugzilla/show_bug.cgi?id=33185)\n- [https://sourceware.org/git/?p=glibc.git;a=commit;h=3ff17af18c38727b88d9115e536c069e6b5d601f](https://sourceware.org/git/?p=glibc.git;a=commit;h=3ff17af18c38727b88d9115e536c069e6b5d601f)\n- [http://www.openwall.com/lists/oss-security/2025/07/23/1](http://www.openwall.com/lists/oss-security/2025/07/23/1)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nThe regcomp function in the GNU C library version from 2.4 to 2.41 is \nsubject to a double free if some previous allocation fails. It can be \naccomplished either by a malloc failure or by using an interposed malloc\n that injects random malloc failures. The double free can allow buffer \nmanipulation depending of how the regex is constructed. This issue \naffects all architectures and ABIs supported by the GNU C library.\n## Remediation\nUpgrade `Ubuntu:20.04` `glibc` to version 2.31-0ubuntu9.18+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8058](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8058)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33185](https://sourceware.org/bugzilla/show_bug.cgi?id=33185)\n- [https://sourceware.org/git/?p=glibc.git;a=commit;h=3ff17af18c38727b88d9115e536c069e6b5d601f](https://sourceware.org/git/?p=glibc.git;a=commit;h=3ff17af18c38727b88d9115e536c069e6b5d601f)\n- [http://www.openwall.com/lists/oss-security/2025/07/23/1](http://www.openwall.com/lists/oss-security/2025/07/23/1)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1236,7 +1210,55 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nPassing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1&lt;&lt;62+ 1, 1&lt;&lt;63] and exactly 1&lt;&lt;63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments.\n## Remediation\nThere is no fixed version for `Ubuntu:20.04` `glibc`.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0861](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0861)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33796](https://sourceware.org/bugzilla/show_bug.cgi?id=33796)\n- [https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001](https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001)\n- [http://www.openwall.com/lists/oss-security/2026/01/16/5](http://www.openwall.com/lists/oss-security/2026/01/16/5)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nPassing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1&lt;&lt;62+ 1, 1&lt;&lt;63] and exactly 1&lt;&lt;63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments.\n## Remediation\nUpgrade `Ubuntu:20.04` `glibc` to version 2.31-0ubuntu9.18+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0861](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0861)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33796](https://sourceware.org/bugzilla/show_bug.cgi?id=33796)\n- [https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001](https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001)\n- [http://www.openwall.com/lists/oss-security/2026/01/16/5](http://www.openwall.com/lists/oss-security/2026/01/16/5)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-GLIBC-15028419",
+              "shortDescription": {
+                "text": "Medium severity - CVE-2026-0915 vulnerability in glibc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0915) glibc/libc-bin@2.31-0ubuntu9.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nCalling getnetbyaddr or getnetbyaddr_r with a configured nsswitch.conf that specifies the library&#39;s DNS backend for networks and queries for a zero-valued network in the GNU C Library version 2.0 to version 2.42 can leak stack contents to the configured DNS resolver.\n## Remediation\nUpgrade `Ubuntu:20.04` `glibc` to version 2.31-0ubuntu9.18+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0915](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0915)\n- [http://www.openwall.com/lists/oss-security/2026/01/16/6](http://www.openwall.com/lists/oss-security/2026/01/16/6)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33802](https://sourceware.org/bugzilla/show_bug.cgi?id=33802)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-GLIBC-15051739",
+              "shortDescription": {
+                "text": "Medium severity - CVE-2025-15281 vulnerability in glibc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-15281) glibc/libc-bin@2.31-0ubuntu9.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `glibc` package and not the `glibc` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nCalling wordexp with WRDE_REUSE in conjunction with WRDE_APPEND in the GNU C Library version 2.0 to version 2.42 may cause the interface to return uninitialized memory in the we_wordv member, which on subsequent calls to wordfree may abort the process.\n## Remediation\nUpgrade `Ubuntu:20.04` `glibc` to version 2.31-0ubuntu9.18+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-15281](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-15281)\n- [https://sourceware.org/bugzilla/show_bug.cgi?id=33814](https://sourceware.org/bugzilla/show_bug.cgi?id=33814)\n- [http://www.openwall.com/lists/oss-security/2026/01/20/3](http://www.openwall.com/lists/oss-security/2026/01/20/3)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1878,7 +1900,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `gnutls28` package and not the `gnutls28` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found that the response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from response times of ciphertexts with correct PKCS#1 v1.5 padding.\n## Remediation\nUpgrade `Ubuntu:20.04` `gnutls28` to version 3.6.13-2ubuntu1.9 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2023-5981](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2023-5981)\n- [http://www.openwall.com/lists/oss-security/2024/01/19/3](http://www.openwall.com/lists/oss-security/2024/01/19/3)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/)\n- [https://access.redhat.com/errata/RHSA-2024:0155](https://access.redhat.com/errata/RHSA-2024:0155)\n- [https://access.redhat.com/errata/RHSA-2024:0319](https://access.redhat.com/errata/RHSA-2024:0319)\n- [https://access.redhat.com/errata/RHSA-2024:0399](https://access.redhat.com/errata/RHSA-2024:0399)\n- [https://access.redhat.com/errata/RHSA-2024:0451](https://access.redhat.com/errata/RHSA-2024:0451)\n- [https://access.redhat.com/errata/RHSA-2024:0533](https://access.redhat.com/errata/RHSA-2024:0533)\n- [https://access.redhat.com/errata/RHSA-2024:1383](https://access.redhat.com/errata/RHSA-2024:1383)\n- [https://access.redhat.com/errata/RHSA-2024:2094](https://access.redhat.com/errata/RHSA-2024:2094)\n- [https://access.redhat.com/security/cve/CVE-2023-5981](https://access.redhat.com/security/cve/CVE-2023-5981)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2248445](https://bugzilla.redhat.com/show_bug.cgi?id=2248445)\n- [https://gnutls.org/security-new.html#GNUTLS-SA-2023-10-23](https://gnutls.org/security-new.html#GNUTLS-SA-2023-10-23)\n- [https://lists.debian.org/debian-lts-announce/2023/11/msg00016.html](https://lists.debian.org/debian-lts-announce/2023/11/msg00016.html)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `gnutls28` package and not the `gnutls28` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found that the response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from response times of ciphertexts with correct PKCS#1 v1.5 padding.\n## Remediation\nUpgrade `Ubuntu:20.04` `gnutls28` to version 3.6.13-2ubuntu1.9 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2023-5981](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2023-5981)\n- [http://www.openwall.com/lists/oss-security/2024/01/19/3](http://www.openwall.com/lists/oss-security/2024/01/19/3)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/)\n- [https://lists.debian.org/debian-lts-announce/2023/11/msg00016.html](https://lists.debian.org/debian-lts-announce/2023/11/msg00016.html)\n- [https://access.redhat.com/errata/RHSA-2024:0155](https://access.redhat.com/errata/RHSA-2024:0155)\n- [https://access.redhat.com/errata/RHSA-2024:0319](https://access.redhat.com/errata/RHSA-2024:0319)\n- [https://access.redhat.com/errata/RHSA-2024:0399](https://access.redhat.com/errata/RHSA-2024:0399)\n- [https://access.redhat.com/errata/RHSA-2024:0451](https://access.redhat.com/errata/RHSA-2024:0451)\n- [https://access.redhat.com/errata/RHSA-2024:0533](https://access.redhat.com/errata/RHSA-2024:0533)\n- [https://access.redhat.com/errata/RHSA-2024:1383](https://access.redhat.com/errata/RHSA-2024:1383)\n- [https://access.redhat.com/errata/RHSA-2024:2094](https://access.redhat.com/errata/RHSA-2024:2094)\n- [https://access.redhat.com/security/cve/CVE-2023-5981](https://access.redhat.com/security/cve/CVE-2023-5981)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2248445](https://bugzilla.redhat.com/show_bug.cgi?id=2248445)\n- [https://gnutls.org/security-new.html#GNUTLS-SA-2023-10-23](https://gnutls.org/security-new.html#GNUTLS-SA-2023-10-23)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1886,7 +1908,7 @@
               "properties": {
                 "tags": [
                   "security",
-                  "CWE-203",
+                  "CWE-208",
                   "deb"
                 ],
                 "cvssv3_baseScore": 5.9,
@@ -1896,14 +1918,14 @@
             {
               "id": "SNYK-UBUNTU2004-GNUTLS28-6172192",
               "shortDescription": {
-                "text": "Medium severity - Information Exposure vulnerability in gnutls28"
+                "text": "Medium severity - Covert Timing Channel vulnerability in gnutls28"
               },
               "fullDescription": {
                 "text": "(CVE-2024-0553) gnutls28/libgnutls30@3.6.13-2ubuntu1.6"
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `gnutls28` package and not the `gnutls28` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found in GnuTLS. The response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from the response times of ciphertexts with correct PKCS#1 v1.5 padding. This issue may allow a remote attacker to perform a timing side-channel attack in the RSA-PSK key exchange, potentially leading to the leakage of sensitive data. CVE-2024-0553 is designated as an incomplete resolution for CVE-2023-5981.\n## Remediation\nUpgrade `Ubuntu:20.04` `gnutls28` to version 3.6.13-2ubuntu1.10 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2024-0553](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2024-0553)\n- [http://www.openwall.com/lists/oss-security/2024/01/19/3](http://www.openwall.com/lists/oss-security/2024/01/19/3)\n- [https://access.redhat.com/errata/RHSA-2024:0533](https://access.redhat.com/errata/RHSA-2024:0533)\n- [https://access.redhat.com/errata/RHSA-2024:0627](https://access.redhat.com/errata/RHSA-2024:0627)\n- [https://access.redhat.com/errata/RHSA-2024:0796](https://access.redhat.com/errata/RHSA-2024:0796)\n- [https://access.redhat.com/errata/RHSA-2024:1082](https://access.redhat.com/errata/RHSA-2024:1082)\n- [https://access.redhat.com/errata/RHSA-2024:1108](https://access.redhat.com/errata/RHSA-2024:1108)\n- [https://access.redhat.com/errata/RHSA-2024:1383](https://access.redhat.com/errata/RHSA-2024:1383)\n- [https://access.redhat.com/errata/RHSA-2024:2094](https://access.redhat.com/errata/RHSA-2024:2094)\n- [https://access.redhat.com/security/cve/CVE-2024-0553](https://access.redhat.com/security/cve/CVE-2024-0553)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2258412](https://bugzilla.redhat.com/show_bug.cgi?id=2258412)\n- [https://gitlab.com/gnutls/gnutls/-/issues/1522](https://gitlab.com/gnutls/gnutls/-/issues/1522)\n- [https://lists.debian.org/debian-lts-announce/2024/02/msg00010.html](https://lists.debian.org/debian-lts-announce/2024/02/msg00010.html)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/)\n- [https://lists.gnupg.org/pipermail/gnutls-help/2024-January/004841.html](https://lists.gnupg.org/pipermail/gnutls-help/2024-January/004841.html)\n- [https://security.netapp.com/advisory/ntap-20240202-0011/](https://security.netapp.com/advisory/ntap-20240202-0011/)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `gnutls28` package and not the `gnutls28` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found in GnuTLS. The response times to malformed ciphertexts in RSA-PSK ClientKeyExchange differ from the response times of ciphertexts with correct PKCS#1 v1.5 padding. This issue may allow a remote attacker to perform a timing side-channel attack in the RSA-PSK key exchange, potentially leading to the leakage of sensitive data. CVE-2024-0553 is designated as an incomplete resolution for CVE-2023-5981.\n## Remediation\nUpgrade `Ubuntu:20.04` `gnutls28` to version 3.6.13-2ubuntu1.10 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2024-0553](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2024-0553)\n- [http://www.openwall.com/lists/oss-security/2024/01/19/3](http://www.openwall.com/lists/oss-security/2024/01/19/3)\n- [https://lists.debian.org/debian-lts-announce/2024/02/msg00010.html](https://lists.debian.org/debian-lts-announce/2024/02/msg00010.html)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7ZEIOLORQ7N6WRPFXZSYDL2MC4LP7VFV/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/GNXKVR5YNUEBNHAHM5GSYKBZX4W2HMN2/)\n- [https://security.netapp.com/advisory/ntap-20240202-0011/](https://security.netapp.com/advisory/ntap-20240202-0011/)\n- [https://access.redhat.com/errata/RHSA-2024:0533](https://access.redhat.com/errata/RHSA-2024:0533)\n- [https://access.redhat.com/errata/RHSA-2024:0627](https://access.redhat.com/errata/RHSA-2024:0627)\n- [https://access.redhat.com/errata/RHSA-2024:0796](https://access.redhat.com/errata/RHSA-2024:0796)\n- [https://access.redhat.com/errata/RHSA-2024:1082](https://access.redhat.com/errata/RHSA-2024:1082)\n- [https://access.redhat.com/errata/RHSA-2024:1108](https://access.redhat.com/errata/RHSA-2024:1108)\n- [https://access.redhat.com/errata/RHSA-2024:1383](https://access.redhat.com/errata/RHSA-2024:1383)\n- [https://access.redhat.com/errata/RHSA-2024:2094](https://access.redhat.com/errata/RHSA-2024:2094)\n- [https://access.redhat.com/security/cve/CVE-2024-0553](https://access.redhat.com/security/cve/CVE-2024-0553)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2258412](https://bugzilla.redhat.com/show_bug.cgi?id=2258412)\n- [https://gitlab.com/gnutls/gnutls/-/issues/1522](https://gitlab.com/gnutls/gnutls/-/issues/1522)\n- [https://lists.gnupg.org/pipermail/gnutls-help/2024-January/004841.html](https://lists.gnupg.org/pipermail/gnutls-help/2024-January/004841.html)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -1911,7 +1933,7 @@
               "properties": {
                 "tags": [
                   "security",
-                  "CWE-203",
+                  "CWE-385",
                   "deb"
                 ],
                 "cvssv3_baseScore": 7.5,
@@ -2542,7 +2564,7 @@
             {
               "id": "SNYK-UBUNTU2004-LIBGCRYPT20-6411449",
               "shortDescription": {
-                "text": "Low severity - Information Exposure vulnerability in libgcrypt20"
+                "text": "Low severity - Covert Timing Channel vulnerability in libgcrypt20"
               },
               "fullDescription": {
                 "text": "(CVE-2024-2236) libgcrypt20@1.8.5-5ubuntu1.1"
@@ -2557,7 +2579,7 @@
               "properties": {
                 "tags": [
                   "security",
-                  "CWE-208",
+                  "CWE-385",
                   "deb"
                 ],
                 "cvssv3_baseScore": null,
@@ -2674,7 +2696,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `libssh` package and not the `libssh` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA flaw was found in the libssh library in versions less than 0.11.2. An out-of-bounds read can be triggered in the sftp_handle function due to an incorrect comparison check that permits the function to access memory beyond the valid handle list and to return an invalid pointer, which is used in further processing. This vulnerability allows an authenticated remote attacker to potentially read unintended memory regions, exposing sensitive information or affect service behavior.\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-5318](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-5318)\n- [https://access.redhat.com/security/cve/CVE-2025-5318](https://access.redhat.com/security/cve/CVE-2025-5318)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2369131](https://bugzilla.redhat.com/show_bug.cgi?id=2369131)\n- [https://www.libssh.org/security/advisories/CVE-2025-5318.txt](https://www.libssh.org/security/advisories/CVE-2025-5318.txt)\n- [https://access.redhat.com/errata/RHSA-2025:18231](https://access.redhat.com/errata/RHSA-2025:18231)\n- [https://access.redhat.com/errata/RHSA-2025:18275](https://access.redhat.com/errata/RHSA-2025:18275)\n- [https://access.redhat.com/errata/RHSA-2025:18286](https://access.redhat.com/errata/RHSA-2025:18286)\n- [https://access.redhat.com/errata/RHSA-2025:19012](https://access.redhat.com/errata/RHSA-2025:19012)\n- [https://access.redhat.com/errata/RHSA-2025:19098](https://access.redhat.com/errata/RHSA-2025:19098)\n- [https://access.redhat.com/errata/RHSA-2025:19101](https://access.redhat.com/errata/RHSA-2025:19101)\n- [https://access.redhat.com/errata/RHSA-2025:19400](https://access.redhat.com/errata/RHSA-2025:19400)\n- [https://access.redhat.com/errata/RHSA-2025:19401](https://access.redhat.com/errata/RHSA-2025:19401)\n- [https://access.redhat.com/errata/RHSA-2025:19470](https://access.redhat.com/errata/RHSA-2025:19470)\n- [https://access.redhat.com/errata/RHSA-2025:19472](https://access.redhat.com/errata/RHSA-2025:19472)\n- [https://access.redhat.com/errata/RHSA-2025:19295](https://access.redhat.com/errata/RHSA-2025:19295)\n- [https://access.redhat.com/errata/RHSA-2025:19313](https://access.redhat.com/errata/RHSA-2025:19313)\n- [https://access.redhat.com/errata/RHSA-2025:19300](https://access.redhat.com/errata/RHSA-2025:19300)\n- [https://access.redhat.com/errata/RHSA-2025:19807](https://access.redhat.com/errata/RHSA-2025:19807)\n- [https://access.redhat.com/errata/RHSA-2025:20943](https://access.redhat.com/errata/RHSA-2025:20943)\n- [https://access.redhat.com/errata/RHSA-2025:21013](https://access.redhat.com/errata/RHSA-2025:21013)\n- [https://access.redhat.com/errata/RHSA-2025:19864](https://access.redhat.com/errata/RHSA-2025:19864)\n- [https://access.redhat.com/errata/RHSA-2025:21329](https://access.redhat.com/errata/RHSA-2025:21329)\n- [https://access.redhat.com/errata/RHSA-2025:21829](https://access.redhat.com/errata/RHSA-2025:21829)\n- [https://access.redhat.com/errata/RHSA-2025:22275](https://access.redhat.com/errata/RHSA-2025:22275)\n- [https://access.redhat.com/errata/RHSA-2025:23078](https://access.redhat.com/errata/RHSA-2025:23078)\n- [https://access.redhat.com/errata/RHSA-2025:23079](https://access.redhat.com/errata/RHSA-2025:23079)\n- [https://access.redhat.com/errata/RHSA-2025:23080](https://access.redhat.com/errata/RHSA-2025:23080)\n- [https://access.redhat.com/errata/RHSA-2026:0326](https://access.redhat.com/errata/RHSA-2026:0326)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `libssh` package and not the `libssh` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA flaw was found in the libssh library in versions less than 0.11.2. An out-of-bounds read can be triggered in the sftp_handle function due to an incorrect comparison check that permits the function to access memory beyond the valid handle list and to return an invalid pointer, which is used in further processing. This vulnerability allows an authenticated remote attacker to potentially read unintended memory regions, exposing sensitive information or affect service behavior.\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-5318](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-5318)\n- [https://access.redhat.com/security/cve/CVE-2025-5318](https://access.redhat.com/security/cve/CVE-2025-5318)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2369131](https://bugzilla.redhat.com/show_bug.cgi?id=2369131)\n- [https://www.libssh.org/security/advisories/CVE-2025-5318.txt](https://www.libssh.org/security/advisories/CVE-2025-5318.txt)\n- [https://access.redhat.com/errata/RHSA-2025:18231](https://access.redhat.com/errata/RHSA-2025:18231)\n- [https://access.redhat.com/errata/RHSA-2025:18275](https://access.redhat.com/errata/RHSA-2025:18275)\n- [https://access.redhat.com/errata/RHSA-2025:18286](https://access.redhat.com/errata/RHSA-2025:18286)\n- [https://access.redhat.com/errata/RHSA-2025:19012](https://access.redhat.com/errata/RHSA-2025:19012)\n- [https://access.redhat.com/errata/RHSA-2025:19098](https://access.redhat.com/errata/RHSA-2025:19098)\n- [https://access.redhat.com/errata/RHSA-2025:19101](https://access.redhat.com/errata/RHSA-2025:19101)\n- [https://access.redhat.com/errata/RHSA-2025:19400](https://access.redhat.com/errata/RHSA-2025:19400)\n- [https://access.redhat.com/errata/RHSA-2025:19401](https://access.redhat.com/errata/RHSA-2025:19401)\n- [https://access.redhat.com/errata/RHSA-2025:19470](https://access.redhat.com/errata/RHSA-2025:19470)\n- [https://access.redhat.com/errata/RHSA-2025:19472](https://access.redhat.com/errata/RHSA-2025:19472)\n- [https://access.redhat.com/errata/RHSA-2025:19295](https://access.redhat.com/errata/RHSA-2025:19295)\n- [https://access.redhat.com/errata/RHSA-2025:19313](https://access.redhat.com/errata/RHSA-2025:19313)\n- [https://access.redhat.com/errata/RHSA-2025:19300](https://access.redhat.com/errata/RHSA-2025:19300)\n- [https://access.redhat.com/errata/RHSA-2025:19807](https://access.redhat.com/errata/RHSA-2025:19807)\n- [https://access.redhat.com/errata/RHSA-2025:20943](https://access.redhat.com/errata/RHSA-2025:20943)\n- [https://access.redhat.com/errata/RHSA-2025:21013](https://access.redhat.com/errata/RHSA-2025:21013)\n- [https://access.redhat.com/errata/RHSA-2025:19864](https://access.redhat.com/errata/RHSA-2025:19864)\n- [https://access.redhat.com/errata/RHSA-2025:21329](https://access.redhat.com/errata/RHSA-2025:21329)\n- [https://access.redhat.com/errata/RHSA-2025:21829](https://access.redhat.com/errata/RHSA-2025:21829)\n- [https://access.redhat.com/errata/RHSA-2025:22275](https://access.redhat.com/errata/RHSA-2025:22275)\n- [https://access.redhat.com/errata/RHSA-2025:23078](https://access.redhat.com/errata/RHSA-2025:23078)\n- [https://access.redhat.com/errata/RHSA-2025:23079](https://access.redhat.com/errata/RHSA-2025:23079)\n- [https://access.redhat.com/errata/RHSA-2025:23080](https://access.redhat.com/errata/RHSA-2025:23080)\n- [https://access.redhat.com/errata/RHSA-2026:0326](https://access.redhat.com/errata/RHSA-2026:0326)\n- [https://access.redhat.com/errata/RHSA-2026:1541](https://access.redhat.com/errata/RHSA-2026:1541)\n- [https://access.redhat.com/errata/RHSA-2026:3461](https://access.redhat.com/errata/RHSA-2026:3461)\n- [https://access.redhat.com/errata/RHSA-2026:3462](https://access.redhat.com/errata/RHSA-2026:3462)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -2762,6 +2784,151 @@
                 ],
                 "cvssv3_baseScore": 4.7,
                 "security-severity": "4.7"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-12613459",
+              "shortDescription": {
+                "text": "Low severity - Memory Leak vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-8277) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `libssh` package and not the `libssh` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA flaw was found in libssh&#39;s handling of key exchange (KEX) processes when a client repeatedly sends incorrect KEX guesses. The library fails to free memory during these rekey operations, which can gradually exhaust system memory. This issue can lead to crashes on the client side, particularly when using libgcrypt, which impacts application stability and availability.\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8277](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-8277)\n- [https://access.redhat.com/security/cve/CVE-2025-8277](https://access.redhat.com/security/cve/CVE-2025-8277)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2383888](https://bugzilla.redhat.com/show_bug.cgi?id=2383888)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-401",
+                  "deb"
+                ],
+                "cvssv3_baseScore": 3.1,
+                "security-severity": "3.1"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-15356771",
+              "shortDescription": {
+                "text": "Low severity - CVE-2026-0965 vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0965) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n_This vulnerability has not been analyzed by NVD yet._\n\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0965](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0965)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-15356776",
+              "shortDescription": {
+                "text": "Low severity - CVE-2026-0966 vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0966) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n_This vulnerability has not been analyzed by NVD yet._\n\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0966](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0966)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-15356836",
+              "shortDescription": {
+                "text": "Medium severity - CVE-2026-0964 vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0964) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n_This vulnerability has not been analyzed by NVD yet._\n\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0964](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0964)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-15356996",
+              "shortDescription": {
+                "text": "Medium severity - CVE-2026-0967 vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0967) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n_This vulnerability has not been analyzed by NVD yet._\n\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0967](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0967)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBSSH-15357016",
+              "shortDescription": {
+                "text": "Medium severity - CVE-2026-0968 vulnerability in libssh"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-0968) libssh/libssh-4@0.9.3-2ubuntu2.2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n_This vulnerability has not been analyzed by NVD yet._\n\n## Remediation\nUpgrade `Ubuntu:20.04` `libssh` to version 0.9.3-2ubuntu2.5+esm3 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0968](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2026-0968)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
               }
             },
             {
@@ -2887,6 +3054,56 @@
                 ],
                 "cvssv3_baseScore": 4.8,
                 "security-severity": "4.8"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBTASN16-14905929",
+              "shortDescription": {
+                "text": "Medium severity - Out-of-bounds Write vulnerability in libtasn1-6"
+              },
+              "fullDescription": {
+                "text": "(CVE-2025-13151) libtasn1-6@4.16.0-2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `libtasn1-6` package and not the `libtasn1-6` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nStack-based buffer overflow in libtasn1 version: v4.20.0. The function fails to validate the size of input data resulting in a buffer overflow in asn1_expend_octet_string.\n## Remediation\nUpgrade `Ubuntu:20.04` `libtasn1-6` to version 4.16.0-2ubuntu0.1+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-13151](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-13151)\n- [https://gitlab.com/gnutls/libtasn1](https://gitlab.com/gnutls/libtasn1)\n- [https://gitlab.com/gnutls/libtasn1/-/merge_requests/121](https://gitlab.com/gnutls/libtasn1/-/merge_requests/121)\n- [http://www.openwall.com/lists/oss-security/2026/01/08/5](http://www.openwall.com/lists/oss-security/2026/01/08/5)\n- [https://www.kb.cert.org/vuls/id/271649](https://www.kb.cert.org/vuls/id/271649)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-787",
+                  "deb"
+                ],
+                "cvssv3_baseScore": null,
+                "security-severity": "null"
+              }
+            },
+            {
+              "id": "SNYK-UBUNTU2004-LIBTASN16-3062917",
+              "shortDescription": {
+                "text": "Low severity - Off-by-one Error vulnerability in libtasn1-6"
+              },
+              "fullDescription": {
+                "text": "(CVE-2021-46848) libtasn1-6@4.16.0-2"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `libtasn1-6` package and not the `libtasn1-6` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nGNU Libtasn1 before 4.19.0 has an ETYPE_OK off-by-one array size check that affects asn1_encode_simple_der.\n## Remediation\nUpgrade `Ubuntu:20.04` `libtasn1-6` to version 4.16.0-2ubuntu0.1+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2021-46848](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2021-46848)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AV4SHDJF2XLB4CUPTBPQQ6CLGZ5LKXPZ/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AV4SHDJF2XLB4CUPTBPQQ6CLGZ5LKXPZ/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ECM2ELTVRYV4BZ5L5GMIRQE27RFHPAQ6/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ECM2ELTVRYV4BZ5L5GMIRQE27RFHPAQ6/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/OGO7XST4EIJGX4B2ITZCYSWM24534BSU/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/OGO7XST4EIJGX4B2ITZCYSWM24534BSU/)\n- [https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/V5LWOGF7QRMNFRUCZY6TDYQJVFI6MOQ2/](https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/V5LWOGF7QRMNFRUCZY6TDYQJVFI6MOQ2/)\n- [https://bugs.gentoo.org/866237](https://bugs.gentoo.org/866237)\n- [https://gitlab.com/gnutls/libtasn1/-/commit/44a700d2051a666235748970c2df047ff207aeb5](https://gitlab.com/gnutls/libtasn1/-/commit/44a700d2051a666235748970c2df047ff207aeb5)\n- [https://gitlab.com/gnutls/libtasn1/-/issues/32](https://gitlab.com/gnutls/libtasn1/-/issues/32)\n- [https://lists.debian.org/debian-lts-announce/2023/01/msg00003.html](https://lists.debian.org/debian-lts-announce/2023/01/msg00003.html)\n- [https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AV4SHDJF2XLB4CUPTBPQQ6CLGZ5LKXPZ/](https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AV4SHDJF2XLB4CUPTBPQQ6CLGZ5LKXPZ/)\n- [https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ECM2ELTVRYV4BZ5L5GMIRQE27RFHPAQ6/](https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ECM2ELTVRYV4BZ5L5GMIRQE27RFHPAQ6/)\n- [https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/OGO7XST4EIJGX4B2ITZCYSWM24534BSU/](https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/OGO7XST4EIJGX4B2ITZCYSWM24534BSU/)\n- [https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/V5LWOGF7QRMNFRUCZY6TDYQJVFI6MOQ2/](https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/V5LWOGF7QRMNFRUCZY6TDYQJVFI6MOQ2/)\n- [https://security.netapp.com/advisory/ntap-20221118-0006/](https://security.netapp.com/advisory/ntap-20221118-0006/)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-193",
+                  "deb"
+                ],
+                "cvssv3_baseScore": 9.1,
+                "security-severity": "9.1"
               }
             },
             {
@@ -3256,8 +3473,8 @@
                   "security",
                   "deb"
                 ],
-                "cvssv3_baseScore": null,
-                "security-severity": "null"
+                "cvssv3_baseScore": 7.5,
+                "security-severity": "7.5"
               }
             },
             {
@@ -4702,7 +4919,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `systemd` package and not the `systemd` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found in systemd-coredump. This flaw allows an attacker to force a SUID process to crash and replace it with a non-SUID binary to access the original&#39;s privileged process coredump, allowing the attacker to read sensitive data, such as /etc/shadow content, loaded by the original process.\n\nA SUID binary or process has a special type of permission, which allows the process to run with the file owner&#39;s permissions, regardless of the user executing the binary. This allows the process to access more restricted data than unprivileged users or processes would be able to. An attacker can leverage this flaw by forcing a SUID process to crash and force the Linux kernel to recycle the process PID before systemd-coredump can analyze the /proc/pid/auxv file. If the attacker wins the race condition, they gain access to the original&#39;s SUID process coredump file. They can read sensitive content loaded into memory by the original binary, affecting data confidentiality.\n## Remediation\nUpgrade `Ubuntu:20.04` `systemd` to version 245.4-4ubuntu3.24+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-4598](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-4598)\n- [https://access.redhat.com/security/cve/CVE-2025-4598](https://access.redhat.com/security/cve/CVE-2025-4598)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2369242](https://bugzilla.redhat.com/show_bug.cgi?id=2369242)\n- [https://www.openwall.com/lists/oss-security/2025/05/29/3](https://www.openwall.com/lists/oss-security/2025/05/29/3)\n- [http://www.openwall.com/lists/oss-security/2025/06/05/1](http://www.openwall.com/lists/oss-security/2025/06/05/1)\n- [http://www.openwall.com/lists/oss-security/2025/06/05/3](http://www.openwall.com/lists/oss-security/2025/06/05/3)\n- [https://blogs.oracle.com/linux/post/analysis-of-cve-2025-4598](https://blogs.oracle.com/linux/post/analysis-of-cve-2025-4598)\n- [https://ciq.com/blog/the-real-danger-of-systemd-coredump-cve-2025-4598/](https://ciq.com/blog/the-real-danger-of-systemd-coredump-cve-2025-4598/)\n- [https://www.openwall.com/lists/oss-security/2025/08/18/3](https://www.openwall.com/lists/oss-security/2025/08/18/3)\n- [http://seclists.org/fulldisclosure/2025/Jun/9](http://seclists.org/fulldisclosure/2025/Jun/9)\n- [https://lists.debian.org/debian-lts-announce/2025/07/msg00022.html](https://lists.debian.org/debian-lts-announce/2025/07/msg00022.html)\n- [http://www.openwall.com/lists/oss-security/2025/08/18/3](http://www.openwall.com/lists/oss-security/2025/08/18/3)\n- [https://access.redhat.com/errata/RHSA-2025:22660](https://access.redhat.com/errata/RHSA-2025:22660)\n- [https://access.redhat.com/errata/RHSA-2025:22868](https://access.redhat.com/errata/RHSA-2025:22868)\n- [https://access.redhat.com/errata/RHSA-2025:23234](https://access.redhat.com/errata/RHSA-2025:23234)\n- [https://access.redhat.com/errata/RHSA-2025:23227](https://access.redhat.com/errata/RHSA-2025:23227)\n- [https://access.redhat.com/errata/RHSA-2026:0414](https://access.redhat.com/errata/RHSA-2026:0414)\n"
+                "markdown": "## NVD Description\n**_Note:_** _Versions mentioned in the description apply only to the upstream `systemd` package and not the `systemd` package as distributed by `Ubuntu`._\n_See `How to fix?` for `Ubuntu:20.04` relevant fixed versions and status._\n\nA vulnerability was found in systemd-coredump. This flaw allows an attacker to force a SUID process to crash and replace it with a non-SUID binary to access the original&#39;s privileged process coredump, allowing the attacker to read sensitive data, such as /etc/shadow content, loaded by the original process.\n\nA SUID binary or process has a special type of permission, which allows the process to run with the file owner&#39;s permissions, regardless of the user executing the binary. This allows the process to access more restricted data than unprivileged users or processes would be able to. An attacker can leverage this flaw by forcing a SUID process to crash and force the Linux kernel to recycle the process PID before systemd-coredump can analyze the /proc/pid/auxv file. If the attacker wins the race condition, they gain access to the original&#39;s SUID process coredump file. They can read sensitive content loaded into memory by the original binary, affecting data confidentiality.\n## Remediation\nUpgrade `Ubuntu:20.04` `systemd` to version 245.4-4ubuntu3.24+esm1 or higher.\n## References\n- [http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-4598](http://people.ubuntu.com/~ubuntu-security/cve/CVE-2025-4598)\n- [https://access.redhat.com/security/cve/CVE-2025-4598](https://access.redhat.com/security/cve/CVE-2025-4598)\n- [https://bugzilla.redhat.com/show_bug.cgi?id=2369242](https://bugzilla.redhat.com/show_bug.cgi?id=2369242)\n- [https://www.openwall.com/lists/oss-security/2025/05/29/3](https://www.openwall.com/lists/oss-security/2025/05/29/3)\n- [http://www.openwall.com/lists/oss-security/2025/06/05/1](http://www.openwall.com/lists/oss-security/2025/06/05/1)\n- [http://www.openwall.com/lists/oss-security/2025/06/05/3](http://www.openwall.com/lists/oss-security/2025/06/05/3)\n- [https://blogs.oracle.com/linux/post/analysis-of-cve-2025-4598](https://blogs.oracle.com/linux/post/analysis-of-cve-2025-4598)\n- [https://ciq.com/blog/the-real-danger-of-systemd-coredump-cve-2025-4598/](https://ciq.com/blog/the-real-danger-of-systemd-coredump-cve-2025-4598/)\n- [https://www.openwall.com/lists/oss-security/2025/08/18/3](https://www.openwall.com/lists/oss-security/2025/08/18/3)\n- [http://seclists.org/fulldisclosure/2025/Jun/9](http://seclists.org/fulldisclosure/2025/Jun/9)\n- [https://lists.debian.org/debian-lts-announce/2025/07/msg00022.html](https://lists.debian.org/debian-lts-announce/2025/07/msg00022.html)\n- [http://www.openwall.com/lists/oss-security/2025/08/18/3](http://www.openwall.com/lists/oss-security/2025/08/18/3)\n- [https://access.redhat.com/errata/RHSA-2025:22660](https://access.redhat.com/errata/RHSA-2025:22660)\n- [https://access.redhat.com/errata/RHSA-2025:22868](https://access.redhat.com/errata/RHSA-2025:22868)\n- [https://access.redhat.com/errata/RHSA-2025:23234](https://access.redhat.com/errata/RHSA-2025:23234)\n- [https://access.redhat.com/errata/RHSA-2025:23227](https://access.redhat.com/errata/RHSA-2025:23227)\n- [https://access.redhat.com/errata/RHSA-2026:0414](https://access.redhat.com/errata/RHSA-2026:0414)\n- [https://access.redhat.com/errata/RHSA-2026:1652](https://access.redhat.com/errata/RHSA-2026:1652)\n"
               },
               "defaultConfiguration": {
                 "level": "warning"
@@ -5188,30 +5405,6 @@
           ]
         },
         {
-          "ruleId": "SNYK-UBUNTU2004-CURL-12613446",
-          "level": "note",
-          "message": {
-            "text": "This file introduces a vulnerable curl package with a low severity vulnerability."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "curl@7.68.0-1ubuntu2.7"
-                }
-              ]
-            }
-          ]
-        },
-        {
           "ruleId": "SNYK-UBUNTU2004-CURL-14894713",
           "level": "note",
           "message": {
@@ -5260,10 +5453,10 @@
           ]
         },
         {
-          "ruleId": "SNYK-UBUNTU2004-CURL-14894742",
-          "level": "note",
+          "ruleId": "SNYK-UBUNTU2004-CURL-14905899",
+          "level": "warning",
           "message": {
-            "text": "This file introduces a vulnerable curl package with a low severity vulnerability."
+            "text": "This file introduces a vulnerable curl package with a medium severity vulnerability."
           },
           "locations": [
             {
@@ -6361,6 +6554,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -6550,6 +6767,126 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "glibc@2.31-0ubuntu9.2"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-GLIBC-15028419",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable glibc package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "glibc@2.31-0ubuntu9.2"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-GLIBC-15051739",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable glibc package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "glibc@2.31-0ubuntu9.2"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "glibc/libc-bin@2.31-0ubuntu9.18+esm1"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -8788,6 +9125,150 @@
           ]
         },
         {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-12613459",
+          "level": "note",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a low severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-15356771",
+          "level": "note",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a low severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-15356776",
+          "level": "note",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a low severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-15356836",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-15356996",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBSSH-15357016",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable libssh package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-UBUNTU2004-LIBSSH-5507115",
           "level": "warning",
           "message": {
@@ -8902,6 +9383,102 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "libssh@0.9.3-2ubuntu2.2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBTASN16-14905929",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable libtasn1-6 package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libtasn1-6@4.16.0-2"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to libtasn1-6@4.16.0-2ubuntu0.1+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "libtasn1-6@4.16.0-2ubuntu0.1+esm1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-UBUNTU2004-LIBTASN16-3062917",
+          "level": "note",
+          "message": {
+            "text": "This file introduces a vulnerable libtasn1-6 package with a low severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "libtasn1-6@4.16.0-2"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to libtasn1-6@4.16.0-2ubuntu0.1+esm1"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "gcr.io/istio-release/proxyv2_1.13.1/istio-release/proxyv2"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "libtasn1-6@4.16.0-2ubuntu0.1+esm1"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -11789,15 +12366,15 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/docker-image|gcr.io/istio-release/proxyv2/2026-02-01T03:29:20.581Z"
+        "id": "Snyk/Container/docker-image|gcr.io/istio-release/proxyv2/0/2026-03-01T15:15:34.382Z"
       }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1302.1",
-          "version": "1.1302.1",
+          "semanticVersion": "1.1303.0",
+          "version": "1.1303.0",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 492
@@ -12213,7 +12790,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `k8s.io/apimachinery/pkg/util/runtime` to version 0.29.0-alpha.3, 1.29.0-alpha.3 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/Appsynergy-io/CVE-2023-44487)\n- [Exploit DB](https://www.exploit-db.com/exploits/52426)\n"
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `k8s.io/apimachinery/pkg/util/runtime` to version 0.25.15, 0.26.10, 0.27.7, 0.28.3, 0.29.0-alpha.3, 1.25.15, 1.26.10, 1.27.7, 1.28.3, 1.29.0-alpha.3 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/Appsynergy-io/CVE-2023-44487)\n- [Exploit DB](https://www.exploit-db.com/exploits/52426)\n"
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -12642,7 +13219,7 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/istio.io/istio/2026-02-01T03:29:20.581Z"
+        "id": "Snyk/Container/istio.io/istio/1/2026-03-01T15:15:34.382Z"
       }
     }
   ]
