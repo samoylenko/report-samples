@@ -2042,8 +2042,8 @@
       "https://security.gentoo.org/glsa/202212-01",
       "https://security.netapp.com/advisory/ntap-20220609-0008/",
       "https://www.debian.org/security/2022/dsa-5197",
-      "https://curl.se/docs/CVE-2022-27774.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2022-27774.json"
      ],
      "description": "An insufficiently protected credentials vulnerability exists in curl 4.9 to and include curl 7.82.0 are affected that could allow an attacker to extract credentials when follows HTTP(S) redirects is used with authentication could leak credentials to other services that exist on different protocols or port numbers.",
      "cvss": [
@@ -3022,8 +3022,8 @@
       "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/36NBD5YLJXXEDZLDGNFCERWRYJQ6LAQW/",
       "https://security.gentoo.org/glsa/202310-12",
       "https://security.netapp.com/advisory/ntap-20230420-0012/",
-      "https://curl.se/docs/CVE-2023-27534.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2023-27534.json"
      ],
      "description": "A path traversal vulnerability exists in curl <8.0.0 SFTP implementation causes the tilde (~) character to be wrongly replaced when used as a prefix in the first path element, in addition to its intended use as the first element to indicate a path relative to the user's home directory. Attackers can exploit this flaw to bypass filtering or execute arbitrary code by crafting a path like /~2/foo while accessing a server with a specific user.",
      "cvss": [
@@ -3145,8 +3145,8 @@
       "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/36NBD5YLJXXEDZLDGNFCERWRYJQ6LAQW/",
       "https://security.gentoo.org/glsa/202310-12",
       "https://security.netapp.com/advisory/ntap-20230420-0011/",
-      "https://curl.se/docs/CVE-2023-27533.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2023-27533.json"
      ],
      "description": "A vulnerability in input validation exists in curl <8.0 during communication using the TELNET protocol may allow an attacker to pass on maliciously crafted user name and \"telnet options\" during server negotiation. The lack of proper input scrubbing allows an attacker to send content or perform option negotiation without the application's intent. This vulnerability could be exploited if an application allows user input, thereby enabling attackers to execute arbitrary code on the system.",
      "cvss": [
@@ -3639,8 +3639,8 @@
       "https://security.gentoo.org/glsa/202212-01",
       "https://security.netapp.com/advisory/ntap-20220609-0008/",
       "https://www.debian.org/security/2022/dsa-5197",
-      "https://curl.se/docs/CVE-2022-27775.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2022-27775.json"
      ],
      "description": "An information disclosure vulnerability exists in curl 7.65.0 to 7.82.0 are vulnerable that by using an IPv6 address that was in the connection pool but with a different zone id it could reuse a connection instead.",
      "cvss": [
@@ -4255,98 +4255,92 @@
   },
   {
    "vulnerability": {
-    "id": "CVE-2020-35537",
-    "dataSource": "https://ubuntu.com/security/CVE-2020-35537",
-    "namespace": "ubuntu:distro:ubuntu:20.04",
-    "severity": "Low",
+    "id": "GHSA-p436-gjf2-799p",
+    "dataSource": "https://github.com/advisories/GHSA-p436-gjf2-799p",
+    "namespace": "github:language:go",
+    "severity": "High",
     "urls": [
-     "https://ubuntu.com/security/CVE-2020-35537"
+     "https://github.com/advisories/GHSA-p436-gjf2-799p"
     ],
+    "description": "Docker CLI Plugins: Uncontrolled Search Path Element Leads to Local Privilege Escalation on Windows",
     "cvss": [],
     "fix": {
-     "versions": [],
-     "state": "not-fixed"
+     "versions": [
+      "29.2.0"
+     ],
+     "state": "fixed"
     },
     "advisories": []
    },
    "relatedVulnerabilities": [
     {
-     "id": "CVE-2020-35537",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-35537",
+     "id": "CVE-2025-15558",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-15558",
      "namespace": "nvd:cpe",
-     "severity": "Unknown",
-     "urls": [],
-     "description": "Rejected reason: DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none.",
-     "cvss": []
+     "severity": "High",
+     "urls": [
+      "https://docs.docker.com/desktop/release-notes/",
+      "https://github.com/docker/cli/pull/6713",
+      "https://www.zerodayinitiative.com/advisories/ZDI-CAN-28304/"
+     ],
+     "description": "Docker CLI for Windows searches for plugin binaries in C:\\ProgramData\\Docker\\cli-plugins, a directory that does not exist by default. A low-privileged attacker can create this directory and place malicious CLI plugin binaries (docker-compose.exe, docker-buildx.exe, etc.) that are executed when a victim user opens Docker Desktop or invokes Docker CLI plugin features, and allow privilege-escalation if the docker CLI is executed as a privileged user.\n\nThis issue affects Docker CLI: through 29.1.5 and Windows binaries acting as a CLI-plugin manager using the  github.com/docker/cli/cli-plugins/manager https://pkg.go.dev/github.com/docker/cli@v29.1.5+incompatible/cli-plugins/manager  package, such as Docker Compose.\n\nThis issue does not impact non-Windows binaries, and projects not using the plugin-manager code.",
+     "cvss": [
+      {
+       "source": "security@docker.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:N/R:U/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 7
+       },
+       "vendorMetadata": {}
+      }
+     ]
     }
    ],
    "matchDetails": [
     {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
      "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "20.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:20.04",
+      "language": "go",
+      "namespace": "github:language:go",
       "package": {
-       "name": "gcc-10",
-       "version": "10.3.0-1ubuntu1~20.04"
+       "name": "github.com/docker/cli",
+       "version": "v20.10.12+incompatible"
       }
      },
      "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2020-35537"
+      "versionConstraint": ">=19.03.0,<29.2.0 (unknown)",
+      "vulnerabilityID": "GHSA-p436-gjf2-799p"
      }
     }
    ],
    "artifact": {
-    "id": "2328ebc6efd80113",
-    "name": "gcc-10-base",
-    "version": "10.3.0-1ubuntu1~20.04",
-    "type": "deb",
+    "id": "a9aa65a45f80e45b",
+    "name": "github.com/docker/cli",
+    "version": "v20.10.12+incompatible",
+    "type": "go-module",
     "locations": [
      {
-      "path": "/usr/share/doc/gcc-10-base/copyright",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/info/gcc-10-base:amd64.md5sums",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
+      "path": "/usr/local/bin/pilot-agent",
+      "layerID": "sha256:ec63aac09fb1442d45e8a2260452d855153d8d433a2173c5dc4cf3814ff53901"
      }
     ],
-    "language": "",
-    "licenses": [
-     "Artistic",
-     "GFDL-1.2",
-     "GPL",
-     "GPL-2",
-     "GPL-3",
-     "LGPL"
-    ],
+    "language": "go",
+    "licenses": [],
     "cpes": [
-     "cpe:2.3:a:gcc-10-base:gcc-10-base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc-10-base:gcc_10_base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc_10_base:gcc-10-base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc_10_base:gcc_10_base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc-10:gcc-10-base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc-10:gcc_10_base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc_10:gcc-10-base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc_10:gcc_10_base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc:gcc-10-base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:gcc:gcc_10_base:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*"
+     "cpe:2.3:a:docker:cli:v20.10.12+incompatible:*:*:*:*:*:*:*"
     ],
-    "purl": "pkg:deb/ubuntu/gcc-10-base@10.3.0-1ubuntu1~20.04?arch=amd64&upstream=gcc-10&distro=ubuntu-20.04",
-    "upstreams": [
-     {
-      "name": "gcc-10"
-     }
-    ]
+    "purl": "pkg:golang/github.com/docker/cli@v20.10.12+incompatible",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.17.7",
+     "architecture": "x86_64",
+     "h1Digest": "h1:lZlz0uzG+GH+c0plStMUdF/qk3ppmgnswpR5EbqzVGA=",
+     "mainModule": "istio.io/istio"
+    }
    }
   },
   {
@@ -12850,8 +12844,8 @@
       "http://www.openwall.com/lists/oss-security/2025/04/24/7",
       "https://lists.debian.org/debian-lts-announce/2025/04/msg00039.html",
       "https://security.netapp.com/advisory/ntap-20250228-0006/",
-      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7d4b6bcae91f29d7b4daf15bab06b66cf1d2217c",
-      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7971add7ee4171fdd8dfd17e7c04c4ed77a18845"
+      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7971add7ee4171fdd8dfd17e7c04c4ed77a18845",
+      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7d4b6bcae91f29d7b4daf15bab06b66cf1d2217c"
      ],
      "description": "When the assert() function in the GNU C Library versions 2.13 to 2.40 fails, it does not allocate enough space for the assertion failure message string and size information, which may lead to a buffer overflow if the message string size aligns to page size.",
      "cvss": [
@@ -15670,8 +15664,8 @@
       "http://www.openwall.com/lists/oss-security/2025/04/24/7",
       "https://lists.debian.org/debian-lts-announce/2025/04/msg00039.html",
       "https://security.netapp.com/advisory/ntap-20250228-0006/",
-      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7d4b6bcae91f29d7b4daf15bab06b66cf1d2217c",
-      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7971add7ee4171fdd8dfd17e7c04c4ed77a18845"
+      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7971add7ee4171fdd8dfd17e7c04c4ed77a18845",
+      "https://sourceware.org/git/gitweb.cgi?p=glibc.git;h=7d4b6bcae91f29d7b4daf15bab06b66cf1d2217c"
      ],
      "description": "When the assert() function in the GNU C Library versions 2.13 to 2.40 fails, it does not allocate enough space for the assertion failure message string and size information, which may lead to a buffer overflow if the message string size aligns to page size.",
      "cvss": [
@@ -20500,8 +20494,8 @@
       "https://security.gentoo.org/glsa/202212-01",
       "https://security.netapp.com/advisory/ntap-20220609-0008/",
       "https://www.debian.org/security/2022/dsa-5197",
-      "https://curl.se/docs/CVE-2022-27774.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2022-27774.json"
      ],
      "description": "An insufficiently protected credentials vulnerability exists in curl 4.9 to and include curl 7.82.0 are affected that could allow an attacker to extract credentials when follows HTTP(S) redirects is used with authentication could leak credentials to other services that exist on different protocols or port numbers.",
      "cvss": [
@@ -21512,8 +21506,8 @@
       "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/36NBD5YLJXXEDZLDGNFCERWRYJQ6LAQW/",
       "https://security.gentoo.org/glsa/202310-12",
       "https://security.netapp.com/advisory/ntap-20230420-0012/",
-      "https://curl.se/docs/CVE-2023-27534.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2023-27534.json"
      ],
      "description": "A path traversal vulnerability exists in curl <8.0.0 SFTP implementation causes the tilde (~) character to be wrongly replaced when used as a prefix in the first path element, in addition to its intended use as the first element to indicate a path relative to the user's home directory. Attackers can exploit this flaw to bypass filtering or execute arbitrary code by crafting a path like /~2/foo while accessing a server with a specific user.",
      "cvss": [
@@ -21639,8 +21633,8 @@
       "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/36NBD5YLJXXEDZLDGNFCERWRYJQ6LAQW/",
       "https://security.gentoo.org/glsa/202310-12",
       "https://security.netapp.com/advisory/ntap-20230420-0011/",
-      "https://curl.se/docs/CVE-2023-27533.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2023-27533.json"
      ],
      "description": "A vulnerability in input validation exists in curl <8.0 during communication using the TELNET protocol may allow an attacker to pass on maliciously crafted user name and \"telnet options\" during server negotiation. The lack of proper input scrubbing allows an attacker to send content or perform option negotiation without the application's intent. This vulnerability could be exploited if an application allows user input, thereby enabling attackers to execute arbitrary code on the system.",
      "cvss": [
@@ -22149,8 +22143,8 @@
       "https://security.gentoo.org/glsa/202212-01",
       "https://security.netapp.com/advisory/ntap-20220609-0008/",
       "https://www.debian.org/security/2022/dsa-5197",
-      "https://curl.se/docs/CVE-2022-27775.json",
-      "https://advisory.splunk.com/advisories/SVD-2023-0809"
+      "https://advisory.splunk.com/advisories/SVD-2023-0809",
+      "https://curl.se/docs/CVE-2022-27775.json"
      ],
      "description": "An information disclosure vulnerability exists in curl 7.65.0 to 7.82.0 are vulnerable that by using an IPv6 address that was in the connection pool but with a different zone id it could reuse a connection instead.",
      "cvss": [
@@ -23076,98 +23070,6 @@
      "found": {
       "versionConstraint": "none (deb)",
       "vulnerabilityID": "CVE-2023-4039"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "1bda28f09a455d43",
-    "name": "libgcc-s1",
-    "version": "10.3.0-1ubuntu1~20.04",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/gcc-10-base/copyright",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libgcc-s1:amd64.md5sums",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "Artistic",
-     "GFDL-1.2",
-     "GPL",
-     "GPL-2",
-     "GPL-3",
-     "LGPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libgcc-s1:libgcc-s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libgcc-s1:libgcc_s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libgcc_s1:libgcc-s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libgcc_s1:libgcc_s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libgcc:libgcc-s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libgcc:libgcc_s1:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libgcc-s1@10.3.0-1ubuntu1~20.04?arch=amd64&upstream=gcc-10&distro=ubuntu-20.04",
-    "upstreams": [
-     {
-      "name": "gcc-10"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2020-35537",
-    "dataSource": "https://ubuntu.com/security/CVE-2020-35537",
-    "namespace": "ubuntu:distro:ubuntu:20.04",
-    "severity": "Low",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2020-35537"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2020-35537",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-35537",
-     "namespace": "nvd:cpe",
-     "severity": "Unknown",
-     "urls": [],
-     "description": "Rejected reason: DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none.",
-     "cvss": []
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "20.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:20.04",
-      "package": {
-       "name": "gcc-10",
-       "version": "10.3.0-1ubuntu1~20.04"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2020-35537"
      }
     }
    ],
@@ -38630,9 +38532,9 @@
       "https://access.redhat.com/errata/RHSA-2024:9941",
       "https://access.redhat.com/security/cve/CVE-2024-10041",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
-      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
-      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
       "https://github.com/linux-pam/linux-pam/commit/b3020da7da384d769f27a8713257fbe1001878be",
+      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
+      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
       "https://github.com/linux-pam/linux-pam/pull/b7b96362087414e52524d3d9d9b3faa21e1db620"
      ],
      "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
@@ -38997,9 +38899,9 @@
       "https://access.redhat.com/errata/RHSA-2024:9941",
       "https://access.redhat.com/security/cve/CVE-2024-10041",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
-      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
-      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
       "https://github.com/linux-pam/linux-pam/commit/b3020da7da384d769f27a8713257fbe1001878be",
+      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
+      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
       "https://github.com/linux-pam/linux-pam/pull/b7b96362087414e52524d3d9d9b3faa21e1db620"
      ],
      "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
@@ -39364,9 +39266,9 @@
       "https://access.redhat.com/errata/RHSA-2024:9941",
       "https://access.redhat.com/security/cve/CVE-2024-10041",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
-      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
-      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
       "https://github.com/linux-pam/linux-pam/commit/b3020da7da384d769f27a8713257fbe1001878be",
+      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
+      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
       "https://github.com/linux-pam/linux-pam/pull/b7b96362087414e52524d3d9d9b3faa21e1db620"
      ],
      "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
@@ -39722,9 +39624,9 @@
       "https://access.redhat.com/errata/RHSA-2024:9941",
       "https://access.redhat.com/security/cve/CVE-2024-10041",
       "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
-      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
-      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
       "https://github.com/linux-pam/linux-pam/commit/b3020da7da384d769f27a8713257fbe1001878be",
+      "https://github.com/linux-pam/linux-pam/commit/b7b96362087414e52524d3d9d9b3faa21e1db620",
+      "https://github.com/linux-pam/linux-pam/pull/b3020da7da384d769f27a8713257fbe1001878be",
       "https://github.com/linux-pam/linux-pam/pull/b7b96362087414e52524d3d9d9b3faa21e1db620"
      ],
      "description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
@@ -43761,95 +43663,6 @@
   },
   {
    "vulnerability": {
-    "id": "CVE-2023-36191",
-    "dataSource": "https://ubuntu.com/security/CVE-2023-36191",
-    "namespace": "ubuntu:distro:ubuntu:20.04",
-    "severity": "Low",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2023-36191"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2023-36191",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-36191",
-     "namespace": "nvd:cpe",
-     "severity": "Unknown",
-     "urls": [],
-     "description": "Rejected reason: DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none.",
-     "cvss": []
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "20.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:20.04",
-      "package": {
-       "name": "sqlite3",
-       "version": "3.31.1-4ubuntu0.2"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2023-36191"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "10b17c2f0bb85aa7",
-    "name": "libsqlite3-0",
-    "version": "3.31.1-4ubuntu0.2",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/libsqlite3-0/copyright",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libsqlite3-0:amd64.md5sums",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "GPL-2",
-     "GPL-2+",
-     "public-domain"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libsqlite3-0:libsqlite3-0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libsqlite3-0:libsqlite3_0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libsqlite3_0:libsqlite3-0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libsqlite3_0:libsqlite3_0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libsqlite3:libsqlite3-0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*",
-     "cpe:2.3:a:libsqlite3:libsqlite3_0:3.31.1-4ubuntu0.2:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libsqlite3-0@3.31.1-4ubuntu0.2?arch=amd64&upstream=sqlite3&distro=ubuntu-20.04",
-    "upstreams": [
-     {
-      "name": "sqlite3"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
     "id": "CVE-2021-36690",
     "dataSource": "https://ubuntu.com/security/CVE-2021-36690",
     "namespace": "ubuntu:distro:ubuntu:20.04",
@@ -47696,93 +47509,6 @@
      "found": {
       "versionConstraint": "none (deb)",
       "vulnerabilityID": "CVE-2023-4039"
-     }
-    }
-   ],
-   "artifact": {
-    "id": "d7c9aa9d6cfd44db",
-    "name": "libstdc++6",
-    "version": "10.3.0-1ubuntu1~20.04",
-    "type": "deb",
-    "locations": [
-     {
-      "path": "/usr/share/doc/gcc-10-base/copyright",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/info/libstdc++6:amd64.md5sums",
-      "layerID": "sha256:36ffdceb4c77bf34325fb695e64ea447f688797f2f1e3af224c29593310578d2"
-     },
-     {
-      "path": "/var/lib/dpkg/status",
-      "layerID": "sha256:e3e3550372aed2e17c2a4d68e5138950fd6fb05bb8d30556e1e2642bd6e4f390"
-     }
-    ],
-    "language": "",
-    "licenses": [
-     "Artistic",
-     "GFDL-1.2",
-     "GPL",
-     "GPL-2",
-     "GPL-3",
-     "LGPL"
-    ],
-    "cpes": [
-     "cpe:2.3:a:libstdc++6:libstdc++6:10.3.0-1ubuntu1~20.04:*:*:*:*:*:*:*"
-    ],
-    "purl": "pkg:deb/ubuntu/libstdc++6@10.3.0-1ubuntu1~20.04?arch=amd64&upstream=gcc-10&distro=ubuntu-20.04",
-    "upstreams": [
-     {
-      "name": "gcc-10"
-     }
-    ]
-   }
-  },
-  {
-   "vulnerability": {
-    "id": "CVE-2020-35537",
-    "dataSource": "https://ubuntu.com/security/CVE-2020-35537",
-    "namespace": "ubuntu:distro:ubuntu:20.04",
-    "severity": "Low",
-    "urls": [
-     "https://ubuntu.com/security/CVE-2020-35537"
-    ],
-    "cvss": [],
-    "fix": {
-     "versions": [],
-     "state": "not-fixed"
-    },
-    "advisories": []
-   },
-   "relatedVulnerabilities": [
-    {
-     "id": "CVE-2020-35537",
-     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2020-35537",
-     "namespace": "nvd:cpe",
-     "severity": "Unknown",
-     "urls": [],
-     "description": "Rejected reason: DO NOT USE THIS CANDIDATE NUMBER. ConsultIDs: none. Reason: This candidate was withdrawn by its CNA. Further investigation showed that it was not a security issue. Notes: none.",
-     "cvss": []
-    }
-   ],
-   "matchDetails": [
-    {
-     "type": "exact-indirect-match",
-     "matcher": "dpkg-matcher",
-     "searchedBy": {
-      "distro": {
-       "type": "ubuntu",
-       "version": "20.04"
-      },
-      "namespace": "ubuntu:distro:ubuntu:20.04",
-      "package": {
-       "name": "gcc-10",
-       "version": "10.3.0-1ubuntu1~20.04"
-      }
-     },
-     "found": {
-      "versionConstraint": "none (deb)",
-      "vulnerabilityID": "CVE-2020-35537"
      }
     }
    ],
@@ -61042,6 +60768,18 @@
        "impactScore": 3.6
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -61127,6 +60865,18 @@
      {
       "source": "nvd@nist.gov",
       "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
       "version": "3.1",
       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "metrics": {
@@ -61426,6 +61176,18 @@
        "impactScore": 3.6
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 7.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -61511,6 +61273,18 @@
      {
       "source": "nvd@nist.gov",
       "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "metrics": {
+       "baseScore": 7.8,
+       "exploitabilityScore": 1.8,
+       "impactScore": 5.9
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
       "version": "3.1",
       "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
       "metrics": {
@@ -64930,6 +64704,18 @@
        "impactScore": 2.5
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -65136,6 +64922,18 @@
        "impactScore": 3.6
       },
       "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "metrics": {
+       "baseScore": 5.5,
+       "exploitabilityScore": 1.8,
+       "impactScore": 3.6
+      },
+      "vendorMetadata": {}
      }
     ],
     "fix": {
@@ -65223,6 +65021,18 @@
      {
       "source": "nvd@nist.gov",
       "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "metrics": {
+       "baseScore": 6.5,
+       "exploitabilityScore": 3.9,
+       "impactScore": 2.5
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
       "version": "3.1",
       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
       "metrics": {
@@ -65404,6 +65214,18 @@
      {
       "source": "nvd@nist.gov",
       "type": "Primary",
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N",
+      "metrics": {
+       "baseScore": 3.1,
+       "exploitabilityScore": 1.6,
+       "impactScore": 1.4
+      },
+      "vendorMetadata": {}
+     },
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
       "version": "3.1",
       "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N",
       "metrics": {
@@ -67118,7 +66940,7 @@
     "ca-cert": "",
     "auto-update": true,
     "validate-by-hash-on-start": false,
-    "validate-age": true,
+    "validate-age": false,
     "max-allowed-built-age": 432000000000000
    },
    "externalSources": {
@@ -67170,12 +66992,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-03-01T00:32:26Z",
+   "built": "2026-03-09T00:31:20Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
+   "checksum": "sha256:a65e27aecbbb2cd6671f5da84c16db7e9c60f0114075e6ae9bcc71f466460a0c",
    "error": null
   },
-  "timestamp": "2026-03-01T15:15:22.554003557Z"
+  "timestamp": "2026-04-04T17:51:44.629016163Z"
  }
 }

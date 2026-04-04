@@ -89,12 +89,24 @@
      "id": "CVE-2026-1229",
      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2026-1229",
      "namespace": "nvd:cpe",
-     "severity": "Low",
+     "severity": "Critical",
      "urls": [
       "https://github.com/cloudflare/circl"
      ],
      "description": "The CombinedMult function in the CIRCL ecc/p384 package (secp384r1 curve) produces an incorrect value for specific inputs. The issue is fixed by using complete addition formulas.\nECDH and ECDSA signing relying on this curve are not affected.\n\nThe bug was fixed in  v1.6.3 https://github.com/cloudflare/circl/releases/tag/v1.6.3 .",
      "cvss": [
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "metrics": {
+        "baseScore": 9.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 5.9
+       },
+       "vendorMetadata": {}
+      },
       {
        "source": "cna@cloudflare.com",
        "type": "Secondary",
@@ -259,6 +271,96 @@
      "goCompiledVersion": "go1.21.3",
      "architecture": "amd64",
      "h1Digest": "h1:fE/Qz0QdIGqeWfnwq0RE0R7MI51s0M2E4Ga9kq5AEMs=",
+     "mainModule": "github.com/kyverno/kyverno"
+    }
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-p436-gjf2-799p",
+    "dataSource": "https://github.com/advisories/GHSA-p436-gjf2-799p",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+     "https://github.com/advisories/GHSA-p436-gjf2-799p"
+    ],
+    "description": "Docker CLI Plugins: Uncontrolled Search Path Element Leads to Local Privilege Escalation on Windows",
+    "cvss": [],
+    "fix": {
+     "versions": [
+      "29.2.0"
+     ],
+     "state": "fixed"
+    },
+    "advisories": []
+   },
+   "relatedVulnerabilities": [
+    {
+     "id": "CVE-2025-15558",
+     "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2025-15558",
+     "namespace": "nvd:cpe",
+     "severity": "High",
+     "urls": [
+      "https://docs.docker.com/desktop/release-notes/",
+      "https://github.com/docker/cli/pull/6713",
+      "https://www.zerodayinitiative.com/advisories/ZDI-CAN-28304/"
+     ],
+     "description": "Docker CLI for Windows searches for plugin binaries in C:\\ProgramData\\Docker\\cli-plugins, a directory that does not exist by default. A low-privileged attacker can create this directory and place malicious CLI plugin binaries (docker-compose.exe, docker-buildx.exe, etc.) that are executed when a victim user opens Docker Desktop or invokes Docker CLI plugin features, and allow privilege-escalation if the docker CLI is executed as a privileged user.\n\nThis issue affects Docker CLI: through 29.1.5 and Windows binaries acting as a CLI-plugin manager using the  github.com/docker/cli/cli-plugins/manager https://pkg.go.dev/github.com/docker/cli@v29.1.5+incompatible/cli-plugins/manager  package, such as Docker Compose.\n\nThis issue does not impact non-Windows binaries, and projects not using the plugin-manager code.",
+     "cvss": [
+      {
+       "source": "security@docker.com",
+       "type": "Secondary",
+       "version": "4.0",
+       "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:N/R:U/V:X/RE:X/U:X",
+       "metrics": {
+        "baseScore": 7
+       },
+       "vendorMetadata": {}
+      }
+     ]
+    }
+   ],
+   "matchDetails": [
+    {
+     "type": "exact-direct-match",
+     "matcher": "go-module-matcher",
+     "searchedBy": {
+      "language": "go",
+      "namespace": "github:language:go",
+      "package": {
+       "name": "github.com/docker/cli",
+       "version": "v23.0.2+incompatible"
+      }
+     },
+     "found": {
+      "versionConstraint": ">=19.03.0,<29.2.0 (unknown)",
+      "vulnerabilityID": "GHSA-p436-gjf2-799p"
+     }
+    }
+   ],
+   "artifact": {
+    "id": "628eea7a03dde2b5",
+    "name": "github.com/docker/cli",
+    "version": "v23.0.2+incompatible",
+    "type": "go-module",
+    "locations": [
+     {
+      "path": "/ko-app/reports-controller",
+      "layerID": "sha256:ed78af4cd60099fbd4a388aeaeba88422bad4e373bcc346183cc0e64e49c5928"
+     }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:docker:cli:v23.0.2+incompatible:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/github.com/docker/cli@v23.0.2+incompatible",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+     "goCompiledVersion": "go1.21.3",
+     "architecture": "amd64",
+     "h1Digest": "h1:Yj4wkrNtyCNLCMobKDYzEUIsbtMbfAulkHMH75/ecik=",
      "mainModule": "github.com/kyverno/kyverno"
     }
    }
@@ -2101,6 +2203,18 @@
        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N",
        "metrics": {
         "baseScore": 5.8,
+        "exploitabilityScore": 3.9,
+        "impactScore": 1.4
+       },
+       "vendorMetadata": {}
+      },
+      {
+       "source": "nvd@nist.gov",
+       "type": "Primary",
+       "version": "3.1",
+       "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+       "metrics": {
+        "baseScore": 5.3,
         "exploitabilityScore": 3.9,
         "impactScore": 1.4
        },
@@ -8496,7 +8610,7 @@
     "ca-cert": "",
     "auto-update": true,
     "validate-by-hash-on-start": false,
-    "validate-age": true,
+    "validate-age": false,
     "max-allowed-built-age": 432000000000000
    },
    "externalSources": {
@@ -8548,12 +8662,12 @@
    "vex-add": []
   },
   "db": {
-   "built": "2026-03-01T00:32:26Z",
+   "built": "2026-03-09T00:31:20Z",
    "schemaVersion": 5,
    "location": "/home/runner/.cache/grype/db/5",
-   "checksum": "sha256:4239edf1162d4ad756d5434f205d917a59c1fc0e56f976911901e5b2f09b2a2c",
+   "checksum": "sha256:a65e27aecbbb2cd6671f5da84c16db7e9c60f0114075e6ae9bcc71f466460a0c",
    "error": null
   },
-  "timestamp": "2026-03-01T15:17:28.812682779Z"
+  "timestamp": "2026-04-04T17:53:26.934511301Z"
  }
 }

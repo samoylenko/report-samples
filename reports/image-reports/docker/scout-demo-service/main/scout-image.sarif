@@ -356,6 +356,32 @@
               }
             },
             {
+              "id": "CVE-2025-15284",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2025-15284: Improper Input Validation"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2025-15284?s=github&n=qs&t=npm&vr=%3C6.14.1",
+              "help": {
+                "text": "### Summary\n\nThe `arrayLimit` option in qs did not enforce limits for bracket notation (`a[]=1&a[]=2`), only for indexed notation (`a[0]=1`). This is a consistency bug; `arrayLimit` should apply uniformly across all array notations.\n\n**Note:** The default `parameterLimit` of 1000 effectively mitigates the DoS scenario originally described. With default options, bracket notation cannot produce arrays larger than `parameterLimit` regardless of `arrayLimit`, because each `a[]=value` consumes one parameter slot. The severity has been reduced accordingly.\n\n### Details\n\nThe `arrayLimit` option only checked limits for indexed notation (`a[0]=1&a[1]=2`) but did not enforce it for bracket notation (`a[]=1&a[]=2`).\n\n**Vulnerable code** (`lib/parse.js:159-162`):\n```javascript\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n```\n\n**Working code** (`lib/parse.js:175`):\n```javascript\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n```\n\nThe bracket notation handler at line 159 uses `utils.combine([], leaf)` without validating against `options.arrayLimit`, while indexed notation at line 175 checks `index <= options.arrayLimit` before creating arrays.\n\n### PoC\n\n```javascript\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n```\n\n**Note on parameterLimit interaction:** The original advisory's \"DoS demonstration\" claimed a length of 10,000, but `parameterLimit` (default: 1000) caps parsing to 1,000 parameters. With default options, the actual output is 1,000, not 10,000.\n\n### Impact\n\nConsistency bug in `arrayLimit` enforcement. With default `parameterLimit`, the practical DoS risk is negligible since `parameterLimit` already caps the total number of parsed parameters (and thus array elements from bracket notation). The risk increases only when `parameterLimit` is explicitly set to a very high value.\n",
+                "markdown": "> ### Summary\n\nThe `arrayLimit` option in qs did not enforce limits for bracket notation (`a[]=1&a[]=2`), only for indexed notation (`a[0]=1`). This is a consistency bug; `arrayLimit` should apply uniformly across all array notations.\n\n**Note:** The default `parameterLimit` of 1000 effectively mitigates the DoS scenario originally described. With default options, bracket notation cannot produce arrays larger than `parameterLimit` regardless of `arrayLimit`, because each `a[]=value` consumes one parameter slot. The severity has been reduced accordingly.\n\n### Details\n\nThe `arrayLimit` option only checked limits for indexed notation (`a[0]=1&a[1]=2`) but did not enforce it for bracket notation (`a[]=1&a[]=2`).\n\n**Vulnerable code** (`lib/parse.js:159-162`):\n```javascript\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n```\n\n**Working code** (`lib/parse.js:175`):\n```javascript\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n```\n\nThe bracket notation handler at line 159 uses `utils.combine([], leaf)` without validating against `options.arrayLimit`, while indexed notation at line 175 checks `index <= options.arrayLimit` before creating arrays.\n\n### PoC\n\n```javascript\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n```\n\n**Note on parameterLimit interaction:** The original advisory's \"DoS demonstration\" claimed a length of 10,000, but `parameterLimit` (default: 1000) caps parsing to 1,000 parameters. With default options, the actual output is 1,000, not 10,000.\n\n### Impact\n\nConsistency bug in `arrayLimit` enforcement. With default `parameterLimit`, the practical DoS risk is negligible since `parameterLimit` already caps the total number of parsed parameters (and thus array elements from bracket notation). The risk increases only when `parameterLimit` is explicitly set to a very high value.\n\n|                                                                                                                    |\n|Package                                                                                           pkg:npm/qs@6.7.0  |\n|Affected range                                                                                    <6.14.1           |\n|Fixed version                                                                                     6.14.1            |\n|[[CVSS Score 6.3] [CVSS Vector CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:L]]                    |\n"
+              },
+              "properties": {
+                "affected_version": "<6.14.1",
+                "cvssV3": 6.3,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:L",
+                "fixed_version": "6.14.1",
+                "purls": [
+                  "pkg:npm/qs@6.7.0"
+                ],
+                "security-severity": "6.3",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2023-0286",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -649,15 +675,15 @@
               "shortDescription": {
                 "text": "CVE-2022-0778"
               },
-              "helpUri": "https://scout.docker.com/v/CVE-2022-0778?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.14&vr=%3C1.1.1n-r0",
+              "helpUri": "https://scout.docker.com/v/CVE-2022-0778?s=alpine&n=libretls&ns=alpine&t=apk&osn=alpine&osv=3.14&vr=%3C3.3.3p1-r3",
               "help": {
                 "text": "\n",
-                "markdown": "> \n\n|                                                                                 |\n|Package         pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  |\n|Affected range  <1.1.1n-r0                                                       |\n|Fixed version   1.1.1n-r0                                                        |\n"
+                "markdown": "> \n\n|                                                                                   |\n|Package         pkg:apk/alpine/libretls@3.3.3p1-r2?os_name=alpine&os_version=3.14  |\n|Affected range  <3.3.3p1-r3                                                        |\n|Fixed version   3.3.3p1-r3                                                         |\n"
               },
               "properties": {
-                "affected_version": "<3.3.3p1-r3",
+                "affected_version": "<1.1.1n-r0",
                 "cvssV3_severity": "HIGH",
-                "fixed_version": "3.3.3p1-r3",
+                "fixed_version": "1.1.1n-r0",
                 "purls": [
                   "pkg:apk/alpine/libretls@3.3.3p1-r2?os_name=alpine&os_version=3.14",
                   "pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14"
@@ -712,6 +738,32 @@
                 "fixed_version": "1.1.1t-r1",
                 "purls": [
                   "pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14"
+                ],
+                "security-severity": "7.5",
+                "tags": [
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-4867",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-4867: Inefficient Regular Expression Complexity"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-4867?s=github&n=path-to-regexp&t=npm&vr=%3C0.1.13",
+              "help": {
+                "text": "### Impact\n\nA bad regular expression is generated any time you have three or more parameters within a single segment, separated by something that is not a period (`.`). For example, `/:a-:b-:c` or `/:a-:b-:c-:d`. The backtrack protection added in `path-to-regexp@0.1.12` only prevents ambiguity for two parameters. With three or more, the generated lookahead does not block single separator characters, so capture groups overlap and cause catastrophic backtracking.\n\n### Patches\n\nUpgrade to [path-to-regexp@0.1.13](https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13)\n\nCustom regex patterns in route definitions (e.g., `/:a-:b([^-/]+)-:c([^-/]+)`) are not affected because they override the default capture group.\n\n### Workarounds\n\nAll versions can be patched by providing a custom regular expression for parameters after the first in a single segment. As long as the custom regular expression does not match the text before the parameter, you will be safe. For example, change `/:a-:b-:c` to `/:a-:b([^-/]+)-:c([^-/]+)`.\n\nIf paths cannot be rewritten and versions cannot be upgraded, another alternative is to limit the URL length.\n\n### References\n\n- [GHSA-9wv6-86v2-598j](https://github.com/advisories/GHSA-9wv6-86v2-598j)\n- [Detailed blog post: ReDoS the web](https://blakeembrey.com/posts/2024-09-web-redos/)\n",
+                "markdown": "> ### Impact\n\nA bad regular expression is generated any time you have three or more parameters within a single segment, separated by something that is not a period (`.`). For example, `/:a-:b-:c` or `/:a-:b-:c-:d`. The backtrack protection added in `path-to-regexp@0.1.12` only prevents ambiguity for two parameters. With three or more, the generated lookahead does not block single separator characters, so capture groups overlap and cause catastrophic backtracking.\n\n### Patches\n\nUpgrade to [path-to-regexp@0.1.13](https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13)\n\nCustom regex patterns in route definitions (e.g., `/:a-:b([^-/]+)-:c([^-/]+)`) are not affected because they override the default capture group.\n\n### Workarounds\n\nAll versions can be patched by providing a custom regular expression for parameters after the first in a single segment. As long as the custom regular expression does not match the text before the parameter, you will be safe. For example, change `/:a-:b-:c` to `/:a-:b([^-/]+)-:c([^-/]+)`.\n\nIf paths cannot be rewritten and versions cannot be upgraded, another alternative is to limit the URL length.\n\n### References\n\n- [GHSA-9wv6-86v2-598j](https://github.com/advisories/GHSA-9wv6-86v2-598j)\n- [Detailed blog post: ReDoS the web](https://blakeembrey.com/posts/2024-09-web-redos/)\n\n|                                                                                                             |\n|Package                                                                        pkg:npm/path-to-regexp@0.1.7  |\n|Affected range                                                                 <0.1.13                       |\n|Fixed version                                                                  0.1.13                        |\n|[[CVSS Score 7.5] [CVSS Vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H]]                                |\n"
+              },
+              "properties": {
+                "affected_version": "<0.1.13",
+                "cvssV3": 7.5,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "fixed_version": "0.1.13",
+                "purls": [
+                  "pkg:npm/path-to-regexp@0.1.7"
                 ],
                 "security-severity": "7.5",
                 "tags": [
@@ -798,32 +850,6 @@
               }
             },
             {
-              "id": "CVE-2025-15284",
-              "name": "OsPackageVulnerability",
-              "shortDescription": {
-                "text": "CVE-2025-15284: Improper Input Validation"
-              },
-              "helpUri": "https://scout.docker.com/v/CVE-2025-15284?s=github&n=qs&t=npm&vr=%3C6.14.1",
-              "help": {
-                "text": "### Summary\n\nThe `arrayLimit` option in qs did not enforce limits for bracket notation (`a[]=1&a[]=2`), only for indexed notation (`a[0]=1`). This is a consistency bug; `arrayLimit` should apply uniformly across all array notations.\n\n**Note:** The default `parameterLimit` of 1000 effectively mitigates the DoS scenario originally described. With default options, bracket notation cannot produce arrays larger than `parameterLimit` regardless of `arrayLimit`, because each `a[]=value` consumes one parameter slot. The severity has been reduced accordingly.\n\n### Details\n\nThe `arrayLimit` option only checked limits for indexed notation (`a[0]=1&a[1]=2`) but did not enforce it for bracket notation (`a[]=1&a[]=2`).\n\n**Vulnerable code** (`lib/parse.js:159-162`):\n```javascript\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n```\n\n**Working code** (`lib/parse.js:175`):\n```javascript\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n```\n\nThe bracket notation handler at line 159 uses `utils.combine([], leaf)` without validating against `options.arrayLimit`, while indexed notation at line 175 checks `index <= options.arrayLimit` before creating arrays.\n\n### PoC\n\n```javascript\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n```\n\n**Note on parameterLimit interaction:** The original advisory's \"DoS demonstration\" claimed a length of 10,000, but `parameterLimit` (default: 1000) caps parsing to 1,000 parameters. With default options, the actual output is 1,000, not 10,000.\n\n### Impact\n\nConsistency bug in `arrayLimit` enforcement. With default `parameterLimit`, the practical DoS risk is negligible since `parameterLimit` already caps the total number of parsed parameters (and thus array elements from bracket notation). The risk increases only when `parameterLimit` is explicitly set to a very high value.\n",
-                "markdown": "> ### Summary\n\nThe `arrayLimit` option in qs did not enforce limits for bracket notation (`a[]=1&a[]=2`), only for indexed notation (`a[0]=1`). This is a consistency bug; `arrayLimit` should apply uniformly across all array notations.\n\n**Note:** The default `parameterLimit` of 1000 effectively mitigates the DoS scenario originally described. With default options, bracket notation cannot produce arrays larger than `parameterLimit` regardless of `arrayLimit`, because each `a[]=value` consumes one parameter slot. The severity has been reduced accordingly.\n\n### Details\n\nThe `arrayLimit` option only checked limits for indexed notation (`a[0]=1&a[1]=2`) but did not enforce it for bracket notation (`a[]=1&a[]=2`).\n\n**Vulnerable code** (`lib/parse.js:159-162`):\n```javascript\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n```\n\n**Working code** (`lib/parse.js:175`):\n```javascript\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n```\n\nThe bracket notation handler at line 159 uses `utils.combine([], leaf)` without validating against `options.arrayLimit`, while indexed notation at line 175 checks `index <= options.arrayLimit` before creating arrays.\n\n### PoC\n\n```javascript\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n```\n\n**Note on parameterLimit interaction:** The original advisory's \"DoS demonstration\" claimed a length of 10,000, but `parameterLimit` (default: 1000) caps parsing to 1,000 parameters. With default options, the actual output is 1,000, not 10,000.\n\n### Impact\n\nConsistency bug in `arrayLimit` enforcement. With default `parameterLimit`, the practical DoS risk is negligible since `parameterLimit` already caps the total number of parsed parameters (and thus array elements from bracket notation). The risk increases only when `parameterLimit` is explicitly set to a very high value.\n\n|                                                                                                                    |\n|Package                                                                                           pkg:npm/qs@6.7.0  |\n|Affected range                                                                                    <6.14.1           |\n|Fixed version                                                                                     6.14.1            |\n|[[CVSS Score 8.7] [CVSS Vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N]]                    |\n"
-              },
-              "properties": {
-                "affected_version": "<6.14.1",
-                "cvssV3": 8.7,
-                "cvssV3_severity": "HIGH",
-                "cvssV3_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
-                "fixed_version": "6.14.1",
-                "purls": [
-                  "pkg:npm/qs@6.7.0"
-                ],
-                "security-severity": "8.7",
-                "tags": [
-                  "HIGH"
-                ]
-              }
-            },
-            {
               "id": "CVE-2022-28391",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -896,7 +922,7 @@
               }
             }
           ],
-          "version": "1.20.0"
+          "version": "1.20.3"
         }
       },
       "results": [
@@ -973,7 +999,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2024-47764        \nSeverity         :LOW                   \nPackage          :pkg:npm/cookie@0.4.0  \nAffected range   :<0.7.0                \nFixed version    :0.7.0                 \nEPSS Score       :0.002050              \nEPSS Percentile  :0.424990              \n"
+            "text": "Vulnerability    :CVE-2024-47764        \nSeverity         :LOW                   \nPackage          :pkg:npm/cookie@0.4.0  \nAffected range   :<0.7.0                \nFixed version    :0.7.0                 \nEPSS Score       :0.002050              \nEPSS Percentile  :0.426620              \n"
           },
           "locations": [
             {
@@ -991,7 +1017,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2024-43796                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/express@4.17.1                                           \nAffected range   :<4.20.0                                                          \nFixed version    :4.20.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.001200                                                         \nEPSS Percentile  :0.309720                                                         \n"
+            "text": "Vulnerability    :CVE-2024-43796                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/express@4.17.1                                           \nAffected range   :<4.20.0                                                          \nFixed version    :4.20.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.001200                                                         \nEPSS Percentile  :0.310440                                                         \n"
           },
           "locations": [
             {
@@ -1009,7 +1035,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2024-43799                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/send@0.17.1                                              \nAffected range   :<0.19.0                                                          \nFixed version    :0.19.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.001750                                                         \nEPSS Percentile  :0.388620                                                         \n"
+            "text": "Vulnerability    :CVE-2024-43799                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/send@0.17.1                                              \nAffected range   :<0.19.0                                                          \nFixed version    :0.19.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.001750                                                         \nEPSS Percentile  :0.389550                                                         \n"
           },
           "locations": [
             {
@@ -1027,7 +1053,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2024-43800                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/serve-static@1.14.1                                      \nAffected range   :<1.16.0                                                          \nFixed version    :1.16.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.009190                                                         \nEPSS Percentile  :0.756520                                                         \n"
+            "text": "Vulnerability    :CVE-2024-43800                                                   \nSeverity         :LOW                                                              \nPackage          :pkg:npm/serve-static@1.14.1                                      \nAffected range   :<1.16.0                                                          \nFixed version    :1.16.0                                                           \nCVSS Score       :2.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:L  \nEPSS Score       :0.009190                                                         \nEPSS Percentile  :0.759120                                                         \n"
           },
           "locations": [
             {
@@ -1045,7 +1071,7 @@
           "kind": "fail",
           "level": "note",
           "message": {
-            "text": "Vulnerability    :CVE-2026-2391                                 \nSeverity         :LOW                                           \nPackage          :pkg:npm/qs@6.7.0                              \nAffected range   :>=6.7.0,<=6.14.1                              \nFixed version    :6.14.2                                        \nCVSS Score       :3.7                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.000390                                      \nEPSS Percentile  :0.117790                                      \n"
+            "text": "Vulnerability    :CVE-2026-2391                                 \nSeverity         :LOW                                           \nPackage          :pkg:npm/qs@6.7.0                              \nAffected range   :>=6.7.0,<=6.14.1                              \nFixed version    :6.14.2                                        \nCVSS Score       :3.7                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.000580                                      \nEPSS Percentile  :0.184880                                      \n"
           },
           "locations": [
             {
@@ -1063,7 +1089,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2022-4304                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.002550                                                         \nEPSS Percentile  :0.485980                                                         \n"
+            "text": "Vulnerability    :CVE-2022-4304                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.002550                                                         \nEPSS Percentile  :0.488860                                                         \n"
           },
           "locations": [
             {
@@ -1158,7 +1184,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2022-4450                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.001470                                                         \nEPSS Percentile  :0.351520                                                         \n"
+            "text": "Vulnerability    :CVE-2022-4450                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.001470                                                         \nEPSS Percentile  :0.352520                                                         \n"
           },
           "locations": [
             {
@@ -1253,7 +1279,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2023-0215                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.005030                                                         \nEPSS Percentile  :0.656860                                                         \n"
+            "text": "Vulnerability    :CVE-2023-0215                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.005030                                                         \nEPSS Percentile  :0.660810                                                         \n"
           },
           "locations": [
             {
@@ -1348,7 +1374,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42374                                                   \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r4                                                       \nFixed version    :1.33.1-r4                                                        \nEPSS Score       :0.000540                                                         \nEPSS Percentile  :0.167930                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42374                                                   \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r4                                                       \nFixed version    :1.33.1-r4                                                        \nEPSS Score       :0.000640                                                         \nEPSS Percentile  :0.202170                                                         \n"
           },
           "locations": [
             {
@@ -1415,7 +1441,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2022-2097                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1q-r0                                                       \nFixed version    :1.1.1q-r0                                                        \nEPSS Score       :0.004070                                                         \nEPSS Percentile  :0.606900                                                         \n"
+            "text": "Vulnerability    :CVE-2022-2097                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1q-r0                                                       \nFixed version    :1.1.1q-r0                                                        \nEPSS Score       :0.003180                                                         \nEPSS Percentile  :0.548400                                                         \n"
           },
           "locations": [
             {
@@ -1510,7 +1536,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2023-0465                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r2                                                       \nFixed version    :1.1.1t-r2                                                        \nEPSS Score       :0.004610                                                         \nEPSS Percentile  :0.637530                                                         \n"
+            "text": "Vulnerability    :CVE-2023-0465                                                    \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r2                                                       \nFixed version    :1.1.1t-r2                                                        \nEPSS Score       :0.004490                                                         \nEPSS Percentile  :0.635680                                                         \n"
           },
           "locations": [
             {
@@ -1605,7 +1631,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42375                                                   \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r5                                                       \nFixed version    :1.33.1-r5                                                        \nEPSS Score       :0.000610                                                         \nEPSS Percentile  :0.190320                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42375                                                   \nSeverity         :MEDIUM                                                           \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r5                                                       \nFixed version    :1.33.1-r5                                                        \nEPSS Score       :0.000610                                                         \nEPSS Percentile  :0.192930                                                         \n"
           },
           "locations": [
             {
@@ -1672,7 +1698,7 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2024-29041                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/express@4.17.1                        \nAffected range   :<4.19.2                                       \nFixed version    :4.19.2                                        \nCVSS Score       :6.1                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \nEPSS Score       :0.001140                                      \nEPSS Percentile  :0.300800                                      \n"
+            "text": "Vulnerability    :CVE-2024-29041                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/express@4.17.1                        \nAffected range   :<4.19.2                                       \nFixed version    :4.19.2                                        \nCVSS Score       :6.1                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N  \nEPSS Score       :0.001140                                      \nEPSS Percentile  :0.300740                                      \n"
           },
           "locations": [
             {
@@ -1685,12 +1711,30 @@
           ]
         },
         {
-          "ruleId": "CVE-2023-0286",
+          "ruleId": "CVE-2025-15284",
           "ruleIndex": 14,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Vulnerability    :CVE-2025-15284                                                   \nSeverity         :MEDIUM                                                           \nPackage          :pkg:npm/qs@6.7.0                                                 \nAffected range   :<6.14.1                                                          \nFixed version    :6.14.1                                                           \nCVSS Score       :6.3                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:L  \nEPSS Score       :0.000610                                                         \nEPSS Percentile  :0.193560                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/node_modules/qs/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-0286",
+          "ruleIndex": 15,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2023-0286                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.890870                                                         \nEPSS Percentile  :0.995180                                                         \n"
+            "text": "Vulnerability    :CVE-2023-0286                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r0                                                       \nFixed version    :1.1.1t-r0                                                        \nEPSS Score       :0.884740                                                         \nEPSS Percentile  :0.994950                                                         \n"
           },
           "locations": [
             {
@@ -1781,11 +1825,11 @@
         },
         {
           "ruleId": "CVE-2021-42378",
-          "ruleIndex": 15,
+          "ruleIndex": 16,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42378                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.462460                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42378                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.465060                                                         \n"
           },
           "locations": [
             {
@@ -1848,11 +1892,11 @@
         },
         {
           "ruleId": "CVE-2021-42379",
-          "ruleIndex": 16,
+          "ruleIndex": 17,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42379                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.462460                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42379                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.465060                                                         \n"
           },
           "locations": [
             {
@@ -1915,11 +1959,11 @@
         },
         {
           "ruleId": "CVE-2021-42380",
-          "ruleIndex": 17,
+          "ruleIndex": 18,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42380                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.004520                                                         \nEPSS Percentile  :0.633180                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42380                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.004640                                                         \nEPSS Percentile  :0.643180                                                         \n"
           },
           "locations": [
             {
@@ -1982,11 +2026,11 @@
         },
         {
           "ruleId": "CVE-2021-42381",
-          "ruleIndex": 18,
+          "ruleIndex": 19,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42381                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.003210                                                         \nEPSS Percentile  :0.546750                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42381                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.003210                                                         \nEPSS Percentile  :0.550980                                                         \n"
           },
           "locations": [
             {
@@ -2049,11 +2093,11 @@
         },
         {
           "ruleId": "CVE-2021-42382",
-          "ruleIndex": 19,
+          "ruleIndex": 20,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42382                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.003210                                                         \nEPSS Percentile  :0.546750                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42382                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.003210                                                         \nEPSS Percentile  :0.550980                                                         \n"
           },
           "locations": [
             {
@@ -2116,11 +2160,11 @@
         },
         {
           "ruleId": "CVE-2021-42383",
-          "ruleIndex": 20,
+          "ruleIndex": 21,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42383                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002880                                                         \nEPSS Percentile  :0.518650                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42383                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002880                                                         \nEPSS Percentile  :0.521940                                                         \n"
           },
           "locations": [
             {
@@ -2183,11 +2227,11 @@
         },
         {
           "ruleId": "CVE-2021-42384",
-          "ruleIndex": 21,
+          "ruleIndex": 22,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42384                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.462460                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42384                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002360                                                         \nEPSS Percentile  :0.465060                                                         \n"
           },
           "locations": [
             {
@@ -2250,11 +2294,11 @@
         },
         {
           "ruleId": "CVE-2021-42385",
-          "ruleIndex": 22,
+          "ruleIndex": 23,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42385                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002930                                                         \nEPSS Percentile  :0.522950                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42385                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002930                                                         \nEPSS Percentile  :0.526130                                                         \n"
           },
           "locations": [
             {
@@ -2317,11 +2361,11 @@
         },
         {
           "ruleId": "CVE-2021-42386",
-          "ruleIndex": 23,
+          "ruleIndex": 24,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-42386                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002930                                                         \nEPSS Percentile  :0.522950                                                         \n"
+            "text": "Vulnerability    :CVE-2021-42386                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r6                                                       \nFixed version    :1.33.1-r6                                                        \nEPSS Score       :0.002930                                                         \nEPSS Percentile  :0.526130                                                         \n"
           },
           "locations": [
             {
@@ -2384,11 +2428,11 @@
         },
         {
           "ruleId": "CVE-2021-3712",
-          "ruleIndex": 24,
+          "ruleIndex": 25,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-3712                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1l-r0                                                       \nFixed version    :1.1.1l-r0                                                        \nEPSS Score       :0.004860                                                         \nEPSS Percentile  :0.649530                                                         \n"
+            "text": "Vulnerability    :CVE-2021-3712                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1l-r0                                                       \nFixed version    :1.1.1l-r0                                                        \nEPSS Score       :0.004130                                                         \nEPSS Percentile  :0.614750                                                         \n"
           },
           "locations": [
             {
@@ -2479,11 +2523,11 @@
         },
         {
           "ruleId": "CVE-2018-25032",
-          "ruleIndex": 25,
+          "ruleIndex": 26,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2018-25032                                                \nSeverity         :HIGH                                                          \nPackage          :pkg:apk/alpine/zlib@1.2.11-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.2.12-r0                                                    \nFixed version    :1.2.12-r0                                                     \nEPSS Score       :0.000890                                                      \nEPSS Percentile  :0.253640                                                      \n"
+            "text": "Vulnerability    :CVE-2018-25032                                                \nSeverity         :HIGH                                                          \nPackage          :pkg:apk/alpine/zlib@1.2.11-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.2.12-r0                                                    \nFixed version    :1.2.12-r0                                                     \nEPSS Score       :0.000810                                                      \nEPSS Percentile  :0.240780                                                      \n"
           },
           "locations": [
             {
@@ -2504,11 +2548,106 @@
         },
         {
           "ruleId": "CVE-2022-0778",
-          "ruleIndex": 26,
+          "ruleIndex": 27,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-0778                                                      \nSeverity         :HIGH                                                               \nPackage          :pkg:apk/alpine/libretls@3.3.3p1-r2?os_name=alpine&os_version=3.14  \nAffected range   :<3.3.3p1-r3                                                        \nFixed version    :3.3.3p1-r3                                                         \nEPSS Score       :0.082980                                                           \nEPSS Percentile  :0.920860                                                           \n"
+            "text": "Vulnerability    :CVE-2022-0778                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1n-r0                                                       \nFixed version    :1.1.1n-r0                                                        \nEPSS Score       :0.073940                                                         \nEPSS Percentile  :0.917020                                                         \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/lib/apk/db/installed"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/ct_log_list.cnf"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/ct_log_list.cnf.dist"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/misc/CA.pl"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/misc/tsget.pl"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/openssl.cnf"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/etc/ssl/openssl.cnf.dist"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/lib/libcrypto.so.1.1"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/lib/libssl.so.1.1"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/lib/engines-1.1/afalg.so"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/lib/engines-1.1/capi.so"
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/usr/lib/engines-1.1/padlock.so"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2022-0778",
+          "ruleIndex": 27,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2022-0778                                                      \nSeverity         :HIGH                                                               \nPackage          :pkg:apk/alpine/libretls@3.3.3p1-r2?os_name=alpine&os_version=3.14  \nAffected range   :<3.3.3p1-r3                                                        \nFixed version    :3.3.3p1-r3                                                         \nEPSS Score       :0.073940                                                           \nEPSS Percentile  :0.917020                                                           \n"
           },
           "locations": [
             {
@@ -2528,107 +2667,12 @@
           ]
         },
         {
-          "ruleId": "CVE-2022-0778",
-          "ruleIndex": 26,
-          "kind": "fail",
-          "level": "error",
-          "message": {
-            "text": "Vulnerability    :CVE-2022-0778                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1n-r0                                                       \nFixed version    :1.1.1n-r0                                                        \nEPSS Score       :0.082980                                                         \nEPSS Percentile  :0.920860                                                         \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/lib/apk/db/installed"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/ct_log_list.cnf"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/ct_log_list.cnf.dist"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/misc/CA.pl"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/misc/tsget.pl"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/openssl.cnf"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/etc/ssl/openssl.cnf.dist"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/lib/libcrypto.so.1.1"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/lib/libssl.so.1.1"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/usr/lib/engines-1.1/afalg.so"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/usr/lib/engines-1.1/capi.so"
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/usr/lib/engines-1.1/padlock.so"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2022-24999",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-24999                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/qs@6.7.0                              \nAffected range   :>=6.7.0,<6.7.3                                \nFixed version    :6.7.3                                         \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.014220                                      \nEPSS Percentile  :0.803370                                      \n"
+            "text": "Vulnerability    :CVE-2022-24999                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/qs@6.7.0                              \nAffected range   :>=6.7.0,<6.7.3                                \nFixed version    :6.7.3                                         \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.011420                                      \nEPSS Percentile  :0.783980                                      \n"
           },
           "locations": [
             {
@@ -2642,11 +2686,11 @@
         },
         {
           "ruleId": "CVE-2022-24999",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-24999                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/express@4.17.1                        \nAffected range   :<4.17.3                                       \nFixed version    :4.17.3                                        \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.014220                                      \nEPSS Percentile  :0.803370                                      \n"
+            "text": "Vulnerability    :CVE-2022-24999                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/express@4.17.1                        \nAffected range   :<4.17.3                                       \nFixed version    :4.17.3                                        \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.011420                                      \nEPSS Percentile  :0.783980                                      \n"
           },
           "locations": [
             {
@@ -2660,11 +2704,11 @@
         },
         {
           "ruleId": "CVE-2023-0464",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2023-0464                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r1                                                       \nFixed version    :1.1.1t-r1                                                        \nEPSS Score       :0.008570                                                         \nEPSS Percentile  :0.746850                                                         \n"
+            "text": "Vulnerability    :CVE-2023-0464                                                    \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1t-r1                                                       \nFixed version    :1.1.1t-r1                                                        \nEPSS Score       :0.008570                                                         \nEPSS Percentile  :0.749550                                                         \n"
           },
           "locations": [
             {
@@ -2754,12 +2798,30 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-45296",
-          "ruleIndex": 29,
+          "ruleId": "CVE-2026-4867",
+          "ruleIndex": 30,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2024-45296                                                       \nSeverity         :HIGH                                                                 \nPackage          :pkg:npm/path-to-regexp@0.1.7                                         \nAffected range   :<0.1.10                                                              \nFixed version    :0.1.10                                                               \nCVSS Score       :7.7                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P  \nEPSS Score       :0.000640                                                             \nEPSS Percentile  :0.198550                                                             \n"
+            "text": "Vulnerability    :CVE-2026-4867                                 \nSeverity         :HIGH                                          \nPackage          :pkg:npm/path-to-regexp@0.1.7                  \nAffected range   :<0.1.13                                       \nFixed version    :0.1.13                                        \nCVSS Score       :7.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H  \nEPSS Score       :0.000500                                      \nEPSS Percentile  :0.154890                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/node_modules/path-to-regexp/package.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-45296",
+          "ruleIndex": 31,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2024-45296                                                       \nSeverity         :HIGH                                                                 \nPackage          :pkg:npm/path-to-regexp@0.1.7                                         \nAffected range   :<0.1.10                                                              \nFixed version    :0.1.10                                                               \nCVSS Score       :7.7                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P  \nEPSS Score       :0.000640                                                             \nEPSS Percentile  :0.200960                                                             \n"
           },
           "locations": [
             {
@@ -2773,11 +2835,11 @@
         },
         {
           "ruleId": "CVE-2024-52798",
-          "ruleIndex": 30,
+          "ruleIndex": 32,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2024-52798                                                       \nSeverity         :HIGH                                                                 \nPackage          :pkg:npm/path-to-regexp@0.1.7                                         \nAffected range   :<0.1.12                                                              \nFixed version    :0.1.12                                                               \nCVSS Score       :7.7                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P  \nEPSS Score       :0.001640                                                             \nEPSS Percentile  :0.374140                                                             \n"
+            "text": "Vulnerability    :CVE-2024-52798                                                       \nSeverity         :HIGH                                                                 \nPackage          :pkg:npm/path-to-regexp@0.1.7                                         \nAffected range   :<0.1.12                                                              \nFixed version    :0.1.12                                                               \nCVSS Score       :7.7                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P  \nEPSS Score       :0.002160                                                             \nEPSS Percentile  :0.441520                                                             \n"
           },
           "locations": [
             {
@@ -2791,11 +2853,11 @@
         },
         {
           "ruleId": "CVE-2024-45590",
-          "ruleIndex": 31,
+          "ruleIndex": 33,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2024-45590                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/body-parser@1.19.0                                       \nAffected range   :<1.20.3                                                          \nFixed version    :1.20.3                                                           \nCVSS Score       :8.7                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \nEPSS Score       :0.015350                                                         \nEPSS Percentile  :0.810610                                                         \n"
+            "text": "Vulnerability    :CVE-2024-45590                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/body-parser@1.19.0                                       \nAffected range   :<1.20.3                                                          \nFixed version    :1.20.3                                                           \nCVSS Score       :8.7                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \nEPSS Score       :0.015350                                                         \nEPSS Percentile  :0.812910                                                         \n"
           },
           "locations": [
             {
@@ -2808,30 +2870,12 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-15284",
-          "ruleIndex": 32,
-          "kind": "fail",
-          "level": "error",
-          "message": {
-            "text": "Vulnerability    :CVE-2025-15284                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:npm/qs@6.7.0                                                 \nAffected range   :<6.14.1                                                          \nFixed version    :6.14.1                                                           \nCVSS Score       :8.7                                                              \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N  \nEPSS Score       :0.002240                                                         \nEPSS Percentile  :0.448520                                                         \n"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/node_modules/qs/package.json"
-                }
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2022-28391",
-          "ruleIndex": 33,
+          "ruleIndex": 34,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-28391                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r7                                                       \nFixed version    :1.33.1-r7                                                        \nEPSS Score       :0.032070                                                         \nEPSS Percentile  :0.867870                                                         \n"
+            "text": "Vulnerability    :CVE-2022-28391                                                   \nSeverity         :HIGH                                                             \nPackage          :pkg:apk/alpine/busybox@1.33.1-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.33.1-r7                                                       \nFixed version    :1.33.1-r7                                                        \nEPSS Score       :0.023860                                                         \nEPSS Percentile  :0.849540                                                         \n"
           },
           "locations": [
             {
@@ -2894,11 +2938,11 @@
         },
         {
           "ruleId": "CVE-2021-3711",
-          "ruleIndex": 34,
+          "ruleIndex": 35,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-3711                                                    \nSeverity         :CRITICAL                                                         \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1l-r0                                                       \nFixed version    :1.1.1l-r0                                                        \nEPSS Score       :0.023520                                                         \nEPSS Percentile  :0.846320                                                         \n"
+            "text": "Vulnerability    :CVE-2021-3711                                                    \nSeverity         :CRITICAL                                                         \nPackage          :pkg:apk/alpine/openssl@1.1.1k-r0?os_name=alpine&os_version=3.14  \nAffected range   :<1.1.1l-r0                                                       \nFixed version    :1.1.1l-r0                                                        \nEPSS Score       :0.022930                                                         \nEPSS Percentile  :0.846670                                                         \n"
           },
           "locations": [
             {
@@ -2989,11 +3033,11 @@
         },
         {
           "ruleId": "CVE-2022-37434",
-          "ruleIndex": 35,
+          "ruleIndex": 36,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2022-37434                                                \nSeverity         :CRITICAL                                                      \nPackage          :pkg:apk/alpine/zlib@1.2.11-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.2.12-r2                                                    \nFixed version    :1.2.12-r2                                                     \nEPSS Score       :0.925440                                                      \nEPSS Percentile  :0.997320                                                      \n"
+            "text": "Vulnerability    :CVE-2022-37434                                                \nSeverity         :CRITICAL                                                      \nPackage          :pkg:apk/alpine/zlib@1.2.11-r3?os_name=alpine&os_version=3.14  \nAffected range   :<1.2.12-r2                                                    \nFixed version    :1.2.12-r2                                                     \nEPSS Score       :0.925440                                                      \nEPSS Percentile  :0.997360                                                      \n"
           },
           "locations": [
             {

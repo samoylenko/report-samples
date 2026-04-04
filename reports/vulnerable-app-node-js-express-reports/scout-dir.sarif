@@ -36,6 +36,32 @@
               }
             },
             {
+              "id": "CVE-2026-2950",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-2950: Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-2950?s=github&n=lodash&t=npm&vr=%3C%3D4.17.23",
+              "help": {
+                "text": "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.\n",
+                "markdown": "> ### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.\n\n|                                                                                                       |\n|Package                                                                        pkg:npm/lodash@4.17.20  |\n|Affected range                                                                 <=4.17.23               |\n|Fixed version                                                                  4.18.0                  |\n|[[CVSS Score 6.5] [CVSS Vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L]]                          |\n"
+              },
+              "properties": {
+                "affected_version": "<=4.17.23",
+                "cvssV3": 6.5,
+                "cvssV3_severity": "MEDIUM",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+                "fixed_version": "4.18.0",
+                "purls": [
+                  "pkg:npm/lodash@4.17.20"
+                ],
+                "security-severity": "6.5",
+                "tags": [
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-13465",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -86,9 +112,35 @@
                   "HIGH"
                 ]
               }
+            },
+            {
+              "id": "CVE-2026-4800",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "CVE-2026-4800: Improper Control of Generation of Code ('Code Injection')"
+              },
+              "helpUri": "https://scout.docker.com/v/CVE-2026-4800?s=github&n=lodash&t=npm&vr=%3E%3D4.0.0%2C%3C%3D4.17.23",
+              "help": {
+                "text": "### Impact\n\nThe fix for [CVE-2021-23337](https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the `variable` option in `_.template` but did not apply the same validation to `options.imports` key names. Both paths flow into the same `Function()` constructor sink.\n\nWhen an application passes untrusted input as `options.imports` key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, `_.template` uses `assignInWith` to merge imports, which enumerates inherited properties via `for..in`. If `Object.prototype` has been polluted by any other vector, the polluted keys are copied into the imports object and passed to `Function()`.\n\n### Patches\n\nUsers should upgrade to version 4.18.0.\n\nThe fix applies two changes:\n1. Validate `importsKeys` against the existing `reForbiddenIdentifierChars` regex (same check already used for the `variable` option)\n2. Replace `assignInWith` with `assignWith` when merging imports, so only own properties are enumerated\n\n### Workarounds\n\nDo not pass untrusted input as key names in `options.imports`. Only use developer-controlled, static key names.\n",
+                "markdown": "> ### Impact\n\nThe fix for [CVE-2021-23337](https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the `variable` option in `_.template` but did not apply the same validation to `options.imports` key names. Both paths flow into the same `Function()` constructor sink.\n\nWhen an application passes untrusted input as `options.imports` key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, `_.template` uses `assignInWith` to merge imports, which enumerates inherited properties via `for..in`. If `Object.prototype` has been polluted by any other vector, the polluted keys are copied into the imports object and passed to `Function()`.\n\n### Patches\n\nUsers should upgrade to version 4.18.0.\n\nThe fix applies two changes:\n1. Validate `importsKeys` against the existing `reForbiddenIdentifierChars` regex (same check already used for the `variable` option)\n2. Replace `assignInWith` with `assignWith` when merging imports, so only own properties are enumerated\n\n### Workarounds\n\nDo not pass untrusted input as key names in `options.imports`. Only use developer-controlled, static key names.\n\n|                                                                                                       |\n|Package                                                                        pkg:npm/lodash@4.17.20  |\n|Affected range                                                                 >=4.0.0,<=4.17.23       |\n|Fixed version                                                                  4.18.0                  |\n|[[CVSS Score 8.1] [CVSS Vector CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H]]                          |\n"
+              },
+              "properties": {
+                "affected_version": ">=4.0.0,<=4.17.23",
+                "cvssV3": 8.1,
+                "cvssV3_severity": "HIGH",
+                "cvssV3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "fixed_version": "4.18.0",
+                "purls": [
+                  "pkg:npm/lodash@4.17.20"
+                ],
+                "security-severity": "8.1",
+                "tags": [
+                  "HIGH"
+                ]
+              }
             }
           ],
-          "version": "1.20.0"
+          "version": "1.20.3"
         }
       },
       "results": [
@@ -98,7 +150,25 @@
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2020-28500                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :>=4.0.0,<4.17.21                              \nFixed version    :4.17.21                                       \nCVSS Score       :5.3                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.002450                                      \nEPSS Percentile  :0.474840                                      \n"
+            "text": "Vulnerability    :CVE-2020-28500                                \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :>=4.0.0,<4.17.21                              \nFixed version    :4.17.21                                       \nCVSS Score       :5.3                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L  \nEPSS Score       :0.002450                                      \nEPSS Percentile  :0.477350                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/package-lock.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-2950",
+          "ruleIndex": 1,
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Vulnerability    :CVE-2026-2950                                 \nSeverity         :MEDIUM                                        \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :<=4.17.23                                     \nFixed version    :4.18.0                                        \nCVSS Score       :6.5                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L  \nEPSS Score       :0.000420                                      \nEPSS Percentile  :0.128750                                      \n"
           },
           "locations": [
             {
@@ -112,11 +182,11 @@
         },
         {
           "ruleId": "CVE-2025-13465",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "kind": "fail",
           "level": "warning",
           "message": {
-            "text": "Vulnerability    :CVE-2025-13465                                                       \nSeverity         :MEDIUM                                                               \nPackage          :pkg:npm/lodash@4.17.20                                               \nAffected range   :>=4.0.0,<=4.17.22                                                    \nFixed version    :4.17.23                                                              \nCVSS Score       :6.9                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P  \nEPSS Score       :0.000250                                                             \nEPSS Percentile  :0.067010                                                             \n"
+            "text": "Vulnerability    :CVE-2025-13465                                                       \nSeverity         :MEDIUM                                                               \nPackage          :pkg:npm/lodash@4.17.20                                               \nAffected range   :>=4.0.0,<=4.17.22                                                    \nFixed version    :4.17.23                                                              \nCVSS Score       :6.9                                                                  \nCVSS Vector      :CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P  \nEPSS Score       :0.000290                                                             \nEPSS Percentile  :0.083900                                                             \n"
           },
           "locations": [
             {
@@ -130,11 +200,29 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 2,
+          "ruleIndex": 3,
           "kind": "fail",
           "level": "error",
           "message": {
-            "text": "Vulnerability    :CVE-2021-23337                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :<4.17.21                                      \nFixed version    :4.17.21                                       \nCVSS Score       :7.2                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.007410                                      \nEPSS Percentile  :0.726270                                      \n"
+            "text": "Vulnerability    :CVE-2021-23337                                \nSeverity         :HIGH                                          \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :<4.17.21                                      \nFixed version    :4.17.21                                       \nCVSS Score       :7.2                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.004630                                      \nEPSS Percentile  :0.642680                                      \n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/package-lock.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-4800",
+          "ruleIndex": 4,
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Vulnerability    :CVE-2026-4800                                 \nSeverity         :HIGH                                          \nPackage          :pkg:npm/lodash@4.17.20                        \nAffected range   :>=4.0.0,<=4.17.23                             \nFixed version    :4.18.0                                        \nCVSS Score       :8.1                                           \nCVSS Vector      :CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H  \nEPSS Score       :0.000680                                      \nEPSS Percentile  :0.211440                                      \n"
           },
           "locations": [
             {

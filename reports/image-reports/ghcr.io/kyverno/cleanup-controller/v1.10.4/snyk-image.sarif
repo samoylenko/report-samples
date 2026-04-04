@@ -6,8 +6,8 @@
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1303.0",
-          "version": "1.1303.0",
+          "semanticVersion": "1.1303.2",
+          "version": "1.1303.2",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
             "artifactsScanned": 5
@@ -17,18 +17,18 @@
       },
       "results": [],
       "automationDetails": {
-        "id": "Snyk/Container/docker-image|ghcr.io/kyverno/cleanup-controller/0/2026-03-01T15:17:01.870Z"
+        "id": "Snyk/Container/docker-image|ghcr.io/kyverno/cleanup-controller/0/2026-04-04T17:53:02.931Z"
       }
     },
     {
       "tool": {
         "driver": {
           "name": "Snyk Container",
-          "semanticVersion": "1.1303.0",
-          "version": "1.1303.0",
+          "semanticVersion": "1.1303.2",
+          "version": "1.1303.2",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 1294
+            "artifactsScanned": 1295
           },
           "rules": [
             {
@@ -54,6 +54,31 @@
                 ],
                 "cvssv3_baseScore": 5.1,
                 "security-severity": "5.1"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GITHUBCOMGOJOSEGOJOSEV3-15875220",
+              "shortDescription": {
+                "text": "High severity - Uncaught Exception vulnerability in github.com/go-jose/go-jose/v3"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-34986) github.com/go-jose/go-jose/v3@v3.0.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Uncaught Exception in the `cipher.KeyUnwrap` function when decrypting a JSON Web Encryption (JWE) object with a key wrapping algorithm (ending in 'KW', except for 'A128GCMKW', 'A192GCMKW', and 'A256GCMKW') and the `encrypted_key` field is empty. An attacker can cause a panic and disrupt service by submitting a crafted JWE object with an empty `encrypted_key` field or by directly invoking `cipher.KeyUnwrap` with a ciphertext parameter less than 16 bytes long.\n\n**Note:**\n\nThis is only exploitable if the list of accepted key algorithms includes key wrapping algorithms.\n\n## Workaround \n\nThis vulnerability can be mitigated by prevalidating JWE objects to ensure the `encrypted_key` field is nonempty, or by excluding key wrapping algorithms from the list of accepted key algorithms.\n## Remediation\nUpgrade `github.com/go-jose/go-jose/v3` to version 3.0.5 or higher.\n## References\n- [GitHub Advisory](https://github.com/go-jose/go-jose/security/advisories/GHSA-78h2-9frx-2jm8)\n- [GitHub Commit](https://github.com/go-jose/go-jose/commit/0e59876635f3dbf46d7b5e97b52bb75a3f96e7d9)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-248",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
               }
             },
             {
@@ -357,6 +382,31 @@
               }
             },
             {
+              "id": "SNYK-GOLANG-GITHUBCOMVBATTSTARSPLITARCHIVETAR-15857048",
+              "shortDescription": {
+                "text": "High severity - Allocation of Resources Without Limits or Throttling vulnerability in github.com/vbatts/tar-split/archive/tar"
+              },
+              "fullDescription": {
+                "text": "(CVE-2022-2879) github.com/vbatts/tar-split/archive/tar@v0.11.3"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling. <br><br>**Go Vulnerability Report:**<br>\r\nvia the `Reader.Read` function. An attacker can cause excessive memory allocation and trigger resource exhaustion or application panics by supplying a specially crafted archive with oversized file headers.\n## Remediation\nUpgrade `github.com/vbatts/tar-split/archive/tar` to version 0.12.1 or higher.\n## References\n- [GitHub Commit](https://github.com/vbatts/tar-split/commit/a4bd92b3344321e1bd6d08ddd68f7c402d05c614)\n- [Go Advisory](https://pkg.go.dev/vuln/GO-2022-1037)\n- [Go Commit](https://go.dev/cl/439355)\n- [Go Issue](https://go.dev/issue/54853)\n- [Google Groups Forum](https://groups.google.com/g/golang-announce/c/xtuG5faxtaU)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-770",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 8.7,
+                "security-severity": "8.7"
+              }
+            },
+            {
               "id": "SNYK-GOLANG-GOLANGORGXCRYPTOSSH-14059803",
               "shortDescription": {
                 "text": "Medium severity - Allocation of Resources Without Limits or Throttling vulnerability in golang.org/x/crypto/ssh"
@@ -504,6 +554,31 @@
                 ],
                 "cvssv3_baseScore": 8.7,
                 "security-severity": "8.7"
+              }
+            },
+            {
+              "id": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+              "shortDescription": {
+                "text": "Critical severity - Incorrect Authorization vulnerability in google.golang.org/grpc"
+              },
+              "fullDescription": {
+                "text": "(CVE-2026-33186) google.golang.org/grpc@v1.54.0"
+              },
+              "help": {
+                "text": "",
+                "markdown": "## Overview\n\nAffected versions of this package are vulnerable to Incorrect Authorization in the processing of HTTP/2 `:path` pseudo-headers in `handleStream()`. An attacker can gain unauthorized access to restricted resources by sending requests with malformed `:path` headers that omit the leading slash. This is only exploitable if the server uses path-based authorization interceptors, has deny rules that use canonical paths with leading slashes, and has a fallback allow rule in its policy.\r\n\r\n## Workaround \r\nThis vulnerability can be mitigated by adding a validating interceptor that rejects requests with malformed paths, configuring infrastructure (such as reverse proxies) to enforce strict HTTP/2 compliance, or switching to a default-deny authorization policy.\n## Remediation\nUpgrade `google.golang.org/grpc` to version 1.79.3 or higher.\n## References\n- [GitHub Commit](https://github.com/grpc/grpc-go/commit/72186f163e75a065c39e6f7df9b6dea07fbdeff5)\n"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-863",
+                  "gomodules"
+                ],
+                "cvssv3_baseScore": 9.3,
+                "security-severity": "9.3"
               }
             },
             {
@@ -754,6 +829,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "github.com/go-chi/chi/middleware@v4.1.2+incompatible"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMGOJOSEGOJOSEV3-15875220",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/go-jose/go-jose/v3 package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/ko-app/cleanup-controller"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/go-jose/go-jose/v3@v3.0.0"
                 }
               ]
             }
@@ -1048,6 +1147,30 @@
           ]
         },
         {
+          "ruleId": "SNYK-GOLANG-GITHUBCOMVBATTSTARSPLITARCHIVETAR-15857048",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable github.com/vbatts/tar-split/archive/tar package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/ko-app/cleanup-controller"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "github.com/vbatts/tar-split/archive/tar@v0.11.3"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-GOLANG-GOLANGORGXCRYPTOSSH-14059803",
           "level": "warning",
           "message": {
@@ -1186,6 +1309,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "golang.org/x/oauth2/jws@v0.6.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-GOLANG-GOOGLEGOLANGORGGRPC-15691172",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable google.golang.org/grpc package with a critical severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/ko-app/cleanup-controller"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "google.golang.org/grpc@v1.54.0"
                 }
               ]
             }
@@ -1409,7 +1556,7 @@
         }
       ],
       "automationDetails": {
-        "id": "Snyk/Container/github.com/kyverno/kyverno/1/2026-03-01T15:17:01.871Z"
+        "id": "Snyk/Container/github.com/kyverno/kyverno/1/2026-04-04T17:53:02.933Z"
       }
     }
   ]
