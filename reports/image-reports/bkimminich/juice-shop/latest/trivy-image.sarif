@@ -280,6 +280,60 @@
               }
             },
             {
+              "id": "CVE-2026-28390",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in CMS EnvelopedData processing"
+              },
+              "fullDescription": {
+                "text": "Issue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyTransportRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyTransportRecipientInfo with\nRSA-OAEP encryption is processed, the optional parameters field of\nRSA-OAEP SourceFunc algorithm identifier is examined without checking\nfor its presence. This results in a NULL pointer dereference if the field\nis missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-28390",
+              "help": {
+                "text": "Vulnerability CVE-2026-28390\nSeverity: HIGH\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28390](https://avd.aquasec.com/nvd/cve-2026-28390)\nIssue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyTransportRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyTransportRecipientInfo with\nRSA-OAEP encryption is processed, the optional parameters field of\nRSA-OAEP SourceFunc algorithm identifier is examined without checking\nfor its presence. This results in a NULL pointer dereference if the field\nis missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
+                "markdown": "**Vulnerability CVE-2026-28390**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-28390](https://avd.aquasec.com/nvd/cve-2026-28390)|\n\nIssue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyTransportRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyTransportRecipientInfo with\nRSA-OAEP encryption is processed, the optional parameters field of\nRSA-OAEP SourceFunc algorithm identifier is examined without checking\nfor its presence. This results in a NULL pointer dereference if the field\nis missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-31790",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key"
+              },
+              "fullDescription": {
+                "text": "Issue summary: Applications using RSASVE key encapsulation to establish\na secret encryption key can send contents of an uninitialized memory buffer to\na malicious peer.\n\nImpact summary: The uninitialized buffer might contain sensitive data from the\nprevious execution of the application process which leads to sensitive data\nleakage to an attacker.\n\nRSA_public_encrypt() returns the number of bytes written on success and -1\non error. The affected code tests only whether the return value is non-zero.\nAs a result, if RSA encryption fails, encapsulation can still return success to\nthe caller, set the output lengths, and leave the caller to use the contents of\nthe ciphertext buffer as if a valid KEM ciphertext had been produced.\n\nIf applications use EVP_PKEY_encapsulate() with RSA/RSASVE on an\nattacker-supplied invalid RSA public key without first validating that key,\nthen this may cause stale or uninitialized contents of the caller-provided\nciphertext buffer to be disclosed to the attacker in place of the KEM\nciphertext.\n\nAs a workaround calling EVP_PKEY_public_check() or\nEVP_PKEY_public_check_quick() before EVP_PKEY_encapsulate() will mitigate\nthe issue.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.1 and 3.0 are affected by this issue."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-31790",
+              "help": {
+                "text": "Vulnerability CVE-2026-31790\nSeverity: MEDIUM\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-31790](https://avd.aquasec.com/nvd/cve-2026-31790)\nIssue summary: Applications using RSASVE key encapsulation to establish\na secret encryption key can send contents of an uninitialized memory buffer to\na malicious peer.\n\nImpact summary: The uninitialized buffer might contain sensitive data from the\nprevious execution of the application process which leads to sensitive data\nleakage to an attacker.\n\nRSA_public_encrypt() returns the number of bytes written on success and -1\non error. The affected code tests only whether the return value is non-zero.\nAs a result, if RSA encryption fails, encapsulation can still return success to\nthe caller, set the output lengths, and leave the caller to use the contents of\nthe ciphertext buffer as if a valid KEM ciphertext had been produced.\n\nIf applications use EVP_PKEY_encapsulate() with RSA/RSASVE on an\nattacker-supplied invalid RSA public key without first validating that key,\nthen this may cause stale or uninitialized contents of the caller-provided\nciphertext buffer to be disclosed to the attacker in place of the KEM\nciphertext.\n\nAs a workaround calling EVP_PKEY_public_check() or\nEVP_PKEY_public_check_quick() before EVP_PKEY_encapsulate() will mitigate\nthe issue.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.1 and 3.0 are affected by this issue.",
+                "markdown": "**Vulnerability CVE-2026-31790**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-31790](https://avd.aquasec.com/nvd/cve-2026-31790)|\n\nIssue summary: Applications using RSASVE key encapsulation to establish\na secret encryption key can send contents of an uninitialized memory buffer to\na malicious peer.\n\nImpact summary: The uninitialized buffer might contain sensitive data from the\nprevious execution of the application process which leads to sensitive data\nleakage to an attacker.\n\nRSA_public_encrypt() returns the number of bytes written on success and -1\non error. The affected code tests only whether the return value is non-zero.\nAs a result, if RSA encryption fails, encapsulation can still return success to\nthe caller, set the output lengths, and leave the caller to use the contents of\nthe ciphertext buffer as if a valid KEM ciphertext had been produced.\n\nIf applications use EVP_PKEY_encapsulate() with RSA/RSASVE on an\nattacker-supplied invalid RSA public key without first validating that key,\nthen this may cause stale or uninitialized contents of the caller-provided\nciphertext buffer to be disclosed to the attacker in place of the KEM\nciphertext.\n\nAs a workaround calling EVP_PKEY_public_check() or\nEVP_PKEY_public_check_quick() before EVP_PKEY_encapsulate() will mitigate\nthe issue.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3, 3.1 and 3.0 are affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2026-2673",
               "name": "OsPackageVulnerability",
               "shortDescription": {
@@ -293,8 +347,116 @@
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2026-2673",
               "help": {
-                "text": "Vulnerability CVE-2026-2673\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: \nLink: [CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)\nIssue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected\npreferred key exchange group when its key exchange group configuration includes\nthe default by using the 'DEFAULT' keyword.\n\nImpact summary: A less preferred key exchange may be used even when a more\npreferred group is supported by both client and server, if the group\nwas not included among the client's initial predicated keyshares.\nThis will sometimes be the case with the new hybrid post-quantum groups,\nif the client chooses to defer their use until specifically requested by\nthe server.\n\nIf an OpenSSL TLS 1.3 server's configuration uses the 'DEFAULT' keyword to\ninterpolate the built-in default group list into its own configuration, perhaps\nadding or removing specific elements, then an implementation defect causes the\n'DEFAULT' list to lose its 'tuple' structure, and all server-supported groups\nwere treated as a single sufficiently secure 'tuple', with the server not\nsending a Hello Retry Request (HRR) even when a group in a more preferred tuple\nwas mutually supported.\n\nAs a result, the client and server might fail to negotiate a mutually supported\npost-quantum key agreement group, such as 'X25519MLKEM768', if the client's\nconfiguration results in only 'classical' groups (such as 'X25519' being the\nonly ones in the client's initial keyshare prediction).\n\nOpenSSL 3.5 and later support a new syntax for selecting the most preferred TLS\n1.3 key agreement group on TLS servers.  The old syntax had a single 'flat'\nlist of groups, and treated all the supported groups as sufficiently secure.\nIf any of the keyshares predicted by the client were supported by the server\nthe most preferred among these was selected, even if other groups supported by\nthe client, but not included in the list of predicted keyshares would have been\nmore preferred, if included.\n\nThe new syntax partitions the groups into distinct 'tuples' of roughly\nequivalent security.  Within each tuple the most preferred group included among\nthe client's predicted keyshares is chosen, but if the client supports a group\nfrom a more preferred tuple, but did not predict any corresponding keyshares,\nthe server will ask the client to retry the ClientHello (by issuing a Hello\nRetry Request or HRR) with the most preferred mutually supported group.\n\nThe above works as expected when the server's configuration uses the built-in\ndefault group list, or explicitly defines its own list by directly defining the\nvarious desired groups and group 'tuples'.\n\nNo OpenSSL FIPS modules are affected by this issue, the code in question lies\noutside the FIPS boundary.\n\nOpenSSL 3.6 and 3.5 are vulnerable to this issue.\n\nOpenSSL 3.6 users should upgrade to OpenSSL 3.6.2 once it is released.\nOpenSSL 3.5 users should upgrade to OpenSSL 3.5.6 once it is released.\n\nOpenSSL 3.4, 3.3, 3.0, 1.0.2 and 1.1.1 are not affected by this issue.",
-                "markdown": "**Vulnerability CVE-2026-2673**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64||[CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)|\n\nIssue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected\npreferred key exchange group when its key exchange group configuration includes\nthe default by using the 'DEFAULT' keyword.\n\nImpact summary: A less preferred key exchange may be used even when a more\npreferred group is supported by both client and server, if the group\nwas not included among the client's initial predicated keyshares.\nThis will sometimes be the case with the new hybrid post-quantum groups,\nif the client chooses to defer their use until specifically requested by\nthe server.\n\nIf an OpenSSL TLS 1.3 server's configuration uses the 'DEFAULT' keyword to\ninterpolate the built-in default group list into its own configuration, perhaps\nadding or removing specific elements, then an implementation defect causes the\n'DEFAULT' list to lose its 'tuple' structure, and all server-supported groups\nwere treated as a single sufficiently secure 'tuple', with the server not\nsending a Hello Retry Request (HRR) even when a group in a more preferred tuple\nwas mutually supported.\n\nAs a result, the client and server might fail to negotiate a mutually supported\npost-quantum key agreement group, such as 'X25519MLKEM768', if the client's\nconfiguration results in only 'classical' groups (such as 'X25519' being the\nonly ones in the client's initial keyshare prediction).\n\nOpenSSL 3.5 and later support a new syntax for selecting the most preferred TLS\n1.3 key agreement group on TLS servers.  The old syntax had a single 'flat'\nlist of groups, and treated all the supported groups as sufficiently secure.\nIf any of the keyshares predicted by the client were supported by the server\nthe most preferred among these was selected, even if other groups supported by\nthe client, but not included in the list of predicted keyshares would have been\nmore preferred, if included.\n\nThe new syntax partitions the groups into distinct 'tuples' of roughly\nequivalent security.  Within each tuple the most preferred group included among\nthe client's predicted keyshares is chosen, but if the client supports a group\nfrom a more preferred tuple, but did not predict any corresponding keyshares,\nthe server will ask the client to retry the ClientHello (by issuing a Hello\nRetry Request or HRR) with the most preferred mutually supported group.\n\nThe above works as expected when the server's configuration uses the built-in\ndefault group list, or explicitly defines its own list by directly defining the\nvarious desired groups and group 'tuples'.\n\nNo OpenSSL FIPS modules are affected by this issue, the code in question lies\noutside the FIPS boundary.\n\nOpenSSL 3.6 and 3.5 are vulnerable to this issue.\n\nOpenSSL 3.6 users should upgrade to OpenSSL 3.6.2 once it is released.\nOpenSSL 3.5 users should upgrade to OpenSSL 3.5.6 once it is released.\n\nOpenSSL 3.4, 3.3, 3.0, 1.0.2 and 1.1.1 are not affected by this issue."
+                "text": "Vulnerability CVE-2026-2673\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)\nIssue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected\npreferred key exchange group when its key exchange group configuration includes\nthe default by using the 'DEFAULT' keyword.\n\nImpact summary: A less preferred key exchange may be used even when a more\npreferred group is supported by both client and server, if the group\nwas not included among the client's initial predicated keyshares.\nThis will sometimes be the case with the new hybrid post-quantum groups,\nif the client chooses to defer their use until specifically requested by\nthe server.\n\nIf an OpenSSL TLS 1.3 server's configuration uses the 'DEFAULT' keyword to\ninterpolate the built-in default group list into its own configuration, perhaps\nadding or removing specific elements, then an implementation defect causes the\n'DEFAULT' list to lose its 'tuple' structure, and all server-supported groups\nwere treated as a single sufficiently secure 'tuple', with the server not\nsending a Hello Retry Request (HRR) even when a group in a more preferred tuple\nwas mutually supported.\n\nAs a result, the client and server might fail to negotiate a mutually supported\npost-quantum key agreement group, such as 'X25519MLKEM768', if the client's\nconfiguration results in only 'classical' groups (such as 'X25519' being the\nonly ones in the client's initial keyshare prediction).\n\nOpenSSL 3.5 and later support a new syntax for selecting the most preferred TLS\n1.3 key agreement group on TLS servers.  The old syntax had a single 'flat'\nlist of groups, and treated all the supported groups as sufficiently secure.\nIf any of the keyshares predicted by the client were supported by the server\nthe most preferred among these was selected, even if other groups supported by\nthe client, but not included in the list of predicted keyshares would have been\nmore preferred, if included.\n\nThe new syntax partitions the groups into distinct 'tuples' of roughly\nequivalent security.  Within each tuple the most preferred group included among\nthe client's predicted keyshares is chosen, but if the client supports a group\nfrom a more preferred tuple, but did not predict any corresponding keyshares,\nthe server will ask the client to retry the ClientHello (by issuing a Hello\nRetry Request or HRR) with the most preferred mutually supported group.\n\nThe above works as expected when the server's configuration uses the built-in\ndefault group list, or explicitly defines its own list by directly defining the\nvarious desired groups and group 'tuples'.\n\nNo OpenSSL FIPS modules are affected by this issue, the code in question lies\noutside the FIPS boundary.\n\nOpenSSL 3.6 and 3.5 are vulnerable to this issue.\n\nOpenSSL 3.6 users should upgrade to OpenSSL 3.6.2 once it is released.\nOpenSSL 3.5 users should upgrade to OpenSSL 3.5.6 once it is released.\n\nOpenSSL 3.4, 3.3, 3.0, 1.0.2 and 1.1.1 are not affected by this issue.",
+                "markdown": "**Vulnerability CVE-2026-2673**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)|\n\nIssue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected\npreferred key exchange group when its key exchange group configuration includes\nthe default by using the 'DEFAULT' keyword.\n\nImpact summary: A less preferred key exchange may be used even when a more\npreferred group is supported by both client and server, if the group\nwas not included among the client's initial predicated keyshares.\nThis will sometimes be the case with the new hybrid post-quantum groups,\nif the client chooses to defer their use until specifically requested by\nthe server.\n\nIf an OpenSSL TLS 1.3 server's configuration uses the 'DEFAULT' keyword to\ninterpolate the built-in default group list into its own configuration, perhaps\nadding or removing specific elements, then an implementation defect causes the\n'DEFAULT' list to lose its 'tuple' structure, and all server-supported groups\nwere treated as a single sufficiently secure 'tuple', with the server not\nsending a Hello Retry Request (HRR) even when a group in a more preferred tuple\nwas mutually supported.\n\nAs a result, the client and server might fail to negotiate a mutually supported\npost-quantum key agreement group, such as 'X25519MLKEM768', if the client's\nconfiguration results in only 'classical' groups (such as 'X25519' being the\nonly ones in the client's initial keyshare prediction).\n\nOpenSSL 3.5 and later support a new syntax for selecting the most preferred TLS\n1.3 key agreement group on TLS servers.  The old syntax had a single 'flat'\nlist of groups, and treated all the supported groups as sufficiently secure.\nIf any of the keyshares predicted by the client were supported by the server\nthe most preferred among these was selected, even if other groups supported by\nthe client, but not included in the list of predicted keyshares would have been\nmore preferred, if included.\n\nThe new syntax partitions the groups into distinct 'tuples' of roughly\nequivalent security.  Within each tuple the most preferred group included among\nthe client's predicted keyshares is chosen, but if the client supports a group\nfrom a more preferred tuple, but did not predict any corresponding keyshares,\nthe server will ask the client to retry the ClientHello (by issuing a Hello\nRetry Request or HRR) with the most preferred mutually supported group.\n\nThe above works as expected when the server's configuration uses the built-in\ndefault group list, or explicitly defines its own list by directly defining the\nvarious desired groups and group 'tuples'.\n\nNo OpenSSL FIPS modules are affected by this issue, the code in question lies\noutside the FIPS boundary.\n\nOpenSSL 3.6 and 3.5 are vulnerable to this issue.\n\nOpenSSL 3.6 users should upgrade to OpenSSL 3.6.2 once it is released.\nOpenSSL 3.5 users should upgrade to OpenSSL 3.5.6 once it is released.\n\nOpenSSL 3.4, 3.3, 3.0, 1.0.2 and 1.1.1 are not affected by this issue."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-28387",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "Issue summary: An uncommon configuration of clients performing DANE TL ..."
+              },
+              "fullDescription": {
+                "text": "Issue summary: An uncommon configuration of clients performing DANE TLSA-based\nserver authentication, when paired with uncommon server DANE TLSA records, may\nresult in a use-after-free and/or double-free on the client side.\n\nImpact summary: A use after free can have a range of potential consequences\nsuch as the corruption of valid data, crashes or execution of arbitrary code.\n\nHowever, the issue only affects clients that make use of TLSA records with both\nthe PKIX-TA(0/PKIX-EE(1) certificate usages and the DANE-TA(2) certificate\nusage.\n\nBy far the most common deployment of DANE is in SMTP MTAs for which RFC7672\nrecommends that clients treat as 'unusable' any TLSA records that have the PKIX\ncertificate usages.  These SMTP (or other similar) clients are not vulnerable\nto this issue.  Conversely, any clients that support only the PKIX usages, and\nignore the DANE-TA(2) usage are also not vulnerable.\n\nThe client would also need to be communicating with a server that publishes a\nTLSA RRset with both types of TLSA records.\n\nNo FIPS modules are affected by this issue, the problem code is outside the\nFIPS module boundary."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-28387",
+              "help": {
+                "text": "Vulnerability CVE-2026-28387\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28387](https://avd.aquasec.com/nvd/cve-2026-28387)\nIssue summary: An uncommon configuration of clients performing DANE TLSA-based\nserver authentication, when paired with uncommon server DANE TLSA records, may\nresult in a use-after-free and/or double-free on the client side.\n\nImpact summary: A use after free can have a range of potential consequences\nsuch as the corruption of valid data, crashes or execution of arbitrary code.\n\nHowever, the issue only affects clients that make use of TLSA records with both\nthe PKIX-TA(0/PKIX-EE(1) certificate usages and the DANE-TA(2) certificate\nusage.\n\nBy far the most common deployment of DANE is in SMTP MTAs for which RFC7672\nrecommends that clients treat as 'unusable' any TLSA records that have the PKIX\ncertificate usages.  These SMTP (or other similar) clients are not vulnerable\nto this issue.  Conversely, any clients that support only the PKIX usages, and\nignore the DANE-TA(2) usage are also not vulnerable.\n\nThe client would also need to be communicating with a server that publishes a\nTLSA RRset with both types of TLSA records.\n\nNo FIPS modules are affected by this issue, the problem code is outside the\nFIPS module boundary.",
+                "markdown": "**Vulnerability CVE-2026-28387**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-28387](https://avd.aquasec.com/nvd/cve-2026-28387)|\n\nIssue summary: An uncommon configuration of clients performing DANE TLSA-based\nserver authentication, when paired with uncommon server DANE TLSA records, may\nresult in a use-after-free and/or double-free on the client side.\n\nImpact summary: A use after free can have a range of potential consequences\nsuch as the corruption of valid data, crashes or execution of arbitrary code.\n\nHowever, the issue only affects clients that make use of TLSA records with both\nthe PKIX-TA(0/PKIX-EE(1) certificate usages and the DANE-TA(2) certificate\nusage.\n\nBy far the most common deployment of DANE is in SMTP MTAs for which RFC7672\nrecommends that clients treat as 'unusable' any TLSA records that have the PKIX\ncertificate usages.  These SMTP (or other similar) clients are not vulnerable\nto this issue.  Conversely, any clients that support only the PKIX usages, and\nignore the DANE-TA(2) usage are also not vulnerable.\n\nThe client would also need to be communicating with a server that publishes a\nTLSA RRset with both types of TLSA records.\n\nNo FIPS modules are affected by this issue, the problem code is outside the\nFIPS module boundary."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-28388",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "Issue summary: When a delta CRL that contains a Delta CRL Indicator ex ..."
+              },
+              "fullDescription": {
+                "text": "Issue summary: When a delta CRL that contains a Delta CRL Indicator extension\nis processed a NULL pointer dereference might happen if the required CRL\nNumber extension is missing.\n\nImpact summary: A NULL pointer dereference can trigger a crash which\nleads to a Denial of Service for an application.\n\nWhen CRL processing and delta CRL processing is enabled during X.509\ncertificate verification, the delta CRL processing does not check\nwhether the CRL Number extension is NULL before dereferencing it.\nWhen a malformed delta CRL file is being processed, this parameter\ncan be NULL, causing a NULL pointer dereference.\n\nExploiting this issue requires the X509_V_FLAG_USE_DELTAS flag to be enabled in\nthe verification context, the certificate being verified to contain a\nfreshestCRL extension or the base CRL to have the EXFLAG_FRESHEST flag set, and\nan attacker to provide a malformed CRL to an application that processes it.\n\nThe vulnerability is limited to Denial of Service and cannot be escalated to\nachieve code execution or memory disclosure. For that reason the issue was\nassessed as Low severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-28388",
+              "help": {
+                "text": "Vulnerability CVE-2026-28388\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28388](https://avd.aquasec.com/nvd/cve-2026-28388)\nIssue summary: When a delta CRL that contains a Delta CRL Indicator extension\nis processed a NULL pointer dereference might happen if the required CRL\nNumber extension is missing.\n\nImpact summary: A NULL pointer dereference can trigger a crash which\nleads to a Denial of Service for an application.\n\nWhen CRL processing and delta CRL processing is enabled during X.509\ncertificate verification, the delta CRL processing does not check\nwhether the CRL Number extension is NULL before dereferencing it.\nWhen a malformed delta CRL file is being processed, this parameter\ncan be NULL, causing a NULL pointer dereference.\n\nExploiting this issue requires the X509_V_FLAG_USE_DELTAS flag to be enabled in\nthe verification context, the certificate being verified to contain a\nfreshestCRL extension or the base CRL to have the EXFLAG_FRESHEST flag set, and\nan attacker to provide a malformed CRL to an application that processes it.\n\nThe vulnerability is limited to Denial of Service and cannot be escalated to\nachieve code execution or memory disclosure. For that reason the issue was\nassessed as Low severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the affected code is outside the OpenSSL FIPS module boundary.",
+                "markdown": "**Vulnerability CVE-2026-28388**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-28388](https://avd.aquasec.com/nvd/cve-2026-28388)|\n\nIssue summary: When a delta CRL that contains a Delta CRL Indicator extension\nis processed a NULL pointer dereference might happen if the required CRL\nNumber extension is missing.\n\nImpact summary: A NULL pointer dereference can trigger a crash which\nleads to a Denial of Service for an application.\n\nWhen CRL processing and delta CRL processing is enabled during X.509\ncertificate verification, the delta CRL processing does not check\nwhether the CRL Number extension is NULL before dereferencing it.\nWhen a malformed delta CRL file is being processed, this parameter\ncan be NULL, causing a NULL pointer dereference.\n\nExploiting this issue requires the X509_V_FLAG_USE_DELTAS flag to be enabled in\nthe verification context, the certificate being verified to contain a\nfreshestCRL extension or the base CRL to have the EXFLAG_FRESHEST flag set, and\nan attacker to provide a malformed CRL to an application that processes it.\n\nThe vulnerability is limited to Denial of Service and cannot be escalated to\nachieve code execution or memory disclosure. For that reason the issue was\nassessed as Low severity according to our Security Policy.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this issue,\nas the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-28389",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "Issue summary: During processing of a crafted CMS EnvelopedData messag ..."
+              },
+              "fullDescription": {
+                "text": "Issue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyAgreeRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyAgreeRecipientInfo is\nprocessed, the optional parameters field of KeyEncryptionAlgorithmIdentifier\nis examined without checking for its presence. This results in a NULL\npointer dereference if the field is missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-28389",
+              "help": {
+                "text": "Vulnerability CVE-2026-28389\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28389](https://avd.aquasec.com/nvd/cve-2026-28389)\nIssue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyAgreeRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyAgreeRecipientInfo is\nprocessed, the optional parameters field of KeyEncryptionAlgorithmIdentifier\nis examined without checking for its presence. This results in a NULL\npointer dereference if the field is missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
+                "markdown": "**Vulnerability CVE-2026-28389**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-28389](https://avd.aquasec.com/nvd/cve-2026-28389)|\n\nIssue summary: During processing of a crafted CMS EnvelopedData message\nwith KeyAgreeRecipientInfo a NULL pointer dereference can happen.\n\nImpact summary: Applications that process attacker-controlled CMS data may\ncrash before authentication or cryptographic operations occur resulting in\nDenial of Service.\n\nWhen a CMS EnvelopedData message that uses KeyAgreeRecipientInfo is\nprocessed, the optional parameters field of KeyEncryptionAlgorithmIdentifier\nis examined without checking for its presence. This results in a NULL\npointer dereference if the field is missing.\n\nApplications and services that call CMS_decrypt() on untrusted input\n(e.g., S/MIME processing or CMS-based protocols) are vulnerable.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-31789",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "Issue summary: Converting an excessively large OCTET STRING value to a ..."
+              },
+              "fullDescription": {
+                "text": "Issue summary: Converting an excessively large OCTET STRING value to\na hexadecimal string leads to a heap buffer overflow on 32 bit platforms.\n\nImpact summary: A heap buffer overflow may lead to a crash or possibly\nan attacker controlled code execution or other undefined behavior.\n\nIf an attacker can supply a crafted X.509 certificate with an excessively\nlarge OCTET STRING value in extensions such as the Subject Key Identifier\n(SKID) or Authority Key Identifier (AKID) which are being converted to hex,\nthe size of the buffer needed for the result is calculated as multiplication\nof the input length by 3. On 32 bit platforms, this multiplication may overflow\nresulting in the allocation of a smaller buffer and a heap buffer overflow.\n\nApplications and services that print or log contents of untrusted X.509\ncertificates are vulnerable to this issue. As the certificates would have\nto have sizes of over 1 Gigabyte, printing or logging such certificates\nis a fairly unlikely operation and only 32 bit platforms are affected,\nthis issue was assigned Low severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-31789",
+              "help": {
+                "text": "Vulnerability CVE-2026-31789\nSeverity: LOW\nPackage: libssl3t64\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-31789](https://avd.aquasec.com/nvd/cve-2026-31789)\nIssue summary: Converting an excessively large OCTET STRING value to\na hexadecimal string leads to a heap buffer overflow on 32 bit platforms.\n\nImpact summary: A heap buffer overflow may lead to a crash or possibly\nan attacker controlled code execution or other undefined behavior.\n\nIf an attacker can supply a crafted X.509 certificate with an excessively\nlarge OCTET STRING value in extensions such as the Subject Key Identifier\n(SKID) or Authority Key Identifier (AKID) which are being converted to hex,\nthe size of the buffer needed for the result is calculated as multiplication\nof the input length by 3. On 32 bit platforms, this multiplication may overflow\nresulting in the allocation of a smaller buffer and a heap buffer overflow.\n\nApplications and services that print or log contents of untrusted X.509\ncertificates are vulnerable to this issue. As the certificates would have\nto have sizes of over 1 Gigabyte, printing or logging such certificates\nis a fairly unlikely operation and only 32 bit platforms are affected,\nthis issue was assigned Low severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
+                "markdown": "**Vulnerability CVE-2026-31789**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|libssl3t64|3.5.5-1~deb13u2|[CVE-2026-31789](https://avd.aquasec.com/nvd/cve-2026-31789)|\n\nIssue summary: Converting an excessively large OCTET STRING value to\na hexadecimal string leads to a heap buffer overflow on 32 bit platforms.\n\nImpact summary: A heap buffer overflow may lead to a crash or possibly\nan attacker controlled code execution or other undefined behavior.\n\nIf an attacker can supply a crafted X.509 certificate with an excessively\nlarge OCTET STRING value in extensions such as the Subject Key Identifier\n(SKID) or Authority Key Identifier (AKID) which are being converted to hex,\nthe size of the buffer needed for the result is calculated as multiplication\nof the input length by 3. On 32 bit platforms, this multiplication may overflow\nresulting in the allocation of a smaller buffer and a heap buffer overflow.\n\nApplications and services that print or log contents of untrusted X.509\ncertificates are vulnerable to this issue. As the certificates would have\nto have sizes of over 1 Gigabyte, printing or logging such certificates\nis a fairly unlikely operation and only 32 bit platforms are affected,\nthis issue was assigned Low severity.\n\nThe FIPS modules in 3.6, 3.5, 3.4, 3.3 and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary."
               },
               "properties": {
                 "precision": "very-high",
@@ -1941,7 +2103,7 @@
               "id": "CVE-2026-26960",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "tar: node-tar: node-tar: Arbitrary file read/write via malicious archive hardlink creation"
+                "text": "node-tar: node-tar: Arbitrary file read/write via malicious archive hardlink creation"
               },
               "fullDescription": {
                 "text": "node-tar is a full-featured Tar for Node.js. When using default options in versions 7.5.7 and below, an attacker-controlled archive can create a hardlink inside the extraction directory that points to a file outside the extraction root, enabling arbitrary file read and write as the extracting user. Severity is high because the primitive bypasses path protections and turns archive extraction into a direct filesystem access primitive. This issue has been fixed in version 7.5.8."
@@ -2559,11 +2721,173 @@
           ]
         },
         {
-          "ruleId": "CVE-2026-2673",
+          "ruleId": "CVE-2026-28390",
           "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-28390\nSeverity: HIGH\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28390](https://avd.aquasec.com/nvd/cve-2026-28390)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-31790",
+          "ruleIndex": 11,
+          "level": "warning",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-31790\nSeverity: MEDIUM\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-31790](https://avd.aquasec.com/nvd/cve-2026-31790)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-2673",
+          "ruleIndex": 12,
           "level": "note",
           "message": {
-            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-2673\nSeverity: LOW\nFixed Version: \nLink: [CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)"
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-2673\nSeverity: LOW\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-2673](https://avd.aquasec.com/nvd/cve-2026-2673)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-28387",
+          "ruleIndex": 13,
+          "level": "note",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-28387\nSeverity: LOW\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28387](https://avd.aquasec.com/nvd/cve-2026-28387)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-28388",
+          "ruleIndex": 14,
+          "level": "note",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-28388\nSeverity: LOW\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28388](https://avd.aquasec.com/nvd/cve-2026-28388)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-28389",
+          "ruleIndex": 15,
+          "level": "note",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-28389\nSeverity: LOW\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-28389](https://avd.aquasec.com/nvd/cve-2026-28389)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bkimminich/juice-shop",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "bkimminich/juice-shop: libssl3t64@3.5.5-1~deb13u1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-31789",
+          "ruleIndex": 16,
+          "level": "note",
+          "message": {
+            "text": "Package: libssl3t64\nInstalled Version: 3.5.5-1~deb13u1\nVulnerability CVE-2026-31789\nSeverity: LOW\nFixed Version: 3.5.5-1~deb13u2\nLink: [CVE-2026-31789](https://avd.aquasec.com/nvd/cve-2026-31789)"
           },
           "locations": [
             {
@@ -2587,7 +2911,7 @@
         },
         {
           "ruleId": "CVE-2026-27171",
-          "ruleIndex": 11,
+          "ruleIndex": 17,
           "level": "warning",
           "message": {
             "text": "Package: zlib1g\nInstalled Version: 1:1.3.dfsg+really1.3.1-1+b1\nVulnerability CVE-2026-27171\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2026-27171](https://avd.aquasec.com/nvd/cve-2026-27171)"
@@ -2614,7 +2938,7 @@
         },
         {
           "ruleId": "CVE-2026-3449",
-          "ruleIndex": 12,
+          "ruleIndex": 18,
           "level": "note",
           "message": {
             "text": "Package: @tootallnate/once\nInstalled Version: 1.1.2\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
@@ -2641,7 +2965,7 @@
         },
         {
           "ruleId": "CVE-2026-3449",
-          "ruleIndex": 12,
+          "ruleIndex": 18,
           "level": "note",
           "message": {
             "text": "Package: @tootallnate/once\nInstalled Version: 2.0.0\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
@@ -2668,7 +2992,7 @@
         },
         {
           "ruleId": "NSWG-ECO-428",
-          "ruleIndex": 13,
+          "ruleIndex": 19,
           "level": "error",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability NSWG-ECO-428\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [NSWG-ECO-428](https://hackerone.com/reports/321687)"
@@ -2695,7 +3019,7 @@
         },
         {
           "ruleId": "GHSA-rvg8-pwq2-xj7q",
-          "ruleIndex": 14,
+          "ruleIndex": 20,
           "level": "warning",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability GHSA-rvg8-pwq2-xj7q\nSeverity: MEDIUM\nFixed Version: 3.0.0\nLink: [GHSA-rvg8-pwq2-xj7q](https://github.com/advisories/GHSA-rvg8-pwq2-xj7q)"
@@ -2722,7 +3046,7 @@
         },
         {
           "ruleId": "CVE-2024-4068",
-          "ruleIndex": 15,
+          "ruleIndex": 21,
           "level": "error",
           "message": {
             "text": "Package: braces\nInstalled Version: 2.3.2\nVulnerability CVE-2024-4068\nSeverity: HIGH\nFixed Version: 3.0.3\nLink: [CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)"
@@ -2749,7 +3073,7 @@
         },
         {
           "ruleId": "CVE-2024-47764",
-          "ruleIndex": 16,
+          "ruleIndex": 22,
           "level": "note",
           "message": {
             "text": "Package: cookie\nInstalled Version: 0.4.2\nVulnerability CVE-2024-47764\nSeverity: LOW\nFixed Version: 0.7.0\nLink: [CVE-2024-47764](https://avd.aquasec.com/nvd/cve-2024-47764)"
@@ -2776,7 +3100,7 @@
         },
         {
           "ruleId": "CVE-2023-46233",
-          "ruleIndex": 17,
+          "ruleIndex": 23,
           "level": "error",
           "message": {
             "text": "Package: crypto-js\nInstalled Version: 3.3.0\nVulnerability CVE-2023-46233\nSeverity: CRITICAL\nFixed Version: 4.2.0\nLink: [CVE-2023-46233](https://avd.aquasec.com/nvd/cve-2023-46233)"
@@ -2803,7 +3127,7 @@
         },
         {
           "ruleId": "CVE-2022-41940",
-          "ruleIndex": 18,
+          "ruleIndex": 24,
           "level": "warning",
           "message": {
             "text": "Package: engine.io\nInstalled Version: 4.1.2\nVulnerability CVE-2022-41940\nSeverity: MEDIUM\nFixed Version: 3.6.1, 6.2.1\nLink: [CVE-2022-41940](https://avd.aquasec.com/nvd/cve-2022-41940)"
@@ -2830,7 +3154,7 @@
         },
         {
           "ruleId": "CVE-2020-15084",
-          "ruleIndex": 19,
+          "ruleIndex": 25,
           "level": "error",
           "message": {
             "text": "Package: express-jwt\nInstalled Version: 0.1.3\nVulnerability CVE-2020-15084\nSeverity: HIGH\nFixed Version: 6.0.0\nLink: [CVE-2020-15084](https://avd.aquasec.com/nvd/cve-2020-15084)"
@@ -2857,7 +3181,7 @@
         },
         {
           "ruleId": "CVE-2026-31808",
-          "ruleIndex": 20,
+          "ruleIndex": 26,
           "level": "warning",
           "message": {
             "text": "Package: file-type\nInstalled Version: 16.5.4\nVulnerability CVE-2026-31808\nSeverity: MEDIUM\nFixed Version: 21.3.1\nLink: [CVE-2026-31808](https://avd.aquasec.com/nvd/cve-2026-31808)"
@@ -2884,7 +3208,7 @@
         },
         {
           "ruleId": "CVE-2022-33987",
-          "ruleIndex": 21,
+          "ruleIndex": 27,
           "level": "warning",
           "message": {
             "text": "Package: got\nInstalled Version: 8.3.2\nVulnerability CVE-2022-33987\nSeverity: MEDIUM\nFixed Version: 12.1.0, 11.8.5\nLink: [CVE-2022-33987](https://avd.aquasec.com/nvd/cve-2022-33987)"
@@ -2911,7 +3235,7 @@
         },
         {
           "ruleId": "CVE-2022-25881",
-          "ruleIndex": 22,
+          "ruleIndex": 28,
           "level": "error",
           "message": {
             "text": "Package: http-cache-semantics\nInstalled Version: 3.8.1\nVulnerability CVE-2022-25881\nSeverity: HIGH\nFixed Version: 4.1.1\nLink: [CVE-2022-25881](https://avd.aquasec.com/nvd/cve-2022-25881)"
@@ -2938,7 +3262,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 23,
+          "ruleIndex": 29,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2965,7 +3289,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 24,
+          "ruleIndex": 30,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2992,7 +3316,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 25,
+          "ruleIndex": 31,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -3019,7 +3343,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 26,
+          "ruleIndex": 32,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -3046,7 +3370,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 27,
+          "ruleIndex": 33,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -3073,7 +3397,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 23,
+          "ruleIndex": 29,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -3100,7 +3424,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 24,
+          "ruleIndex": 30,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -3127,7 +3451,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 25,
+          "ruleIndex": 31,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -3154,7 +3478,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 26,
+          "ruleIndex": 32,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -3181,7 +3505,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 27,
+          "ruleIndex": 33,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -3208,7 +3532,7 @@
         },
         {
           "ruleId": "CVE-2016-1000223",
-          "ruleIndex": 28,
+          "ruleIndex": 34,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2016-1000223\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [CVE-2016-1000223](https://avd.aquasec.com/nvd/cve-2016-1000223)"
@@ -3235,7 +3559,7 @@
         },
         {
           "ruleId": "CVE-2025-65945",
-          "ruleIndex": 29,
+          "ruleIndex": 35,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2025-65945\nSeverity: HIGH\nFixed Version: 3.2.3, 4.0.1\nLink: [CVE-2025-65945](https://avd.aquasec.com/nvd/cve-2025-65945)"
@@ -3262,7 +3586,7 @@
         },
         {
           "ruleId": "CVE-2019-10744",
-          "ruleIndex": 30,
+          "ruleIndex": 36,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2019-10744\nSeverity: CRITICAL\nFixed Version: 4.17.12\nLink: [CVE-2019-10744](https://avd.aquasec.com/nvd/cve-2019-10744)"
@@ -3289,7 +3613,7 @@
         },
         {
           "ruleId": "CVE-2018-16487",
-          "ruleIndex": 31,
+          "ruleIndex": 37,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-16487\nSeverity: HIGH\nFixed Version: \u003e=4.17.11\nLink: [CVE-2018-16487](https://avd.aquasec.com/nvd/cve-2018-16487)"
@@ -3316,7 +3640,7 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 32,
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2021-23337\nSeverity: HIGH\nFixed Version: 4.17.21\nLink: [CVE-2021-23337](https://avd.aquasec.com/nvd/cve-2021-23337)"
@@ -3343,7 +3667,7 @@
         },
         {
           "ruleId": "CVE-2026-2950",
-          "ruleIndex": 33,
+          "ruleIndex": 39,
           "level": "warning",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2026-2950\nSeverity: MEDIUM\nFixed Version: 4.18.0\nLink: [CVE-2026-2950](https://avd.aquasec.com/nvd/cve-2026-2950)"
@@ -3370,7 +3694,7 @@
         },
         {
           "ruleId": "CVE-2018-3721",
-          "ruleIndex": 34,
+          "ruleIndex": 40,
           "level": "note",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-3721\nSeverity: LOW\nFixed Version: \u003e=4.17.5\nLink: [CVE-2018-3721](https://avd.aquasec.com/nvd/cve-2018-3721)"
@@ -3397,7 +3721,7 @@
         },
         {
           "ruleId": "CVE-2026-4800",
-          "ruleIndex": 35,
+          "ruleIndex": 41,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 4.17.23\nVulnerability CVE-2026-4800\nSeverity: HIGH\nFixed Version: 4.18.0\nLink: [CVE-2026-4800](https://avd.aquasec.com/nvd/cve-2026-4800)"
@@ -3424,7 +3748,7 @@
         },
         {
           "ruleId": "CVE-2026-2950",
-          "ruleIndex": 33,
+          "ruleIndex": 39,
           "level": "warning",
           "message": {
             "text": "Package: lodash\nInstalled Version: 4.17.23\nVulnerability CVE-2026-2950\nSeverity: MEDIUM\nFixed Version: 4.18.0\nLink: [CVE-2026-2950](https://avd.aquasec.com/nvd/cve-2026-2950)"
@@ -3451,7 +3775,7 @@
         },
         {
           "ruleId": "CVE-2020-8203",
-          "ruleIndex": 36,
+          "ruleIndex": 42,
           "level": "error",
           "message": {
             "text": "Package: lodash.set\nInstalled Version: 4.3.2\nVulnerability CVE-2020-8203\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2020-8203](https://avd.aquasec.com/nvd/cve-2020-8203)"
@@ -3478,7 +3802,7 @@
         },
         {
           "ruleId": "GHSA-5mrr-rgp6-x4gr",
-          "ruleIndex": 37,
+          "ruleIndex": 43,
           "level": "error",
           "message": {
             "text": "Package: marsdb\nInstalled Version: 0.6.11\nVulnerability GHSA-5mrr-rgp6-x4gr\nSeverity: CRITICAL\nFixed Version: \nLink: [GHSA-5mrr-rgp6-x4gr](https://github.com/advisories/GHSA-5mrr-rgp6-x4gr)"
@@ -3505,7 +3829,7 @@
         },
         {
           "ruleId": "CVE-2025-57349",
-          "ruleIndex": 38,
+          "ruleIndex": 44,
           "level": "note",
           "message": {
             "text": "Package: messageformat\nInstalled Version: 2.3.0\nVulnerability CVE-2025-57349\nSeverity: LOW\nFixed Version: 3.0.0-beta.0\nLink: [CVE-2025-57349](https://avd.aquasec.com/nvd/cve-2025-57349)"
@@ -3532,7 +3856,7 @@
         },
         {
           "ruleId": "CVE-2024-4067",
-          "ruleIndex": 39,
+          "ruleIndex": 45,
           "level": "warning",
           "message": {
             "text": "Package: micromatch\nInstalled Version: 3.1.10\nVulnerability CVE-2024-4067\nSeverity: MEDIUM\nFixed Version: 4.0.8\nLink: [CVE-2024-4067](https://avd.aquasec.com/nvd/cve-2024-4067)"
@@ -3559,7 +3883,7 @@
         },
         {
           "ruleId": "CVE-2026-26996",
-          "ruleIndex": 40,
+          "ruleIndex": 46,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-26996\nSeverity: HIGH\nFixed Version: 10.2.1, 9.0.6, 8.0.5, 7.4.7, 6.2.1, 5.1.7, 4.2.4, 3.1.3\nLink: [CVE-2026-26996](https://avd.aquasec.com/nvd/cve-2026-26996)"
@@ -3586,7 +3910,7 @@
         },
         {
           "ruleId": "CVE-2026-27903",
-          "ruleIndex": 41,
+          "ruleIndex": 47,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-27903\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.3\nLink: [CVE-2026-27903](https://avd.aquasec.com/nvd/cve-2026-27903)"
@@ -3613,7 +3937,7 @@
         },
         {
           "ruleId": "CVE-2026-27904",
-          "ruleIndex": 42,
+          "ruleIndex": 48,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-27904\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.4\nLink: [CVE-2026-27904](https://avd.aquasec.com/nvd/cve-2026-27904)"
@@ -3640,7 +3964,7 @@
         },
         {
           "ruleId": "CVE-2026-26996",
-          "ruleIndex": 40,
+          "ruleIndex": 46,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-26996\nSeverity: HIGH\nFixed Version: 10.2.1, 9.0.6, 8.0.5, 7.4.7, 6.2.1, 5.1.7, 4.2.4, 3.1.3\nLink: [CVE-2026-26996](https://avd.aquasec.com/nvd/cve-2026-26996)"
@@ -3667,7 +3991,7 @@
         },
         {
           "ruleId": "CVE-2026-27903",
-          "ruleIndex": 41,
+          "ruleIndex": 47,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-27903\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.3\nLink: [CVE-2026-27903](https://avd.aquasec.com/nvd/cve-2026-27903)"
@@ -3694,7 +4018,7 @@
         },
         {
           "ruleId": "CVE-2026-27904",
-          "ruleIndex": 42,
+          "ruleIndex": 48,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-27904\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.4\nLink: [CVE-2026-27904](https://avd.aquasec.com/nvd/cve-2026-27904)"
@@ -3721,7 +4045,7 @@
         },
         {
           "ruleId": "CVE-2017-18214",
-          "ruleIndex": 43,
+          "ruleIndex": 49,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2017-18214\nSeverity: HIGH\nFixed Version: 2.19.3\nLink: [CVE-2017-18214](https://avd.aquasec.com/nvd/cve-2017-18214)"
@@ -3748,7 +4072,7 @@
         },
         {
           "ruleId": "CVE-2022-24785",
-          "ruleIndex": 44,
+          "ruleIndex": 50,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2022-24785\nSeverity: HIGH\nFixed Version: 2.29.2\nLink: [CVE-2022-24785](https://avd.aquasec.com/nvd/cve-2022-24785)"
@@ -3775,7 +4099,7 @@
         },
         {
           "ruleId": "CVE-2016-4055",
-          "ruleIndex": 45,
+          "ruleIndex": 51,
           "level": "warning",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2016-4055\nSeverity: MEDIUM\nFixed Version: \u003e=2.11.2\nLink: [CVE-2016-4055](https://avd.aquasec.com/nvd/cve-2016-4055)"
@@ -3802,7 +4126,7 @@
         },
         {
           "ruleId": "CVE-2025-47935",
-          "ruleIndex": 46,
+          "ruleIndex": 52,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47935\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47935](https://avd.aquasec.com/nvd/cve-2025-47935)"
@@ -3829,7 +4153,7 @@
         },
         {
           "ruleId": "CVE-2025-47944",
-          "ruleIndex": 47,
+          "ruleIndex": 53,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47944\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47944](https://avd.aquasec.com/nvd/cve-2025-47944)"
@@ -3856,7 +4180,7 @@
         },
         {
           "ruleId": "CVE-2025-48997",
-          "ruleIndex": 48,
+          "ruleIndex": 54,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-48997\nSeverity: HIGH\nFixed Version: 2.0.1\nLink: [CVE-2025-48997](https://avd.aquasec.com/nvd/cve-2025-48997)"
@@ -3883,7 +4207,7 @@
         },
         {
           "ruleId": "CVE-2025-7338",
-          "ruleIndex": 49,
+          "ruleIndex": 55,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-7338\nSeverity: HIGH\nFixed Version: 2.0.2\nLink: [CVE-2025-7338](https://avd.aquasec.com/nvd/cve-2025-7338)"
@@ -3910,7 +4234,7 @@
         },
         {
           "ruleId": "CVE-2026-2359",
-          "ruleIndex": 50,
+          "ruleIndex": 56,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-2359\nSeverity: HIGH\nFixed Version: 2.1.0\nLink: [CVE-2026-2359](https://avd.aquasec.com/nvd/cve-2026-2359)"
@@ -3937,7 +4261,7 @@
         },
         {
           "ruleId": "CVE-2026-3304",
-          "ruleIndex": 51,
+          "ruleIndex": 57,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-3304\nSeverity: HIGH\nFixed Version: 2.1.0\nLink: [CVE-2026-3304](https://avd.aquasec.com/nvd/cve-2026-3304)"
@@ -3964,7 +4288,7 @@
         },
         {
           "ruleId": "CVE-2026-3520",
-          "ruleIndex": 52,
+          "ruleIndex": 58,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-3520\nSeverity: HIGH\nFixed Version: 2.1.1\nLink: [CVE-2026-3520](https://avd.aquasec.com/nvd/cve-2026-3520)"
@@ -3991,7 +4315,7 @@
         },
         {
           "ruleId": "CVE-2021-23771",
-          "ruleIndex": 53,
+          "ruleIndex": 59,
           "level": "warning",
           "message": {
             "text": "Package: notevil\nInstalled Version: 1.3.3\nVulnerability CVE-2021-23771\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2021-23771](https://avd.aquasec.com/nvd/cve-2021-23771)"
@@ -4018,7 +4342,7 @@
         },
         {
           "ruleId": "CVE-2022-25887",
-          "ruleIndex": 54,
+          "ruleIndex": 60,
           "level": "error",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2022-25887\nSeverity: HIGH\nFixed Version: 2.7.1\nLink: [CVE-2022-25887](https://avd.aquasec.com/nvd/cve-2022-25887)"
@@ -4045,7 +4369,7 @@
         },
         {
           "ruleId": "CVE-2016-1000237",
-          "ruleIndex": 55,
+          "ruleIndex": 61,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2016-1000237\nSeverity: MEDIUM\nFixed Version: \u003e=1.4.3\nLink: [CVE-2016-1000237](https://avd.aquasec.com/nvd/cve-2016-1000237)"
@@ -4072,7 +4396,7 @@
         },
         {
           "ruleId": "CVE-2017-16016",
-          "ruleIndex": 56,
+          "ruleIndex": 62,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2017-16016\nSeverity: MEDIUM\nFixed Version: 1.11.4\nLink: [CVE-2017-16016](https://avd.aquasec.com/nvd/cve-2017-16016)"
@@ -4099,7 +4423,7 @@
         },
         {
           "ruleId": "CVE-2019-25225",
-          "ruleIndex": 57,
+          "ruleIndex": 63,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2019-25225\nSeverity: MEDIUM\nFixed Version: 2.0.0-beta\nLink: [CVE-2019-25225](https://avd.aquasec.com/nvd/cve-2019-25225)"
@@ -4126,7 +4450,7 @@
         },
         {
           "ruleId": "CVE-2021-26539",
-          "ruleIndex": 58,
+          "ruleIndex": 64,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26539\nSeverity: MEDIUM\nFixed Version: 2.3.1\nLink: [CVE-2021-26539](https://avd.aquasec.com/nvd/cve-2021-26539)"
@@ -4153,7 +4477,7 @@
         },
         {
           "ruleId": "CVE-2021-26540",
-          "ruleIndex": 59,
+          "ruleIndex": 65,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26540\nSeverity: MEDIUM\nFixed Version: 2.3.2\nLink: [CVE-2021-26540](https://avd.aquasec.com/nvd/cve-2021-26540)"
@@ -4180,7 +4504,7 @@
         },
         {
           "ruleId": "CVE-2024-21501",
-          "ruleIndex": 60,
+          "ruleIndex": 66,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2024-21501\nSeverity: MEDIUM\nFixed Version: 2.12.1\nLink: [CVE-2024-21501](https://avd.aquasec.com/nvd/cve-2024-21501)"
@@ -4207,7 +4531,7 @@
         },
         {
           "ruleId": "NSWG-ECO-154",
-          "ruleIndex": 61,
+          "ruleIndex": 67,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability NSWG-ECO-154\nSeverity: MEDIUM\nFixed Version: \u003e=1.11.4\nLink: [NSWG-ECO-154]()"
@@ -4234,7 +4558,7 @@
         },
         {
           "ruleId": "CVE-2024-38355",
-          "ruleIndex": 62,
+          "ruleIndex": 68,
           "level": "warning",
           "message": {
             "text": "Package: socket.io\nInstalled Version: 3.1.2\nVulnerability CVE-2024-38355\nSeverity: MEDIUM\nFixed Version: 2.5.1, 4.6.2\nLink: [CVE-2024-38355](https://avd.aquasec.com/nvd/cve-2024-38355)"
@@ -4261,7 +4585,7 @@
         },
         {
           "ruleId": "CVE-2026-33151",
-          "ruleIndex": 63,
+          "ruleIndex": 69,
           "level": "error",
           "message": {
             "text": "Package: socket.io-parser\nInstalled Version: 4.0.5\nVulnerability CVE-2026-33151\nSeverity: HIGH\nFixed Version: 3.3.5, 3.4.4, 4.2.6\nLink: [CVE-2026-33151](https://avd.aquasec.com/nvd/cve-2026-33151)"
@@ -4288,7 +4612,7 @@
         },
         {
           "ruleId": "CVE-2023-32695",
-          "ruleIndex": 64,
+          "ruleIndex": 70,
           "level": "warning",
           "message": {
             "text": "Package: socket.io-parser\nInstalled Version: 4.0.5\nVulnerability CVE-2023-32695\nSeverity: MEDIUM\nFixed Version: 4.2.3, 3.4.3, 3.3.4\nLink: [CVE-2023-32695](https://avd.aquasec.com/nvd/cve-2023-32695)"
@@ -4315,7 +4639,7 @@
         },
         {
           "ruleId": "CVE-2026-23745",
-          "ruleIndex": 65,
+          "ruleIndex": 71,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
@@ -4342,7 +4666,7 @@
         },
         {
           "ruleId": "CVE-2026-23950",
-          "ruleIndex": 66,
+          "ruleIndex": 72,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
@@ -4369,7 +4693,7 @@
         },
         {
           "ruleId": "CVE-2026-24842",
-          "ruleIndex": 67,
+          "ruleIndex": 73,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
@@ -4396,7 +4720,7 @@
         },
         {
           "ruleId": "CVE-2026-26960",
-          "ruleIndex": 68,
+          "ruleIndex": 74,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-26960\nSeverity: HIGH\nFixed Version: 7.5.8\nLink: [CVE-2026-26960](https://avd.aquasec.com/nvd/cve-2026-26960)"
@@ -4423,7 +4747,7 @@
         },
         {
           "ruleId": "CVE-2026-29786",
-          "ruleIndex": 69,
+          "ruleIndex": 75,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-29786\nSeverity: HIGH\nFixed Version: 7.5.10\nLink: [CVE-2026-29786](https://avd.aquasec.com/nvd/cve-2026-29786)"
@@ -4450,7 +4774,7 @@
         },
         {
           "ruleId": "CVE-2026-31802",
-          "ruleIndex": 70,
+          "ruleIndex": 76,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-31802\nSeverity: HIGH\nFixed Version: 7.5.11\nLink: [CVE-2026-31802](https://avd.aquasec.com/nvd/cve-2026-31802)"
@@ -4477,7 +4801,7 @@
         },
         {
           "ruleId": "CVE-2024-28863",
-          "ruleIndex": 71,
+          "ruleIndex": 77,
           "level": "warning",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2024-28863\nSeverity: MEDIUM\nFixed Version: 6.2.1\nLink: [CVE-2024-28863](https://avd.aquasec.com/nvd/cve-2024-28863)"
@@ -4504,7 +4828,7 @@
         },
         {
           "ruleId": "CVE-2026-23745",
-          "ruleIndex": 65,
+          "ruleIndex": 71,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
@@ -4531,7 +4855,7 @@
         },
         {
           "ruleId": "CVE-2026-23950",
-          "ruleIndex": 66,
+          "ruleIndex": 72,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
@@ -4558,7 +4882,7 @@
         },
         {
           "ruleId": "CVE-2026-24842",
-          "ruleIndex": 67,
+          "ruleIndex": 73,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
@@ -4585,7 +4909,7 @@
         },
         {
           "ruleId": "CVE-2026-26960",
-          "ruleIndex": 68,
+          "ruleIndex": 74,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-26960\nSeverity: HIGH\nFixed Version: 7.5.8\nLink: [CVE-2026-26960](https://avd.aquasec.com/nvd/cve-2026-26960)"
@@ -4612,7 +4936,7 @@
         },
         {
           "ruleId": "CVE-2026-29786",
-          "ruleIndex": 69,
+          "ruleIndex": 75,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-29786\nSeverity: HIGH\nFixed Version: 7.5.10\nLink: [CVE-2026-29786](https://avd.aquasec.com/nvd/cve-2026-29786)"
@@ -4639,7 +4963,7 @@
         },
         {
           "ruleId": "CVE-2026-31802",
-          "ruleIndex": 70,
+          "ruleIndex": 76,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-31802\nSeverity: HIGH\nFixed Version: 7.5.11\nLink: [CVE-2026-31802](https://avd.aquasec.com/nvd/cve-2026-31802)"
@@ -4666,7 +4990,7 @@
         },
         {
           "ruleId": "CVE-2023-32314",
-          "ruleIndex": 72,
+          "ruleIndex": 78,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32314\nSeverity: CRITICAL\nFixed Version: 3.9.18\nLink: [CVE-2023-32314](https://avd.aquasec.com/nvd/cve-2023-32314)"
@@ -4693,7 +5017,7 @@
         },
         {
           "ruleId": "CVE-2023-37466",
-          "ruleIndex": 73,
+          "ruleIndex": 79,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37466\nSeverity: CRITICAL\nFixed Version: 3.10.0\nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)"
@@ -4720,7 +5044,7 @@
         },
         {
           "ruleId": "CVE-2023-37903",
-          "ruleIndex": 74,
+          "ruleIndex": 80,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37903\nSeverity: CRITICAL\nFixed Version: \nLink: [CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)"
@@ -4747,7 +5071,7 @@
         },
         {
           "ruleId": "CVE-2026-22709",
-          "ruleIndex": 75,
+          "ruleIndex": 81,
           "level": "error",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2026-22709\nSeverity: CRITICAL\nFixed Version: 3.10.2\nLink: [CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)"
@@ -4774,7 +5098,7 @@
         },
         {
           "ruleId": "CVE-2023-32313",
-          "ruleIndex": 76,
+          "ruleIndex": 82,
           "level": "warning",
           "message": {
             "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32313\nSeverity: MEDIUM\nFixed Version: 3.9.18\nLink: [CVE-2023-32313](https://avd.aquasec.com/nvd/cve-2023-32313)"
@@ -4801,7 +5125,7 @@
         },
         {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 77,
+          "ruleIndex": 83,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -4828,7 +5152,7 @@
         },
         {
           "ruleId": "private-key",
-          "ruleIndex": 78,
+          "ruleIndex": 84,
           "level": "error",
           "message": {
             "text": "Artifact: /juice-shop/build/lib/insecurity.js\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"
@@ -4855,7 +5179,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 79,
+          "ruleIndex": 85,
           "level": "warning",
           "message": {
             "text": "Artifact: /juice-shop/frontend/src/app/app.guard.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '***********************************************************************************************************************************************************')"
@@ -4882,7 +5206,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 79,
+          "ruleIndex": 85,
           "level": "warning",
           "message": {
             "text": "Artifact: /juice-shop/frontend/src/app/last-login-ip/last-login-ip.component.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '*******************************************************************************************************************************')"
@@ -4909,7 +5233,7 @@
         },
         {
           "ruleId": "private-key",
-          "ruleIndex": 78,
+          "ruleIndex": 84,
           "level": "error",
           "message": {
             "text": "Artifact: /juice-shop/lib/insecurity.ts\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"
@@ -4942,10 +5266,10 @@
         }
       },
       "properties": {
-        "imageID": "sha256:8fb8fd98ff881b0a71d8366d8356797dfc1043aa42a6caafc19133ea305a8f79",
+        "imageID": "sha256:4016b445701f83a4cff54cbbf06ac066771f4838c63181f07f534102bbee8007",
         "imageName": "bkimminich/juice-shop:latest",
         "repoDigests": [
-          "bkimminich/juice-shop@sha256:69d9fc3ac2dfe238154181762112f3c0710bedd08c385046bb45397f53ce9280"
+          "bkimminich/juice-shop@sha256:dfa4432a3f074ad84d795ffeeaf2e0d60c1ecbe1ad5e4a6858da6cfd3aadf35a"
         ],
         "repoTags": [
           "bkimminich/juice-shop:latest"

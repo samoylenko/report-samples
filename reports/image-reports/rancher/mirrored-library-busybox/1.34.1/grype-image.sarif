@@ -6,7 +6,7 @@
       "tool": {
         "driver": {
           "name": "grype",
-          "version": "0.74.4",
+          "version": "0.110.0",
           "informationUri": "https://github.com/anchore/grype",
           "rules": [
             {
@@ -24,6 +24,9 @@
                 "markdown": "**Vulnerability CVE-2022-28391**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| high  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2022-28391](https://nvd.nist.gov/vuln/detail/CVE-2022-28391)  |\n"
               },
               "properties": {
+                "purls": [
+                  "pkg:generic/busybox@1.34.1"
+                ],
                 "security-severity": "8.8"
               }
             },
@@ -42,25 +45,10 @@
                 "markdown": "**Vulnerability CVE-2022-48174**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| critical  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2022-48174](https://nvd.nist.gov/vuln/detail/CVE-2022-48174)  |\n"
               },
               "properties": {
+                "purls": [
+                  "pkg:generic/busybox@1.34.1"
+                ],
                 "security-severity": "9.8"
-              }
-            },
-            {
-              "id": "CVE-2024-58251-busybox",
-              "name": "StockMatcherCpeMatch",
-              "shortDescription": {
-                "text": "CVE-2024-58251 low vulnerability for busybox package"
-              },
-              "fullDescription": {
-                "text": "In netstat in BusyBox through 1.37.0, local users can launch of network application with an argv[0] containing an ANSI terminal escape sequence, leading to a denial of service (terminal locked up) when netstat is used by a victim."
-              },
-              "helpUri": "https://github.com/anchore/grype",
-              "help": {
-                "text": "Vulnerability CVE-2024-58251\nSeverity: low\nPackage: busybox\nVersion: 1.34.1\nFix Version: \nType: binary\nLocation: /bin/busybox\nData Namespace: nvd:cpe\nLink: [CVE-2024-58251](https://nvd.nist.gov/vuln/detail/CVE-2024-58251)",
-                "markdown": "**Vulnerability CVE-2024-58251**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2024-58251](https://nvd.nist.gov/vuln/detail/CVE-2024-58251)  |\n"
-              },
-              "properties": {
-                "security-severity": "2.5"
               }
             },
             {
@@ -78,6 +66,9 @@
                 "markdown": "**Vulnerability CVE-2025-46394**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2025-46394](https://nvd.nist.gov/vuln/detail/CVE-2025-46394)  |\n"
               },
               "properties": {
+                "purls": [
+                  "pkg:generic/busybox@1.34.1"
+                ],
                 "security-severity": "3.3"
               }
             },
@@ -96,7 +87,31 @@
                 "markdown": "**Vulnerability CVE-2025-60876**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| medium  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2025-60876](https://nvd.nist.gov/vuln/detail/CVE-2025-60876)  |\n"
               },
               "properties": {
+                "purls": [
+                  "pkg:generic/busybox@1.34.1"
+                ],
                 "security-severity": "6.5"
+              }
+            },
+            {
+              "id": "CVE-2024-58251-busybox",
+              "name": "StockMatcherCpeMatch",
+              "shortDescription": {
+                "text": "CVE-2024-58251 low vulnerability for busybox package"
+              },
+              "fullDescription": {
+                "text": "In netstat in BusyBox through 1.37.0, local users can launch of network application with an argv[0] containing an ANSI terminal escape sequence, leading to a denial of service (terminal locked up) when netstat is used by a victim."
+              },
+              "helpUri": "https://github.com/anchore/grype",
+              "help": {
+                "text": "Vulnerability CVE-2024-58251\nSeverity: low\nPackage: busybox\nVersion: 1.34.1\nFix Version: \nType: binary\nLocation: /bin/busybox\nData Namespace: nvd:cpe\nLink: [CVE-2024-58251](https://nvd.nist.gov/vuln/detail/CVE-2024-58251)",
+                "markdown": "**Vulnerability CVE-2024-58251**\n| Severity | Package | Version | Fix Version | Type | Location | Data Namespace | Link |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| low  | busybox  | 1.34.1  |   | binary  | /bin/busybox  | nvd:cpe  | [CVE-2024-58251](https://nvd.nist.gov/vuln/detail/CVE-2024-58251)  |\n"
+              },
+              "properties": {
+                "purls": [
+                  "pkg:generic/busybox@1.34.1"
+                ],
+                "security-severity": "2.5"
               }
             }
           ]
@@ -105,14 +120,15 @@
       "results": [
         {
           "ruleId": "CVE-2022-28391-busybox",
+          "level": "error",
           "message": {
-            "text": "The path /bin/busybox reports busybox at version 1.34.1  which is a vulnerable (binary) package installed in the container"
+            "text": "A high vulnerability in binary package: busybox, version 1.34.1 was found in image rancher/mirrored-library-busybox:1.34.1 at: /bin/busybox"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "image//bin/busybox"
+                  "uri": "mirrored-library-busybox//bin/busybox"
                 },
                 "region": {
                   "startLine": 1,
@@ -128,18 +144,22 @@
                 }
               ]
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "cbdb51fcfb0c0ad4268bfdc1391319677e9090e5488c7828242d433fb18fc04c:1"
+          }
         },
         {
           "ruleId": "CVE-2022-48174-busybox",
+          "level": "error",
           "message": {
-            "text": "The path /bin/busybox reports busybox at version 1.34.1  which is a vulnerable (binary) package installed in the container"
+            "text": "A critical vulnerability in binary package: busybox, version 1.34.1 was found in image rancher/mirrored-library-busybox:1.34.1 at: /bin/busybox"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "image//bin/busybox"
+                  "uri": "mirrored-library-busybox//bin/busybox"
                 },
                 "region": {
                   "startLine": 1,
@@ -155,45 +175,22 @@
                 }
               ]
             }
-          ]
-        },
-        {
-          "ruleId": "CVE-2024-58251-busybox",
-          "message": {
-            "text": "The path /bin/busybox reports busybox at version 1.34.1  which is a vulnerable (binary) package installed in the container"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "image//bin/busybox"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "name": "/bin/[",
-                  "fullyQualifiedName": "rancher/mirrored-library-busybox:1.34.1@sha256:d6a7fc1fb44b63324d3fc67f016e1ef7ecc1a5ae6668ae3072d2e17230e3cfbc:/bin/busybox"
-                }
-              ]
-            }
-          ]
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "cbdb51fcfb0c0ad4268bfdc1391319677e9090e5488c7828242d433fb18fc04c:1"
+          }
         },
         {
           "ruleId": "CVE-2025-46394-busybox",
+          "level": "note",
           "message": {
-            "text": "The path /bin/busybox reports busybox at version 1.34.1  which is a vulnerable (binary) package installed in the container"
+            "text": "A low vulnerability in binary package: busybox, version 1.34.1 was found in image rancher/mirrored-library-busybox:1.34.1 at: /bin/busybox"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "image//bin/busybox"
+                  "uri": "mirrored-library-busybox//bin/busybox"
                 },
                 "region": {
                   "startLine": 1,
@@ -209,18 +206,22 @@
                 }
               ]
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "cbdb51fcfb0c0ad4268bfdc1391319677e9090e5488c7828242d433fb18fc04c:1"
+          }
         },
         {
           "ruleId": "CVE-2025-60876-busybox",
+          "level": "warning",
           "message": {
-            "text": "The path /bin/busybox reports busybox at version 1.34.1  which is a vulnerable (binary) package installed in the container"
+            "text": "A medium vulnerability in binary package: busybox, version 1.34.1 was found in image rancher/mirrored-library-busybox:1.34.1 at: /bin/busybox"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "image//bin/busybox"
+                  "uri": "mirrored-library-busybox//bin/busybox"
                 },
                 "region": {
                   "startLine": 1,
@@ -236,7 +237,41 @@
                 }
               ]
             }
-          ]
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "cbdb51fcfb0c0ad4268bfdc1391319677e9090e5488c7828242d433fb18fc04c:1"
+          }
+        },
+        {
+          "ruleId": "CVE-2024-58251-busybox",
+          "level": "note",
+          "message": {
+            "text": "A low vulnerability in binary package: busybox, version 1.34.1 was found in image rancher/mirrored-library-busybox:1.34.1 at: /bin/busybox"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mirrored-library-busybox//bin/busybox"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "name": "/bin/[",
+                  "fullyQualifiedName": "rancher/mirrored-library-busybox:1.34.1@sha256:d6a7fc1fb44b63324d3fc67f016e1ef7ecc1a5ae6668ae3072d2e17230e3cfbc:/bin/busybox"
+                }
+              ]
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "cbdb51fcfb0c0ad4268bfdc1391319677e9090e5488c7828242d433fb18fc04c:1"
+          }
         }
       ]
     }
