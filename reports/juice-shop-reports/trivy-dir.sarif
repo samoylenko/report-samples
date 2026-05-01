@@ -130,6 +130,35 @@
               }
             },
             {
+              "id": "GHSA-w5hq-g745-h8pq",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided"
+              },
+              "fullDescription": {
+                "text": "### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/advisories/GHSA-w5hq-g745-h8pq",
+              "help": {
+                "text": "Vulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nPackage: uuid\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)\n### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`",
+                "markdown": "**Vulnerability GHSA-w5hq-g745-h8pq**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|uuid|14.0.0|[GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)|\n\n### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`"
+              },
+              "properties": {
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2024-37890",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -760,7 +789,7 @@
               "id": "CVE-2026-2950",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "Impact:  Lodash versions 4.17.23 and earlier are vulnerable to prototy ..."
+                "text": "lodash: Lodash: Prototype pollution allows deletion of built-in prototype properties via array path bypass"
               },
               "fullDescription": {
                 "text": "Impact:\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the _.unset and _.omit functions. The fix for (CVE-2025-13465: https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as Object.prototype, Number.prototype, and String.prototype.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\nPatches:\n\nThis issue is patched in 4.18.0.\n\nWorkarounds:\n\nNone. Upgrade to the patched version."
@@ -809,35 +838,6 @@
                   "vulnerability",
                   "security",
                   "LOW"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2026-4800",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "lodash: lodash: Arbitrary code execution via untrusted input in template imports"
-              },
-              "fullDescription": {
-                "text": "Impact:\n\nThe fix for CVE-2021-23337 (https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the variable option in _.template but did not apply the same validation to options.imports key names. Both paths flow into the same Function() constructor sink.\n\nWhen an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, _.template uses assignInWith to merge imports, which enumerates inherited properties via for..in. If Object.prototype has been polluted by any other vector, the polluted keys are copied into the imports object and passed to Function().\n\nPatches:\n\nUsers should upgrade to version 4.18.0.\n\nWorkarounds:\n\nDo not pass untrusted input as key names in options.imports. Only use developer-controlled, static key names."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-4800",
-              "help": {
-                "text": "Vulnerability CVE-2026-4800\nSeverity: HIGH\nPackage: lodash\nFixed Version: 4.18.0\nLink: [CVE-2026-4800](https://avd.aquasec.com/nvd/cve-2026-4800)\nImpact:\n\nThe fix for CVE-2021-23337 (https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the variable option in _.template but did not apply the same validation to options.imports key names. Both paths flow into the same Function() constructor sink.\n\nWhen an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, _.template uses assignInWith to merge imports, which enumerates inherited properties via for..in. If Object.prototype has been polluted by any other vector, the polluted keys are copied into the imports object and passed to Function().\n\nPatches:\n\nUsers should upgrade to version 4.18.0.\n\nWorkarounds:\n\nDo not pass untrusted input as key names in options.imports. Only use developer-controlled, static key names.",
-                "markdown": "**Vulnerability CVE-2026-4800**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|lodash|4.18.0|[CVE-2026-4800](https://avd.aquasec.com/nvd/cve-2026-4800)|\n\nImpact:\n\nThe fix for CVE-2021-23337 (https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the variable option in _.template but did not apply the same validation to options.imports key names. Both paths flow into the same Function() constructor sink.\n\nWhen an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, _.template uses assignInWith to merge imports, which enumerates inherited properties via for..in. If Object.prototype has been polluted by any other vector, the polluted keys are copied into the imports object and passed to Function().\n\nPatches:\n\nUsers should upgrade to version 4.18.0.\n\nWorkarounds:\n\nDo not pass untrusted input as key names in options.imports. Only use developer-controlled, static key names."
-              },
-              "properties": {
-                "cvssv3_baseScore": 8.1,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "precision": "very-high",
-                "security-severity": "8.1",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "HIGH"
                 ]
               }
             },
@@ -2018,7 +2018,7 @@
               }
             }
           ],
-          "version": "0.69.3"
+          "version": "0.70.0"
         }
       },
       "results": [
@@ -2037,9 +2037,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9677,
+                  "startLine": 9691,
                   "startColumn": 1,
-                  "endLine": 9691,
+                  "endLine": 9705,
                   "endColumn": 1
                 }
               },
@@ -2064,9 +2064,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 14841,
+                  "startLine": 14839,
                   "startColumn": 1,
-                  "endLine": 14846,
+                  "endLine": 14844,
                   "endColumn": 1
                 }
               },
@@ -2091,9 +2091,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16647,
+                  "startLine": 16645,
                   "startColumn": 1,
-                  "endLine": 16660,
+                  "endLine": 16658,
                   "endColumn": 1
                 }
               },
@@ -2118,9 +2118,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16647,
+                  "startLine": 16645,
                   "startColumn": 1,
-                  "endLine": 16660,
+                  "endLine": 16658,
                   "endColumn": 1
                 }
               },
@@ -2131,8 +2131,35 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-37890",
+          "ruleId": "GHSA-w5hq-g745-h8pq",
           "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: uuid\nInstalled Version: 8.3.2\nVulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "frontend/package-lock.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 17944,
+                  "startColumn": 1,
+                  "endLine": 17953,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "frontend/package-lock.json: uuid@8.3.2"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-37890",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -2145,9 +2172,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9792,
+                  "startLine": 9806,
                   "startColumn": 1,
-                  "endLine": 9812,
+                  "endLine": 9826,
                   "endColumn": 1
                 }
               },
@@ -2159,7 +2186,7 @@
         },
         {
           "ruleId": "CVE-2026-3449",
-          "ruleIndex": 5,
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "text": "Package: @tootallnate/once\nInstalled Version: 1.1.2\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
@@ -2172,9 +2199,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22529,
+                  "startLine": 22511,
                   "startColumn": 1,
-                  "endLine": 22538,
+                  "endLine": 22520,
                   "endColumn": 1
                 }
               },
@@ -2186,7 +2213,7 @@
         },
         {
           "ruleId": "CVE-2026-3449",
-          "ruleIndex": 5,
+          "ruleIndex": 6,
           "level": "note",
           "message": {
             "text": "Package: @tootallnate/once\nInstalled Version: 2.0.0\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
@@ -2199,9 +2226,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 2958,
+                  "startLine": 2974,
                   "startColumn": 1,
-                  "endLine": 2966,
+                  "endLine": 2982,
                   "endColumn": 1
                 }
               },
@@ -2213,7 +2240,7 @@
         },
         {
           "ruleId": "NSWG-ECO-428",
-          "ruleIndex": 6,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability NSWG-ECO-428\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [NSWG-ECO-428](https://hackerone.com/reports/321687)"
@@ -2226,9 +2253,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 5172,
+                  "startLine": 5188,
                   "startColumn": 1,
-                  "endLine": 5177,
+                  "endLine": 5193,
                   "endColumn": 1
                 }
               },
@@ -2240,7 +2267,7 @@
         },
         {
           "ruleId": "GHSA-rvg8-pwq2-xj7q",
-          "ruleIndex": 7,
+          "ruleIndex": 8,
           "level": "warning",
           "message": {
             "text": "Package: base64url\nInstalled Version: 0.0.6\nVulnerability GHSA-rvg8-pwq2-xj7q\nSeverity: MEDIUM\nFixed Version: 3.0.0\nLink: [GHSA-rvg8-pwq2-xj7q](https://github.com/advisories/GHSA-rvg8-pwq2-xj7q)"
@@ -2253,9 +2280,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 5172,
+                  "startLine": 5188,
                   "startColumn": 1,
-                  "endLine": 5177,
+                  "endLine": 5193,
                   "endColumn": 1
                 }
               },
@@ -2267,7 +2294,7 @@
         },
         {
           "ruleId": "CVE-2024-4068",
-          "ruleIndex": 8,
+          "ruleIndex": 9,
           "level": "error",
           "message": {
             "text": "Package: braces\nInstalled Version: 2.3.2\nVulnerability CVE-2024-4068\nSeverity: HIGH\nFixed Version: 3.0.3\nLink: [CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)"
@@ -2280,9 +2307,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 5371,
+                  "startLine": 5387,
                   "startColumn": 1,
-                  "endLine": 5391,
+                  "endLine": 5407,
                   "endColumn": 1
                 }
               },
@@ -2294,7 +2321,7 @@
         },
         {
           "ruleId": "CVE-2024-47764",
-          "ruleIndex": 9,
+          "ruleIndex": 10,
           "level": "note",
           "message": {
             "text": "Package: cookie\nInstalled Version: 0.4.2\nVulnerability CVE-2024-47764\nSeverity: LOW\nFixed Version: 0.7.0\nLink: [CVE-2024-47764](https://avd.aquasec.com/nvd/cve-2024-47764)"
@@ -2307,9 +2334,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8072,
+                  "startLine": 8097,
                   "startColumn": 1,
-                  "endLine": 8080,
+                  "endLine": 8105,
                   "endColumn": 1
                 }
               },
@@ -2321,7 +2348,7 @@
         },
         {
           "ruleId": "CVE-2023-46233",
-          "ruleIndex": 10,
+          "ruleIndex": 11,
           "level": "error",
           "message": {
             "text": "Package: crypto-js\nInstalled Version: 3.3.0\nVulnerability CVE-2023-46233\nSeverity: CRITICAL\nFixed Version: 4.2.0\nLink: [CVE-2023-46233](https://avd.aquasec.com/nvd/cve-2023-46233)"
@@ -2334,9 +2361,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 6929,
+                  "startLine": 6954,
                   "startColumn": 1,
-                  "endLine": 6934,
+                  "endLine": 6959,
                   "endColumn": 1
                 }
               },
@@ -2348,7 +2375,7 @@
         },
         {
           "ruleId": "CVE-2022-41940",
-          "ruleIndex": 11,
+          "ruleIndex": 12,
           "level": "warning",
           "message": {
             "text": "Package: engine.io\nInstalled Version: 4.1.2\nVulnerability CVE-2022-41940\nSeverity: MEDIUM\nFixed Version: 3.6.1, 6.2.1\nLink: [CVE-2022-41940](https://avd.aquasec.com/nvd/cve-2022-41940)"
@@ -2361,9 +2388,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 7983,
+                  "startLine": 8008,
                   "startColumn": 1,
-                  "endLine": 8000,
+                  "endLine": 8025,
                   "endColumn": 1
                 }
               },
@@ -2375,7 +2402,7 @@
         },
         {
           "ruleId": "CVE-2020-15084",
-          "ruleIndex": 12,
+          "ruleIndex": 13,
           "level": "error",
           "message": {
             "text": "Package: express-jwt\nInstalled Version: 0.1.3\nVulnerability CVE-2020-15084\nSeverity: HIGH\nFixed Version: 6.0.0\nLink: [CVE-2020-15084](https://avd.aquasec.com/nvd/cve-2020-15084)"
@@ -2388,9 +2415,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9584,
+                  "startLine": 9618,
                   "startColumn": 1,
-                  "endLine": 9594,
+                  "endLine": 9628,
                   "endColumn": 1
                 }
               },
@@ -2402,7 +2429,7 @@
         },
         {
           "ruleId": "CVE-2026-31808",
-          "ruleIndex": 13,
+          "ruleIndex": 14,
           "level": "warning",
           "message": {
             "text": "Package: file-type\nInstalled Version: 16.5.4\nVulnerability CVE-2026-31808\nSeverity: MEDIUM\nFixed Version: 21.3.1\nLink: [CVE-2026-31808](https://avd.aquasec.com/nvd/cve-2026-31808)"
@@ -2415,9 +2442,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 10019,
+                  "startLine": 10068,
                   "startColumn": 1,
-                  "endLine": 10035,
+                  "endLine": 10084,
                   "endColumn": 1
                 }
               },
@@ -2429,7 +2456,7 @@
         },
         {
           "ruleId": "CVE-2022-33987",
-          "ruleIndex": 14,
+          "ruleIndex": 15,
           "level": "warning",
           "message": {
             "text": "Package: got\nInstalled Version: 8.3.2\nVulnerability CVE-2022-33987\nSeverity: MEDIUM\nFixed Version: 12.1.0, 11.8.5\nLink: [CVE-2022-33987](https://avd.aquasec.com/nvd/cve-2022-33987)"
@@ -2442,9 +2469,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 11105,
+                  "startLine": 11154,
                   "startColumn": 1,
-                  "endLine": 11132,
+                  "endLine": 11181,
                   "endColumn": 1
                 }
               },
@@ -2456,7 +2483,7 @@
         },
         {
           "ruleId": "CVE-2022-25881",
-          "ruleIndex": 15,
+          "ruleIndex": 16,
           "level": "error",
           "message": {
             "text": "Package: http-cache-semantics\nInstalled Version: 3.8.1\nVulnerability CVE-2022-25881\nSeverity: HIGH\nFixed Version: 4.1.1\nLink: [CVE-2022-25881](https://avd.aquasec.com/nvd/cve-2022-25881)"
@@ -2469,9 +2496,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 12023,
+                  "startLine": 11999,
                   "startColumn": 1,
-                  "endLine": 12028,
+                  "endLine": 12004,
                   "endColumn": 1
                 }
               },
@@ -2483,7 +2510,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 16,
+          "ruleIndex": 17,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2496,9 +2523,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9595,
+                  "startLine": 9629,
                   "startColumn": 1,
-                  "endLine": 9605,
+                  "endLine": 9639,
                   "endColumn": 1
                 }
               },
@@ -2510,7 +2537,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 17,
+          "ruleIndex": 18,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2523,9 +2550,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9595,
+                  "startLine": 9629,
                   "startColumn": 1,
-                  "endLine": 9605,
+                  "endLine": 9639,
                   "endColumn": 1
                 }
               },
@@ -2537,7 +2564,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 18,
+          "ruleIndex": 19,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2550,9 +2577,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9595,
+                  "startLine": 9629,
                   "startColumn": 1,
-                  "endLine": 9605,
+                  "endLine": 9639,
                   "endColumn": 1
                 }
               },
@@ -2564,7 +2591,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 19,
+          "ruleIndex": 20,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2577,9 +2604,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9595,
+                  "startLine": 9629,
                   "startColumn": 1,
-                  "endLine": 9605,
+                  "endLine": 9639,
                   "endColumn": 1
                 }
               },
@@ -2591,7 +2618,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 20,
+          "ruleIndex": 21,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2604,9 +2631,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9595,
+                  "startLine": 9629,
                   "startColumn": 1,
-                  "endLine": 9605,
+                  "endLine": 9639,
                   "endColumn": 1
                 }
               },
@@ -2618,7 +2645,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 16,
+          "ruleIndex": 17,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2631,9 +2658,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15927,
+                  "startLine": 15903,
                   "startColumn": 1,
-                  "endLine": 15936,
+                  "endLine": 15912,
                   "endColumn": 1
                 }
               },
@@ -2645,7 +2672,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 17,
+          "ruleIndex": 18,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2658,9 +2685,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15927,
+                  "startLine": 15903,
                   "startColumn": 1,
-                  "endLine": 15936,
+                  "endLine": 15912,
                   "endColumn": 1
                 }
               },
@@ -2672,7 +2699,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 18,
+          "ruleIndex": 19,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2685,9 +2712,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15927,
+                  "startLine": 15903,
                   "startColumn": 1,
-                  "endLine": 15936,
+                  "endLine": 15912,
                   "endColumn": 1
                 }
               },
@@ -2699,7 +2726,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 19,
+          "ruleIndex": 20,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2712,9 +2739,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15927,
+                  "startLine": 15903,
                   "startColumn": 1,
-                  "endLine": 15936,
+                  "endLine": 15912,
                   "endColumn": 1
                 }
               },
@@ -2726,7 +2753,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 20,
+          "ruleIndex": 21,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2739,9 +2766,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15927,
+                  "startLine": 15903,
                   "startColumn": 1,
-                  "endLine": 15936,
+                  "endLine": 15912,
                   "endColumn": 1
                 }
               },
@@ -2753,7 +2780,7 @@
         },
         {
           "ruleId": "CVE-2016-1000223",
-          "ruleIndex": 21,
+          "ruleIndex": 22,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2016-1000223\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [CVE-2016-1000223](https://avd.aquasec.com/nvd/cve-2016-1000223)"
@@ -2766,9 +2793,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16005,
+                  "startLine": 15981,
                   "startColumn": 1,
-                  "endLine": 16015,
+                  "endLine": 15991,
                   "endColumn": 1
                 }
               },
@@ -2780,7 +2807,7 @@
         },
         {
           "ruleId": "CVE-2025-65945",
-          "ruleIndex": 22,
+          "ruleIndex": 23,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2025-65945\nSeverity: HIGH\nFixed Version: 3.2.3, 4.0.1\nLink: [CVE-2025-65945](https://avd.aquasec.com/nvd/cve-2025-65945)"
@@ -2793,9 +2820,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16005,
+                  "startLine": 15981,
                   "startColumn": 1,
-                  "endLine": 16015,
+                  "endLine": 15991,
                   "endColumn": 1
                 }
               },
@@ -2807,7 +2834,7 @@
         },
         {
           "ruleId": "CVE-2019-10744",
-          "ruleIndex": 23,
+          "ruleIndex": 24,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2019-10744\nSeverity: CRITICAL\nFixed Version: 4.17.12\nLink: [CVE-2019-10744](https://avd.aquasec.com/nvd/cve-2019-10744)"
@@ -2820,9 +2847,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21283,
+                  "startLine": 21265,
                   "startColumn": 1,
-                  "endLine": 21292,
+                  "endLine": 21274,
                   "endColumn": 1
                 }
               },
@@ -2834,7 +2861,7 @@
         },
         {
           "ruleId": "CVE-2018-16487",
-          "ruleIndex": 24,
+          "ruleIndex": 25,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-16487\nSeverity: HIGH\nFixed Version: \u003e=4.17.11\nLink: [CVE-2018-16487](https://avd.aquasec.com/nvd/cve-2018-16487)"
@@ -2847,9 +2874,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21283,
+                  "startLine": 21265,
                   "startColumn": 1,
-                  "endLine": 21292,
+                  "endLine": 21274,
                   "endColumn": 1
                 }
               },
@@ -2861,7 +2888,7 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 25,
+          "ruleIndex": 26,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2021-23337\nSeverity: HIGH\nFixed Version: 4.17.21\nLink: [CVE-2021-23337](https://avd.aquasec.com/nvd/cve-2021-23337)"
@@ -2874,9 +2901,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21283,
+                  "startLine": 21265,
                   "startColumn": 1,
-                  "endLine": 21292,
+                  "endLine": 21274,
                   "endColumn": 1
                 }
               },
@@ -2888,7 +2915,7 @@
         },
         {
           "ruleId": "CVE-2026-2950",
-          "ruleIndex": 26,
+          "ruleIndex": 27,
           "level": "warning",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2026-2950\nSeverity: MEDIUM\nFixed Version: 4.18.0\nLink: [CVE-2026-2950](https://avd.aquasec.com/nvd/cve-2026-2950)"
@@ -2901,9 +2928,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21283,
+                  "startLine": 21265,
                   "startColumn": 1,
-                  "endLine": 21292,
+                  "endLine": 21274,
                   "endColumn": 1
                 }
               },
@@ -2915,7 +2942,7 @@
         },
         {
           "ruleId": "CVE-2018-3721",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "level": "note",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-3721\nSeverity: LOW\nFixed Version: \u003e=4.17.5\nLink: [CVE-2018-3721](https://avd.aquasec.com/nvd/cve-2018-3721)"
@@ -2928,102 +2955,14 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21283,
+                  "startLine": 21265,
                   "startColumn": 1,
-                  "endLine": 21292,
+                  "endLine": 21274,
                   "endColumn": 1
                 }
               },
               "message": {
                 "text": "package-lock.json: lodash@2.4.2"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-4800",
-          "ruleIndex": 28,
-          "level": "error",
-          "message": {
-            "text": "Package: lodash\nInstalled Version: 4.17.23\nVulnerability CVE-2026-4800\nSeverity: HIGH\nFixed Version: 4.18.0\nLink: [CVE-2026-4800](https://avd.aquasec.com/nvd/cve-2026-4800)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11435,
-                  "startColumn": 1,
-                  "endLine": 11440,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: lodash@4.17.23"
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11459,
-                  "startColumn": 1,
-                  "endLine": 11464,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: lodash@4.17.23"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-2950",
-          "ruleIndex": 26,
-          "level": "warning",
-          "message": {
-            "text": "Package: lodash\nInstalled Version: 4.17.23\nVulnerability CVE-2026-2950\nSeverity: MEDIUM\nFixed Version: 4.18.0\nLink: [CVE-2026-2950](https://avd.aquasec.com/nvd/cve-2026-2950)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11435,
-                  "startColumn": 1,
-                  "endLine": 11440,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: lodash@4.17.23"
-              }
-            },
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11459,
-                  "startColumn": 1,
-                  "endLine": 11464,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: lodash@4.17.23"
               }
             }
           ]
@@ -3043,9 +2982,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16532,
+                  "startLine": 16508,
                   "startColumn": 1,
-                  "endLine": 16537,
+                  "endLine": 16513,
                   "endColumn": 1
                 }
               },
@@ -3070,9 +3009,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16900,
+                  "startLine": 16876,
                   "startColumn": 1,
-                  "endLine": 16913,
+                  "endLine": 16889,
                   "endColumn": 1
                 }
               },
@@ -3097,9 +3036,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16988,
+                  "startLine": 16964,
                   "startColumn": 1,
-                  "endLine": 16999,
+                  "endLine": 16975,
                   "endColumn": 1
                 }
               },
@@ -3124,9 +3063,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17033,
+                  "startLine": 17009,
                   "startColumn": 1,
-                  "endLine": 17056,
+                  "endLine": 17032,
                   "endColumn": 1
                 }
               },
@@ -3151,9 +3090,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20718,
+                  "startLine": 20700,
                   "startColumn": 1,
-                  "endLine": 20729,
+                  "endLine": 20711,
                   "endColumn": 1
                 }
               },
@@ -3178,9 +3117,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20718,
+                  "startLine": 20700,
                   "startColumn": 1,
-                  "endLine": 20729,
+                  "endLine": 20711,
                   "endColumn": 1
                 }
               },
@@ -3205,95 +3144,14 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20718,
+                  "startLine": 20700,
                   "startColumn": 1,
-                  "endLine": 20729,
+                  "endLine": 20711,
                   "endColumn": 1
                 }
               },
               "message": {
                 "text": "package-lock.json: minimatch@3.0.5"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-26996",
-          "ruleIndex": 33,
-          "level": "error",
-          "message": {
-            "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-26996\nSeverity: HIGH\nFixed Version: 10.2.1, 9.0.6, 8.0.5, 7.4.7, 6.2.1, 5.1.7, 4.2.4, 3.1.3\nLink: [CVE-2026-26996](https://avd.aquasec.com/nvd/cve-2026-26996)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11618,
-                  "startColumn": 1,
-                  "endLine": 11629,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: minimatch@3.0.8"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-27903",
-          "ruleIndex": 34,
-          "level": "error",
-          "message": {
-            "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-27903\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.3\nLink: [CVE-2026-27903](https://avd.aquasec.com/nvd/cve-2026-27903)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11618,
-                  "startColumn": 1,
-                  "endLine": 11629,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: minimatch@3.0.8"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-27904",
-          "ruleIndex": 35,
-          "level": "error",
-          "message": {
-            "text": "Package: minimatch\nInstalled Version: 3.0.8\nVulnerability CVE-2026-27904\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.4\nLink: [CVE-2026-27904](https://avd.aquasec.com/nvd/cve-2026-27904)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 11618,
-                  "startColumn": 1,
-                  "endLine": 11629,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: minimatch@3.0.8"
               }
             }
           ]
@@ -3313,9 +3171,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9606,
+                  "startLine": 9640,
                   "startColumn": 1,
-                  "endLine": 9613,
+                  "endLine": 9647,
                   "endColumn": 1
                 }
               },
@@ -3340,9 +3198,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9606,
+                  "startLine": 9640,
                   "startColumn": 1,
-                  "endLine": 9613,
+                  "endLine": 9647,
                   "endColumn": 1
                 }
               },
@@ -3367,9 +3225,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9606,
+                  "startLine": 9640,
                   "startColumn": 1,
-                  "endLine": 9613,
+                  "endLine": 9647,
                   "endColumn": 1
                 }
               },
@@ -3394,9 +3252,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3421,9 +3279,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3448,9 +3306,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3475,9 +3333,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3502,9 +3360,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3529,9 +3387,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3556,9 +3414,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17721,
+                  "startLine": 17697,
                   "startColumn": 1,
-                  "endLine": 17739,
+                  "endLine": 17715,
                   "endColumn": 1
                 }
               },
@@ -3583,9 +3441,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18302,
+                  "startLine": 18281,
                   "startColumn": 1,
-                  "endLine": 18312,
+                  "endLine": 18291,
                   "endColumn": 1
                 }
               },
@@ -3610,9 +3468,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3637,9 +3495,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3664,9 +3522,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3691,9 +3549,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3718,9 +3576,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3745,9 +3603,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3772,9 +3630,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3799,9 +3657,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21225,
+                  "startLine": 21207,
                   "startColumn": 1,
-                  "endLine": 21235,
+                  "endLine": 21217,
                   "endColumn": 1
                 }
               },
@@ -3826,9 +3684,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22141,
+                  "startLine": 22123,
                   "startColumn": 1,
-                  "endLine": 22160,
+                  "endLine": 22142,
                   "endColumn": 1
                 }
               },
@@ -3853,9 +3711,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22204,
+                  "startLine": 22186,
                   "startColumn": 1,
-                  "endLine": 22217,
+                  "endLine": 22199,
                   "endColumn": 1
                 }
               },
@@ -3880,9 +3738,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22204,
+                  "startLine": 22186,
                   "startColumn": 1,
-                  "endLine": 22217,
+                  "endLine": 22199,
                   "endColumn": 1
                 }
               },
@@ -3907,9 +3765,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -3934,9 +3792,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -3961,9 +3819,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -3988,9 +3846,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -4015,9 +3873,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -4042,9 +3900,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -4069,9 +3927,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18203,
+                  "startLine": 18179,
                   "startColumn": 1,
-                  "endLine": 18221,
+                  "endLine": 18197,
                   "endColumn": 1
                 }
               },
@@ -4096,9 +3954,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
@@ -4123,9 +3981,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
@@ -4150,9 +4008,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
@@ -4177,9 +4035,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
@@ -4204,9 +4062,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
@@ -4231,14 +4089,41 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 23010,
+                  "startLine": 22976,
                   "startColumn": 1,
-                  "endLine": 23027,
+                  "endLine": 22993,
                   "endColumn": 1
                 }
               },
               "message": {
                 "text": "package-lock.json: tar@6.2.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "GHSA-w5hq-g745-h8pq",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: uuid\nInstalled Version: 8.3.2\nVulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "package-lock.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 24872,
+                  "startColumn": 1,
+                  "endLine": 24881,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "package-lock.json: uuid@8.3.2"
               }
             }
           ]
@@ -4258,9 +4143,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 25017,
+                  "startLine": 24989,
                   "startColumn": 1,
-                  "endLine": 25033,
+                  "endLine": 25005,
                   "endColumn": 1
                 }
               },
@@ -4285,9 +4170,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 25017,
+                  "startLine": 24989,
                   "startColumn": 1,
-                  "endLine": 25033,
+                  "endLine": 25005,
                   "endColumn": 1
                 }
               },
@@ -4312,9 +4197,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 25017,
+                  "startLine": 24989,
                   "startColumn": 1,
-                  "endLine": 25033,
+                  "endLine": 25005,
                   "endColumn": 1
                 }
               },
@@ -4339,9 +4224,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 25017,
+                  "startLine": 24989,
                   "startColumn": 1,
-                  "endLine": 25033,
+                  "endLine": 25005,
                   "endColumn": 1
                 }
               },
@@ -4366,9 +4251,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 25017,
+                  "startLine": 24989,
                   "startColumn": 1,
-                  "endLine": 25033,
+                  "endLine": 25005,
                   "endColumn": 1
                 }
               },
@@ -4380,7 +4265,7 @@
         },
         {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 4,
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -4393,9 +4278,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8038,
+                  "startLine": 8063,
                   "startColumn": 1,
-                  "endLine": 8059,
+                  "endLine": 8084,
                   "endColumn": 1
                 }
               },
@@ -4410,9 +4295,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8098,
+                  "startLine": 8123,
                   "startColumn": 1,
-                  "endLine": 8118,
+                  "endLine": 8143,
                   "endColumn": 1
                 }
               },
@@ -4534,7 +4419,7 @@
       "columnKind": "utf16CodeUnits",
       "originalUriBaseIds": {
         "ROOTPATH": {
-          "uri": "file:///"
+          "uri": "file:///home/runner/work/report-samples/report-samples/juice-shop/"
         }
       }
     }
