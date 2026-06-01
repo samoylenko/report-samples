@@ -130,35 +130,6 @@
               }
             },
             {
-              "id": "GHSA-w5hq-g745-h8pq",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided"
-              },
-              "fullDescription": {
-                "text": "### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`"
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "helpUri": "https://github.com/advisories/GHSA-w5hq-g745-h8pq",
-              "help": {
-                "text": "Vulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nPackage: uuid\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)\n### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`",
-                "markdown": "**Vulnerability GHSA-w5hq-g745-h8pq**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|uuid|14.0.0|[GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)|\n\n### Summary\n\n`v3`, `v5`, and `v6` accept external output buffers but do not reject out-of-range writes (small `buf` or large `offset`).  \nBy contrast, `v4`, `v1`, and `v7` explicitly throw `RangeError` on invalid bounds.\n\nThis inconsistency allows **silent partial writes** into caller-provided buffers.\n\n\n### Affected code\n\n- `src/v35.ts` (`v3`/`v5` path) writes `buf[offset + i]` without bounds validation.\n- `src/v6.ts` writes `buf[offset + i]` without bounds validation.\n\n### Reproducible PoC\n\n```bash\ncd /home/StrawHat/uuid\nnpm ci\nnpm run build\n\nnode --input-type=module -e \"\nimport {v4,v5,v6} from './dist-node/index.js';\nconst ns='6ba7b810-9dad-11d1-80b4-00c04fd430c8';\nfor (const [name,fn] of [\n  ['v4',()=\u003ev4({},new Uint8Array(8),4)],\n  ['v5',()=\u003ev5('x',ns,new Uint8Array(8),4)],\n  ['v6',()=\u003ev6({},new Uint8Array(8),4)],\n]) {\n  try { fn(); console.log(name,'NO_THROW'); }\n  catch(e){ console.log(name,'THREW',e.name); }\n}\"\n```\n\nObserved:\n\n- `v4 THREW RangeError`\n- `v5 NO_THROW`\n- `v6 NO_THROW`\n\nExample partial overwrite evidence captured during audit:\n\n```text\nsame true buf [\n  170, 170, 170, 170,\n   75, 224, 100,  63\n]\nv6 [\n  187, 187, 187, 187,\n   31,  19, 185,  64\n]\n```\n\n### Security impact\n\n- **Primary**: integrity/robustness issue (silent partial output).\n- If an application assumes full UUID writes into preallocated buffers, this can produce malformed/truncated/partially stale identifiers without error.\n- In systems where caller-controlled offsets/buffer sizes are exposed indirectly, this may become a security-relevant logic flaw.\n\n### Suggested fix\n\nAdd the same guard used by `v4`/`v1`/`v7`:\n\n```ts\nif (offset \u003c 0 || offset + 16 \u003e buf.length) {\n  throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);\n}\n```\n\nApply to:\n\n- `src/v35.ts` (covers `v3` and `v5`)\n- `src/v6.ts`"
-              },
-              "properties": {
-                "cvssv40_baseScore": 6.3,
-                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
-                "precision": "very-high",
-                "security-severity": "5.5",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "MEDIUM"
-                ]
-              }
-            },
-            {
               "id": "CVE-2024-37890",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -190,6 +161,35 @@
               }
             },
             {
+              "id": "CVE-2026-45736",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "ws is an open source WebSocket client and server for Node.js. Prior to ..."
+              },
+              "fullDescription": {
+                "text": "ws is an open source WebSocket client and server for Node.js. Prior to 8.20.1, the websocket.close() implementation is vulnerable to uninitialized memory disclosure when a TypedArray is passed as the reason argument. This vulnerability is fixed in 8.20.1."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-45736",
+              "help": {
+                "text": "Vulnerability CVE-2026-45736\nSeverity: MEDIUM\nPackage: ws\nFixed Version: 8.20.1\nLink: [CVE-2026-45736](https://avd.aquasec.com/nvd/cve-2026-45736)\nws is an open source WebSocket client and server for Node.js. Prior to 8.20.1, the websocket.close() implementation is vulnerable to uninitialized memory disclosure when a TypedArray is passed as the reason argument. This vulnerability is fixed in 8.20.1.",
+                "markdown": "**Vulnerability CVE-2026-45736**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|ws|8.20.1|[CVE-2026-45736](https://avd.aquasec.com/nvd/cve-2026-45736)|\n\nws is an open source WebSocket client and server for Node.js. Prior to 8.20.1, the websocket.close() implementation is vulnerable to uninitialized memory disclosure when a TypedArray is passed as the reason argument. This vulnerability is fixed in 8.20.1."
+              },
+              "properties": {
+                "cvssv3_baseScore": 4.4,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:N/A:N",
+                "precision": "very-high",
+                "security-severity": "4.4",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2026-3449",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -203,8 +203,8 @@
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2026-3449",
               "help": {
-                "text": "Vulnerability CVE-2026-3449\nSeverity: LOW\nPackage: @tootallnate/once\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)\nVersions of the package @tootallnate/once before 3.0.1 are vulnerable to Incorrect Control Flow Scoping in promise resolving when AbortSignal option is used. The Promise remains in a permanently pending state after the signal is aborted, causing any await or .then() usage to hang indefinitely. This can cause a control-flow leak that can lead to stalled requests, blocked workers, or degraded application availability.",
-                "markdown": "**Vulnerability CVE-2026-3449**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|@tootallnate/once|3.0.1|[CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)|\n\nVersions of the package @tootallnate/once before 3.0.1 are vulnerable to Incorrect Control Flow Scoping in promise resolving when AbortSignal option is used. The Promise remains in a permanently pending state after the signal is aborted, causing any await or .then() usage to hang indefinitely. This can cause a control-flow leak that can lead to stalled requests, blocked workers, or degraded application availability."
+                "text": "Vulnerability CVE-2026-3449\nSeverity: LOW\nPackage: @tootallnate/once\nFixed Version: 3.0.1, 2.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)\nVersions of the package @tootallnate/once before 3.0.1 are vulnerable to Incorrect Control Flow Scoping in promise resolving when AbortSignal option is used. The Promise remains in a permanently pending state after the signal is aborted, causing any await or .then() usage to hang indefinitely. This can cause a control-flow leak that can lead to stalled requests, blocked workers, or degraded application availability.",
+                "markdown": "**Vulnerability CVE-2026-3449**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|@tootallnate/once|3.0.1, 2.0.1|[CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)|\n\nVersions of the package @tootallnate/once before 3.0.1 are vulnerable to Incorrect Control Flow Scoping in promise resolving when AbortSignal option is used. The Promise remains in a permanently pending state after the signal is aborted, causing any await or .then() usage to hang indefinitely. This can cause a control-flow leak that can lead to stalled requests, blocked workers, or degraded application availability."
               },
               "properties": {
                 "cvssv3_baseScore": 3.3,
@@ -271,35 +271,6 @@
                   "vulnerability",
                   "security",
                   "MEDIUM"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2024-4068",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "braces: fails to limit the number of characters it can handle"
-              },
-              "fullDescription": {
-                "text": "The NPM package `braces`, versions prior to 3.0.3, fails to limit the number of characters it can handle, which could lead to Memory Exhaustion. In `lib/parse.js,` if a malicious user sends \"imbalanced braces\" as input, the parsing will enter a loop, which will cause the program to start allocating heap memory without freeing it at any moment of the loop. Eventually, the JavaScript heap limit is reached, and the program will crash."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-4068",
-              "help": {
-                "text": "Vulnerability CVE-2024-4068\nSeverity: HIGH\nPackage: braces\nFixed Version: 3.0.3\nLink: [CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)\nThe NPM package `braces`, versions prior to 3.0.3, fails to limit the number of characters it can handle, which could lead to Memory Exhaustion. In `lib/parse.js,` if a malicious user sends \"imbalanced braces\" as input, the parsing will enter a loop, which will cause the program to start allocating heap memory without freeing it at any moment of the loop. Eventually, the JavaScript heap limit is reached, and the program will crash.",
-                "markdown": "**Vulnerability CVE-2024-4068**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|braces|3.0.3|[CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)|\n\nThe NPM package `braces`, versions prior to 3.0.3, fails to limit the number of characters it can handle, which could lead to Memory Exhaustion. In `lib/parse.js,` if a malicious user sends \"imbalanced braces\" as input, the parsing will enter a loop, which will cause the program to start allocating heap memory without freeing it at any moment of the loop. Eventually, the JavaScript heap limit is reached, and the program will crash."
-              },
-              "properties": {
-                "cvssv3_baseScore": 7.5,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-                "precision": "very-high",
-                "security-severity": "7.5",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "HIGH"
                 ]
               }
             },
@@ -923,35 +894,6 @@
                   "vulnerability",
                   "security",
                   "LOW"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2024-4067",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "micromatch: vulnerable to Regular Expression Denial of Service"
-              },
-              "fullDescription": {
-                "text": "The NPM package `micromatch` prior to 4.0.8 is vulnerable to Regular Expression Denial of Service (ReDoS). The vulnerability occurs in `micromatch.braces()` in `index.js` because the pattern `.*` will greedily match anything. By passing a malicious payload, the pattern matching will keep backtracking to the input while it doesn't find the closing bracket. As the input size increases, the consumption time will also increase until it causes the application to hang or slow down. There was a merged fix but further testing shows the issue persists. This issue should be mitigated by using a safe pattern that won't start backtracking the regular expression due to greedy matching. This issue was fixed in version 4.0.8."
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-4067",
-              "help": {
-                "text": "Vulnerability CVE-2024-4067\nSeverity: MEDIUM\nPackage: micromatch\nFixed Version: 4.0.8\nLink: [CVE-2024-4067](https://avd.aquasec.com/nvd/cve-2024-4067)\nThe NPM package `micromatch` prior to 4.0.8 is vulnerable to Regular Expression Denial of Service (ReDoS). The vulnerability occurs in `micromatch.braces()` in `index.js` because the pattern `.*` will greedily match anything. By passing a malicious payload, the pattern matching will keep backtracking to the input while it doesn't find the closing bracket. As the input size increases, the consumption time will also increase until it causes the application to hang or slow down. There was a merged fix but further testing shows the issue persists. This issue should be mitigated by using a safe pattern that won't start backtracking the regular expression due to greedy matching. This issue was fixed in version 4.0.8.",
-                "markdown": "**Vulnerability CVE-2024-4067**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|micromatch|4.0.8|[CVE-2024-4067](https://avd.aquasec.com/nvd/cve-2024-4067)|\n\nThe NPM package `micromatch` prior to 4.0.8 is vulnerable to Regular Expression Denial of Service (ReDoS). The vulnerability occurs in `micromatch.braces()` in `index.js` because the pattern `.*` will greedily match anything. By passing a malicious payload, the pattern matching will keep backtracking to the input while it doesn't find the closing bracket. As the input size increases, the consumption time will also increase until it causes the application to hang or slow down. There was a merged fix but further testing shows the issue persists. This issue should be mitigated by using a safe pattern that won't start backtracking the regular expression due to greedy matching. This issue was fixed in version 4.0.8."
-              },
-              "properties": {
-                "cvssv3_baseScore": 5.3,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
-                "precision": "very-high",
-                "security-severity": "5.3",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "MEDIUM"
                 ]
               }
             },
@@ -1819,143 +1761,29 @@
               }
             },
             {
-              "id": "CVE-2023-32314",
+              "id": "CVE-2026-41907",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "vm2: Sandbox Escape"
+                "text": "uuid: uuid: Out-of-bounds write vulnerability impacts data integrity and confidentiality"
               },
               "fullDescription": {
-                "text": "vm2 is a sandbox that can run untrusted code with Node's built-in modules. A sandbox escape vulnerability exists in vm2 for versions up to and including 3.9.17. It abuses an unexpected creation of a host object based on the specification of `Proxy`. As a result a threat actor can bypass the sandbox protections to gain remote code execution rights on the host running the sandbox. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. There are no known workarounds for this vulnerability."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-32314",
-              "help": {
-                "text": "Vulnerability CVE-2023-32314\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: 3.9.18\nLink: [CVE-2023-32314](https://avd.aquasec.com/nvd/cve-2023-32314)\nvm2 is a sandbox that can run untrusted code with Node's built-in modules. A sandbox escape vulnerability exists in vm2 for versions up to and including 3.9.17. It abuses an unexpected creation of a host object based on the specification of `Proxy`. As a result a threat actor can bypass the sandbox protections to gain remote code execution rights on the host running the sandbox. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. There are no known workarounds for this vulnerability.",
-                "markdown": "**Vulnerability CVE-2023-32314**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2|3.9.18|[CVE-2023-32314](https://avd.aquasec.com/nvd/cve-2023-32314)|\n\nvm2 is a sandbox that can run untrusted code with Node's built-in modules. A sandbox escape vulnerability exists in vm2 for versions up to and including 3.9.17. It abuses an unexpected creation of a host object based on the specification of `Proxy`. As a result a threat actor can bypass the sandbox protections to gain remote code execution rights on the host running the sandbox. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. There are no known workarounds for this vulnerability."
-              },
-              "properties": {
-                "cvssv3_baseScore": 9.8,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "precision": "very-high",
-                "security-severity": "9.8",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "CRITICAL"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2023-37466",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "vm2: Promise handler sanitization can be bypassed allowing attackers to escape the sandbox and run arbitrary code"
-              },
-              "fullDescription": {
-                "text": "vm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-37466",
-              "help": {
-                "text": "Vulnerability CVE-2023-37466\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: 3.10.0\nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue.",
-                "markdown": "**Vulnerability CVE-2023-37466**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2|3.10.0|[CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)|\n\nvm2 is an advanced vm/sandbox for Node.js. The library contains critical security issues and should not be used for production. The maintenance of the project has been discontinued. In vm2 for versions up to 3.9.19, `Promise` handler sanitization can be bypassed with the `@@species` accessor property allowing attackers to escape the sandbox and run arbitrary code, potentially allowing remote code execution inside the context of vm2 sandbox. Version 3.10.0 contains a patch for the issue."
-              },
-              "properties": {
-                "cvssv3_baseScore": 9.8,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "precision": "very-high",
-                "security-severity": "9.8",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "CRITICAL"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2023-37903",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "vm2: custom inspect function allows attackers to escape the sandbox and run arbitrary code"
-              },
-              "fullDescription": {
-                "text": "vm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-37903",
-              "help": {
-                "text": "Vulnerability CVE-2023-37903\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: \nLink: [CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)\nvm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software.",
-                "markdown": "**Vulnerability CVE-2023-37903**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2||[CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)|\n\nvm2 is an open source vm/sandbox for Node.js. In vm2 for versions up to and including 3.9.19, Node.js custom inspect function allows attackers to escape the sandbox and run arbitrary code. This may result in Remote Code Execution, assuming the attacker has arbitrary code execution primitive inside the context of vm2 sandbox. There are no patches and no known workarounds. Users are advised to find an alternative software."
-              },
-              "properties": {
-                "cvssv3_baseScore": 9.8,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "precision": "very-high",
-                "security-severity": "9.8",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "CRITICAL"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2026-22709",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "vm2 has a Sandbox Escape"
-              },
-              "fullDescription": {
-                "text": "vm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue."
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22709",
-              "help": {
-                "text": "Vulnerability CVE-2026-22709\nSeverity: CRITICAL\nPackage: vm2\nFixed Version: 3.10.2\nLink: [CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)\nvm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue.",
-                "markdown": "**Vulnerability CVE-2026-22709**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|vm2|3.10.2|[CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)|\n\nvm2 is an open source vm/sandbox for Node.js. In vm2 prior to version 3.10.2, `Promise.prototype.then` `Promise.prototype.catch` callback sanitization can be bypassed. This allows attackers to escape the sandbox and run arbitrary code. In lib/setup-sandbox.js, the callback function of `localPromise.prototype.then` is sanitized, but `globalPromise.prototype.then` is not sanitized. The return value of async functions is `globalPromise` object. Version 3.10.2 fixes the issue."
-              },
-              "properties": {
-                "cvssv3_baseScore": 9.8,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                "precision": "very-high",
-                "security-severity": "9.8",
-                "tags": [
-                  "vulnerability",
-                  "security",
-                  "CRITICAL"
-                ]
-              }
-            },
-            {
-              "id": "CVE-2023-32313",
-              "name": "LanguageSpecificPackageVulnerability",
-              "shortDescription": {
-                "text": "vm2: Inspect Manipulation"
-              },
-              "fullDescription": {
-                "text": "vm2 is a sandbox that can run untrusted code with Node's built-in modules. In versions 3.9.17 and lower of vm2 it was possible to get a read-write reference to the node `inspect` method and edit options for `console.log`. As a result a threat actor can edit options for the `console.log` command. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. Users unable to upgrade may make the `inspect` method readonly with `vm.readonly(inspect)` after creating a vm."
+                "text": "uuid is for the creation of RFC9562 (formerly RFC4122) UUIDs. Prior to 14.0.0, v3, v5, and v6 accept external output buffers but do not reject out-of-range writes (small buf or large offset). This allows silent partial writes into caller-provided buffers. This vulnerability is fixed in 14.0.0."
               },
               "defaultConfiguration": {
                 "level": "warning"
               },
-              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-32313",
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-41907",
               "help": {
-                "text": "Vulnerability CVE-2023-32313\nSeverity: MEDIUM\nPackage: vm2\nFixed Version: 3.9.18\nLink: [CVE-2023-32313](https://avd.aquasec.com/nvd/cve-2023-32313)\nvm2 is a sandbox that can run untrusted code with Node's built-in modules. In versions 3.9.17 and lower of vm2 it was possible to get a read-write reference to the node `inspect` method and edit options for `console.log`. As a result a threat actor can edit options for the `console.log` command. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. Users unable to upgrade may make the `inspect` method readonly with `vm.readonly(inspect)` after creating a vm.",
-                "markdown": "**Vulnerability CVE-2023-32313**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|vm2|3.9.18|[CVE-2023-32313](https://avd.aquasec.com/nvd/cve-2023-32313)|\n\nvm2 is a sandbox that can run untrusted code with Node's built-in modules. In versions 3.9.17 and lower of vm2 it was possible to get a read-write reference to the node `inspect` method and edit options for `console.log`. As a result a threat actor can edit options for the `console.log` command. This vulnerability was patched in the release of version `3.9.18` of `vm2`. Users are advised to upgrade. Users unable to upgrade may make the `inspect` method readonly with `vm.readonly(inspect)` after creating a vm."
+                "text": "Vulnerability CVE-2026-41907\nSeverity: MEDIUM\nPackage: uuid\nFixed Version: 11.1.1, 12.0.1, 13.0.1\nLink: [CVE-2026-41907](https://avd.aquasec.com/nvd/cve-2026-41907)\nuuid is for the creation of RFC9562 (formerly RFC4122) UUIDs. Prior to 14.0.0, v3, v5, and v6 accept external output buffers but do not reject out-of-range writes (small buf or large offset). This allows silent partial writes into caller-provided buffers. This vulnerability is fixed in 14.0.0.",
+                "markdown": "**Vulnerability CVE-2026-41907**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|uuid|11.1.1, 12.0.1, 13.0.1|[CVE-2026-41907](https://avd.aquasec.com/nvd/cve-2026-41907)|\n\nuuid is for the creation of RFC9562 (formerly RFC4122) UUIDs. Prior to 14.0.0, v3, v5, and v6 accept external output buffers but do not reject out-of-range writes (small buf or large offset). This allows silent partial writes into caller-provided buffers. This vulnerability is fixed in 14.0.0."
               },
               "properties": {
-                "cvssv3_baseScore": 5.3,
-                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
                 "precision": "very-high",
-                "security-severity": "5.3",
+                "security-severity": "7.5",
                 "tags": [
                   "vulnerability",
                   "security",
@@ -2037,9 +1865,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9691,
+                  "startLine": 7316,
                   "startColumn": 1,
-                  "endLine": 9705,
+                  "endLine": 7330,
                   "endColumn": 1
                 }
               },
@@ -2064,9 +1892,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 14839,
+                  "startLine": 10759,
                   "startColumn": 1,
-                  "endLine": 14844,
+                  "endLine": 10764,
                   "endColumn": 1
                 }
               },
@@ -2091,9 +1919,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16645,
+                  "startLine": 11934,
                   "startColumn": 1,
-                  "endLine": 16658,
+                  "endLine": 11947,
                   "endColumn": 1
                 }
               },
@@ -2118,9 +1946,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16645,
+                  "startLine": 11934,
                   "startColumn": 1,
-                  "endLine": 16658,
+                  "endLine": 11947,
                   "endColumn": 1
                 }
               },
@@ -2131,35 +1959,8 @@
           ]
         },
         {
-          "ruleId": "GHSA-w5hq-g745-h8pq",
-          "ruleIndex": 4,
-          "level": "warning",
-          "message": {
-            "text": "Package: uuid\nInstalled Version: 8.3.2\nVulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "frontend/package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 17944,
-                  "startColumn": 1,
-                  "endLine": 17953,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "frontend/package-lock.json: uuid@8.3.2"
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 5,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -2172,9 +1973,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9806,
+                  "startLine": 7387,
                   "startColumn": 1,
-                  "endLine": 9826,
+                  "endLine": 7407,
                   "endColumn": 1
                 }
               },
@@ -2185,28 +1986,28 @@
           ]
         },
         {
-          "ruleId": "CVE-2026-3449",
-          "ruleIndex": 6,
-          "level": "note",
+          "ruleId": "CVE-2026-45736",
+          "ruleIndex": 5,
+          "level": "warning",
           "message": {
-            "text": "Package: @tootallnate/once\nInstalled Version: 1.1.2\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
+            "text": "Package: ws\nInstalled Version: 8.18.0\nVulnerability CVE-2026-45736\nSeverity: MEDIUM\nFixed Version: 8.20.1\nLink: [CVE-2026-45736](https://avd.aquasec.com/nvd/cve-2026-45736)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "package-lock.json",
+                  "uri": "frontend/package-lock.json",
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22511,
+                  "startLine": 13321,
                   "startColumn": 1,
-                  "endLine": 22520,
+                  "endLine": 13341,
                   "endColumn": 1
                 }
               },
               "message": {
-                "text": "package-lock.json: @tootallnate/once@1.1.2"
+                "text": "frontend/package-lock.json: ws@8.18.0"
               }
             }
           ]
@@ -2216,7 +2017,7 @@
           "ruleIndex": 6,
           "level": "note",
           "message": {
-            "text": "Package: @tootallnate/once\nInstalled Version: 2.0.0\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
+            "text": "Package: @tootallnate/once\nInstalled Version: 1.1.2\nVulnerability CVE-2026-3449\nSeverity: LOW\nFixed Version: 3.0.1, 2.0.1\nLink: [CVE-2026-3449](https://avd.aquasec.com/nvd/cve-2026-3449)"
           },
           "locations": [
             {
@@ -2226,14 +2027,14 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 2974,
+                  "startLine": 2212,
                   "startColumn": 1,
-                  "endLine": 2982,
+                  "endLine": 2221,
                   "endColumn": 1
                 }
               },
               "message": {
-                "text": "package-lock.json: @tootallnate/once@2.0.0"
+                "text": "package-lock.json: @tootallnate/once@1.1.2"
               }
             }
           ]
@@ -2253,9 +2054,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 5188,
+                  "startLine": 4087,
                   "startColumn": 1,
-                  "endLine": 5193,
+                  "endLine": 4092,
                   "endColumn": 1
                 }
               },
@@ -2280,9 +2081,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 5188,
+                  "startLine": 4087,
                   "startColumn": 1,
-                  "endLine": 5193,
+                  "endLine": 4092,
                   "endColumn": 1
                 }
               },
@@ -2293,35 +2094,8 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-4068",
-          "ruleIndex": 9,
-          "level": "error",
-          "message": {
-            "text": "Package: braces\nInstalled Version: 2.3.2\nVulnerability CVE-2024-4068\nSeverity: HIGH\nFixed Version: 3.0.3\nLink: [CVE-2024-4068](https://avd.aquasec.com/nvd/cve-2024-4068)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 5387,
-                  "startColumn": 1,
-                  "endLine": 5407,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: braces@2.3.2"
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2024-47764",
-          "ruleIndex": 10,
+          "ruleIndex": 9,
           "level": "note",
           "message": {
             "text": "Package: cookie\nInstalled Version: 0.4.2\nVulnerability CVE-2024-47764\nSeverity: LOW\nFixed Version: 0.7.0\nLink: [CVE-2024-47764](https://avd.aquasec.com/nvd/cve-2024-47764)"
@@ -2334,9 +2108,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8097,
+                  "startLine": 6483,
                   "startColumn": 1,
-                  "endLine": 8105,
+                  "endLine": 6491,
                   "endColumn": 1
                 }
               },
@@ -2348,7 +2122,7 @@
         },
         {
           "ruleId": "CVE-2023-46233",
-          "ruleIndex": 11,
+          "ruleIndex": 10,
           "level": "error",
           "message": {
             "text": "Package: crypto-js\nInstalled Version: 3.3.0\nVulnerability CVE-2023-46233\nSeverity: CRITICAL\nFixed Version: 4.2.0\nLink: [CVE-2023-46233](https://avd.aquasec.com/nvd/cve-2023-46233)"
@@ -2361,9 +2135,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 6954,
+                  "startLine": 5408,
                   "startColumn": 1,
-                  "endLine": 6959,
+                  "endLine": 5413,
                   "endColumn": 1
                 }
               },
@@ -2375,7 +2149,7 @@
         },
         {
           "ruleId": "CVE-2022-41940",
-          "ruleIndex": 12,
+          "ruleIndex": 11,
           "level": "warning",
           "message": {
             "text": "Package: engine.io\nInstalled Version: 4.1.2\nVulnerability CVE-2022-41940\nSeverity: MEDIUM\nFixed Version: 3.6.1, 6.2.1\nLink: [CVE-2022-41940](https://avd.aquasec.com/nvd/cve-2022-41940)"
@@ -2388,9 +2162,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8008,
+                  "startLine": 6387,
                   "startColumn": 1,
-                  "endLine": 8025,
+                  "endLine": 6404,
                   "endColumn": 1
                 }
               },
@@ -2402,7 +2176,7 @@
         },
         {
           "ruleId": "CVE-2020-15084",
-          "ruleIndex": 13,
+          "ruleIndex": 12,
           "level": "error",
           "message": {
             "text": "Package: express-jwt\nInstalled Version: 0.1.3\nVulnerability CVE-2020-15084\nSeverity: HIGH\nFixed Version: 6.0.0\nLink: [CVE-2020-15084](https://avd.aquasec.com/nvd/cve-2020-15084)"
@@ -2415,9 +2189,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9618,
+                  "startLine": 7634,
                   "startColumn": 1,
-                  "endLine": 9628,
+                  "endLine": 7644,
                   "endColumn": 1
                 }
               },
@@ -2429,7 +2203,7 @@
         },
         {
           "ruleId": "CVE-2026-31808",
-          "ruleIndex": 14,
+          "ruleIndex": 13,
           "level": "warning",
           "message": {
             "text": "Package: file-type\nInstalled Version: 16.5.4\nVulnerability CVE-2026-31808\nSeverity: MEDIUM\nFixed Version: 21.3.1\nLink: [CVE-2026-31808](https://avd.aquasec.com/nvd/cve-2026-31808)"
@@ -2442,9 +2216,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 10068,
+                  "startLine": 7908,
                   "startColumn": 1,
-                  "endLine": 10084,
+                  "endLine": 7924,
                   "endColumn": 1
                 }
               },
@@ -2456,7 +2230,7 @@
         },
         {
           "ruleId": "CVE-2022-33987",
-          "ruleIndex": 15,
+          "ruleIndex": 14,
           "level": "warning",
           "message": {
             "text": "Package: got\nInstalled Version: 8.3.2\nVulnerability CVE-2022-33987\nSeverity: MEDIUM\nFixed Version: 12.1.0, 11.8.5\nLink: [CVE-2022-33987](https://avd.aquasec.com/nvd/cve-2022-33987)"
@@ -2469,9 +2243,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 11154,
+                  "startLine": 8829,
                   "startColumn": 1,
-                  "endLine": 11181,
+                  "endLine": 8856,
                   "endColumn": 1
                 }
               },
@@ -2483,7 +2257,7 @@
         },
         {
           "ruleId": "CVE-2022-25881",
-          "ruleIndex": 16,
+          "ruleIndex": 15,
           "level": "error",
           "message": {
             "text": "Package: http-cache-semantics\nInstalled Version: 3.8.1\nVulnerability CVE-2022-25881\nSeverity: HIGH\nFixed Version: 4.1.1\nLink: [CVE-2022-25881](https://avd.aquasec.com/nvd/cve-2022-25881)"
@@ -2496,9 +2270,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 11999,
+                  "startLine": 9521,
                   "startColumn": 1,
-                  "endLine": 12004,
+                  "endLine": 9526,
                   "endColumn": 1
                 }
               },
@@ -2510,7 +2284,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 17,
+          "ruleIndex": 16,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2523,9 +2297,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9629,
+                  "startLine": 7645,
                   "startColumn": 1,
-                  "endLine": 9639,
+                  "endLine": 7655,
                   "endColumn": 1
                 }
               },
@@ -2537,7 +2311,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 18,
+          "ruleIndex": 17,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2550,9 +2324,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9629,
+                  "startLine": 7645,
                   "startColumn": 1,
-                  "endLine": 9639,
+                  "endLine": 7655,
                   "endColumn": 1
                 }
               },
@@ -2564,7 +2338,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 19,
+          "ruleIndex": 18,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2577,9 +2351,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9629,
+                  "startLine": 7645,
                   "startColumn": 1,
-                  "endLine": 9639,
+                  "endLine": 7655,
                   "endColumn": 1
                 }
               },
@@ -2591,7 +2365,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 20,
+          "ruleIndex": 19,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2604,9 +2378,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9629,
+                  "startLine": 7645,
                   "startColumn": 1,
-                  "endLine": 9639,
+                  "endLine": 7655,
                   "endColumn": 1
                 }
               },
@@ -2618,7 +2392,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 21,
+          "ruleIndex": 20,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.1.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2631,9 +2405,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9629,
+                  "startLine": 7645,
                   "startColumn": 1,
-                  "endLine": 9639,
+                  "endLine": 7655,
                   "endColumn": 1
                 }
               },
@@ -2645,7 +2419,7 @@
         },
         {
           "ruleId": "CVE-2015-9235",
-          "ruleIndex": 17,
+          "ruleIndex": 16,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2015-9235\nSeverity: CRITICAL\nFixed Version: 4.2.2\nLink: [CVE-2015-9235](https://avd.aquasec.com/nvd/cve-2015-9235)"
@@ -2658,9 +2432,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15903,
+                  "startLine": 10910,
                   "startColumn": 1,
-                  "endLine": 15912,
+                  "endLine": 10919,
                   "endColumn": 1
                 }
               },
@@ -2672,7 +2446,7 @@
         },
         {
           "ruleId": "CVE-2022-23539",
-          "ruleIndex": 18,
+          "ruleIndex": 17,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23539\nSeverity: HIGH\nFixed Version: 9.0.0\nLink: [CVE-2022-23539](https://avd.aquasec.com/nvd/cve-2022-23539)"
@@ -2685,9 +2459,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15903,
+                  "startLine": 10910,
                   "startColumn": 1,
-                  "endLine": 15912,
+                  "endLine": 10919,
                   "endColumn": 1
                 }
               },
@@ -2699,7 +2473,7 @@
         },
         {
           "ruleId": "NSWG-ECO-17",
-          "ruleIndex": 19,
+          "ruleIndex": 18,
           "level": "error",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability NSWG-ECO-17\nSeverity: HIGH\nFixed Version: \u003e=4.2.2\nLink: [NSWG-ECO-17]()"
@@ -2712,9 +2486,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15903,
+                  "startLine": 10910,
                   "startColumn": 1,
-                  "endLine": 15912,
+                  "endLine": 10919,
                   "endColumn": 1
                 }
               },
@@ -2726,7 +2500,7 @@
         },
         {
           "ruleId": "CVE-2022-23540",
-          "ruleIndex": 20,
+          "ruleIndex": 19,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23540\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23540](https://avd.aquasec.com/nvd/cve-2022-23540)"
@@ -2739,9 +2513,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15903,
+                  "startLine": 10910,
                   "startColumn": 1,
-                  "endLine": 15912,
+                  "endLine": 10919,
                   "endColumn": 1
                 }
               },
@@ -2753,7 +2527,7 @@
         },
         {
           "ruleId": "CVE-2022-23541",
-          "ruleIndex": 21,
+          "ruleIndex": 20,
           "level": "warning",
           "message": {
             "text": "Package: jsonwebtoken\nInstalled Version: 0.4.0\nVulnerability CVE-2022-23541\nSeverity: MEDIUM\nFixed Version: 9.0.0\nLink: [CVE-2022-23541](https://avd.aquasec.com/nvd/cve-2022-23541)"
@@ -2766,9 +2540,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15903,
+                  "startLine": 10910,
                   "startColumn": 1,
-                  "endLine": 15912,
+                  "endLine": 10919,
                   "endColumn": 1
                 }
               },
@@ -2780,7 +2554,7 @@
         },
         {
           "ruleId": "CVE-2016-1000223",
-          "ruleIndex": 22,
+          "ruleIndex": 21,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2016-1000223\nSeverity: HIGH\nFixed Version: \u003e=3.0.0\nLink: [CVE-2016-1000223](https://avd.aquasec.com/nvd/cve-2016-1000223)"
@@ -2793,9 +2567,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15981,
+                  "startLine": 10978,
                   "startColumn": 1,
-                  "endLine": 15991,
+                  "endLine": 10988,
                   "endColumn": 1
                 }
               },
@@ -2807,7 +2581,7 @@
         },
         {
           "ruleId": "CVE-2025-65945",
-          "ruleIndex": 23,
+          "ruleIndex": 22,
           "level": "error",
           "message": {
             "text": "Package: jws\nInstalled Version: 0.2.6\nVulnerability CVE-2025-65945\nSeverity: HIGH\nFixed Version: 3.2.3, 4.0.1\nLink: [CVE-2025-65945](https://avd.aquasec.com/nvd/cve-2025-65945)"
@@ -2820,9 +2594,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 15981,
+                  "startLine": 10978,
                   "startColumn": 1,
-                  "endLine": 15991,
+                  "endLine": 10988,
                   "endColumn": 1
                 }
               },
@@ -2834,7 +2608,7 @@
         },
         {
           "ruleId": "CVE-2019-10744",
-          "ruleIndex": 24,
+          "ruleIndex": 23,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2019-10744\nSeverity: CRITICAL\nFixed Version: 4.17.12\nLink: [CVE-2019-10744](https://avd.aquasec.com/nvd/cve-2019-10744)"
@@ -2847,9 +2621,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21265,
+                  "startLine": 15544,
                   "startColumn": 1,
-                  "endLine": 21274,
+                  "endLine": 15553,
                   "endColumn": 1
                 }
               },
@@ -2861,7 +2635,7 @@
         },
         {
           "ruleId": "CVE-2018-16487",
-          "ruleIndex": 25,
+          "ruleIndex": 24,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-16487\nSeverity: HIGH\nFixed Version: \u003e=4.17.11\nLink: [CVE-2018-16487](https://avd.aquasec.com/nvd/cve-2018-16487)"
@@ -2874,9 +2648,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21265,
+                  "startLine": 15544,
                   "startColumn": 1,
-                  "endLine": 21274,
+                  "endLine": 15553,
                   "endColumn": 1
                 }
               },
@@ -2888,7 +2662,7 @@
         },
         {
           "ruleId": "CVE-2021-23337",
-          "ruleIndex": 26,
+          "ruleIndex": 25,
           "level": "error",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2021-23337\nSeverity: HIGH\nFixed Version: 4.17.21\nLink: [CVE-2021-23337](https://avd.aquasec.com/nvd/cve-2021-23337)"
@@ -2901,9 +2675,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21265,
+                  "startLine": 15544,
                   "startColumn": 1,
-                  "endLine": 21274,
+                  "endLine": 15553,
                   "endColumn": 1
                 }
               },
@@ -2915,7 +2689,7 @@
         },
         {
           "ruleId": "CVE-2026-2950",
-          "ruleIndex": 27,
+          "ruleIndex": 26,
           "level": "warning",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2026-2950\nSeverity: MEDIUM\nFixed Version: 4.18.0\nLink: [CVE-2026-2950](https://avd.aquasec.com/nvd/cve-2026-2950)"
@@ -2928,9 +2702,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21265,
+                  "startLine": 15544,
                   "startColumn": 1,
-                  "endLine": 21274,
+                  "endLine": 15553,
                   "endColumn": 1
                 }
               },
@@ -2942,7 +2716,7 @@
         },
         {
           "ruleId": "CVE-2018-3721",
-          "ruleIndex": 28,
+          "ruleIndex": 27,
           "level": "note",
           "message": {
             "text": "Package: lodash\nInstalled Version: 2.4.2\nVulnerability CVE-2018-3721\nSeverity: LOW\nFixed Version: \u003e=4.17.5\nLink: [CVE-2018-3721](https://avd.aquasec.com/nvd/cve-2018-3721)"
@@ -2955,9 +2729,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21265,
+                  "startLine": 15544,
                   "startColumn": 1,
-                  "endLine": 21274,
+                  "endLine": 15553,
                   "endColumn": 1
                 }
               },
@@ -2969,7 +2743,7 @@
         },
         {
           "ruleId": "CVE-2020-8203",
-          "ruleIndex": 29,
+          "ruleIndex": 28,
           "level": "error",
           "message": {
             "text": "Package: lodash.set\nInstalled Version: 4.3.2\nVulnerability CVE-2020-8203\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2020-8203](https://avd.aquasec.com/nvd/cve-2020-8203)"
@@ -2982,9 +2756,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16508,
+                  "startLine": 11386,
                   "startColumn": 1,
-                  "endLine": 16513,
+                  "endLine": 11391,
                   "endColumn": 1
                 }
               },
@@ -2996,7 +2770,7 @@
         },
         {
           "ruleId": "GHSA-5mrr-rgp6-x4gr",
-          "ruleIndex": 30,
+          "ruleIndex": 29,
           "level": "error",
           "message": {
             "text": "Package: marsdb\nInstalled Version: 0.6.11\nVulnerability GHSA-5mrr-rgp6-x4gr\nSeverity: CRITICAL\nFixed Version: \nLink: [GHSA-5mrr-rgp6-x4gr](https://github.com/advisories/GHSA-5mrr-rgp6-x4gr)"
@@ -3009,9 +2783,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16876,
+                  "startLine": 11728,
                   "startColumn": 1,
-                  "endLine": 16889,
+                  "endLine": 11741,
                   "endColumn": 1
                 }
               },
@@ -3023,7 +2797,7 @@
         },
         {
           "ruleId": "CVE-2025-57349",
-          "ruleIndex": 31,
+          "ruleIndex": 30,
           "level": "note",
           "message": {
             "text": "Package: messageformat\nInstalled Version: 2.3.0\nVulnerability CVE-2025-57349\nSeverity: LOW\nFixed Version: 3.0.0-beta.0\nLink: [CVE-2025-57349](https://avd.aquasec.com/nvd/cve-2025-57349)"
@@ -3036,9 +2810,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 16964,
+                  "startLine": 11809,
                   "startColumn": 1,
-                  "endLine": 16975,
+                  "endLine": 11820,
                   "endColumn": 1
                 }
               },
@@ -3049,35 +2823,8 @@
           ]
         },
         {
-          "ruleId": "CVE-2024-4067",
-          "ruleIndex": 32,
-          "level": "warning",
-          "message": {
-            "text": "Package: micromatch\nInstalled Version: 3.1.10\nVulnerability CVE-2024-4067\nSeverity: MEDIUM\nFixed Version: 4.0.8\nLink: [CVE-2024-4067](https://avd.aquasec.com/nvd/cve-2024-4067)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 17009,
-                  "startColumn": 1,
-                  "endLine": 17032,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: micromatch@3.1.10"
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2026-26996",
-          "ruleIndex": 33,
+          "ruleIndex": 31,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-26996\nSeverity: HIGH\nFixed Version: 10.2.1, 9.0.6, 8.0.5, 7.4.7, 6.2.1, 5.1.7, 4.2.4, 3.1.3\nLink: [CVE-2026-26996](https://avd.aquasec.com/nvd/cve-2026-26996)"
@@ -3090,9 +2837,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20700,
+                  "startLine": 15094,
                   "startColumn": 1,
-                  "endLine": 20711,
+                  "endLine": 15105,
                   "endColumn": 1
                 }
               },
@@ -3104,7 +2851,7 @@
         },
         {
           "ruleId": "CVE-2026-27903",
-          "ruleIndex": 34,
+          "ruleIndex": 32,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-27903\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.3\nLink: [CVE-2026-27903](https://avd.aquasec.com/nvd/cve-2026-27903)"
@@ -3117,9 +2864,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20700,
+                  "startLine": 15094,
                   "startColumn": 1,
-                  "endLine": 20711,
+                  "endLine": 15105,
                   "endColumn": 1
                 }
               },
@@ -3131,7 +2878,7 @@
         },
         {
           "ruleId": "CVE-2026-27904",
-          "ruleIndex": 35,
+          "ruleIndex": 33,
           "level": "error",
           "message": {
             "text": "Package: minimatch\nInstalled Version: 3.0.5\nVulnerability CVE-2026-27904\nSeverity: HIGH\nFixed Version: 10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.4\nLink: [CVE-2026-27904](https://avd.aquasec.com/nvd/cve-2026-27904)"
@@ -3144,9 +2891,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 20700,
+                  "startLine": 15094,
                   "startColumn": 1,
-                  "endLine": 20711,
+                  "endLine": 15105,
                   "endColumn": 1
                 }
               },
@@ -3158,7 +2905,7 @@
         },
         {
           "ruleId": "CVE-2017-18214",
-          "ruleIndex": 36,
+          "ruleIndex": 34,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2017-18214\nSeverity: HIGH\nFixed Version: 2.19.3\nLink: [CVE-2017-18214](https://avd.aquasec.com/nvd/cve-2017-18214)"
@@ -3171,9 +2918,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9640,
+                  "startLine": 7656,
                   "startColumn": 1,
-                  "endLine": 9647,
+                  "endLine": 7663,
                   "endColumn": 1
                 }
               },
@@ -3185,7 +2932,7 @@
         },
         {
           "ruleId": "CVE-2022-24785",
-          "ruleIndex": 37,
+          "ruleIndex": 35,
           "level": "error",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2022-24785\nSeverity: HIGH\nFixed Version: 2.29.2\nLink: [CVE-2022-24785](https://avd.aquasec.com/nvd/cve-2022-24785)"
@@ -3198,9 +2945,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9640,
+                  "startLine": 7656,
                   "startColumn": 1,
-                  "endLine": 9647,
+                  "endLine": 7663,
                   "endColumn": 1
                 }
               },
@@ -3212,7 +2959,7 @@
         },
         {
           "ruleId": "CVE-2016-4055",
-          "ruleIndex": 38,
+          "ruleIndex": 36,
           "level": "warning",
           "message": {
             "text": "Package: moment\nInstalled Version: 2.0.0\nVulnerability CVE-2016-4055\nSeverity: MEDIUM\nFixed Version: \u003e=2.11.2\nLink: [CVE-2016-4055](https://avd.aquasec.com/nvd/cve-2016-4055)"
@@ -3225,9 +2972,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 9640,
+                  "startLine": 7656,
                   "startColumn": 1,
-                  "endLine": 9647,
+                  "endLine": 7663,
                   "endColumn": 1
                 }
               },
@@ -3239,7 +2986,7 @@
         },
         {
           "ruleId": "CVE-2025-47935",
-          "ruleIndex": 39,
+          "ruleIndex": 37,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47935\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47935](https://avd.aquasec.com/nvd/cve-2025-47935)"
@@ -3252,9 +2999,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3266,7 +3013,7 @@
         },
         {
           "ruleId": "CVE-2025-47944",
-          "ruleIndex": 40,
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-47944\nSeverity: HIGH\nFixed Version: 2.0.0\nLink: [CVE-2025-47944](https://avd.aquasec.com/nvd/cve-2025-47944)"
@@ -3279,9 +3026,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3293,7 +3040,7 @@
         },
         {
           "ruleId": "CVE-2025-48997",
-          "ruleIndex": 41,
+          "ruleIndex": 39,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-48997\nSeverity: HIGH\nFixed Version: 2.0.1\nLink: [CVE-2025-48997](https://avd.aquasec.com/nvd/cve-2025-48997)"
@@ -3306,9 +3053,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3320,7 +3067,7 @@
         },
         {
           "ruleId": "CVE-2025-7338",
-          "ruleIndex": 42,
+          "ruleIndex": 40,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2025-7338\nSeverity: HIGH\nFixed Version: 2.0.2\nLink: [CVE-2025-7338](https://avd.aquasec.com/nvd/cve-2025-7338)"
@@ -3333,9 +3080,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3347,7 +3094,7 @@
         },
         {
           "ruleId": "CVE-2026-2359",
-          "ruleIndex": 43,
+          "ruleIndex": 41,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-2359\nSeverity: HIGH\nFixed Version: 2.1.0\nLink: [CVE-2026-2359](https://avd.aquasec.com/nvd/cve-2026-2359)"
@@ -3360,9 +3107,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3374,7 +3121,7 @@
         },
         {
           "ruleId": "CVE-2026-3304",
-          "ruleIndex": 44,
+          "ruleIndex": 42,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-3304\nSeverity: HIGH\nFixed Version: 2.1.0\nLink: [CVE-2026-3304](https://avd.aquasec.com/nvd/cve-2026-3304)"
@@ -3387,9 +3134,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3401,7 +3148,7 @@
         },
         {
           "ruleId": "CVE-2026-3520",
-          "ruleIndex": 45,
+          "ruleIndex": 43,
           "level": "error",
           "message": {
             "text": "Package: multer\nInstalled Version: 1.4.5-lts.2\nVulnerability CVE-2026-3520\nSeverity: HIGH\nFixed Version: 2.1.1\nLink: [CVE-2026-3520](https://avd.aquasec.com/nvd/cve-2026-3520)"
@@ -3414,9 +3161,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 17697,
+                  "startLine": 12489,
                   "startColumn": 1,
-                  "endLine": 17715,
+                  "endLine": 12507,
                   "endColumn": 1
                 }
               },
@@ -3428,7 +3175,7 @@
         },
         {
           "ruleId": "CVE-2021-23771",
-          "ruleIndex": 46,
+          "ruleIndex": 44,
           "level": "warning",
           "message": {
             "text": "Package: notevil\nInstalled Version: 1.3.3\nVulnerability CVE-2021-23771\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2021-23771](https://avd.aquasec.com/nvd/cve-2021-23771)"
@@ -3441,9 +3188,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18281,
+                  "startLine": 13108,
                   "startColumn": 1,
-                  "endLine": 18291,
+                  "endLine": 13118,
                   "endColumn": 1
                 }
               },
@@ -3455,7 +3202,7 @@
         },
         {
           "ruleId": "CVE-2022-25887",
-          "ruleIndex": 47,
+          "ruleIndex": 45,
           "level": "error",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2022-25887\nSeverity: HIGH\nFixed Version: 2.7.1\nLink: [CVE-2022-25887](https://avd.aquasec.com/nvd/cve-2022-25887)"
@@ -3468,9 +3215,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3482,7 +3229,7 @@
         },
         {
           "ruleId": "CVE-2016-1000237",
-          "ruleIndex": 48,
+          "ruleIndex": 46,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2016-1000237\nSeverity: MEDIUM\nFixed Version: \u003e=1.4.3\nLink: [CVE-2016-1000237](https://avd.aquasec.com/nvd/cve-2016-1000237)"
@@ -3495,9 +3242,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3509,7 +3256,7 @@
         },
         {
           "ruleId": "CVE-2017-16016",
-          "ruleIndex": 49,
+          "ruleIndex": 47,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2017-16016\nSeverity: MEDIUM\nFixed Version: 1.11.4\nLink: [CVE-2017-16016](https://avd.aquasec.com/nvd/cve-2017-16016)"
@@ -3522,9 +3269,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3536,7 +3283,7 @@
         },
         {
           "ruleId": "CVE-2019-25225",
-          "ruleIndex": 50,
+          "ruleIndex": 48,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2019-25225\nSeverity: MEDIUM\nFixed Version: 2.0.0-beta\nLink: [CVE-2019-25225](https://avd.aquasec.com/nvd/cve-2019-25225)"
@@ -3549,9 +3296,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3563,7 +3310,7 @@
         },
         {
           "ruleId": "CVE-2021-26539",
-          "ruleIndex": 51,
+          "ruleIndex": 49,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26539\nSeverity: MEDIUM\nFixed Version: 2.3.1\nLink: [CVE-2021-26539](https://avd.aquasec.com/nvd/cve-2021-26539)"
@@ -3576,9 +3323,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3590,7 +3337,7 @@
         },
         {
           "ruleId": "CVE-2021-26540",
-          "ruleIndex": 52,
+          "ruleIndex": 50,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2021-26540\nSeverity: MEDIUM\nFixed Version: 2.3.2\nLink: [CVE-2021-26540](https://avd.aquasec.com/nvd/cve-2021-26540)"
@@ -3603,9 +3350,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3617,7 +3364,7 @@
         },
         {
           "ruleId": "CVE-2024-21501",
-          "ruleIndex": 53,
+          "ruleIndex": 51,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability CVE-2024-21501\nSeverity: MEDIUM\nFixed Version: 2.12.1\nLink: [CVE-2024-21501](https://avd.aquasec.com/nvd/cve-2024-21501)"
@@ -3630,9 +3377,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3644,7 +3391,7 @@
         },
         {
           "ruleId": "NSWG-ECO-154",
-          "ruleIndex": 54,
+          "ruleIndex": 52,
           "level": "warning",
           "message": {
             "text": "Package: sanitize-html\nInstalled Version: 1.4.2\nVulnerability NSWG-ECO-154\nSeverity: MEDIUM\nFixed Version: \u003e=1.11.4\nLink: [NSWG-ECO-154]()"
@@ -3657,9 +3404,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 21207,
+                  "startLine": 15486,
                   "startColumn": 1,
-                  "endLine": 21217,
+                  "endLine": 15496,
                   "endColumn": 1
                 }
               },
@@ -3671,7 +3418,7 @@
         },
         {
           "ruleId": "CVE-2024-38355",
-          "ruleIndex": 55,
+          "ruleIndex": 53,
           "level": "warning",
           "message": {
             "text": "Package: socket.io\nInstalled Version: 3.1.2\nVulnerability CVE-2024-38355\nSeverity: MEDIUM\nFixed Version: 2.5.1, 4.6.2\nLink: [CVE-2024-38355](https://avd.aquasec.com/nvd/cve-2024-38355)"
@@ -3684,9 +3431,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22123,
+                  "startLine": 16179,
                   "startColumn": 1,
-                  "endLine": 22142,
+                  "endLine": 16198,
                   "endColumn": 1
                 }
               },
@@ -3711,9 +3458,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22186,
+                  "startLine": 16249,
                   "startColumn": 1,
-                  "endLine": 22199,
+                  "endLine": 16262,
                   "endColumn": 1
                 }
               },
@@ -3738,9 +3485,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22186,
+                  "startLine": 16249,
                   "startColumn": 1,
-                  "endLine": 22199,
+                  "endLine": 16262,
                   "endColumn": 1
                 }
               },
@@ -3752,7 +3499,7 @@
         },
         {
           "ruleId": "CVE-2026-23745",
-          "ruleIndex": 56,
+          "ruleIndex": 54,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
@@ -3765,9 +3512,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3779,7 +3526,7 @@
         },
         {
           "ruleId": "CVE-2026-23950",
-          "ruleIndex": 57,
+          "ruleIndex": 55,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
@@ -3792,9 +3539,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3806,7 +3553,7 @@
         },
         {
           "ruleId": "CVE-2026-24842",
-          "ruleIndex": 58,
+          "ruleIndex": 56,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
@@ -3819,9 +3566,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3833,7 +3580,7 @@
         },
         {
           "ruleId": "CVE-2026-26960",
-          "ruleIndex": 59,
+          "ruleIndex": 57,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-26960\nSeverity: HIGH\nFixed Version: 7.5.8\nLink: [CVE-2026-26960](https://avd.aquasec.com/nvd/cve-2026-26960)"
@@ -3846,9 +3593,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3860,7 +3607,7 @@
         },
         {
           "ruleId": "CVE-2026-29786",
-          "ruleIndex": 60,
+          "ruleIndex": 58,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-29786\nSeverity: HIGH\nFixed Version: 7.5.10\nLink: [CVE-2026-29786](https://avd.aquasec.com/nvd/cve-2026-29786)"
@@ -3873,9 +3620,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3887,7 +3634,7 @@
         },
         {
           "ruleId": "CVE-2026-31802",
-          "ruleIndex": 61,
+          "ruleIndex": 59,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2026-31802\nSeverity: HIGH\nFixed Version: 7.5.11\nLink: [CVE-2026-31802](https://avd.aquasec.com/nvd/cve-2026-31802)"
@@ -3900,9 +3647,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3914,7 +3661,7 @@
         },
         {
           "ruleId": "CVE-2024-28863",
-          "ruleIndex": 62,
+          "ruleIndex": 60,
           "level": "warning",
           "message": {
             "text": "Package: tar\nInstalled Version: 4.4.19\nVulnerability CVE-2024-28863\nSeverity: MEDIUM\nFixed Version: 6.2.1\nLink: [CVE-2024-28863](https://avd.aquasec.com/nvd/cve-2024-28863)"
@@ -3927,9 +3674,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 18179,
+                  "startLine": 12997,
                   "startColumn": 1,
-                  "endLine": 18197,
+                  "endLine": 13015,
                   "endColumn": 1
                 }
               },
@@ -3941,7 +3688,7 @@
         },
         {
           "ruleId": "CVE-2026-23745",
-          "ruleIndex": 56,
+          "ruleIndex": 54,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23745\nSeverity: HIGH\nFixed Version: 7.5.3\nLink: [CVE-2026-23745](https://avd.aquasec.com/nvd/cve-2026-23745)"
@@ -3954,9 +3701,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -3968,7 +3715,7 @@
         },
         {
           "ruleId": "CVE-2026-23950",
-          "ruleIndex": 57,
+          "ruleIndex": 55,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-23950\nSeverity: HIGH\nFixed Version: 7.5.4\nLink: [CVE-2026-23950](https://avd.aquasec.com/nvd/cve-2026-23950)"
@@ -3981,9 +3728,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -3995,7 +3742,7 @@
         },
         {
           "ruleId": "CVE-2026-24842",
-          "ruleIndex": 58,
+          "ruleIndex": 56,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-24842\nSeverity: HIGH\nFixed Version: 7.5.7\nLink: [CVE-2026-24842](https://avd.aquasec.com/nvd/cve-2026-24842)"
@@ -4008,9 +3755,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -4022,7 +3769,7 @@
         },
         {
           "ruleId": "CVE-2026-26960",
-          "ruleIndex": 59,
+          "ruleIndex": 57,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-26960\nSeverity: HIGH\nFixed Version: 7.5.8\nLink: [CVE-2026-26960](https://avd.aquasec.com/nvd/cve-2026-26960)"
@@ -4035,9 +3782,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -4049,7 +3796,7 @@
         },
         {
           "ruleId": "CVE-2026-29786",
-          "ruleIndex": 60,
+          "ruleIndex": 58,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-29786\nSeverity: HIGH\nFixed Version: 7.5.10\nLink: [CVE-2026-29786](https://avd.aquasec.com/nvd/cve-2026-29786)"
@@ -4062,9 +3809,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -4076,7 +3823,7 @@
         },
         {
           "ruleId": "CVE-2026-31802",
-          "ruleIndex": 61,
+          "ruleIndex": 59,
           "level": "error",
           "message": {
             "text": "Package: tar\nInstalled Version: 6.2.1\nVulnerability CVE-2026-31802\nSeverity: HIGH\nFixed Version: 7.5.11\nLink: [CVE-2026-31802](https://avd.aquasec.com/nvd/cve-2026-31802)"
@@ -4089,9 +3836,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 22976,
+                  "startLine": 17096,
                   "startColumn": 1,
-                  "endLine": 22993,
+                  "endLine": 17113,
                   "endColumn": 1
                 }
               },
@@ -4102,11 +3849,11 @@
           ]
         },
         {
-          "ruleId": "GHSA-w5hq-g745-h8pq",
-          "ruleIndex": 4,
+          "ruleId": "CVE-2026-41907",
+          "ruleIndex": 61,
           "level": "warning",
           "message": {
-            "text": "Package: uuid\nInstalled Version: 8.3.2\nVulnerability GHSA-w5hq-g745-h8pq\nSeverity: MEDIUM\nFixed Version: 14.0.0\nLink: [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq)"
+            "text": "Package: uuid\nInstalled Version: 8.3.2\nVulnerability CVE-2026-41907\nSeverity: MEDIUM\nFixed Version: 11.1.1, 12.0.1, 13.0.1\nLink: [CVE-2026-41907](https://avd.aquasec.com/nvd/cve-2026-41907)"
           },
           "locations": [
             {
@@ -4116,9 +3863,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 24872,
+                  "startLine": 18591,
                   "startColumn": 1,
-                  "endLine": 24881,
+                  "endLine": 18600,
                   "endColumn": 1
                 }
               },
@@ -4129,143 +3876,8 @@
           ]
         },
         {
-          "ruleId": "CVE-2023-32314",
-          "ruleIndex": 63,
-          "level": "error",
-          "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32314\nSeverity: CRITICAL\nFixed Version: 3.9.18\nLink: [CVE-2023-32314](https://avd.aquasec.com/nvd/cve-2023-32314)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 24989,
-                  "startColumn": 1,
-                  "endLine": 25005,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: vm2@3.9.17"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2023-37466",
-          "ruleIndex": 64,
-          "level": "error",
-          "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37466\nSeverity: CRITICAL\nFixed Version: 3.10.0\nLink: [CVE-2023-37466](https://avd.aquasec.com/nvd/cve-2023-37466)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 24989,
-                  "startColumn": 1,
-                  "endLine": 25005,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: vm2@3.9.17"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2023-37903",
-          "ruleIndex": 65,
-          "level": "error",
-          "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-37903\nSeverity: CRITICAL\nFixed Version: \nLink: [CVE-2023-37903](https://avd.aquasec.com/nvd/cve-2023-37903)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 24989,
-                  "startColumn": 1,
-                  "endLine": 25005,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: vm2@3.9.17"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2026-22709",
-          "ruleIndex": 66,
-          "level": "error",
-          "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2026-22709\nSeverity: CRITICAL\nFixed Version: 3.10.2\nLink: [CVE-2026-22709](https://avd.aquasec.com/nvd/cve-2026-22709)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 24989,
-                  "startColumn": 1,
-                  "endLine": 25005,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: vm2@3.9.17"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "CVE-2023-32313",
-          "ruleIndex": 67,
-          "level": "warning",
-          "message": {
-            "text": "Package: vm2\nInstalled Version: 3.9.17\nVulnerability CVE-2023-32313\nSeverity: MEDIUM\nFixed Version: 3.9.18\nLink: [CVE-2023-32313](https://avd.aquasec.com/nvd/cve-2023-32313)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "package-lock.json",
-                  "uriBaseId": "ROOTPATH"
-                },
-                "region": {
-                  "startLine": 24989,
-                  "startColumn": 1,
-                  "endLine": 25005,
-                  "endColumn": 1
-                }
-              },
-              "message": {
-                "text": "package-lock.json: vm2@3.9.17"
-              }
-            }
-          ]
-        },
-        {
           "ruleId": "CVE-2024-37890",
-          "ruleIndex": 5,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "text": "Package: ws\nInstalled Version: 7.4.6\nVulnerability CVE-2024-37890\nSeverity: HIGH\nFixed Version: 5.2.4, 6.2.3, 7.5.10, 8.17.1\nLink: [CVE-2024-37890](https://avd.aquasec.com/nvd/cve-2024-37890)"
@@ -4278,9 +3890,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8063,
+                  "startLine": 6449,
                   "startColumn": 1,
-                  "endLine": 8084,
+                  "endLine": 6470,
                   "endColumn": 1
                 }
               },
@@ -4295,9 +3907,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 8123,
+                  "startLine": 6515,
                   "startColumn": 1,
-                  "endLine": 8143,
+                  "endLine": 6535,
                   "endColumn": 1
                 }
               },
@@ -4308,8 +3920,35 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-45736",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: ws\nInstalled Version: 8.17.1\nVulnerability CVE-2026-45736\nSeverity: MEDIUM\nFixed Version: 8.20.1\nLink: [CVE-2026-45736](https://avd.aquasec.com/nvd/cve-2026-45736)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "package-lock.json",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 19163,
+                  "startColumn": 1,
+                  "endLine": 19183,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "package-lock.json: ws@8.17.1"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "private-key",
-          "ruleIndex": 68,
+          "ruleIndex": 62,
           "level": "error",
           "message": {
             "text": "Artifact: build/lib/insecurity.js\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"
@@ -4322,9 +3961,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 47,
+                  "startLine": 46,
                   "startColumn": 1,
-                  "endLine": 47,
+                  "endLine": 46,
                   "endColumn": 1
                 }
               },
@@ -4336,7 +3975,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 69,
+          "ruleIndex": 63,
           "level": "warning",
           "message": {
             "text": "Artifact: frontend/src/app/app.guard.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '***********************************************************************************************************************************************************')"
@@ -4349,9 +3988,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 38,
+                  "startLine": 46,
                   "startColumn": 1,
-                  "endLine": 38,
+                  "endLine": 46,
                   "endColumn": 1
                 }
               },
@@ -4363,7 +4002,7 @@
         },
         {
           "ruleId": "jwt-token",
-          "ruleIndex": 69,
+          "ruleIndex": 63,
           "level": "warning",
           "message": {
             "text": "Artifact: frontend/src/app/last-login-ip/last-login-ip.component.spec.ts\nType: \nSecret JWT token\nSeverity: MEDIUM\nMatch: ocalStorage.setItem('token', '*******************************************************************************************************************************')"
@@ -4376,9 +4015,9 @@
                   "uriBaseId": "ROOTPATH"
                 },
                 "region": {
-                  "startLine": 61,
+                  "startLine": 72,
                   "startColumn": 1,
-                  "endLine": 61,
+                  "endLine": 72,
                   "endColumn": 1
                 }
               },
@@ -4390,7 +4029,7 @@
         },
         {
           "ruleId": "private-key",
-          "ruleIndex": 68,
+          "ruleIndex": 62,
           "level": "error",
           "message": {
             "text": "Artifact: lib/insecurity.ts\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ----BEGIN RSA PRIVATE KEY-----****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END RSA PRIVATE"

@@ -157,6 +157,122 @@
               }
             },
             {
+              "id": "CVE-2026-41409",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Apache MINA: Apache MINA: Arbitrary code execution via incomplete deserialization fix"
+              },
+              "fullDescription": {
+                "text": "The fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and 2.2.0 \u003c= 2.2.5.\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-41409",
+              "help": {
+                "text": "Vulnerability CVE-2026-41409\nSeverity: CRITICAL\nPackage: org.apache.mina:mina-core\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41409](https://avd.aquasec.com/nvd/cve-2026-41409)\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and 2.2.0 \u003c= 2.2.5.\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade",
+                "markdown": "**Vulnerability CVE-2026-41409**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|org.apache.mina:mina-core|2.0.28, 2.1.11, 2.2.6|[CVE-2026-41409](https://avd.aquasec.com/nvd/cve-2026-41409)|\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and 2.2.0 \u003c= 2.2.5.\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade"
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-41635",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Apache MINA: Apache MINA: Arbitrary code execution via classname allowlist bypass"
+              },
+              "fullDescription": {
+                "text": "Apache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and\n\n\n2.2.0 \u003c= 2.2.5.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-41635",
+              "help": {
+                "text": "Vulnerability CVE-2026-41635\nSeverity: CRITICAL\nPackage: org.apache.mina:mina-core\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41635](https://avd.aquasec.com/nvd/cve-2026-41635)\nApache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and\n\n\n2.2.0 \u003c= 2.2.5.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade.",
+                "markdown": "**Vulnerability CVE-2026-41635**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|org.apache.mina:mina-core|2.0.28, 2.1.11, 2.2.6|[CVE-2026-41635](https://avd.aquasec.com/nvd/cve-2026-41635)|\n\nApache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.0.0 \u003c= 2.0.27, 2.1.0 \u003c= 2.1.10, and\n\n\n2.2.0 \u003c= 2.2.5.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.0.28, 2.1.11, and 2.2.6 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-42778",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Apache MINA: deserialization of untrusted data (incomplete fix for CVE-2026-41409)"
+              },
+              "fullDescription": {
+                "text": "The fix for CVE-2026-41409 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade\n\n\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.110, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-42778",
+              "help": {
+                "text": "Vulnerability CVE-2026-42778\nSeverity: CRITICAL\nPackage: org.apache.mina:mina-core\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42778](https://avd.aquasec.com/nvd/cve-2026-42778)\nThe fix for CVE-2026-41409 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade\n\n\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.110, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade",
+                "markdown": "**Vulnerability CVE-2026-42778**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|org.apache.mina:mina-core|2.1.12, 2.2.7|[CVE-2026-42778](https://avd.aquasec.com/nvd/cve-2026-42778)|\n\nThe fix for CVE-2026-41409 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade\n\n\n\n\n\n\nThe fix for CVE-2024-52046 in Apache MINA AbstractIoBuffer.getObject() was incomplete. The classname allowlist of classes allowed to be deserialized was applied too late after a static initializer in a class to be read might already have been executed.\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.110, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\nAffected are applications using Apache MINA that call IoBuffer.getObject().\n\n\n\n\nApplications using Apache MINA are advised to upgrade"
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-42779",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Apache MINA: Apache MINA: Arbitrary Code Execution via Classname Allowlist Bypass"
+              },
+              "fullDescription": {
+                "text": "The fix for CVE-2026-41635 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\n\n\n\n\n\n\n\nApache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-42779",
+              "help": {
+                "text": "Vulnerability CVE-2026-42779\nSeverity: CRITICAL\nPackage: org.apache.mina:mina-core\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42779](https://avd.aquasec.com/nvd/cve-2026-42779)\nThe fix for CVE-2026-41635 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\n\n\n\n\n\n\n\nApache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade.",
+                "markdown": "**Vulnerability CVE-2026-42779**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|CRITICAL|org.apache.mina:mina-core|2.1.12, 2.2.7|[CVE-2026-42779](https://avd.aquasec.com/nvd/cve-2026-42779)|\n\nThe fix for CVE-2026-41635 was not applied to the 2.1.X and 2.2.X branches. Here was the original issue description:\n\n\n\n\n\n\n\n\n\n\n\nApache MINA's AbstractIoBuffer.resolveClass() contains two branches, one of them (for static classes or primitive types) does not check the class at all, bypassing the classname allowlist and allowing arbitrary code to be executed.\n\n\n\n\nThe fix checks if the class is present in the accepted class filter before calling Class.forName(). \n\n\n\n\n\n\nAffected versions are Apache MINA 2.1.0 \u003c= 2.1.11, and 2.2.0 \u003c= 2.2.6.\n\n\n\n\n\nThe problem is resolved in Apache MINA 2.1.12, and 2.2.7 by \napplying the classname allowlist earlier.\n\n\n\n\n\nAffected are applications using Apache MINA that call  IoBuffer.getObject().\n\n\n\n\n\nApplications using Apache MINA are advised to upgrade."
+              },
+              "properties": {
+                "cvssv3_baseScore": 9.8,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "precision": "very-high",
+                "security-severity": "9.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-8916",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -189,18 +305,18 @@
               "id": "CVE-2026-5588",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
-                "text": "Use of a Broken or Risky Cryptographic Algorithm vulnerability in Legi ..."
+                "text": "bouncycastle: BC-JAVA: PKIX draft CompositeVerifier accepts empty signature sequence as valid"
               },
               "fullDescription": {
-                "text": "Use of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules). This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java.\n\nThis issue affects BC-JAVA: from 1.67 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11."
+                "text": "Use of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules), Legion of the Bouncy Castle Inc. BCPIX-LTS bcpkix on All (pkix modules).\n\n This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java, JcaContentVerfierProviderBuilder.Java.\n\n\n\nThis issue affects BC-JAVA: from 1.67 before 1.80.2, from 1.81 before 1.81.1, from 1.82 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11; BCPIX-LTS: from 2.73.7 before 2.73.11."
               },
               "defaultConfiguration": {
                 "level": "warning"
               },
               "helpUri": "https://avd.aquasec.com/nvd/cve-2026-5588",
               "help": {
-                "text": "Vulnerability CVE-2026-5588\nSeverity: MEDIUM\nPackage: org.bouncycastle:bcpkix-jdk15on\nFixed Version: 1.84\nLink: [CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)\nUse of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules). This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java.\n\nThis issue affects BC-JAVA: from 1.67 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11.",
-                "markdown": "**Vulnerability CVE-2026-5588**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|org.bouncycastle:bcpkix-jdk15on|1.84|[CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)|\n\nUse of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules). This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java.\n\nThis issue affects BC-JAVA: from 1.67 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11."
+                "text": "Vulnerability CVE-2026-5588\nSeverity: MEDIUM\nPackage: org.bouncycastle:bcpkix-jdk15on\nFixed Version: 1.84\nLink: [CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)\nUse of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules), Legion of the Bouncy Castle Inc. BCPIX-LTS bcpkix on All (pkix modules).\n\n This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java, JcaContentVerfierProviderBuilder.Java.\n\n\n\nThis issue affects BC-JAVA: from 1.67 before 1.80.2, from 1.81 before 1.81.1, from 1.82 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11; BCPIX-LTS: from 2.73.7 before 2.73.11.",
+                "markdown": "**Vulnerability CVE-2026-5588**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|org.bouncycastle:bcpkix-jdk15on|1.84|[CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)|\n\nUse of a Broken or Risky Cryptographic Algorithm vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA bcpkix on all (pkix modules), Legion of the Bouncy Castle Inc. BCPKIX-FIPS bcpkix on All (pkix modules), Legion of the Bouncy Castle Inc. BCPIX-LTS bcpkix on All (pkix modules).\n\n This vulnerability is associated with program files JcaContentVerifierProviderBuilder.Java, JcaContentVerfierProviderBuilder.Java.\n\n\n\nThis issue affects BC-JAVA: from 1.67 before 1.80.2, from 1.81 before 1.81.1, from 1.82 before 1.84; BCPKIX-FIPS: from 2.0.6 before 2.0.11, from 2.1.7 before 2.1.11; BCPIX-LTS: from 2.73.7 before 2.73.11."
               },
               "properties": {
                 "cvssv40_baseScore": 6.3,
@@ -650,6 +766,35 @@
               }
             },
             {
+              "id": "CVE-2026-22745",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "spring-webflux: Spring MVC and Spring WebFlux: Denial of Service via slow static resource resolution on Windows"
+              },
+              "fullDescription": {
+                "text": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is serving static resources from the file system\n  *  the application is running on a Windows platform\n\n\nWhen all the conditions above are met, the attacker can send malicious requests that are slow to resolve and that can keep HTTP connections in use. This can cause a Denial of Service on the application."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22745",
+              "help": {
+                "text": "Vulnerability CVE-2026-22745\nSeverity: MEDIUM\nPackage: org.springframework:spring-webmvc\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22745](https://avd.aquasec.com/nvd/cve-2026-22745)\nSpring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is serving static resources from the file system\n  *  the application is running on a Windows platform\n\n\nWhen all the conditions above are met, the attacker can send malicious requests that are slow to resolve and that can keep HTTP connections in use. This can cause a Denial of Service on the application.",
+                "markdown": "**Vulnerability CVE-2026-22745**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|org.springframework:spring-webmvc|7.0.7, 6.2.18|[CVE-2026-22745](https://avd.aquasec.com/nvd/cve-2026-22745)|\n\nSpring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is serving static resources from the file system\n  *  the application is running on a Windows platform\n\n\nWhen all the conditions above are met, the attacker can send malicious requests that are slow to resolve and that can keep HTTP connections in use. This can cause a Denial of Service on the application."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2026-22735",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -671,6 +816,33 @@
                 "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:N/I:L/A:N",
                 "precision": "very-high",
                 "security-severity": "2.6",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-22741",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Spring MVC: Spring WebFlux: Spring MVC and Spring WebFlux: Denial of Service via cache poisoning"
+              },
+              "fullDescription": {
+                "text": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is configuring the  resource chain support https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/static-resources.html#page-title  with caching enabled\n  *  the application adds support for encoded resources resolution\n  *  the resource cache must be empty when the attacker has access to the application\n\n\nWhen all the conditions above are met, the attacker can send malicious requests and poison the resource cache with resources using the wrong encoding. This can cause a denial of service by breaking the front-end application for clients."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-22741",
+              "help": {
+                "text": "Vulnerability CVE-2026-22741\nSeverity: LOW\nPackage: org.springframework:spring-webmvc\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22741](https://avd.aquasec.com/nvd/cve-2026-22741)\nSpring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is configuring the  resource chain support https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/static-resources.html#page-title  with caching enabled\n  *  the application adds support for encoded resources resolution\n  *  the resource cache must be empty when the attacker has access to the application\n\n\nWhen all the conditions above are met, the attacker can send malicious requests and poison the resource cache with resources using the wrong encoding. This can cause a denial of service by breaking the front-end application for clients.",
+                "markdown": "**Vulnerability CVE-2026-22741**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|org.springframework:spring-webmvc|7.0.7, 6.2.18|[CVE-2026-22741](https://avd.aquasec.com/nvd/cve-2026-22741)|\n\nSpring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.\n\n\nMore precisely, an application can be vulnerable when all the following are true:\n\n  *  the application is using Spring MVC or Spring WebFlux\n  *  the application is configuring the  resource chain support https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/static-resources.html#page-title  with caching enabled\n  *  the application adds support for encoded resources resolution\n  *  the resource cache must be empty when the attacker has access to the application\n\n\nWhen all the conditions above are met, the attacker can send malicious requests and poison the resource cache with resources using the wrong encoding. This can cause a denial of service by breaking the front-end application for clients."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
                 "tags": [
                   "vulnerability",
                   "security",
@@ -846,8 +1018,116 @@
           ]
         },
         {
-          "ruleId": "CVE-2025-8916",
+          "ruleId": "CVE-2026-41409",
           "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-41409\nSeverity: CRITICAL\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41409](https://avd.aquasec.com/nvd/cve-2026-41409)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.apache.mina:mina-core@2.2.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-41635",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-41635\nSeverity: CRITICAL\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41635](https://avd.aquasec.com/nvd/cve-2026-41635)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.apache.mina:mina-core@2.2.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-42778",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-42778\nSeverity: CRITICAL\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42778](https://avd.aquasec.com/nvd/cve-2026-42778)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.apache.mina:mina-core@2.2.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-42779",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-42779\nSeverity: CRITICAL\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42779](https://avd.aquasec.com/nvd/cve-2026-42779)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.apache.mina:mina-core@2.2.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-8916",
+          "ruleIndex": 9,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcpkix-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2025-8916\nSeverity: MEDIUM\nFixed Version: 1.79\nLink: [CVE-2025-8916](https://avd.aquasec.com/nvd/cve-2025-8916)"
@@ -874,7 +1154,7 @@
         },
         {
           "ruleId": "CVE-2026-5588",
-          "ruleIndex": 6,
+          "ruleIndex": 10,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcpkix-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2026-5588\nSeverity: MEDIUM\nFixed Version: 1.84\nLink: [CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)"
@@ -901,7 +1181,7 @@
         },
         {
           "ruleId": "CVE-2023-33201",
-          "ruleIndex": 7,
+          "ruleIndex": 11,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2023-33201\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-33201](https://avd.aquasec.com/nvd/cve-2023-33201)"
@@ -928,7 +1208,7 @@
         },
         {
           "ruleId": "CVE-2024-29857",
-          "ruleIndex": 8,
+          "ruleIndex": 12,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-29857\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-29857](https://avd.aquasec.com/nvd/cve-2024-29857)"
@@ -955,7 +1235,7 @@
         },
         {
           "ruleId": "CVE-2024-30171",
-          "ruleIndex": 9,
+          "ruleIndex": 13,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-30171\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-30171](https://avd.aquasec.com/nvd/cve-2024-30171)"
@@ -982,7 +1262,7 @@
         },
         {
           "ruleId": "CVE-2024-34447",
-          "ruleIndex": 10,
+          "ruleIndex": 14,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-34447\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-34447](https://avd.aquasec.com/nvd/cve-2024-34447)"
@@ -1009,7 +1289,7 @@
         },
         {
           "ruleId": "CVE-2020-25638",
-          "ruleIndex": 11,
+          "ruleIndex": 15,
           "level": "error",
           "message": {
             "text": "Package: org.hibernate:hibernate-core\nInstalled Version: 3.6.10.Final\nVulnerability CVE-2020-25638\nSeverity: HIGH\nFixed Version: 5.4.24.Final, 5.3.20.Final\nLink: [CVE-2020-25638](https://avd.aquasec.com/nvd/cve-2020-25638)"
@@ -1036,7 +1316,7 @@
         },
         {
           "ruleId": "CVE-2019-14900",
-          "ruleIndex": 12,
+          "ruleIndex": 16,
           "level": "warning",
           "message": {
             "text": "Package: org.hibernate:hibernate-core\nInstalled Version: 3.6.10.Final\nVulnerability CVE-2019-14900\nSeverity: MEDIUM\nFixed Version: 5.3.18, 5.4.18, 5.5.0.Beta1\nLink: [CVE-2019-14900](https://avd.aquasec.com/nvd/cve-2019-14900)"
@@ -1063,7 +1343,7 @@
         },
         {
           "ruleId": "CVE-2024-38820",
-          "ruleIndex": 13,
+          "ruleIndex": 17,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-context\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38820\nSeverity: MEDIUM\nFixed Version: 6.1.14\nLink: [CVE-2024-38820](https://avd.aquasec.com/nvd/cve-2024-38820)"
@@ -1090,7 +1370,7 @@
         },
         {
           "ruleId": "CVE-2025-22233",
-          "ruleIndex": 14,
+          "ruleIndex": 18,
           "level": "note",
           "message": {
             "text": "Package: org.springframework:spring-context\nInstalled Version: 5.3.39\nVulnerability CVE-2025-22233\nSeverity: LOW\nFixed Version: 6.2.7, 6.1.20\nLink: [CVE-2025-22233](https://avd.aquasec.com/nvd/cve-2025-22233)"
@@ -1117,7 +1397,7 @@
         },
         {
           "ruleId": "CVE-2025-41249",
-          "ruleIndex": 15,
+          "ruleIndex": 19,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-core\nInstalled Version: 5.3.39\nVulnerability CVE-2025-41249\nSeverity: HIGH\nFixed Version: 6.2.11\nLink: [CVE-2025-41249](https://avd.aquasec.com/nvd/cve-2025-41249)"
@@ -1144,7 +1424,7 @@
         },
         {
           "ruleId": "CVE-2016-1000027",
-          "ruleIndex": 16,
+          "ruleIndex": 20,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-web\nInstalled Version: 5.3.39\nVulnerability CVE-2016-1000027\nSeverity: CRITICAL\nFixed Version: 6.0.0\nLink: [CVE-2016-1000027](https://avd.aquasec.com/nvd/cve-2016-1000027)"
@@ -1171,7 +1451,7 @@
         },
         {
           "ruleId": "CVE-2024-38820",
-          "ruleIndex": 13,
+          "ruleIndex": 17,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-web\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38820\nSeverity: MEDIUM\nFixed Version: 6.1.14\nLink: [CVE-2024-38820](https://avd.aquasec.com/nvd/cve-2024-38820)"
@@ -1198,7 +1478,7 @@
         },
         {
           "ruleId": "CVE-2024-38816",
-          "ruleIndex": 17,
+          "ruleIndex": 21,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38816\nSeverity: HIGH\nFixed Version: 6.1.13\nLink: [CVE-2024-38816](https://avd.aquasec.com/nvd/cve-2024-38816)"
@@ -1225,7 +1505,7 @@
         },
         {
           "ruleId": "CVE-2024-38819",
-          "ruleIndex": 18,
+          "ruleIndex": 22,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38819\nSeverity: HIGH\nFixed Version: 6.1.14\nLink: [CVE-2024-38819](https://avd.aquasec.com/nvd/cve-2024-38819)"
@@ -1252,7 +1532,7 @@
         },
         {
           "ruleId": "CVE-2024-38828",
-          "ruleIndex": 19,
+          "ruleIndex": 23,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38828\nSeverity: MEDIUM\nFixed Version: 5.3.42\nLink: [CVE-2024-38828](https://avd.aquasec.com/nvd/cve-2024-38828)"
@@ -1279,7 +1559,7 @@
         },
         {
           "ruleId": "CVE-2025-41242",
-          "ruleIndex": 20,
+          "ruleIndex": 24,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2025-41242\nSeverity: MEDIUM\nFixed Version: 6.2.10\nLink: [CVE-2025-41242](https://avd.aquasec.com/nvd/cve-2025-41242)"
@@ -1306,7 +1586,7 @@
         },
         {
           "ruleId": "CVE-2026-22737",
-          "ruleIndex": 21,
+          "ruleIndex": 25,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22737\nSeverity: MEDIUM\nFixed Version: 7.0.6, 6.2.17\nLink: [CVE-2026-22737](https://avd.aquasec.com/nvd/cve-2026-22737)"
@@ -1332,11 +1612,65 @@
           ]
         },
         {
+          "ruleId": "CVE-2026-22745",
+          "ruleIndex": 26,
+          "level": "warning",
+          "message": {
+            "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22745\nSeverity: MEDIUM\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22745](https://avd.aquasec.com/nvd/cve-2026-22745)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 853,
+                  "startColumn": 1,
+                  "endLine": 857,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.springframework:spring-webmvc@5.3.39"
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CVE-2026-22735",
-          "ruleIndex": 22,
+          "ruleIndex": 27,
           "level": "note",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22735\nSeverity: LOW\nFixed Version: 7.0.6, 6.2.17\nLink: [CVE-2026-22735](https://avd.aquasec.com/nvd/cve-2026-22735)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 853,
+                  "startColumn": 1,
+                  "endLine": 857,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: org.springframework:spring-webmvc@5.3.39"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-22741",
+          "ruleIndex": 28,
+          "level": "note",
+          "message": {
+            "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22741\nSeverity: LOW\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22741](https://avd.aquasec.com/nvd/cve-2026-22741)"
           },
           "locations": [
             {
