@@ -10,6 +10,35 @@
           "name": "Trivy",
           "rules": [
             {
+              "id": "CVE-2026-54515",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "jackson-databind contains the general-purpose data-binding functionali ..."
+              },
+              "fullDescription": {
+                "text": "jackson-databind contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor. From 2.8.0 until 2.18.9, 2.21.5, and 3.1.4, in BeanDeserializerBase.createContextual(), per-property @JsonIgnoreProperties exclusions are applied by _handleByNameInclusion(), producing a contextual deserializer whose BeanPropertyMap has the ignored properties removed. The subsequent per-property case-insensitivity block (triggered by @JsonFormat(ACCEPT_CASE_INSENSITIVE_PROPERTIES)) rebuilds from this._beanProperties (the original, unfiltered map) instead of contextual._beanProperties, then overwrites the filtered map — restoring every property _handleByNameInclusion had just removed. The ignored property becomes writable again. This vulnerability is fixed in 2.18.9, 2.21.5, and 3.1.4."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-54515",
+              "help": {
+                "text": "Vulnerability CVE-2026-54515\nSeverity: MEDIUM\nPackage: com.fasterxml.jackson.core:jackson-databind\nFixed Version: 3.1.4, 2.18.9, 2.21.5, 2.22.1\nLink: [CVE-2026-54515](https://avd.aquasec.com/nvd/cve-2026-54515)\njackson-databind contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor. From 2.8.0 until 2.18.9, 2.21.5, and 3.1.4, in BeanDeserializerBase.createContextual(), per-property @JsonIgnoreProperties exclusions are applied by _handleByNameInclusion(), producing a contextual deserializer whose BeanPropertyMap has the ignored properties removed. The subsequent per-property case-insensitivity block (triggered by @JsonFormat(ACCEPT_CASE_INSENSITIVE_PROPERTIES)) rebuilds from this._beanProperties (the original, unfiltered map) instead of contextual._beanProperties, then overwrites the filtered map — restoring every property _handleByNameInclusion had just removed. The ignored property becomes writable again. This vulnerability is fixed in 2.18.9, 2.21.5, and 3.1.4.",
+                "markdown": "**Vulnerability CVE-2026-54515**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|com.fasterxml.jackson.core:jackson-databind|3.1.4, 2.18.9, 2.21.5, 2.22.1|[CVE-2026-54515](https://avd.aquasec.com/nvd/cve-2026-54515)|\n\njackson-databind contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor. From 2.8.0 until 2.18.9, 2.21.5, and 3.1.4, in BeanDeserializerBase.createContextual(), per-property @JsonIgnoreProperties exclusions are applied by _handleByNameInclusion(), producing a contextual deserializer whose BeanPropertyMap has the ignored properties removed. The subsequent per-property case-insensitivity block (triggered by @JsonFormat(ACCEPT_CASE_INSENSITIVE_PROPERTIES)) rebuilds from this._beanProperties (the original, unfiltered map) instead of contextual._beanProperties, then overwrites the filtered map — restoring every property _handleByNameInclusion had just removed. The ignored property becomes writable again. This vulnerability is fixed in 2.18.9, 2.21.5, and 3.1.4."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
               "id": "CVE-2025-46392",
               "name": "LanguageSpecificPackageVulnerability",
               "shortDescription": {
@@ -851,13 +880,40 @@
               }
             }
           ],
-          "version": "0.70.0"
+          "version": "0.72.0"
         }
       },
       "results": [
         {
-          "ruleId": "CVE-2025-46392",
+          "ruleId": "CVE-2026-54515",
           "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package: com.fasterxml.jackson.core:jackson-databind\nInstalled Version: 2.22.0\nVulnerability CVE-2026-54515\nSeverity: MEDIUM\nFixed Version: 3.1.4, 2.18.9, 2.21.5, 2.22.1\nLink: [CVE-2026-54515](https://avd.aquasec.com/nvd/cve-2026-54515)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 866,
+                  "startColumn": 1,
+                  "endLine": 870,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "pom.xml: com.fasterxml.jackson.core:jackson-databind@2.22.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-46392",
+          "ruleIndex": 1,
           "level": "note",
           "message": {
             "text": "Package: commons-configuration:commons-configuration\nInstalled Version: 1.10\nVulnerability CVE-2025-46392\nSeverity: LOW\nFixed Version: \nLink: [CVE-2025-46392](https://avd.aquasec.com/nvd/cve-2025-46392)"
@@ -884,7 +940,7 @@
         },
         {
           "ruleId": "CVE-2025-48924",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "level": "warning",
           "message": {
             "text": "Package: commons-lang:commons-lang\nInstalled Version: 2.6\nVulnerability CVE-2025-48924\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2025-48924](https://avd.aquasec.com/nvd/cve-2025-48924)"
@@ -911,7 +967,7 @@
         },
         {
           "ruleId": "CVE-2020-10683",
-          "ruleIndex": 2,
+          "ruleIndex": 3,
           "level": "error",
           "message": {
             "text": "Package: dom4j:dom4j\nInstalled Version: 1.6.1\nVulnerability CVE-2020-10683\nSeverity: CRITICAL\nFixed Version: \nLink: [CVE-2020-10683](https://avd.aquasec.com/nvd/cve-2020-10683)"
@@ -938,7 +994,7 @@
         },
         {
           "ruleId": "CVE-2018-1000632",
-          "ruleIndex": 3,
+          "ruleIndex": 4,
           "level": "error",
           "message": {
             "text": "Package: dom4j:dom4j\nInstalled Version: 1.6.1\nVulnerability CVE-2018-1000632\nSeverity: HIGH\nFixed Version: \nLink: [CVE-2018-1000632](https://avd.aquasec.com/nvd/cve-2018-1000632)"
@@ -965,7 +1021,7 @@
         },
         {
           "ruleId": "CVE-2025-48924",
-          "ruleIndex": 1,
+          "ruleIndex": 2,
           "level": "warning",
           "message": {
             "text": "Package: org.apache.commons:commons-lang3\nInstalled Version: 3.15.0\nVulnerability CVE-2025-48924\nSeverity: MEDIUM\nFixed Version: 3.18.0\nLink: [CVE-2025-48924](https://avd.aquasec.com/nvd/cve-2025-48924)"
@@ -992,7 +1048,7 @@
         },
         {
           "ruleId": "CVE-2024-52046",
-          "ruleIndex": 4,
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2024-52046\nSeverity: CRITICAL\nFixed Version: 2.2.4, 2.1.10, 2.0.27\nLink: [CVE-2024-52046](https://avd.aquasec.com/nvd/cve-2024-52046)"
@@ -1019,7 +1075,7 @@
         },
         {
           "ruleId": "CVE-2026-41409",
-          "ruleIndex": 5,
+          "ruleIndex": 6,
           "level": "error",
           "message": {
             "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-41409\nSeverity: CRITICAL\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41409](https://avd.aquasec.com/nvd/cve-2026-41409)"
@@ -1046,7 +1102,7 @@
         },
         {
           "ruleId": "CVE-2026-41635",
-          "ruleIndex": 6,
+          "ruleIndex": 7,
           "level": "error",
           "message": {
             "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-41635\nSeverity: CRITICAL\nFixed Version: 2.0.28, 2.1.11, 2.2.6\nLink: [CVE-2026-41635](https://avd.aquasec.com/nvd/cve-2026-41635)"
@@ -1073,7 +1129,7 @@
         },
         {
           "ruleId": "CVE-2026-42778",
-          "ruleIndex": 7,
+          "ruleIndex": 8,
           "level": "error",
           "message": {
             "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-42778\nSeverity: CRITICAL\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42778](https://avd.aquasec.com/nvd/cve-2026-42778)"
@@ -1100,7 +1156,7 @@
         },
         {
           "ruleId": "CVE-2026-42779",
-          "ruleIndex": 8,
+          "ruleIndex": 9,
           "level": "error",
           "message": {
             "text": "Package: org.apache.mina:mina-core\nInstalled Version: 2.2.3\nVulnerability CVE-2026-42779\nSeverity: CRITICAL\nFixed Version: 2.1.12, 2.2.7\nLink: [CVE-2026-42779](https://avd.aquasec.com/nvd/cve-2026-42779)"
@@ -1127,7 +1183,7 @@
         },
         {
           "ruleId": "CVE-2025-8916",
-          "ruleIndex": 9,
+          "ruleIndex": 10,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcpkix-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2025-8916\nSeverity: MEDIUM\nFixed Version: 1.79\nLink: [CVE-2025-8916](https://avd.aquasec.com/nvd/cve-2025-8916)"
@@ -1154,7 +1210,7 @@
         },
         {
           "ruleId": "CVE-2026-5588",
-          "ruleIndex": 10,
+          "ruleIndex": 11,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcpkix-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2026-5588\nSeverity: MEDIUM\nFixed Version: 1.84\nLink: [CVE-2026-5588](https://avd.aquasec.com/nvd/cve-2026-5588)"
@@ -1181,7 +1237,7 @@
         },
         {
           "ruleId": "CVE-2023-33201",
-          "ruleIndex": 11,
+          "ruleIndex": 12,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2023-33201\nSeverity: MEDIUM\nFixed Version: \nLink: [CVE-2023-33201](https://avd.aquasec.com/nvd/cve-2023-33201)"
@@ -1208,7 +1264,7 @@
         },
         {
           "ruleId": "CVE-2024-29857",
-          "ruleIndex": 12,
+          "ruleIndex": 13,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-29857\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-29857](https://avd.aquasec.com/nvd/cve-2024-29857)"
@@ -1235,7 +1291,7 @@
         },
         {
           "ruleId": "CVE-2024-30171",
-          "ruleIndex": 13,
+          "ruleIndex": 14,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-30171\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-30171](https://avd.aquasec.com/nvd/cve-2024-30171)"
@@ -1262,7 +1318,7 @@
         },
         {
           "ruleId": "CVE-2024-34447",
-          "ruleIndex": 14,
+          "ruleIndex": 15,
           "level": "warning",
           "message": {
             "text": "Package: org.bouncycastle:bcprov-jdk15on\nInstalled Version: 1.70\nVulnerability CVE-2024-34447\nSeverity: MEDIUM\nFixed Version: 1.78\nLink: [CVE-2024-34447](https://avd.aquasec.com/nvd/cve-2024-34447)"
@@ -1289,7 +1345,7 @@
         },
         {
           "ruleId": "CVE-2020-25638",
-          "ruleIndex": 15,
+          "ruleIndex": 16,
           "level": "error",
           "message": {
             "text": "Package: org.hibernate:hibernate-core\nInstalled Version: 3.6.10.Final\nVulnerability CVE-2020-25638\nSeverity: HIGH\nFixed Version: 5.4.24.Final, 5.3.20.Final\nLink: [CVE-2020-25638](https://avd.aquasec.com/nvd/cve-2020-25638)"
@@ -1316,7 +1372,7 @@
         },
         {
           "ruleId": "CVE-2019-14900",
-          "ruleIndex": 16,
+          "ruleIndex": 17,
           "level": "warning",
           "message": {
             "text": "Package: org.hibernate:hibernate-core\nInstalled Version: 3.6.10.Final\nVulnerability CVE-2019-14900\nSeverity: MEDIUM\nFixed Version: 5.3.18, 5.4.18, 5.5.0.Beta1\nLink: [CVE-2019-14900](https://avd.aquasec.com/nvd/cve-2019-14900)"
@@ -1343,7 +1399,7 @@
         },
         {
           "ruleId": "CVE-2024-38820",
-          "ruleIndex": 17,
+          "ruleIndex": 18,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-context\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38820\nSeverity: MEDIUM\nFixed Version: 6.1.14\nLink: [CVE-2024-38820](https://avd.aquasec.com/nvd/cve-2024-38820)"
@@ -1370,7 +1426,7 @@
         },
         {
           "ruleId": "CVE-2025-22233",
-          "ruleIndex": 18,
+          "ruleIndex": 19,
           "level": "note",
           "message": {
             "text": "Package: org.springframework:spring-context\nInstalled Version: 5.3.39\nVulnerability CVE-2025-22233\nSeverity: LOW\nFixed Version: 6.2.7, 6.1.20\nLink: [CVE-2025-22233](https://avd.aquasec.com/nvd/cve-2025-22233)"
@@ -1397,7 +1453,7 @@
         },
         {
           "ruleId": "CVE-2025-41249",
-          "ruleIndex": 19,
+          "ruleIndex": 20,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-core\nInstalled Version: 5.3.39\nVulnerability CVE-2025-41249\nSeverity: HIGH\nFixed Version: 6.2.11\nLink: [CVE-2025-41249](https://avd.aquasec.com/nvd/cve-2025-41249)"
@@ -1424,7 +1480,7 @@
         },
         {
           "ruleId": "CVE-2016-1000027",
-          "ruleIndex": 20,
+          "ruleIndex": 21,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-web\nInstalled Version: 5.3.39\nVulnerability CVE-2016-1000027\nSeverity: CRITICAL\nFixed Version: 6.0.0\nLink: [CVE-2016-1000027](https://avd.aquasec.com/nvd/cve-2016-1000027)"
@@ -1451,7 +1507,7 @@
         },
         {
           "ruleId": "CVE-2024-38820",
-          "ruleIndex": 17,
+          "ruleIndex": 18,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-web\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38820\nSeverity: MEDIUM\nFixed Version: 6.1.14\nLink: [CVE-2024-38820](https://avd.aquasec.com/nvd/cve-2024-38820)"
@@ -1478,7 +1534,7 @@
         },
         {
           "ruleId": "CVE-2024-38816",
-          "ruleIndex": 21,
+          "ruleIndex": 22,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38816\nSeverity: HIGH\nFixed Version: 6.1.13\nLink: [CVE-2024-38816](https://avd.aquasec.com/nvd/cve-2024-38816)"
@@ -1505,7 +1561,7 @@
         },
         {
           "ruleId": "CVE-2024-38819",
-          "ruleIndex": 22,
+          "ruleIndex": 23,
           "level": "error",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38819\nSeverity: HIGH\nFixed Version: 6.1.14\nLink: [CVE-2024-38819](https://avd.aquasec.com/nvd/cve-2024-38819)"
@@ -1532,7 +1588,7 @@
         },
         {
           "ruleId": "CVE-2024-38828",
-          "ruleIndex": 23,
+          "ruleIndex": 24,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2024-38828\nSeverity: MEDIUM\nFixed Version: 5.3.42\nLink: [CVE-2024-38828](https://avd.aquasec.com/nvd/cve-2024-38828)"
@@ -1559,7 +1615,7 @@
         },
         {
           "ruleId": "CVE-2025-41242",
-          "ruleIndex": 24,
+          "ruleIndex": 25,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2025-41242\nSeverity: MEDIUM\nFixed Version: 6.2.10\nLink: [CVE-2025-41242](https://avd.aquasec.com/nvd/cve-2025-41242)"
@@ -1586,7 +1642,7 @@
         },
         {
           "ruleId": "CVE-2026-22737",
-          "ruleIndex": 25,
+          "ruleIndex": 26,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22737\nSeverity: MEDIUM\nFixed Version: 7.0.6, 6.2.17\nLink: [CVE-2026-22737](https://avd.aquasec.com/nvd/cve-2026-22737)"
@@ -1613,7 +1669,7 @@
         },
         {
           "ruleId": "CVE-2026-22745",
-          "ruleIndex": 26,
+          "ruleIndex": 27,
           "level": "warning",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22745\nSeverity: MEDIUM\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22745](https://avd.aquasec.com/nvd/cve-2026-22745)"
@@ -1640,7 +1696,7 @@
         },
         {
           "ruleId": "CVE-2026-22735",
-          "ruleIndex": 27,
+          "ruleIndex": 28,
           "level": "note",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22735\nSeverity: LOW\nFixed Version: 7.0.6, 6.2.17\nLink: [CVE-2026-22735](https://avd.aquasec.com/nvd/cve-2026-22735)"
@@ -1667,7 +1723,7 @@
         },
         {
           "ruleId": "CVE-2026-22741",
-          "ruleIndex": 28,
+          "ruleIndex": 29,
           "level": "note",
           "message": {
             "text": "Package: org.springframework:spring-webmvc\nInstalled Version: 5.3.39\nVulnerability CVE-2026-22741\nSeverity: LOW\nFixed Version: 7.0.7, 6.2.18\nLink: [CVE-2026-22741](https://avd.aquasec.com/nvd/cve-2026-22741)"
